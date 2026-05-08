@@ -6,7 +6,7 @@ const navLinks = [
   { href: "/garrafeira", label: "Garrafeira" },
   { href: "/o-nosso-espaco", label: "O Nosso Espaço" },
   { href: "/reservas", label: "Reservas" },
-  { href: "/sobre", label: "Sobre Nós" },
+  { href: "/sobre-nos", label: "Sobre Nós" },
   { href: "/contactos", label: "Contactos" },
 ]
 
