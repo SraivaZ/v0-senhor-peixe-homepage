@@ -203,10 +203,22 @@ export default function GastronomiaPage() {
         {/* Home Icon */}
         <Link
           href="/"
-          className="absolute top-6 left-6 z-20 text-white/80 hover:text-white transition-colors"
+          className="absolute top-6 left-6 z-20 text-white/80 hover:text-white transition-colors duration-300"
           aria-label="Voltar à página inicial"
         >
-          <Home className="w-7 h-7" strokeWidth={1.5} />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="w-7 h-7"
+          >
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
         </Link>
 
         {/* Central Logo */}
