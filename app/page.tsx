@@ -4,7 +4,7 @@ import { FishLogo } from "@/components/fish-logo"
 const navLinks = [
   { href: "/gastronomia", label: "Gastronomia" },
   { href: "/garrafeira", label: "Garrafeira" },
-  { href: "/espaco", label: "O Nosso Espaço" },
+  { href: "/o-nosso-espaco", label: "O Nosso Espaço" },
   { href: "/reservas", label: "Reservas" },
   { href: "/sobre", label: "Sobre Nós" },
   { href: "/contactos", label: "Contactos" },
