@@ -14,9 +14,9 @@ export default function HomePage() {
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
       {/* Ocean Background */}
-      <div>
-style={{ backgroundImage: "url('https://i.ibb.co/prRL3zg7/sea-20260206-115727-6731-1-5x.jpg')" }}
-
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('https://ibb.co')" }}
       >
         <div className="absolute inset-0 bg-black/10" />
       </div>
@@ -39,11 +39,10 @@ style={{ backgroundImage: "url('https://i.ibb.co/prRL3zg7/sea-20260206-115727-67
           <div className="bg-slate-700/60 backdrop-blur-sm px-8 pt-8 pb-6 text-center">
             <Link href="/" className="inline-block group">
               <img 
-  src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png" 
-  alt="Logo Senhor Peixe" 
-  className="mx-auto mb-4 h-24 w-auto object-contain" 
-/>
-
+                src="https://ibb.co" 
+                alt="Logo Senhor Peixe" 
+                className="mx-auto mb-4 h-24 w-auto object-contain" 
+              />
               <h1 className="text-3xl sm:text-4xl tracking-[0.2em] text-white font-serif font-normal mb-3">
                 SENHOR PEIXE
               </h1>
