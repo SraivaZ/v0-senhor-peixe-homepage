@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { FishLogo } from "@/components/fish-logo"
 
 const navLinks = [
   { href: "/gastronomia", label: "Gastronomia" },
@@ -13,12 +12,12 @@ const navLinks = [
 export default function HomePage() {
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
-      {/* Ocean Background */}
+      {/* Ocean Background - Lembra-te de trocar este link pelo da imagem da onda */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/images/ocean-waves.jpg')" }}
+        style={{ backgroundImage: "url('https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png')" }} 
       >
-        <div className="absolute inset-0 bg-black/10" />
+        <div className="absolute inset-0 bg-black/20" /> {/* Escureci um pouco mais para dar destaque ao painel */}
       </div>
 
       {/* Language Selector */}
@@ -35,10 +34,16 @@ export default function HomePage() {
       <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-8">
         {/* Glassmorphism Panel */}
         <div className="w-full max-w-md rounded-2xl backdrop-blur-md bg-black/40 border border-white/10 shadow-2xl overflow-hidden">
-          {/* Header Section with darker background */}
+          
+          {/* Header Section com o Teu Logótipo Novo */}
           <div className="bg-slate-700/60 backdrop-blur-sm px-8 pt-8 pb-6 text-center">
             <Link href="/" className="inline-block group">
-              <FishLogo className="mx-auto mb-4 w-12 h-12 text-white/90 group-hover:text-white transition-colors" />
+              {/* O TEU LOGO AQUI */}
+              <img 
+                src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png" 
+                alt="Logo Senhor Peixe" 
+                className="mx-auto mb-4 h-24 w-auto object-contain brightness-110" 
+              />
               <h1 className="text-3xl sm:text-4xl tracking-[0.2em] text-white font-serif font-normal mb-3">
                 SENHOR PEIXE
               </h1>
