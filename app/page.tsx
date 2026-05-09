@@ -13,13 +13,16 @@ const navLinks = [
 export default function HomePage() {
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
-      {/* Ocean Background */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('https://ibb.co')" }}
-      >
-        <div className="absolute inset-0 bg-black/10" />
+            {/* Ocean Background */}
+      <div className="absolute inset-0 -z-10">
+        <img 
+          src="https://ibb.co" 
+          alt="Ocean Background"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/20" />
       </div>
+
 
       {/* Language Selector */}
       <div className="absolute top-4 right-4 z-20 sm:top-6 sm:right-6">
