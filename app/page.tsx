@@ -37,7 +37,7 @@ export default function HomePage() {
       {/* Main Content */}
       <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-8">
         {/* Glassmorphism Panel */}
-        <div className="w-full max-w-md rounded-2xl backdrop-blur-md bg-black/40 border border-white/10 shadow-2xl overflow-hidden">
+        <div className="w-full max-w-md rounded-2xl backdrop-blur-md bg-black/60 border border-white/20 shadow-2xl overflow-hidden">
           {/* Header Section with darker background */}
           <div className="bg-slate-700/60 backdrop-blur-sm px-8 pt-8 pb-6 text-center">
             <Link href="/" className="inline-block group">
