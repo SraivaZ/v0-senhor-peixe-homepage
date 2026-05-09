@@ -16,7 +16,7 @@ export default function HomePage() {
       {/* Ocean Background */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/images/ocean-waves.jpg')" }}
+        style={{ backgroundImage: "url('https://ibb.co')" }}
       >
         <div className="absolute inset-0 bg-black/10" />
       </div>
