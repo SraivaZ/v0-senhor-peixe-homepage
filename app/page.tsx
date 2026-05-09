@@ -16,7 +16,7 @@ export default function HomePage() {
             {/* Ocean Background */}
       <div className="absolute inset-0 -z-10">
         <img 
-          src="https://i.ibb.co/tpwVgpWM/Chat-GPT-Image-9-05-2026-14-06-41.png" 
+          src="https://i.ibb.co/Q7mpqMHb/Chat-GPT-Image-9-05-2026-14-04-15.png" 
           alt="Ocean Background"
           className="w-full h-full object-cover"
         />
