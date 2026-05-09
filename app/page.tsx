@@ -16,7 +16,7 @@ export default function HomePage() {
       {/* Ocean Background */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('https://ibb.co')" }}
+        style={{ backgroundImage: "url('/images/ocean-waves.jpg')" }}
       >
         <div className="absolute inset-0 bg-black/10" />
       </div>
@@ -39,10 +39,11 @@ export default function HomePage() {
           <div className="bg-slate-700/60 backdrop-blur-sm px-8 pt-8 pb-6 text-center">
             <Link href="/" className="inline-block group">
               <img 
-                src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png" 
-                alt="Logo Senhor Peixe" 
-                className="mx-auto mb-4 h-24 w-auto object-contain" 
-              />
+  src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png" 
+  alt="Logo Senhor Peixe" 
+  className="mx-auto mb-4 h-24 w-auto object-contain" 
+/>
+
               <h1 className="text-3xl sm:text-4xl tracking-[0.2em] text-white font-serif font-normal mb-3">
                 SENHOR PEIXE
               </h1>
