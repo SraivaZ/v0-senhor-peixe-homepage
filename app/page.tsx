@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { FishLogo } from "@/components/fish-logo"
 
 const navLinks = [
   { href: "/gastronomia", label: "Gastronomia" },
@@ -12,48 +13,50 @@ const navLinks = [
 export default function HomePage() {
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
-      {/* Imagem de Fundo (Mar) */}
+      {/* Ocean Background */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('https://ibb.co')" }}
+        style={{ backgroundImage: "url('/images/ocean-waves.jpg')" }}
       >
-        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-black/10" />
       </div>
 
-      {/* Conteúdo Principal */}
+      {/* Language Selector */}
+      <div className="absolute top-4 right-4 z-20 sm:top-6 sm:right-6">
+        <button 
+          className="text-white/90 text-sm tracking-widest hover:text-white transition-colors font-serif"
+          aria-label="Switch to English"
+        >
+          EN
+        </button>
+      </div>
+
+      {/* Main Content */}
       <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-8">
-        
-        {/* Painel Central */}
+        {/* Glassmorphism Panel */}
         <div className="w-full max-w-md rounded-2xl backdrop-blur-md bg-black/40 border border-white/10 shadow-2xl overflow-hidden">
-          
-          {/* Cabeçalho com o Logótipo */}
-          <div className="bg-slate-900/60 backdrop-blur-sm px-8 pt-10 pb-6 text-center">
-            <Link href="/" className="inline-block">
-              {/* LOGO DO PEIXE - Corrigido para carregar sempre */}
-              <img 
-                src="https://ibb.co" 
-                alt="Logo Senhor Peixe" 
-                className="mx-auto mb-6 h-20 w-auto object-contain block"
-                onError={(e) => console.log("Erro ao carregar imagem:", e)}
-              />
-              <h1 className="text-3xl sm:text-4xl tracking-[0.25em] text-white font-serif font-normal mb-3">
+          {/* Header Section with darker background */}
+          <div className="bg-slate-700/60 backdrop-blur-sm px-8 pt-8 pb-6 text-center">
+            <Link href="/" className="inline-block group">
+              <FishLogo className="mx-auto mb-4 w-12 h-12 text-white/90 group-hover:text-white transition-colors" />
+              <h1 className="text-3xl sm:text-4xl tracking-[0.2em] text-white font-serif font-normal mb-3">
                 SENHOR PEIXE
               </h1>
             </Link>
-            <p className="text-white/80 text-xs sm:text-sm tracking-[0.2em] uppercase leading-relaxed font-light">
+            <p className="text-white/80 text-xs sm:text-sm tracking-[0.15em] uppercase leading-relaxed">
               Cozinha Portuguesa<br />
               Peixe e Marisco
             </p>
           </div>
 
-          {/* Navegação */}
-          <nav className="px-8 py-10">
-            <ul className="space-y-6 text-center">
+          {/* Navigation Links */}
+          <nav className="px-8 py-8">
+            <ul className="space-y-5 text-center">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-lg sm:text-xl text-white/90 hover:text-white transition-all tracking-widest font-serif inline-block relative group"
+                    className="text-lg sm:text-xl text-white/90 hover:text-white transition-colors tracking-wide font-serif inline-block relative group"
                   >
                     {link.label}
                     <span className="absolute -bottom-1 left-0 w-0 h-px bg-white/60 transition-all duration-300 group-hover:w-full" />
@@ -63,9 +66,9 @@ export default function HomePage() {
             </ul>
           </nav>
 
-          {/* Rodapé */}
+          {/* Footer */}
           <div className="px-8 pb-8 pt-2 text-center">
-            <p className="text-white/40 text-[10px] tracking-[0.3em] uppercase font-serif">
+            <p className="text-white/60 text-xs tracking-[0.2em] uppercase font-serif">
               Desde 1999
             </p>
           </div>
