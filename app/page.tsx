@@ -14,8 +14,7 @@ export default function HomePage() {
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
       {/* Ocean Background */}
-      <div //
-style={{ backgroundImage: "url('/images/ocean-waves.jpg')" }}
+      <div // style={{ backgroundImage: "url('/images/ocean-waves.jpg')" }}
 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/images/ocean-waves.jpg')" }}
