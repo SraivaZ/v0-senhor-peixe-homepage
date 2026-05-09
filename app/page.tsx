@@ -38,7 +38,12 @@ export default function HomePage() {
           {/* Header Section with darker background */}
           <div className="bg-slate-700/60 backdrop-blur-sm px-8 pt-8 pb-6 text-center">
             <Link href="/" className="inline-block group">
-              <FishLogo className="mx-auto mb-4 w-12 h-12 text-white/90 group-hover:text-white transition-colors" />
+              <img 
+  src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png" 
+  alt="Logo Senhor Peixe" 
+  className="mx-auto mb-4 h-24 w-auto object-contain" 
+/>
+
               <h1 className="text-3xl sm:text-4xl tracking-[0.2em] text-white font-serif font-normal mb-3">
                 SENHOR PEIXE
               </h1>
