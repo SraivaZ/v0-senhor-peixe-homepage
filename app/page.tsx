@@ -12,15 +12,16 @@ const navLinks = [
 export default function HomePage() {
   return (
     <main className="relative min-h-screen w-full overflow-hidden">
-      {/* Ocean Background - Lembra-te de trocar este link pelo da imagem da onda */}
+      {/* Imagem de Fundo (Mar) */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png')" }} 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000"
+        style={{ backgroundImage: "url('https://i.ibb.co/prRL3zg7/sea-20260206-115727-6731-1-5x.jpg')" }}
       >
-        <div className="absolute inset-0 bg-black/20" /> {/* Escureci um pouco mais para dar destaque ao painel */}
+        {/* Overlay para escurecer o mar e destacar o painel central */}
+        <div className="absolute inset-0 bg-black/30" />
       </div>
 
-      {/* Language Selector */}
+      {/* Seletor de Idioma */}
       <div className="absolute top-4 right-4 z-20 sm:top-6 sm:right-6">
         <button 
           className="text-white/90 text-sm tracking-widest hover:text-white transition-colors font-serif"
@@ -30,40 +31,42 @@ export default function HomePage() {
         </button>
       </div>
 
-      {/* Main Content */}
+      {/* Conteúdo Principal */}
       <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-8">
-        {/* Glassmorphism Panel */}
+        
+        {/* Painel Central com Efeito Glassmorphism */}
         <div className="w-full max-w-md rounded-2xl backdrop-blur-md bg-black/40 border border-white/10 shadow-2xl overflow-hidden">
           
-          {/* Header Section com o Teu Logótipo Novo */}
-          <div className="bg-slate-700/60 backdrop-blur-sm px-8 pt-8 pb-6 text-center">
+          {/* Cabeçalho com o Logótipo e Nome */}
+          <div className="bg-slate-900/60 backdrop-blur-sm px-8 pt-10 pb-6 text-center">
             <Link href="/" className="inline-block group">
-              {/* O TEU LOGO AQUI */}
+              {/* O TEU LOGO DO PEIXE BRANCO */}
               <img 
-                src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png" 
+                src="https://ibb.co" 
                 alt="Logo Senhor Peixe" 
-                className="mx-auto mb-4 h-24 w-auto object-contain brightness-110" 
+                className="mx-auto mb-6 h-20 w-auto object-contain brightness-110 drop-shadow-lg" 
               />
-              <h1 className="text-3xl sm:text-4xl tracking-[0.2em] text-white font-serif font-normal mb-3">
+              <h1 className="text-3xl sm:text-4xl tracking-[0.25em] text-white font-serif font-normal mb-3">
                 SENHOR PEIXE
               </h1>
             </Link>
-            <p className="text-white/80 text-xs sm:text-sm tracking-[0.15em] uppercase leading-relaxed">
+            <p className="text-white/80 text-xs sm:text-sm tracking-[0.2em] uppercase leading-relaxed font-light">
               Cozinha Portuguesa<br />
               Peixe e Marisco
             </p>
           </div>
 
-          {/* Navigation Links */}
-          <nav className="px-8 py-8">
-            <ul className="space-y-5 text-center">
+          {/* Links de Navegação */}
+          <nav className="px-8 py-10">
+            <ul className="space-y-6 text-center">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-lg sm:text-xl text-white/90 hover:text-white transition-colors tracking-wide font-serif inline-block relative group"
+                    className="text-lg sm:text-xl text-white/90 hover:text-white transition-all tracking-widest font-serif inline-block relative group"
                   >
                     {link.label}
+                    {/* Linha animada ao passar o rato */}
                     <span className="absolute -bottom-1 left-0 w-0 h-px bg-white/60 transition-all duration-300 group-hover:w-full" />
                   </Link>
                 </li>
@@ -71,9 +74,9 @@ export default function HomePage() {
             </ul>
           </nav>
 
-          {/* Footer */}
+          {/* Rodapé do Painel */}
           <div className="px-8 pb-8 pt-2 text-center">
-            <p className="text-white/60 text-xs tracking-[0.2em] uppercase font-serif">
+            <p className="text-white/40 text-[10px] tracking-[0.3em] uppercase font-serif">
               Desde 1999
             </p>
           </div>
