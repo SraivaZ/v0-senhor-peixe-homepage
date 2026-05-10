@@ -140,18 +140,20 @@ function MapPinIcon({ className = "" }: { className?: string }) {
 }
 
 export default function Contactos() {
-  const googleMapsEmbed = "https://..."
+  const [formData, setFormData] = useState({
+    nome: "",
+    email: "",
+    mensagem: "",
+  })
+
+  const googleMapsEmbed = "..."
 
   return (
     <div>
       ...
     </div>
   )
-const [formData, setFormData] = useState({
-  nome: "",
-  email: "",
-  mensagem: "",
-})
+}
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
