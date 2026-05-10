@@ -193,7 +193,7 @@ export default function ContactosPage() {
 
          <Link href="/" className="flex flex-col items-center group">
   <img
-    src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
+    src="https://i.ibb.co/mCtT8PJ5/so-peixe-sem-olho.png"
     alt="Senhor Peixe Logo"
     className="w-16 h-16 object-contain"
   />
