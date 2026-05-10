@@ -131,7 +131,7 @@ export default function GarrafeiraPage() {
           {/* Document Header */}
           <div className="bg-[#1e3a5f] px-8 py-6 text-center">
             <img
-  src="https://i.ibb.co/mCtT8PJ5/so-peixe-sem-olho.png"
+  src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
   alt="Senhor Peixe Logo"
   className="w-20 h-20 object-contain mx-auto mb-2"
 />
