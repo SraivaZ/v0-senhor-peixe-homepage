@@ -3,14 +3,13 @@
 import Link from "next/link";
 import { useState } from "react";
 
-// (tudo o teu SVG icons mantém igual acima — não mexi para não quebrar nada)
-
 export default function ReservasPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   return (
     <main className="min-h-screen bg-[#faf9f7]">
-      {/* Header */}
+
+      {/* HEADER */}
       <header className="sticky top-0 z-40 bg-[#faf9f7]/90 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
@@ -38,96 +37,86 @@ export default function ReservasPage() {
         </div>
       </header>
 
-      {/* Content */}
+      {/* CONTENT */}
       <div className="max-w-2xl mx-auto px-6 py-12">
 
-        <div className="text-center mb-16">
-          <h1 className="font-serif text-4xl md:text-5xl text-[#2c3e50]">
-            Reservas
-          </h1>
-        </div>
+        <h1 className="text-center font-serif text-4xl mb-10 text-[#2c3e50]">
+          Reservas
+        </h1>
 
-        {/* FORM FORMSPREE */}
+        {/* FORM */}
         <form
-  action="https://formspree.io/f/meenpror"
-  method="POST"
->
+          action="https://formspree.io/f/meenpror"
+          method="POST"
+          className="space-y-8"
+          onSubmit={() => setIsSubmitting(true)}
+        >
 
-          {/* hidden metadata */}
           <input type="hidden" name="_subject" value="Nova Reserva Senhor Peixe" />
+          <input type="hidden" name="_captcha" value="false" />
 
           {/* Nome */}
-          <div>
-            <label className="block text-sm uppercase text-[#5a6c7d]">Nome</label>
-            <input
-              name="nome"
-              required
-              className="w-full border-b py-3 bg-transparent"
-              placeholder="O seu nome"
-            />
-          </div>
+          <input
+            name="nome"
+            required
+            placeholder="Nome"
+            className="w-full border-b py-3 bg-transparent outline-none"
+          />
 
-          {/* Data e Hora */}
-          <div className="grid md:grid-cols-2 gap-8">
+          {/* Data */}
+          <input
+            type="date"
+            name="data"
+            required
+            className="w-full border-b py-3 bg-transparent outline-none"
+          />
 
-            <input
-              type="date"
-              name="data"
-              required
-              className="border-b py-3 bg-transparent"
-            />
+          {/* Hora */}
+          <select
+            name="hora"
+            required
+            className="w-full border-b py-3 bg-transparent"
+          >
+            <option value="">Hora</option>
+            <option value="12:00">12:00</option>
+            <option value="13:00">13:00</option>
+            <option value="19:00">19:00</option>
+            <option value="20:00">20:00</option>
+          </select>
 
-            <select
-              name="hora"
-              required
-              className="border-b py-3 bg-transparent"
-            >
-              <option value="">Hora</option>
-              <option>12:00</option>
-              <option>13:00</option>
-              <option>19:00</option>
-              <option>20:00</option>
-            </select>
+          {/* Contacto */}
+          <input
+            name="contacto"
+            required
+            placeholder="Contacto"
+            className="w-full border-b py-3 bg-transparent"
+          />
 
-          </div>
-
-          {/* Contacto / Pessoas */}
-          <div className="grid md:grid-cols-2 gap-8">
-
-            <input
-              name="contacto"
-              required
-              className="border-b py-3 bg-transparent"
-              placeholder="Contacto"
-            />
-
-            <select
-              name="pessoas"
-              required
-              className="border-b py-3 bg-transparent"
-            >
-              <option value="">Pessoas</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5+</option>
-            </select>
-
-          </div>
+          {/* Pessoas */}
+          <select
+            name="pessoas"
+            required
+            className="w-full border-b py-3 bg-transparent"
+          >
+            <option value="">Pessoas</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5+">5+</option>
+          </select>
 
           {/* Notas */}
           <textarea
             name="notas"
-            rows={3}
-            className="w-full border-b py-3 bg-transparent"
             placeholder="Notas adicionais"
+            className="w-full border-b py-3 bg-transparent"
           />
 
-          {/* Submit */}
+          {/* BOTÃO */}
           <button
             type="submit"
-            className="px-16 py-4 bg-[#1e3a5f] text-white tracking-[0.25em]"
+            className="w-full py-4 bg-[#1e3a5f] text-white tracking-widest"
           >
             {isSubmitting ? "A ENVIAR..." : "SOLICITAR RESERVA"}
           </button>
@@ -136,4 +125,4 @@ export default function ReservasPage() {
       </div>
     </main>
   );
-  }
+}
