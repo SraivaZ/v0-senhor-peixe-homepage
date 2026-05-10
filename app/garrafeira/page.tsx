@@ -85,7 +85,11 @@ export default function GarrafeiraPage() {
           </Link>
 
           <Link href="/" className="flex flex-col items-center">
-            <FishLogo className="w-10 h-10 text-[#1e3a5f]" />
+            <img
+  src="https://i.ibb.co/mCtT8PJ5/so-peixe-sem-olho.png"
+  alt="Senhor Peixe Logo"
+  className="w-16 h-16 object-contain"
+/>
             <span className="font-serif text-xs tracking-[0.3em] text-[#1e3a5f] mt-1">SENHOR PEIXE</span>
           </Link>
 
