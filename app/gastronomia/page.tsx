@@ -242,7 +242,7 @@ export default function GastronomiaPage() {
       {/* Sticky Navigation Bar */}
       <nav className="sticky top-0 z-30 bg-[#1e3a5f] shadow-lg">
         <div className="max-w-6xl mx-auto px-4">
-          <ul className="flex items-center justify-center gap-2 sm:gap-6 py-4 overflow-x-auto scrollbar-hide">
+          <ul className="flex flex-wrap sm:flex-nowrap items-center justify-center gap-2 sm:gap-6 py-4">
             {menuCategories.map((category) => (
               <li key={category.id}>
                 <button
