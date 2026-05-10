@@ -139,57 +139,24 @@ function MapPinIcon({ className = "" }: { className?: string }) {
   )
 }
 
-export default function Contactos() {
+export default function ContactosPage() {
   const [formData, setFormData] = useState({
     nome: "",
     email: "",
     mensagem: "",
   })
-
-  const googleMapsEmbed = "..."
-
-  return (
-    <div>
-      ...
-    </div>
-  )
-}
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-{
+
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsSubmitting(true);
-
-  try {
-    const response = await fetch("https://formspree.io/f/meenpror", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
-
-    if (response.ok) {
-      setIsSubmitted(true);
-      setFormData({
-        nome: "",
-        data: "",
-        hora: "",
-        contacto: "",
-        pessoas: "",
-        notas: "",
-      });
-    } else {
-      alert("Erro ao enviar reserva. Tenta novamente.");
-    }
-  } catch (error) {
-    alert("Erro de ligação. Verifica internet.");
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+    e.preventDefault()
+    setIsSubmitting(true)
+    
+    // Simulate form submission
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+    
+    setIsSubmitting(false)
+    setIsSubmitted(true)
     setFormData({ nome: "", email: "", mensagem: "" })
     
     // Reset success message after 5 seconds
