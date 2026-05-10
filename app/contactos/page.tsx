@@ -147,11 +147,11 @@ export default function Contactos() {
       ...
     </div>
   )
-}
-    nome: "",
-    email: "",
-    mensagem: "",
-  })
+const [formData, setFormData] = useState({
+  nome: "",
+  email: "",
+  mensagem: "",
+})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
