@@ -215,7 +215,11 @@ export default function GarrafeiraPage() {
       {/* Footer */}
       <footer className="py-12 text-center border-t border-[#e8e6e3]">
         <Link href="/">
-          <FishLogo className="w-10 h-10 text-[#1e3a5f] mx-auto mb-3 hover:text-[#2c5282] transition-colors" />
+          <img
+  src="https://i.ibb.co/mCtT8PJ5/so-peixe-sem-olho.png"
+  alt="Senhor Peixe Logo"
+  className="w-16 h-16 object-contain mx-auto mb-3"
+/>
         </Link>
         <p className="font-serif text-sm text-[#a0aec0] tracking-[0.15em]">DESDE 1999</p>
       </footer>
