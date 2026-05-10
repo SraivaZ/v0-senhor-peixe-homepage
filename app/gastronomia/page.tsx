@@ -224,11 +224,7 @@ export default function GastronomiaPage() {
         {/* Central Logo */}
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center">
           <div className="bg-[#1e3a5f] p-4 rounded-lg mb-2">
-            <img
-  src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
-  alt="Senhor Peixe Logo"
-  className="w-20 h-20 object-contain"
-/>
+            <FishLogo className="w-16 h-16 text-white" />
           </div>
           <span className="text-white/80 text-xs tracking-[0.2em] uppercase font-serif">
             Senhor Peixe
@@ -242,7 +238,7 @@ export default function GastronomiaPage() {
       {/* Sticky Navigation Bar */}
       <nav className="sticky top-0 z-30 bg-[#1e3a5f] shadow-lg">
         <div className="max-w-6xl mx-auto px-4">
-          <ul className="flex flex-wrap sm:flex-nowrap items-center justify-center gap-2 sm:gap-6 py-4">
+          <ul className="flex items-center justify-center gap-2 sm:gap-6 py-4 overflow-x-auto scrollbar-hide">
             {menuCategories.map((category) => (
               <li key={category.id}>
                 <button
@@ -312,11 +308,7 @@ export default function GastronomiaPage() {
       {/* Footer */}
       <footer className="bg-[#1e3a5f] py-8 text-center">
         <Link href="/" className="inline-block group">
-          <img
-  src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
-  alt="Senhor Peixe Logo"
-  className="w-16 h-16 object-contain mx-auto"
-/>
+          <FishLogo className="w-10 h-10 mx-auto text-white/80 group-hover:text-white transition-colors" />
         </Link>
         <p className="text-white/60 text-xs tracking-[0.2em] uppercase font-serif mt-3">
           Senhor Peixe — Desde 1999

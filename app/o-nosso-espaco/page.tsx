@@ -65,11 +65,7 @@ export default function ONossoEspacoPage() {
 
           {/* Center Logo */}
           <Link href="/" className="flex flex-col items-center group">
-            <img
-  src="https://i.ibb.co/mCtT8PJ5/so-peixe-sem-olho.png"
-  alt="Senhor Peixe Logo"
-  className="w-16 h-16 object-contain"
-/>
+            <FishLogo className="w-10 h-10 text-[#1e3a5f] group-hover:text-[#c9a55a] transition-colors duration-300" />
             <span className="font-serif text-sm tracking-[0.3em] text-[#1e3a5f] mt-1">
               SENHOR PEIXE
             </span>
@@ -232,11 +228,7 @@ export default function ONossoEspacoPage() {
       <footer className="py-12 px-6 border-t border-gray-200">
         <div className="max-w-6xl mx-auto text-center">
           <Link href="/" className="inline-block">
-          <img
-  src="https://i.ibb.co/mCtT8PJ5/so-peixe-sem-olho.png"
-  alt="Senhor Peixe Logo"
-  className="w-20 h-20 object-contain mx-auto"
-/>
+            <FishLogo className="w-12 h-12 text-[#1e3a5f] mx-auto hover:text-[#c9a55a] transition-colors duration-300" />
           </Link>
           <p className="font-serif text-xs tracking-[0.3em] text-[#1e3a5f]/60 mt-4">
             DESDE 1999
