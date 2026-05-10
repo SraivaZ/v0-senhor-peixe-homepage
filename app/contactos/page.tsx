@@ -149,14 +149,26 @@ export default function ContactosPage() {
   const [isSubmitted, setIsSubmitted] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+  e.preventDefault();
+  setIsSubmitting(true);
+
+  const response = await fetch("https://formspree.io/f/meenpror", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+
+  setIsSubmitting(false);
+
+  if (response.ok) {
+    setIsSubmitted(true);
+  } else {
+    alert("Erro ao enviar reserva. Tenta novamente.");
+  }
+};
     setFormData({ nome: "", email: "", mensagem: "" })
     
     // Reset success message after 5 seconds
