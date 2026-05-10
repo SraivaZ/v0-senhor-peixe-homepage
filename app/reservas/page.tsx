@@ -209,7 +209,11 @@ export default function ReservasPage() {
           </div>
         ) : (
           /* Reservation Form */
-          <form onSubmit={handleSubmit} className="space-y-12">
+          <form
+  action="https://formspree.io/f/meenpror"
+  method="POST"
+  className="space-y-12"
+>
             {/* Nome */}
             <div className="group">
               <label
