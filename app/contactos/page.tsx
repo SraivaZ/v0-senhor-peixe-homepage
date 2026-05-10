@@ -139,8 +139,15 @@ function MapPinIcon({ className = "" }: { className?: string }) {
   )
 }
 
-export default function ContactosPage() {
-  const [formData, setFormData] = useState({
+export default function Contactos() {
+  const googleMapsEmbed = "https://..."
+
+  return (
+    <div>
+      ...
+    </div>
+  )
+}
     nome: "",
     email: "",
     mensagem: "",
