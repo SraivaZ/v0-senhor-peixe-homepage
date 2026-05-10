@@ -225,7 +225,7 @@ export default function GastronomiaPage() {
         <div className="relative z-10 flex flex-col items-center justify-center h-full text-center">
           <div className="bg-[#1e3a5f] p-4 rounded-lg mb-2">
             <img
-  src="https://i.ibb.co/mCtT8PJ5/so-peixe-sem-olho.png"
+  src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
   alt="Senhor Peixe Logo"
   className="w-20 h-20 object-contain"
 />
@@ -313,7 +313,7 @@ export default function GastronomiaPage() {
       <footer className="bg-[#1e3a5f] py-8 text-center">
         <Link href="/" className="inline-block group">
           <img
-  src="https://i.ibb.co/mCtT8PJ5/so-peixe-sem-olho.png"
+  src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
   alt="Senhor Peixe Logo"
   className="w-16 h-16 object-contain mx-auto"
 />
