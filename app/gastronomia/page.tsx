@@ -312,7 +312,11 @@ export default function GastronomiaPage() {
       {/* Footer */}
       <footer className="bg-[#1e3a5f] py-8 text-center">
         <Link href="/" className="inline-block group">
-          <FishLogo className="w-10 h-10 mx-auto text-white/80 group-hover:text-white transition-colors" />
+          <img
+  src="https://i.ibb.co/mCtT8PJ5/so-peixe-sem-olho.png"
+  alt="Senhor Peixe Logo"
+  className="w-16 h-16 object-contain mx-auto"
+/>
         </Link>
         <p className="text-white/60 text-xs tracking-[0.2em] uppercase font-serif mt-3">
           Senhor Peixe — Desde 1999
