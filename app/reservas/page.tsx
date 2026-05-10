@@ -420,7 +420,7 @@ export default function ReservasPage() {
           className="text-[#2c3e50] hover:text-[#1e3a5f] transition-colors"
           aria-label="Instagram"
         >
-          <InstagramIcon className="w-7 h-7" />
+          <InstagramIcon className="w-6 h-6 md:w-7 md:h-7" />
         </a>
         <a
           href="https://facebook.com"
@@ -429,7 +429,7 @@ export default function ReservasPage() {
           className="text-[#2c3e50] hover:text-[#1e3a5f] transition-colors"
           aria-label="Facebook"
         >
-          <FacebookIcon className="w-7 h-7" />
+          <FacebookIcon className="w-6 h-6 md:w-7 md:h-7" />
         </a>
         <a
           href="https://tripadvisor.com"
@@ -438,7 +438,7 @@ export default function ReservasPage() {
           className="text-[#2c3e50] hover:text-[#1e3a5f] transition-colors"
           aria-label="TripAdvisor"
         >
-          <TripAdvisorIcon className="w-7 h-7" />
+          <TripAdvisorIcon className="w-6 h-6 md:w-7 md:h-7" />
         </a>
         <a
           href="https://thefork.com"
@@ -447,7 +447,7 @@ export default function ReservasPage() {
           className="text-[#2c3e50] hover:text-[#1e3a5f] transition-colors"
           aria-label="TheFork"
         >
-          <TheForkIcon className="w-7 h-7" />
+          <TheForkIcon className="w-6 h-6 md:w-7 md:h-7" />
         </a>
       </div>
     </main>
