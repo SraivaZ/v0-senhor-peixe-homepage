@@ -412,7 +412,7 @@ export default function ReservasPage() {
       </div>
 
       {/* Social Icons */}
-      <div className="fixed bottom-6 right-6 flex items-center gap-4">
+      <div className="fixed bottom-4 right-4 flex items-center gap-2 md:gap-4 md:bottom-6 md:right-6">
         <a
           href="https://instagram.com"
           target="_blank"
