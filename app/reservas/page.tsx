@@ -141,7 +141,11 @@ export default function ReservasPage() {
           </Link>
 
           <Link href="/" className="flex flex-col items-center group">
-            <FishLogo className="w-10 h-10 text-[#1e3a5f] group-hover:text-[#c9a55a] transition-colors duration-300" />
+            <img
+  src="https://i.ibb.co/mCtT8PJ5/so-peixe-sem-olho.png"
+  alt="Senhor Peixe Logo"
+  className="w-10 h-10 object-contain group-hover:scale-105 transition-transform duration-300"
+/>
             <span className="font-serif text-sm tracking-[0.3em] text-[#1e3a5f] mt-1">
               SENHOR PEIXE
             </span>
@@ -205,7 +209,11 @@ export default function ReservasPage() {
           </div>
         ) : (
           /* Reservation Form */
-          <form onSubmit={handleSubmit} className="space-y-12">
+          <form
+  action="https://formspree.io/f/meenpror"
+  method="POST"
+  className="space-y-12"
+>
             {/* Nome */}
             <div className="group">
               <label
@@ -412,15 +420,15 @@ export default function ReservasPage() {
       </div>
 
       {/* Social Icons */}
-      <div className="fixed bottom-6 right-6 flex items-center gap-4">
+      <div className="fixed bottom-4 right-4 flex items-center gap-2 md:gap-4 md:bottom-6 md:right-6">
         <a
-          href="https://instagram.com"
+          href="https://www.instagram.com/restaurante.senhor.peixe/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-[#2c3e50] hover:text-[#1e3a5f] transition-colors"
           aria-label="Instagram"
         >
-          <InstagramIcon className="w-7 h-7" />
+          <InstagramIcon className="w-6 h-6 md:w-7 md:h-7" />
         </a>
         <a
           href="https://facebook.com"
@@ -429,7 +437,7 @@ export default function ReservasPage() {
           className="text-[#2c3e50] hover:text-[#1e3a5f] transition-colors"
           aria-label="Facebook"
         >
-          <FacebookIcon className="w-7 h-7" />
+          <FacebookIcon className="w-6 h-6 md:w-7 md:h-7" />
         </a>
         <a
           href="https://tripadvisor.com"
@@ -438,7 +446,7 @@ export default function ReservasPage() {
           className="text-[#2c3e50] hover:text-[#1e3a5f] transition-colors"
           aria-label="TripAdvisor"
         >
-          <TripAdvisorIcon className="w-7 h-7" />
+          <TripAdvisorIcon className="w-6 h-6 md:w-7 md:h-7" />
         </a>
         <a
           href="https://thefork.com"
@@ -447,7 +455,7 @@ export default function ReservasPage() {
           className="text-[#2c3e50] hover:text-[#1e3a5f] transition-colors"
           aria-label="TheFork"
         >
-          <TheForkIcon className="w-7 h-7" />
+          <TheForkIcon className="w-6 h-6 md:w-7 md:h-7" />
         </a>
       </div>
     </main>

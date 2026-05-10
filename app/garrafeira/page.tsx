@@ -85,7 +85,11 @@ export default function GarrafeiraPage() {
           </Link>
 
           <Link href="/" className="flex flex-col items-center">
-            <FishLogo className="w-10 h-10 text-[#1e3a5f]" />
+            <img
+  src="https://i.ibb.co/mCtT8PJ5/so-peixe-sem-olho.png"
+  alt="Senhor Peixe Logo"
+  className="w-16 h-16 object-contain"
+/>
             <span className="font-serif text-xs tracking-[0.3em] text-[#1e3a5f] mt-1">SENHOR PEIXE</span>
           </Link>
 
@@ -126,7 +130,11 @@ export default function GarrafeiraPage() {
         <div className="bg-white rounded-sm shadow-2xl shadow-black/10 border border-[#e8e6e3] overflow-hidden">
           {/* Document Header */}
           <div className="bg-[#1e3a5f] px-8 py-6 text-center">
-            <FishLogo className="w-12 h-12 text-white mx-auto mb-2" />
+            <img
+  src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
+  alt="Senhor Peixe Logo"
+  className="w-20 h-20 object-contain mx-auto mb-2"
+/>
             <h3 className="font-serif text-xl text-white tracking-[0.2em]">SENHOR PEIXE</h3>
             <p className="font-serif text-sm text-white/70 tracking-[0.1em] mt-1">CARTA DE VINHOS</p>
           </div>
@@ -207,7 +215,11 @@ export default function GarrafeiraPage() {
       {/* Footer */}
       <footer className="py-12 text-center border-t border-[#e8e6e3]">
         <Link href="/">
-          <FishLogo className="w-10 h-10 text-[#1e3a5f] mx-auto mb-3 hover:text-[#2c5282] transition-colors" />
+          <img
+  src="https://i.ibb.co/mCtT8PJ5/so-peixe-sem-olho.png"
+  alt="Senhor Peixe Logo"
+  className="w-16 h-16 object-contain mx-auto mb-3"
+/>
         </Link>
         <p className="font-serif text-sm text-[#a0aec0] tracking-[0.15em]">DESDE 1999</p>
       </footer>
