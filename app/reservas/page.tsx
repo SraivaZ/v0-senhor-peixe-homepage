@@ -414,7 +414,7 @@ export default function ReservasPage() {
       {/* Social Icons */}
       <div className="fixed bottom-4 right-4 flex items-center gap-2 md:gap-4 md:bottom-6 md:right-6">
         <a
-          href="https://instagram.com"
+          href="https://www.instagram.com/restaurante.senhor.peixe/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-[#2c3e50] hover:text-[#1e3a5f] transition-colors"
