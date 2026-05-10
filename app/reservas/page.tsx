@@ -49,11 +49,9 @@ export default function ReservasPage() {
 
         {/* FORM FORMSPREE */}
         <form
-          action="https://formspree.io/f/meenpror"
-          method="POST"
-          className="space-y-12"
-          onSubmit={() => setIsSubmitting(true)}
-        >
+  action="https://formspree.io/f/meenpror"
+  method="POST"
+>
 
           {/* hidden metadata */}
           <input type="hidden" name="_subject" value="Nova Reserva Senhor Peixe" />
