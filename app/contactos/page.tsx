@@ -152,21 +152,33 @@ export default function ContactosPage() {
   e.preventDefault();
   setIsSubmitting(true);
 
-  const response = await fetch("https://formspree.io/f/meenpror", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify(formData),
-  });
+  try {
+    const response = await fetch("https://formspree.io/f/meenpror", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
 
-  setIsSubmitting(false);
-
-  if (response.ok) {
-    setIsSubmitted(true);
-  } else {
-    alert("Erro ao enviar reserva. Tenta novamente.");
+    if (response.ok) {
+      setIsSubmitted(true);
+      setFormData({
+        nome: "",
+        data: "",
+        hora: "",
+        contacto: "",
+        pessoas: "",
+        notas: "",
+      });
+    } else {
+      alert("Erro ao enviar reserva. Tenta novamente.");
+    }
+  } catch (error) {
+    alert("Erro de ligação. Verifica internet.");
+  } finally {
+    setIsSubmitting(false);
   }
 };
     setFormData({ nome: "", email: "", mensagem: "" })
