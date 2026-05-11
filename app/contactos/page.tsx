@@ -1,7 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useForm, ValidationError } from "@formspree/react"
 
 // Fish Logo Component
 function FishLogo({ className = "" }: { className?: string }) {
@@ -139,29 +140,33 @@ function MapPinIcon({ className = "" }: { className?: string }) {
   )
 }
 
+const INITIAL_FORM_DATA = {
+  nome: "",
+  email: "",
+  mensagem: "",
+}
+
 export default function ContactosPage() {
   const [formData, setFormData] = useState({
-    nome: "",
-    email: "",
-    mensagem: "",
+    ...INITIAL_FORM_DATA,
   })
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [state, handleSubmit] = useForm("xykolbyw")
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    setFormData({ nome: "", email: "", mensagem: "" })
-    
-    // Reset success message after 5 seconds
-    setTimeout(() => setIsSubmitted(false), 5000)
-  }
+  useEffect(() => {
+    if (state.submitting) {
+      setIsSubmitted(false)
+    }
+  }, [state.submitting])
+
+  useEffect(() => {
+    if (state.succeeded) {
+      setFormData({ ...INITIAL_FORM_DATA })
+      setIsSubmitted(true)
+      const timeout = setTimeout(() => setIsSubmitted(false), 5000)
+      return () => clearTimeout(timeout)
+    }
+  }, [state.succeeded])
 
   const googleMapsUrl = "https://www.google.com/maps/place/Rua+da+Pimenta+35,+1990-254+Lisboa,+Portugal"
   const googleMapsEmbed = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3112.5!2d-9.0939!3d38.7633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19316a4c5b1b8d%3A0x0!2sRua%20da%20Pimenta%2035%2C%20Parque%20das%20Na%C3%A7%C3%B5es%2C%20Lisboa!5e0!3m2!1spt-PT!2spt!4v1699999999999!5m2!1spt-PT!2spt"
@@ -315,8 +320,15 @@ export default function ContactosPage() {
                 value={formData.nome}
                 onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
                 required
+                autoComplete="name"
                 className="w-full px-4 py-3 bg-white border border-[#d4d4d4] rounded-md font-serif text-[#2d2d2d] focus:outline-none focus:border-[#1e3a5f] focus:ring-1 focus:ring-[#1e3a5f] transition-colors duration-300"
                 placeholder="O seu nome"
+              />
+              <ValidationError
+                prefix="Nome"
+                field="nome"
+                errors={state.errors}
+                className="mt-2 text-sm text-[#b65a5a] font-serif"
               />
             </div>
 
@@ -335,8 +347,15 @@ export default function ContactosPage() {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
+                autoComplete="email"
                 className="w-full px-4 py-3 bg-white border border-[#d4d4d4] rounded-md font-serif text-[#2d2d2d] focus:outline-none focus:border-[#1e3a5f] focus:ring-1 focus:ring-[#1e3a5f] transition-colors duration-300"
                 placeholder="o.seu@email.com"
+              />
+              <ValidationError
+                prefix="Email"
+                field="email"
+                errors={state.errors}
+                className="mt-2 text-sm text-[#b65a5a] font-serif"
               />
             </div>
 
@@ -358,16 +377,54 @@ export default function ContactosPage() {
                 className="w-full px-4 py-3 bg-white border border-[#d4d4d4] rounded-md font-serif text-[#2d2d2d] focus:outline-none focus:border-[#1e3a5f] focus:ring-1 focus:ring-[#1e3a5f] transition-colors duration-300 resize-none"
                 placeholder="A sua mensagem..."
               />
+              <ValidationError
+                prefix="Mensagem"
+                field="mensagem"
+                errors={state.errors}
+                className="mt-2 text-sm text-[#b65a5a] font-serif"
+              />
             </div>
+
+            {state.errors && state.errors.length > 0 && (
+              <div role="alert" aria-live="assertive" className="text-center py-1">
+                <p className="font-serif text-[#b65a5a] text-base">
+                  O envio falhou. Verifique os dados e tente novamente.
+                </p>
+              </div>
+            )}
 
             {/* Submit Button */}
             <div className="text-center pt-4">
               <button
                 type="submit"
-                disabled={isSubmitting}
-                className="px-12 py-3 bg-[#1e3a5f] text-white font-serif text-sm tracking-widest uppercase hover:bg-[#2d4a6f] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 rounded-md"
+                disabled={state.submitting}
+                aria-busy={state.submitting}
+                className="inline-flex items-center justify-center gap-2 px-12 py-3 bg-[#1e3a5f] text-white font-serif text-sm tracking-widest uppercase hover:bg-[#2d4a6f] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 rounded-md"
               >
-                {isSubmitting ? "A enviar..." : "Enviar Mensagem"}
+                {state.submitting && (
+                  <svg
+                    className="h-4 w-4 animate-spin"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    />
+                  </svg>
+                )}
+                {state.submitting ? "A enviar..." : "Enviar Mensagem"}
               </button>
             </div>
 

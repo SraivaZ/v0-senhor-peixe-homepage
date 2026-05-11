@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useForm, ValidationError } from "@formspree/react";
 
 // Fish Logo Component
 function FishLogo({ className = "" }: { className?: string }) {
@@ -86,34 +87,135 @@ function TheForkIcon({ className = "" }: { className?: string }) {
   );
 }
 
+const INITIAL_FORM_DATA = {
+  nome: "",
+  data: "",
+  hora: "",
+  contacto: "",
+  pessoas: "",
+  notas: "",
+};
+
+const DINNER_TIMES = [
+  "19:00",
+  "19:30",
+  "20:00",
+  "20:30",
+  "21:00",
+  "21:30",
+  "22:00",
+] as const;
+
+function getDayFromDateString(dateString: string): number | null {
+  if (!dateString) return null;
+  return new Date(`${dateString}T00:00:00`).getDay();
+}
+
+function isDinnerTime(hora: string): boolean {
+  return DINNER_TIMES.some((t) => t === hora);
+}
+
 export default function ReservasPage() {
   const [formData, setFormData] = useState({
-    nome: "",
-    data: "",
-    hora: "",
-    contacto: "",
-    pessoas: "",
-    notas: "",
+    ...INITIAL_FORM_DATA,
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [sundayLunchPrompt, setSundayLunchPrompt] = useState(false);
+  const [state, handleSubmit] = useForm("meenpror");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const selectedDay = getDayFromDateString(formData.data);
+  const isMondayClosed = selectedDay === 1;
+  const isSundayLunchOnly = selectedDay === 0;
+  const isSundayDinnerSelection = isSundayLunchOnly && isDinnerTime(formData.hora);
+  const availabilityAllowsSubmit =
+    !isMondayClosed && !isSundayDinnerSelection;
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "data") {
+      const day = getDayFromDateString(value);
+      setFormData((prev) => {
+        const next = { ...prev, data: value };
+        if (day === 0 && isDinnerTime(prev.hora)) {
+          next.hora = "";
+          setSundayLunchPrompt(true);
+        } else {
+          setSundayLunchPrompt(false);
+        }
+        return next;
+      });
+      return;
+    }
+
+    if (name === "hora") {
+      setFormData({ ...formData, hora: value });
+      if (value) setSundayLunchPrompt(false);
+      return;
+    }
+
+    setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+  
+    setIsSubmitted(false);
+    setSubmitError("");
+  
+    const day = getDayFromDateString(formData.data);
+  
+    if (day === 1) {
+      setSubmitError("Estamos encerrados à segunda-feira.");
+      return;
+    }
+  
+    if (day === 0 && isDinnerTime(formData.hora)) {
+      setSubmitError("Ao domingo só aceitamos reservas ao almoço.");
+      return;
+    }
+  
     setIsSubmitting(true);
-    
-    // Simulate submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+  
+    try {
+      const response = await fetch("https://formspree.io/f/meenpror", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...formData,
+          _subject: "Novo pedido de reserva - Senhor Peixe",
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Erro ao enviar reserva");
+      }
+  
+      setIsSubmitted(true);
+      setFormData({ ...INITIAL_FORM_DATA });
+      setSundayLunchPrompt(false);
+    } catch (error) {
+      setSubmitError(
+        "Não foi possível enviar o pedido. Por favor, tente novamente ou contacte-nos por telefone."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+
+  useEffect(() => {
+    if (state.succeeded) {
+      setIsSubmitted(true);
+      setFormData({ ...INITIAL_FORM_DATA });
+      setSundayLunchPrompt(false);
+    }
+  }, [state.succeeded]);
 
   return (
     <main className="min-h-screen bg-[#faf9f7]">
@@ -182,36 +284,27 @@ export default function ReservasPage() {
                   d="M5 13l4 4L19 7"
                 />
               </svg>
-            </div>
-            <h2 className="font-serif text-2xl text-[#2c3e50] mb-4">
-              Pedido de Reserva Enviado
-            </h2>
-            <p className="text-[#5a6c7d] leading-relaxed max-w-md mx-auto mb-8">
-              Obrigado pelo seu pedido de reserva. Entraremos em contacto consigo
-              brevemente para confirmar a disponibilidade.
+              </div>
+          <h2 className="font-serif text-2xl text-[#2c3e50] mb-5">
+            Pedido de Reserva Enviado
+          </h2>
+          <div className="space-y-2 text-center text-[#5f7285] font-serif leading-relaxed">
+            <p>Obrigado pelo seu pedido de reserva.</p>
+            <p>
+              A nossa equipa entrará em contacto consigo brevemente
+              <br />
+              para confirmar a disponibilidade.
             </p>
-            <button
-              onClick={() => {
-                setIsSubmitted(false);
-                setFormData({
-                  nome: "",
-                  data: "",
-                  hora: "",
-                  contacto: "",
-                  pessoas: "",
-                  notas: "",
-                });
-              }}
-              className="font-serif text-sm tracking-widest text-[#1e3a5f] hover:text-[#c9a96e] transition-colors"
-            >
-              FAZER NOVA RESERVA
-            </button>
           </div>
+          <div
+            className="mx-auto mt-12 h-px w-28 bg-gradient-to-r from-transparent via-[#c8a96a]/60 to-transparent"
+            aria-hidden="true"
+          />
+        </div>
         ) : (
           /* Reservation Form */
           <form
-  action="https://formspree.io/f/meenpror"
-  method="POST"
+  onSubmit={handleFormSubmit}
   className="space-y-12"
 >
             {/* Nome */}
@@ -226,11 +319,18 @@ export default function ReservasPage() {
                 type="text"
                 id="nome"
                 name="nome"
+                autoComplete="name"
                 required
                 value={formData.nome}
                 onChange={handleChange}
                 className="w-full bg-transparent border-0 border-b border-[#d4d0c8] focus:border-[#1e3a5f] outline-none py-3 font-serif text-lg text-[#2c3e50] placeholder:text-[#a0a0a0] transition-colors"
                 placeholder="O seu nome completo"
+              />
+              <ValidationError
+                prefix="Nome"
+                field="nome"
+                errors={state.errors}
+                className="mt-2 text-sm text-[#b65a5a] font-serif"
               />
             </div>
 
@@ -251,6 +351,21 @@ export default function ReservasPage() {
                   value={formData.data}
                   onChange={handleChange}
                   className="w-full bg-transparent border-0 border-b border-[#d4d0c8] focus:border-[#1e3a5f] outline-none py-3 font-serif text-lg text-[#2c3e50] transition-colors"
+                />
+                {isMondayClosed && (
+                  <p
+                    role="status"
+                    aria-live="polite"
+                    className="mt-2 text-sm text-[#b65a5a] font-serif leading-relaxed"
+                  >
+                    Estamos encerrados à segunda-feira.
+                  </p>
+                )}
+                <ValidationError
+                  prefix="Data"
+                  field="data"
+                  errors={state.errors}
+                  className="mt-2 text-sm text-[#b65a5a] font-serif"
                 />
               </div>
 
@@ -280,15 +395,44 @@ export default function ReservasPage() {
                     <option value="15:00">15:00</option>
                   </optgroup>
                   <optgroup label="Jantar">
-                    <option value="19:00">19:00</option>
-                    <option value="19:30">19:30</option>
-                    <option value="20:00">20:00</option>
-                    <option value="20:30">20:30</option>
-                    <option value="21:00">21:00</option>
-                    <option value="21:30">21:30</option>
-                    <option value="22:00">22:00</option>
+                    <option value="19:00" disabled={isSundayLunchOnly}>
+                      19:00
+                    </option>
+                    <option value="19:30" disabled={isSundayLunchOnly}>
+                      19:30
+                    </option>
+                    <option value="20:00" disabled={isSundayLunchOnly}>
+                      20:00
+                    </option>
+                    <option value="20:30" disabled={isSundayLunchOnly}>
+                      20:30
+                    </option>
+                    <option value="21:00" disabled={isSundayLunchOnly}>
+                      21:00
+                    </option>
+                    <option value="21:30" disabled={isSundayLunchOnly}>
+                      21:30
+                    </option>
+                    <option value="22:00" disabled={isSundayLunchOnly}>
+                      22:00
+                    </option>
                   </optgroup>
                 </select>
+                {sundayLunchPrompt && (
+                  <p
+                    role="status"
+                    aria-live="polite"
+                    className="mt-2 text-sm text-[#5a6c7d] font-serif leading-relaxed"
+                  >
+                    Por favor, escolha um horário de almoço.
+                  </p>
+                )}
+                <ValidationError
+                  prefix="Hora"
+                  field="hora"
+                  errors={state.errors}
+                  className="mt-2 text-sm text-[#b65a5a] font-serif"
+                />
               </div>
             </div>
 
@@ -305,11 +449,18 @@ export default function ReservasPage() {
                   type="tel"
                   id="contacto"
                   name="contacto"
+                  autoComplete="tel"
                   required
                   value={formData.contacto}
                   onChange={handleChange}
                   className="w-full bg-transparent border-0 border-b border-[#d4d0c8] focus:border-[#1e3a5f] outline-none py-3 font-serif text-lg text-[#2c3e50] placeholder:text-[#a0a0a0] transition-colors"
                   placeholder="+351 XXX XXX XXX"
+                />
+                <ValidationError
+                  prefix="Contacto"
+                  field="contacto"
+                  errors={state.errors}
+                  className="mt-2 text-sm text-[#b65a5a] font-serif"
                 />
               </div>
 
@@ -340,6 +491,12 @@ export default function ReservasPage() {
                   <option value="9">9 Pessoas</option>
                   <option value="10">10+ Pessoas</option>
                 </select>
+                <ValidationError
+                  prefix="Número de Pessoas"
+                  field="pessoas"
+                  errors={state.errors}
+                  className="mt-2 text-sm text-[#b65a5a] font-serif"
+                />
               </div>
             </div>
 
@@ -358,15 +515,32 @@ export default function ReservasPage() {
                 value={formData.notas}
                 onChange={handleChange}
                 className="w-full bg-transparent border-0 border-b border-[#d4d0c8] focus:border-[#1e3a5f] outline-none py-3 font-serif text-lg text-[#2c3e50] placeholder:text-[#a0a0a0] transition-colors resize-none"
-                placeholder="Alergias, ocasiões especiais, pedidos específicos..."
+                placeholder="Indique-nos, por favor, eventuais alergias, ocasiões especiais, preferências de mesa ou necessidades específicas de acessibilidade."
+              />
+              <ValidationError
+                prefix="Notas"
+                field="notas"
+                errors={state.errors}
+                className="mt-2 text-sm text-[#b65a5a] font-serif"
               />
             </div>
+
+            {submitError && (
+  <div
+    role="alert"
+    aria-live="assertive"
+    className="text-center text-sm text-[#b65a5a] font-serif leading-relaxed"
+  >
+    {submitError}
+  </div>
+)}
 
             {/* Submit Button */}
             <div className="pt-8 text-center">
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !availabilityAllowsSubmit}
+aria-busy={isSubmitting}
                 className="relative inline-flex items-center justify-center px-16 py-4 bg-[#1e3a5f] text-white font-serif text-sm tracking-[0.25em] hover:bg-[#2c3e50] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed group overflow-hidden"
               >
                 <span
@@ -374,12 +548,12 @@ export default function ReservasPage() {
                     isSubmitting ? "opacity-0" : "opacity-100"
                   }`}
                 >
-                  SOLICITAR RESERVA
+                  Solicitar Reserva
                 </span>
                 {isSubmitting && (
                   <span className="absolute inset-0 flex items-center justify-center">
                     <svg
-                      className="animate-spin h-5 w-5 text-white"
+                      className="animate-spin h-5 w-5 text-white mr-3"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -398,66 +572,70 @@ export default function ReservasPage() {
                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                       />
                     </svg>
+                    <span className="tracking-[0.2em]">A enviar...</span>
                   </span>
                 )}
               </button>
             </div>
 
-            {/* Note */}
-            <p className="text-center text-sm text-[#8a9ba8] font-serif leading-relaxed">
-              Para grupos superiores a 10 pessoas ou eventos privados,
-              <br />
-              contacte-nos directamente pelo telefone{" "}
-              <a
-                href="tel:+351218955892"
-                className="text-[#1e3a5f] hover:text-[#c9a96e] transition-colors"
-              >
-                +351 21 895 5892
-              </a>
-            </p>
-          </form>
-        )}
-      </div>
+                {/* Note */}
+                <p className="text-center text-sm text-[#8a9ba8] font-serif leading-relaxed">
+                    Para reservas superiores a 10 pessoas ou pedidos de eventos privados,
+                    <br />
+                    recomendamos o contacto direto através do telefone,
+                    <br />
+                    para melhor acompanhamento do pedido.
+                    <br />
+                    <a
+                      href="tel:+351218955892"
+                      className="inline-block mt-2 text-[#1e3a5f] hover:text-[#c9a96e] transition-colors"
+                    >
+                      +351 21 895 5892
+                    </a>
+                  </p>
+                </form>
+              )}
+            </div>
 
-      {/* Social Icons */}
-      <div className="fixed bottom-4 right-4 flex items-center gap-2 md:gap-4 md:bottom-6 md:right-6">
-        <a
-          href="https://www.instagram.com/restaurante.senhor.peixe/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[#2c3e50] hover:text-[#1e3a5f] transition-colors"
-          aria-label="Instagram"
-        >
-          <InstagramIcon className="w-6 h-6 md:w-7 md:h-7" />
-        </a>
-        <a
-          href="https://facebook.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[#2c3e50] hover:text-[#1e3a5f] transition-colors"
-          aria-label="Facebook"
-        >
-          <FacebookIcon className="w-6 h-6 md:w-7 md:h-7" />
-        </a>
-        <a
-          href="https://tripadvisor.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[#2c3e50] hover:text-[#1e3a5f] transition-colors"
-          aria-label="TripAdvisor"
-        >
-          <TripAdvisorIcon className="w-6 h-6 md:w-7 md:h-7" />
-        </a>
-        <a
-          href="https://thefork.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[#2c3e50] hover:text-[#1e3a5f] transition-colors"
-          aria-label="TheFork"
-        >
-          <TheForkIcon className="w-6 h-6 md:w-7 md:h-7" />
-        </a>
-      </div>
-    </main>
-  );
-}
+            {/* Social Icons */}
+            <div className="fixed bottom-4 right-4 flex items-center gap-2 md:gap-4 md:bottom-6 md:right-6">
+              <a
+                href="https://www.instagram.com/restaurante.senhor.peixe/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#2c3e50] hover:text-[#1e3a5f] transition-colors"
+                aria-label="Instagram"
+              >
+                <InstagramIcon className="w-6 h-6 md:w-7 md:h-7" />
+              </a>
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#2c3e50] hover:text-[#1e3a5f] transition-colors"
+                aria-label="Facebook"
+              >
+                <FacebookIcon className="w-6 h-6 md:w-7 md:h-7" />
+              </a>
+              <a
+                href="https://tripadvisor.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#2c3e50] hover:text-[#1e3a5f] transition-colors"
+                aria-label="TripAdvisor"
+              >
+                <TripAdvisorIcon className="w-6 h-6 md:w-7 md:h-7" />
+              </a>
+              <a
+                href="https://thefork.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#2c3e50] hover:text-[#1e3a5f] transition-colors"
+                aria-label="TheFork"
+              >
+                <TheForkIcon className="w-6 h-6 md:w-7 md:h-7" />
+              </a>
+            </div>
+          </main>
+        );
+      }
