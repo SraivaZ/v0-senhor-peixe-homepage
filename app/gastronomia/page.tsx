@@ -177,7 +177,7 @@ export default function GastronomiaPage() {
     const element = document.getElementById(id)
 
     if (element) {
-      const navHeight = window.innerWidth < 640 ? 138 : 92
+      const navHeight = window.innerWidth < 640 ? 82 : 92
       const elementPosition = element.offsetTop - navHeight
 
       window.scrollTo({
@@ -351,32 +351,27 @@ export default function GastronomiaPage() {
             : "border-y border-white/15 bg-white/10 backdrop-blur-md"
         }`}
       >
-        <div className="mx-auto max-w-6xl px-3 sm:px-4">
+        <div className="mx-auto max-w-6xl px-0 sm:px-4">
           <div
             className={`transition-all duration-500 ${
-              isHeaderScrolled ? "py-3 sm:py-3" : "py-4 sm:py-4"
+              isHeaderScrolled ? "py-3" : "py-4"
             }`}
           >
             {isHeaderScrolled && (
               <div className="mb-3 text-center">
-                <span className="font-serif text-[10px] uppercase tracking-[0.28em] text-white/70 sm:text-xs sm:tracking-[0.35em]">
+                <span className="font-serif text-xs uppercase tracking-[0.35em] text-white/70">
                   Senhor Peixe
                 </span>
               </div>
             )}
 
-            <div className="w-full overflow-hidden">
-              <ul className="mx-auto grid max-w-[360px] grid-cols-2 gap-2 sm:flex sm:max-w-none sm:min-w-max sm:items-center sm:justify-center sm:gap-3">
-                {menuCategories.map((category, index) => (
-                  <li
-                    key={category.id}
-                    className={index === 4 ? "col-span-2 flex justify-center sm:col-span-1" : ""}
-                  >
+            <div className="w-full overflow-x-auto overflow-y-hidden px-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <ul className="flex min-w-max items-center justify-start gap-2 sm:justify-center sm:gap-3">
+                {menuCategories.map((category) => (
+                  <li key={category.id} className="shrink-0">
                     <button
                       onClick={() => scrollToSection(category.id)}
-                      className={`w-full rounded-md border px-3 py-2.5 font-serif text-[11px] tracking-[0.08em] transition-all duration-300 sm:w-auto sm:whitespace-nowrap sm:px-4 sm:py-2 sm:text-sm sm:tracking-wide ${
-                        index === 4 ? "max-w-[170px] sm:max-w-none" : ""
-                      } ${
+                      className={`whitespace-nowrap rounded-md border px-4 py-2 font-serif text-xs tracking-wide transition-all duration-300 sm:text-sm ${
                         activeSection === category.id
                           ? "border-white/35 bg-white/18 text-white"
                           : "border-white/15 bg-white/5 text-white/75 hover:border-white/35 hover:bg-white/12 hover:text-white"
@@ -398,7 +393,7 @@ export default function GastronomiaPage() {
           <section
             key={category.id}
             id={category.id}
-            className="mb-16 scroll-mt-36 sm:scroll-mt-28"
+            className="mb-16 scroll-mt-24 sm:scroll-mt-28"
           >
             {/* Section Title with Divider */}
             {categoryIndex > 0 && (
@@ -461,7 +456,7 @@ export default function GastronomiaPage() {
         ))}
 
         {/* Full Menu PDF */}
-        <section className="mt-20 scroll-mt-36 sm:scroll-mt-28">
+        <section className="mt-20 scroll-mt-24 sm:scroll-mt-28">
           <div className="mb-12 flex items-center justify-center">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-stone-300 to-transparent" />
           </div>
