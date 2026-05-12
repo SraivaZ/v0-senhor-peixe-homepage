@@ -2,8 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { Home } from "lucide-react"
-import { FishLogo } from "@/components/fish-logo"
+import { useEffect, useState } from "react"
 
 const wineRegions = [
   {
@@ -59,170 +58,334 @@ const wineRegions = [
 ]
 
 export default function GarrafeiraPage() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  useEffect(() => {
+    if (!isMenuOpen) return
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false)
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [isMenuOpen])
+
   return (
-    <div className="min-h-screen bg-[#faf9f7]">
-      {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#faf9f7]/90 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link
-            href="/"
-            className="text-[#1e3a5f] hover:text-[#c9a55a] transition-colors duration-300"
-            aria-label="Voltar à página inicial"
+    <main className="min-h-screen bg-stone-50">
+      {/* Floating Site Menu */}
+      <div className="fixed left-6 top-5 z-[80]">
+        {isMenuOpen && (
+          <button
+            type="button"
+            className="fixed inset-0 z-[70] cursor-default"
+            aria-label="Fechar menu"
+            onClick={() => setIsMenuOpen(false)}
+          />
+        )}
+
+        <div className="relative z-[90]">
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen((open) => !open)}
+            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={isMenuOpen}
+            aria-controls="garrafeira-site-menu"
+            className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/12 text-white/90 shadow-lg backdrop-blur-md transition-all duration-300 hover:border-white/40 hover:bg-white/20 hover:text-white"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="w-7 h-7"
+            <span className="flex flex-col gap-1.5">
+              <span
+                className={`block h-px w-5 bg-current transition-transform duration-300 ${
+                  isMenuOpen ? "translate-y-[7px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`block h-px w-5 bg-current transition-opacity duration-300 ${
+                  isMenuOpen ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <span
+                className={`block h-px w-5 bg-current transition-transform duration-300 ${
+                  isMenuOpen ? "-translate-y-[7px] -rotate-45" : ""
+                }`}
+              />
+            </span>
+          </button>
+
+          {isMenuOpen && (
+            <div
+              id="garrafeira-site-menu"
+              className="mt-4 max-h-[calc(100vh-110px)] w-64 overflow-y-auto rounded-2xl border border-white/20 bg-[#10243d]/95 p-3 shadow-2xl backdrop-blur-xl"
             >
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-              <polyline points="9 22 9 12 15 12 15 22" />
-            </svg>
-          </Link>
+              <nav aria-label="Menu principal">
+                <div className="px-4 pb-3 pt-2">
+                  <p className="font-serif text-[10px] uppercase tracking-[0.35em] text-white/45">
+                    Senhor Peixe
+                  </p>
+                </div>
 
-          <Link href="/" className="flex flex-col items-center">
-            <img
-  src="https://i.ibb.co/mCtT8PJ5/so-peixe-sem-olho.png"
-  alt="Senhor Peixe Logo"
-  className="w-16 h-16 object-contain"
-/>
-            <span className="font-serif text-xs tracking-[0.3em] text-[#1e3a5f] mt-1">SENHOR PEIXE</span>
-          </Link>
+                <div className="space-y-1">
+                  <Link
+                    href="/"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Início
+                  </Link>
 
-          <div className="w-6" />
+                  <Link
+                    href="/gastronomia"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Gastronomia
+                  </Link>
+
+                  <Link
+                    href="/garrafeira"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl bg-white/10 px-4 py-3 font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300"
+                  >
+                    Garrafeira
+                  </Link>
+
+                  <Link
+                    href="/o-nosso-espaco"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    O Nosso Espaço
+                  </Link>
+                </div>
+
+                <div className="my-2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+                <div className="space-y-1">
+                  <Link
+                    href="/reservas"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Reservas
+                  </Link>
+
+                  <Link
+                    href="/contactos"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Contactos
+                  </Link>
+
+                  <Link
+                    href="/sobre-nos"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Sobre Nós
+                  </Link>
+                </div>
+              </nav>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Header with Background */}
+      <header className="relative h-[360px] sm:h-[430px] overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: "url('/images/garrafeira-hero-v2.jpg')",
+          }}
+        >
+          <div className="absolute inset-0 bg-black/20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/5 to-stone-50" />
+        </div>
+
+        {/* Central Logo */}
+        <div className="relative z-10 flex h-full flex-col items-center justify-center text-center">
+          <img
+            src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
+            alt="Senhor Peixe Logo"
+            className="mb-4 h-16 w-16 object-contain sm:h-20 sm:w-20 drop-shadow-lg"
+          />
+
+          <span className="text-white/80 text-xs tracking-[0.35em] uppercase font-serif">
+            Senhor Peixe
+          </span>
+
+          <h1 className="mt-4 text-4xl sm:text-5xl text-white font-serif tracking-[0.18em] uppercase">
+            Garrafeira
+          </h1>
+
+          <p className="mx-auto mt-4 max-w-xl px-6 font-serif text-sm sm:text-base italic tracking-[0.08em] text-white/85">
+            Uma seleção criteriosa dos melhores vinhos portugueses
+          </p>
+
+          <div
+            className="mt-5 h-px w-20 bg-gradient-to-r from-transparent via-white/70 to-transparent"
+            aria-hidden="true"
+          />
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative h-[50vh] min-h-[400px]">
-        <Image
-          src="/images/garrafeira-hero.jpg"
-          alt="Garrafeira Senhor Peixe"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-[#faf9f7]" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="text-center">
-            <h1 className="font-serif text-5xl md:text-6xl text-white tracking-[0.2em] drop-shadow-lg">
-              GARRAFEIRA
-            </h1>
-            <p className="font-serif text-lg text-white/90 mt-4 tracking-[0.15em] italic drop-shadow-md">
-              Uma seleção criteriosa dos melhores vinhos portugueses
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* Wine List Content */}
+      <section className="max-w-5xl mx-auto px-4 py-16">
+        <div className="mx-auto max-w-3xl text-center mb-16">
+          <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
+            Seleção de vinhos
+          </p>
 
-      {/* PDF Viewer Section */}
-      <section className="max-w-4xl mx-auto px-6 py-16">
-        <div className="text-center mb-12">
-          <h2 className="font-serif text-2xl text-[#1e3a5f] tracking-[0.15em]">CARTA DE VINHOS</h2>
-          <div className="w-16 h-0.5 bg-[#c9a959] mx-auto mt-4" />
-        </div>
+          <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+            <span className="font-serif text-lg text-[#10243d]">-</span>
 
-        {/* Embedded Wine List (styled as PDF document) */}
-        <div className="bg-white rounded-sm shadow-2xl shadow-black/10 border border-[#e8e6e3] overflow-hidden">
-          {/* Document Header */}
-          <div className="bg-[#1e3a5f] px-8 py-6 text-center">
-            <img
-  src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
-  alt="Senhor Peixe Logo"
-  className="w-20 h-20 object-contain mx-auto mb-2"
-/>
-            <h3 className="font-serif text-xl text-white tracking-[0.2em]">SENHOR PEIXE</h3>
-            <p className="font-serif text-sm text-white/70 tracking-[0.1em] mt-1">CARTA DE VINHOS</p>
+            <h2 className="font-serif text-2xl sm:text-3xl tracking-[0.22em] sm:tracking-[0.32em] text-[#10243d] uppercase">
+              Carta de Vinhos
+            </h2>
+
+            <span className="font-serif text-lg text-[#10243d]">-</span>
           </div>
 
-          {/* Scrollable Wine List */}
-          <div className="max-h-[70vh] overflow-y-auto scroll-smooth">
-            <div className="px-8 md:px-16 py-12 space-y-16">
-              {wineRegions.map((region, index) => (
-                <div key={region.region}>
-                  {/* Region Title */}
-                  <div className="text-center mb-10">
-                    <h4 className="font-serif text-xl text-[#1e3a5f] tracking-[0.2em]">{region.region}</h4>
-                    <div className="flex items-center justify-center gap-4 mt-3">
-                      <div className="h-px w-12 bg-[#c9a959]" />
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#c9a959]" />
-                      <div className="h-px w-12 bg-[#c9a959]" />
-                    </div>
-                  </div>
+          <div
+            className="mx-auto mt-4 flex w-24 flex-col items-center gap-1"
+            aria-hidden="true"
+          >
+            <span className="h-px w-24 bg-[#e2bd93]/80" />
+            <span className="h-px w-20 bg-[#e2bd93]/55" />
+          </div>
 
-                  {/* Wines */}
-                  <div className="space-y-8">
-                    {region.wines.map((wine) => (
-                      <div key={wine.name} className="group">
-                        <div className="flex items-baseline justify-between gap-4">
-                          <div className="flex-1">
-                            <h5 className="font-serif text-base text-[#2d3748] tracking-wide">
-                              {wine.name}
-                              <span className="text-[#718096] ml-2">{wine.year}</span>
-                            </h5>
-                            <p className="text-sm text-[#a0aec0] mt-1 italic">{wine.grape}</p>
-                          </div>
-                          <div className="flex items-baseline gap-2">
-                            <span className="hidden md:inline-block flex-shrink-0 w-24 border-b border-dotted border-[#e2e8f0]" />
-                            <span className="font-serif text-[#1e3a5f] whitespace-nowrap">{wine.price}</span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+          <p className="mx-auto mt-6 max-w-xl font-serif text-sm sm:text-base leading-relaxed text-[#5f7285]">
+            Uma carta pensada para acompanhar a nossa cozinha, com referências
+            nacionais cuidadosamente selecionadas.
+          </p>
+        </div>
 
-                  {/* Section Divider */}
-                  {index < wineRegions.length - 1 && (
-                    <div className="mt-16 flex items-center justify-center">
-                      <div className="h-px w-full max-w-xs bg-gradient-to-r from-transparent via-[#e8e6e3] to-transparent" />
-                    </div>
-                  )}
+        <div className="space-y-16">
+          {wineRegions.map((region, regionIndex) => (
+            <section key={region.region}>
+              {regionIndex > 0 && (
+                <div className="flex items-center justify-center mb-12">
+                  <div className="flex-1 h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent" />
                 </div>
-              ))}
+              )}
 
-              {/* Footer Note */}
-              <div className="text-center pt-8 pb-4 border-t border-[#e8e6e3]">
-                <p className="font-serif text-sm text-[#a0aec0] italic">
-                  Preços sujeitos a disponibilidade. IVA incluído.
-                </p>
-                <p className="font-serif text-xs text-[#cbd5e0] mt-2 tracking-[0.1em]">
-                  SENHOR PEIXE — DESDE 1999
-                </p>
+              <div className="text-center mb-12">
+                <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+                  <span className="font-serif text-lg text-[#10243d]">-</span>
+
+                  <h3 className="font-serif text-2xl sm:text-3xl tracking-[0.22em] sm:tracking-[0.32em] text-[#10243d] uppercase">
+                    {region.region}
+                  </h3>
+
+                  <span className="font-serif text-lg text-[#10243d]">-</span>
+                </div>
+
+                <div
+                  className="mx-auto mt-4 flex w-24 flex-col items-center gap-1"
+                  aria-hidden="true"
+                >
+                  <span className="h-px w-24 bg-[#e2bd93]/80" />
+                  <span className="h-px w-20 bg-[#e2bd93]/55" />
+                </div>
               </div>
+
+              <div className="grid grid-cols-1 gap-x-12 gap-y-8 md:grid-cols-2">
+                {region.wines.map((wine) => (
+                  <div key={wine.name} className="group">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1">
+                        <h4 className="font-serif text-base sm:text-lg font-medium uppercase tracking-wide text-stone-800">
+                          {wine.name}
+                          <span className="ml-2 text-sm text-stone-400">
+                            {wine.year}
+                          </span>
+                        </h4>
+
+                        <p className="mt-1 text-sm leading-relaxed text-[#1e3a5f]/80 italic">
+                          {wine.grape}
+                        </p>
+                      </div>
+
+                      <div className="flex items-baseline gap-3 pt-1">
+                        <span className="hidden w-16 border-b border-dotted border-stone-300 md:inline-block" />
+                        <span className="font-serif text-base text-[#10243d] whitespace-nowrap">
+                          {wine.price}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+
+        {/* Full Wine PDF */}
+        <section className="mt-20 scroll-mt-28">
+          <div className="flex items-center justify-center mb-12">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent" />
+          </div>
+
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
+              Carta completa
+            </p>
+
+            <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+              <span className="font-serif text-lg text-[#10243d]">-</span>
+
+              <h2 className="font-serif text-2xl sm:text-3xl tracking-[0.22em] sm:tracking-[0.32em] text-[#10243d] uppercase">
+                Vinhos
+              </h2>
+
+              <span className="font-serif text-lg text-[#10243d]">-</span>
+            </div>
+
+            <div
+              className="mx-auto mt-4 flex w-24 flex-col items-center gap-1"
+              aria-hidden="true"
+            >
+              <span className="h-px w-24 bg-[#e2bd93]/80" />
+              <span className="h-px w-20 bg-[#e2bd93]/55" />
+            </div>
+
+            <p className="mx-auto mt-6 max-w-xl font-serif text-sm sm:text-base leading-relaxed text-[#5f7285]">
+              Aqui pode consultar a nossa carta de vinhos completa, com todas as
+              referências disponíveis.
+            </p>
+
+            <div className="mt-8 flex justify-center">
+              <a
+                href="/docs/carta-vinhos-senhor-peixe.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-w-56 items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-7 py-3 font-serif text-sm tracking-[0.18em] text-white uppercase transition-all duration-300 hover:bg-[#10243d]"
+              >
+                Abrir carta
+              </a>
             </div>
           </div>
-        </div>
-
-        {/* Download Button */}
-        <div className="text-center mt-10">
-          <a
-            href="/carta-vinhos.pdf"
-            download
-            className="inline-flex items-center gap-3 font-serif text-sm tracking-[0.15em] text-[#1e3a5f] border border-[#1e3a5f] px-8 py-3 hover:bg-[#1e3a5f] hover:text-white transition-all duration-300"
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-            </svg>
-            DESCARREGAR PDF
-          </a>
-        </div>
+        </section>
       </section>
 
       {/* Footer */}
-      <footer className="py-12 text-center border-t border-[#e8e6e3]">
-        <Link href="/">
+      <footer className="bg-[#1e3a5f] py-8 text-center">
+        <Link href="/" className="inline-block group">
           <img
-  src="https://i.ibb.co/mCtT8PJ5/so-peixe-sem-olho.png"
-  alt="Senhor Peixe Logo"
-  className="w-16 h-16 object-contain mx-auto mb-3"
-/>
+            src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
+            alt="Senhor Peixe Logo"
+            className="w-16 h-16 object-contain mx-auto"
+          />
         </Link>
-        <p className="font-serif text-sm text-[#a0aec0] tracking-[0.15em]">DESDE 1999</p>
+
+        <p className="text-white/60 text-xs tracking-[0.2em] uppercase font-serif mt-3">
+          Senhor Peixe — Desde 1999
+        </p>
       </footer>
-    </div>
+    </main>
   )
 }

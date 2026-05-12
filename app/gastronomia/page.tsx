@@ -2,13 +2,10 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { Home } from "lucide-react"
-import { FishLogo } from "@/components/fish-logo"
 import { useEffect, useState } from "react"
 
 const menuCategories = [
   { id: "entradas", label: "Entradas" },
-  { id: "saladas", label: "Saladas" },
   { id: "especialidades-mar", label: "Especialidades do Mar" },
   { id: "especialidades-terra", label: "Especialidades da Terra" },
   { id: "acompanhamentos", label: "Acompanhamentos" },
@@ -36,28 +33,6 @@ const menuItems = {
       name: "Peixinhos da Horta",
       description: "Feijão verde empanado servido com molho tártaro caseiro",
       image: "/images/dishes/percebes.jpg",
-    },
-  ],
-  saladas: [
-    {
-      name: "Salada de Polvo",
-      description: "Polvo grelhado com azeite, cebola roxa e coentros frescos",
-      image: "/images/dishes/salada-polvo.jpg",
-    },
-    {
-      name: "Salada Mista",
-      description: "Alface, tomate, cebola e pepino com vinagrete da casa",
-      image: "/images/dishes/salada-polvo.jpg",
-    },
-    {
-      name: "Salada de Bacalhau",
-      description: "Bacalhau desfiado com grão-de-bico, ovo e salsa",
-      image: "/images/dishes/salada-polvo.jpg",
-    },
-    {
-      name: "Salada César com Camarão",
-      description: "Alface romana, croutons, parmesão e camarão grelhado",
-      image: "/images/dishes/salada-polvo.jpg",
     },
   ],
   "especialidades-mar": [
@@ -152,9 +127,13 @@ const menuItems = {
 
 export default function GastronomiaPage() {
   const [activeSection, setActiveSection] = useState("entradas")
+  const [isHeaderScrolled, setIsHeaderScrolled] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
+      setIsHeaderScrolled(window.scrollY > 120)
+
       const sections = menuCategories.map((cat) => ({
         id: cat.id,
         element: document.getElementById(cat.id),
@@ -165,6 +144,7 @@ export default function GastronomiaPage() {
       for (const section of sections) {
         if (section.element) {
           const { offsetTop, offsetHeight } = section.element
+
           if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
             setActiveSection(section.id)
             break
@@ -173,15 +153,33 @@ export default function GastronomiaPage() {
       }
     }
 
-    window.addEventListener("scroll", handleScroll)
+    handleScroll()
+    window.addEventListener("scroll", handleScroll, { passive: true })
+
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  useEffect(() => {
+    if (!isMenuOpen) return
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false)
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [isMenuOpen])
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
+
     if (element) {
-      const navHeight = 60
+      const navHeight = 92
       const elementPosition = element.offsetTop - navHeight
+
       window.scrollTo({
         top: elementPosition,
         behavior: "smooth",
@@ -191,92 +189,233 @@ export default function GastronomiaPage() {
 
   return (
     <main className="min-h-screen bg-stone-50">
+      {/* Floating Site Menu */}
+      <div className="fixed left-6 top-5 z-[80]">
+        {isMenuOpen && (
+          <button
+            type="button"
+            className="fixed inset-0 z-[70] cursor-default"
+            aria-label="Fechar menu"
+            onClick={() => setIsMenuOpen(false)}
+          />
+        )}
+
+        <div className="relative z-[90]">
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen((open) => !open)}
+            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={isMenuOpen}
+            aria-controls="gastronomia-site-menu"
+            className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/12 text-white/90 shadow-lg backdrop-blur-md transition-all duration-300 hover:border-white/40 hover:bg-white/20 hover:text-white"
+          >
+            <span className="flex flex-col gap-1.5">
+              <span
+                className={`block h-px w-5 bg-current transition-transform duration-300 ${
+                  isMenuOpen ? "translate-y-[7px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`block h-px w-5 bg-current transition-opacity duration-300 ${
+                  isMenuOpen ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <span
+                className={`block h-px w-5 bg-current transition-transform duration-300 ${
+                  isMenuOpen ? "-translate-y-[7px] -rotate-45" : ""
+                }`}
+              />
+            </span>
+          </button>
+
+          {isMenuOpen && (
+            <div
+              id="gastronomia-site-menu"
+              className="mt-4 max-h-[calc(100vh-110px)] w-64 overflow-y-auto rounded-2xl border border-white/20 bg-[#10243d]/95 p-3 shadow-2xl backdrop-blur-xl"
+            >
+              <nav aria-label="Menu principal">
+                <div className="px-4 pb-3 pt-2">
+                  <p className="font-serif text-[10px] uppercase tracking-[0.35em] text-white/45">
+                    Senhor Peixe
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <Link
+                    href="/"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Início
+                  </Link>
+
+                  <Link
+                    href="/gastronomia"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl bg-white/10 px-4 py-3 font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300"
+                  >
+                    Gastronomia
+                  </Link>
+
+                  <Link
+                    href="/garrafeira"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Garrafeira
+                  </Link>
+
+                  <Link
+                    href="/o-nosso-espaco"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    O Nosso Espaço
+                  </Link>
+                </div>
+
+                <div className="my-2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+                <div className="space-y-1">
+                  <Link
+                    href="/reservas"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Reservas
+                  </Link>
+
+                  <Link
+                    href="/contactos"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Contactos
+                  </Link>
+
+                  <Link
+                    href="/sobre-nos"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Sobre Nós
+                  </Link>
+                </div>
+              </nav>
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* Header with Background */}
-      <header className="relative h-72 sm:h-80 overflow-hidden">
+      <header className="relative h-[360px] sm:h-[430px] overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: "url('/images/menu-header.jpg')" }}
+          style={{
+            backgroundImage:
+              "url('https://i.ibb.co/RpWCc7kM/Chat-GPT-Image-12-05-2026-00-30-57.png')",
+          }}
         >
-          <div className="absolute inset-0 bg-black/20" />
+          <div className="absolute inset-0 bg-black/25" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/10 to-black/45" />
         </div>
 
-        {/* Home Icon */}
-        <Link
-          href="/"
-          className="absolute top-6 left-6 z-20 text-white/80 hover:text-white transition-colors duration-300"
-          aria-label="Voltar à página inicial"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="w-7 h-7"
-          >
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-            <polyline points="9 22 9 12 15 12 15 22" />
-          </svg>
-        </Link>
-
         {/* Central Logo */}
-        <div className="relative z-10 flex flex-col items-center justify-center h-full text-center">
-          <div className="bg-[#1e3a5f] p-4 rounded-lg mb-2">
-            <img
-  src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
-  alt="Senhor Peixe Logo"
-  className="w-20 h-20 object-contain"
-/>
-          </div>
-          <span className="text-white/80 text-xs tracking-[0.2em] uppercase font-serif">
+        <div className="relative z-10 flex h-full flex-col items-center justify-center pb-20 text-center">
+          <img
+            src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
+            alt="Senhor Peixe Logo"
+            className="mb-4 h-16 w-16 object-contain sm:h-20 sm:w-20 drop-shadow-lg"
+          />
+
+          <span className="text-white/80 text-xs tracking-[0.35em] uppercase font-serif">
             Senhor Peixe
           </span>
-          <h1 className="text-4xl sm:text-5xl text-white font-serif tracking-[0.15em] mt-2 italic">
-            MENU
+
+          <h1 className="mt-4 text-4xl sm:text-5xl text-white font-serif tracking-[0.18em] uppercase">
+            Menu
           </h1>
+
+          <div
+            className="mt-5 h-px w-20 bg-gradient-to-r from-transparent via-white/70 to-transparent"
+            aria-hidden="true"
+          />
         </div>
       </header>
 
       {/* Sticky Navigation Bar */}
-      <nav className="sticky top-0 z-30 bg-[#1e3a5f] shadow-lg">
+      <nav
+        className={`sticky top-0 z-30 -mt-[76px] transition-all duration-500 ${
+          isHeaderScrolled
+            ? "bg-[#10243d]/95 shadow-xl backdrop-blur-xl border-b border-white/10"
+            : "bg-white/10 backdrop-blur-md border-y border-white/15"
+        }`}
+      >
         <div className="max-w-6xl mx-auto px-4">
-          <ul className="flex flex-wrap sm:flex-nowrap items-center justify-center gap-2 sm:gap-6 py-4">
-            {menuCategories.map((category) => (
-              <li key={category.id}>
-                <button
-                  onClick={() => scrollToSection(category.id)}
-                  className={`text-sm sm:text-base whitespace-nowrap px-2 py-1 transition-colors font-serif tracking-wide ${
-                    activeSection === category.id
-                      ? "text-white"
-                      : "text-white/70 hover:text-white"
-                  }`}
-                >
-                  {category.label}
-                </button>
-              </li>
-            ))}
-          </ul>
+          <div
+            className={`transition-all duration-500 ${
+              isHeaderScrolled ? "py-3" : "py-4"
+            }`}
+          >
+            {isHeaderScrolled && (
+              <div className="mb-3 text-center">
+                <span className="font-serif text-xs tracking-[0.35em] uppercase text-white/70">
+                  Senhor Peixe
+                </span>
+              </div>
+            )}
+
+            <div className="overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <ul className="flex min-w-max items-center justify-center gap-2 sm:gap-3">
+                {menuCategories.map((category) => (
+                  <li key={category.id}>
+                    <button
+                      onClick={() => scrollToSection(category.id)}
+                      className={`rounded-md border px-4 py-2 font-serif text-xs sm:text-sm tracking-wide whitespace-nowrap transition-all duration-300 ${
+                        activeSection === category.id
+                          ? "border-white/35 bg-white/18 text-white"
+                          : "border-white/15 bg-white/5 text-white/75 hover:border-white/35 hover:bg-white/12 hover:text-white"
+                      }`}
+                    >
+                      {category.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
       </nav>
 
       {/* Menu Content */}
-      <div className="max-w-5xl mx-auto px-4 py-12">
+      <div className="max-w-5xl mx-auto px-4 py-16">
         {menuCategories.map((category, categoryIndex) => (
-          <section key={category.id} id={category.id} className="mb-16 scroll-mt-20">
+          <section key={category.id} id={category.id} className="mb-16 scroll-mt-28">
             {/* Section Title with Divider */}
             {categoryIndex > 0 && (
               <div className="flex items-center justify-center mb-12">
                 <div className="flex-1 h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent" />
               </div>
             )}
-            
-            <div className="text-center mb-10">
-              <h2 className="text-2xl sm:text-3xl font-serif tracking-[0.15em] text-stone-800 uppercase">
-                {category.label}
-              </h2>
-              <div className="w-16 h-0.5 bg-[#1e3a5f] mx-auto mt-3" />
+
+            <div className="text-center mb-12">
+              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+                <span className="font-serif text-lg text-[#10243d]">-</span>
+
+                <h2 className="font-serif text-2xl sm:text-3xl tracking-[0.22em] sm:tracking-[0.32em] text-[#10243d] uppercase">
+                  {category.label}
+                </h2>
+
+                <span className="font-serif text-lg text-[#10243d]">-</span>
+              </div>
+
+              <div
+                className="mx-auto mt-4 flex w-24 flex-col items-center gap-1"
+                aria-hidden="true"
+              >
+                <span className="h-px w-24 bg-[#e2bd93]/80" />
+                <span className="h-px w-20 bg-[#e2bd93]/55" />
+              </div>
             </div>
 
             {/* Two Column Grid */}
@@ -292,7 +431,7 @@ export default function GastronomiaPage() {
                       className="object-cover"
                     />
                   </div>
-                  
+
                   {/* Dish Info */}
                   <div className="flex-1 pt-1">
                     <h3 className="text-base sm:text-lg font-serif font-medium text-stone-800 uppercase tracking-wide">
@@ -307,17 +446,65 @@ export default function GastronomiaPage() {
             </div>
           </section>
         ))}
+
+        {/* Full Menu PDF */}
+        <section className="mt-20 scroll-mt-28">
+          <div className="flex items-center justify-center mb-12">
+            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent" />
+          </div>
+
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
+              Carta completa
+            </p>
+
+            <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+              <span className="font-serif text-lg text-[#10243d]">-</span>
+
+              <h2 className="font-serif text-2xl sm:text-3xl tracking-[0.22em] sm:tracking-[0.32em] text-[#10243d] uppercase">
+                Menu completo
+              </h2>
+
+              <span className="font-serif text-lg text-[#10243d]">-</span>
+            </div>
+
+            <div
+              className="mx-auto mt-4 flex w-24 flex-col items-center gap-1"
+              aria-hidden="true"
+            >
+              <span className="h-px w-24 bg-[#e2bd93]/80" />
+              <span className="h-px w-20 bg-[#e2bd93]/55" />
+            </div>
+
+            <p className="mx-auto mt-6 max-w-xl font-serif text-sm sm:text-base leading-relaxed text-[#5f7285]">
+              Aqui pode consultar a nossa carta completa, com todos os produtos
+              disponíveis e respetiva seleção gastronómica.
+            </p>
+
+            <div className="mt-8 flex justify-center">
+              <a
+                href="/docs/carta-senhor-peixe.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex min-w-56 items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-7 py-3 font-serif text-sm tracking-[0.18em] text-white uppercase transition-all duration-300 hover:bg-[#10243d]"
+              >
+                Abrir carta
+              </a>
+            </div>
+          </div>
+        </section>
       </div>
 
       {/* Footer */}
       <footer className="bg-[#1e3a5f] py-8 text-center">
         <Link href="/" className="inline-block group">
           <img
-  src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
-  alt="Senhor Peixe Logo"
-  className="w-16 h-16 object-contain mx-auto"
-/>
+            src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
+            alt="Senhor Peixe Logo"
+            className="w-16 h-16 object-contain mx-auto"
+          />
         </Link>
+
         <p className="text-white/60 text-xs tracking-[0.2em] uppercase font-serif mt-3">
           Senhor Peixe — Desde 1999
         </p>
