@@ -12,8 +12,9 @@ function FishLogo({ className = "" }: { className?: string }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      aria-label="Senhor Peixe Logo"
     >
-      <rect x="10" y="10" width="80" height="100" fill="#1e3a5f" rx="4" />
+      <rect x="10" y="10" width="80" height="100" fill="#10243d" rx="4" />
       <g transform="translate(20, 25)">
         <path
           d="M30 5 C20 0, 5 10, 5 30 C5 50, 20 60, 35 55 C25 50, 20 40, 20 30 C20 20, 25 10, 30 5"
@@ -23,19 +24,10 @@ function FishLogo({ className = "" }: { className?: string }) {
           d="M35 8 C45 3, 55 10, 55 25 C55 40, 45 50, 30 55 C45 50, 50 40, 50 28 C50 16, 42 8, 35 8"
           fill="white"
         />
-        <circle cx="42" cy="22" r="3" fill="#1e3a5f" />
-        <path
-          d="M55 20 C58 18, 62 20, 60 25 C58 22, 55 22, 55 20"
-          fill="white"
-        />
-        <path
-          d="M10 5 C15 0, 25 2, 28 8 C20 5, 15 5, 10 5"
-          fill="white"
-        />
-        <path
-          d="M8 8 C12 3, 20 5, 22 10 C16 8, 12 8, 8 8"
-          fill="white"
-        />
+        <circle cx="42" cy="22" r="3" fill="#10243d" />
+        <path d="M55 20 C58 18, 62 20, 60 25 C58 22, 55 22, 55 20" fill="white" />
+        <path d="M10 5 C15 0, 25 2, 28 8 C20 5, 15 5, 10 5" fill="white" />
+        <path d="M8 8 C12 3, 20 5, 22 10 C16 8, 12 8, 8 8" fill="white" />
       </g>
       <text
         x="50"
@@ -48,24 +40,6 @@ function FishLogo({ className = "" }: { className?: string }) {
       >
         SENHOR PEIXE
       </text>
-    </svg>
-  )
-}
-
-// Home Icon
-function HomeIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z" />
-      <path d="M9 21V12h6v9" />
     </svg>
   )
 }
@@ -103,7 +77,7 @@ function TheForkIcon({ className = "" }: { className?: string }) {
   )
 }
 
-// Phone Icon (vintage rotary style)
+// Contact Icons
 function PhoneIcon({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" className={className}>
@@ -119,7 +93,6 @@ function PhoneIcon({ className = "" }: { className?: string }) {
   )
 }
 
-// Email Icon (envelope with @)
 function EmailIcon({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" className={className}>
@@ -131,7 +104,6 @@ function EmailIcon({ className = "" }: { className?: string }) {
   )
 }
 
-// Map Pin Icon
 function MapPinIcon({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -150,7 +122,9 @@ export default function ContactosPage() {
   const [formData, setFormData] = useState({
     ...INITIAL_FORM_DATA,
   })
+
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [state, handleSubmit] = useForm("xykolbyw")
 
   useEffect(() => {
@@ -163,324 +137,610 @@ export default function ContactosPage() {
     if (state.succeeded) {
       setFormData({ ...INITIAL_FORM_DATA })
       setIsSubmitted(true)
+
       const timeout = setTimeout(() => setIsSubmitted(false), 5000)
+
       return () => clearTimeout(timeout)
     }
   }, [state.succeeded])
 
-  const googleMapsUrl = "https://www.google.com/maps/place/Rua+da+Pimenta+35,+1990-254+Lisboa,+Portugal"
-  const googleMapsEmbed = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3112.5!2d-9.0939!3d38.7633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19316a4c5b1b8d%3A0x0!2sRua%20da%20Pimenta%2035%2C%20Parque%20das%20Na%C3%A7%C3%B5es%2C%20Lisboa!5e0!3m2!1spt-PT!2spt!4v1699999999999!5m2!1spt-PT!2spt"
+  useEffect(() => {
+    if (!isMenuOpen) return
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false)
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [isMenuOpen])
+
+  const googleMapsUrl =
+    "https://www.google.com/maps/place/Rua+da+Pimenta+35,+1990-254+Lisboa,+Portugal"
+
+  const googleMapsEmbed =
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3112.5!2d-9.0939!3d38.7633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19316a4c5b1b8d%3A0x0!2sRua%20da%20Pimenta%2035%2C%20Parque%20das%20Na%C3%A7%C3%B5es%2C%20Lisboa!5e0!3m2!1spt-PT!2spt!4v1699999999999!5m2!1spt-PT!2spt"
 
   return (
-    <div className="min-h-screen bg-[#faf9f7]">
-      {/* Header */}
-      <header className="sticky top-0 z-40 bg-[#faf9f7]/90 backdrop-blur-sm border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link
-            href="/"
-            className="text-[#1e3a5f] hover:text-[#c9a55a] transition-colors duration-300"
-            aria-label="Voltar à página inicial"
+    <main className="min-h-screen bg-stone-50">
+      {/* Floating Site Menu */}
+      <div className="fixed left-4 top-4 z-[80] sm:left-6 sm:top-5">
+        {isMenuOpen && (
+          <button
+            type="button"
+            className="fixed inset-0 z-[70] cursor-default"
+            aria-label="Fechar menu"
+            onClick={() => setIsMenuOpen(false)}
+          />
+        )}
+
+        <div className="relative z-[90]">
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen((open) => !open)}
+            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={isMenuOpen}
+            aria-controls="contactos-site-menu"
+            className="group flex h-11 w-11 items-center justify-center rounded-full border border-[#c8a96a]/35 bg-[#10243d]/90 text-white shadow-lg shadow-black/15 backdrop-blur-md transition-all duration-300 hover:border-[#c8a96a] hover:bg-[#10243d]"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="w-7 h-7"
+            <span className="flex flex-col gap-1.5">
+              <span
+                className={`block h-px w-5 bg-current transition-transform duration-300 ${
+                  isMenuOpen ? "translate-y-[7px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`block h-px w-5 bg-current transition-opacity duration-300 ${
+                  isMenuOpen ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <span
+                className={`block h-px w-5 bg-current transition-transform duration-300 ${
+                  isMenuOpen ? "-translate-y-[7px] -rotate-45" : ""
+                }`}
+              />
+            </span>
+          </button>
+
+          {isMenuOpen && (
+            <div
+              id="contactos-site-menu"
+              className="mt-4 max-h-[calc(100vh-110px)] w-64 overflow-y-auto rounded-2xl border border-white/20 bg-[#10243d]/95 p-3 shadow-2xl backdrop-blur-xl"
             >
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-              <polyline points="9 22 9 12 15 12 15 22" />
-            </svg>
-          </Link>
+              <nav aria-label="Menu principal">
+                <div className="px-4 pb-3 pt-2">
+                  <p className="font-serif text-[10px] uppercase tracking-[0.35em] text-white/45">
+                    Senhor Peixe
+                  </p>
+                </div>
 
-         <Link href="/" className="flex flex-col items-center group">
-  <img
-    src="https://i.ibb.co/mCtT8PJ5/so-peixe-sem-olho.png"
-    alt="Senhor Peixe Logo"
-    className="w-16 h-16 object-contain"
-  />
+                <div className="space-y-1">
+                  <Link
+                    href="/"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Início
+                  </Link>
 
-  <span className="font-serif text-sm tracking-[0.3em] text-[#1e3a5f] mt-1">
-    SENHOR PEIXE
-  </span>
-</Link>
+                  <Link
+                    href="/gastronomia"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Gastronomia
+                  </Link>
 
-          <div className="w-7" />
+                  <Link
+                    href="/garrafeira"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Garrafeira
+                  </Link>
+
+                  <Link
+                    href="/o-nosso-espaco"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    O Nosso Espaço
+                  </Link>
+                </div>
+
+                <div className="my-2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+                <div className="space-y-1">
+                  <Link
+                    href="/reservas"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Reservas
+                  </Link>
+
+                  <Link
+                    href="/contactos"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl bg-white/10 px-4 py-3 font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300"
+                  >
+                    Contactos
+                  </Link>
+
+                  <Link
+                    href="/sobre-nos"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Sobre Nós
+                  </Link>
+                </div>
+              </nav>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Header */}
+      <header className="relative flex h-[320px] items-center justify-center overflow-hidden bg-[#10243d] sm:h-[380px]">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#10243d] via-[#132b49] to-[#10243d]" />
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#e2bd93]/40 to-transparent" />
+        <div className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-3xl" />
+
+        <div className="relative z-10 flex flex-col items-center justify-center px-6 text-center">
+          <img
+            src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
+            alt="Senhor Peixe Logo"
+            className="mb-4 h-16 w-16 object-contain drop-shadow-lg sm:h-20 sm:w-20"
+          />
+
+          <span className="font-serif text-xs uppercase tracking-[0.35em] text-white/70">
+            Senhor Peixe
+          </span>
+
+          <h1 className="mt-4 font-serif text-4xl uppercase tracking-[0.18em] text-white sm:text-5xl">
+            Contactos
+          </h1>
+
+          <p className="mx-auto mt-4 max-w-xl font-serif text-sm italic leading-relaxed tracking-[0.08em] text-white/75 sm:text-base">
+            Fale connosco, encontre-nos ou envie-nos a sua mensagem.
+          </p>
+
+          <div
+            className="mt-5 h-px w-20 bg-gradient-to-r from-transparent via-[#e2bd93]/80 to-transparent"
+            aria-hidden="true"
+          />
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-6 pb-24">
-        {/* Morada Section */}
-        <section className="text-center mb-16">
-          <h2 className="font-serif text-3xl text-[#2d2d2d] tracking-wide mb-3">
-            Morada
-          </h2>
-          <div className="flex justify-center mb-6">
-            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-[#c9a962] to-transparent" />
-          </div>
-          <a
-            href={googleMapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 font-serif text-lg text-[#2d2d2d] hover:text-[#1e3a5f] transition-colors duration-300"
-          >
-            <span>Rua da Pimenta 35, Parque das Nações, Zona Ribeirinha Norte, 1990-254 Lisboa</span>
-            <MapPinIcon className="w-5 h-5 text-[#1e3a5f]" />
-          </a>
-        </section>
+      {/* Content */}
+      <section className="px-4 py-16 sm:px-6">
+        <div className="mx-auto max-w-5xl">
+          <div className="mb-14 text-center">
+            <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
+              Informação
+            </p>
 
-        {/* Horário Section */}
-        <section className="text-center mb-16">
-          <h2 className="font-serif text-3xl text-[#2d2d2d] tracking-wide mb-3">
-            Horário
-          </h2>
-          <div className="flex justify-center mb-6">
-            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-[#c9a962] to-transparent" />
-          </div>
-          <div className="font-serif text-lg text-[#2d2d2d] space-y-1">
-            <p>Terça a Sábado 12:00-15:30/19:00-22:30</p>
-            <p>Domingo 12:30-15:30</p>
-          </div>
-        </section>
+            <div className="mt-3 flex items-center justify-center gap-x-3 sm:gap-x-4">
+              <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
+                -
+              </span>
 
-        {/* Contact Methods */}
-        <section className="space-y-10 mb-20">
-          {/* Phone */}
-          <div className="flex items-center justify-center gap-8">
-            <PhoneIcon className="w-12 h-12 text-[#2d2d2d]" />
+              <h2 className="max-w-[92vw] font-serif text-xl uppercase leading-relaxed tracking-[0.12em] text-[#10243d] sm:text-3xl sm:tracking-[0.32em]">
+                Como chegar até nós
+              </h2>
+
+              <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
+                -
+              </span>
+            </div>
+
+            <div
+              className="mx-auto mt-4 flex w-20 flex-col items-center gap-1 sm:w-24"
+              aria-hidden="true"
+            >
+              <span className="h-px w-20 bg-[#e2bd93]/80 sm:w-24" />
+              <span className="h-px w-16 bg-[#e2bd93]/55 sm:w-20" />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="rounded-2xl border border-stone-200/80 bg-white/75 p-8 text-center shadow-sm">
+              <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
+                Morada
+              </p>
+
+              <h3 className="mt-3 font-serif text-2xl uppercase tracking-[0.16em] text-[#10243d]">
+                Parque das Nações
+              </h3>
+
+              <div
+                className="mx-auto mt-4 h-px w-16 bg-gradient-to-r from-transparent via-[#e2bd93]/80 to-transparent"
+                aria-hidden="true"
+              />
+
+              <a
+                href={googleMapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mx-auto mt-6 flex max-w-sm items-center justify-center gap-2 font-serif text-base leading-relaxed text-[#5f7285] transition-colors hover:text-[#10243d]"
+              >
+                <span>
+                  Rua da Pimenta 35, Parque das Nações, Zona Ribeirinha Norte,
+                  1990-254 Lisboa
+                </span>
+                <MapPinIcon className="h-5 w-5 shrink-0 text-[#c8a96a]" />
+              </a>
+            </div>
+
+            <div className="rounded-2xl border border-stone-200/80 bg-white/75 p-8 text-center shadow-sm">
+              <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
+                Horário
+              </p>
+
+              <h3 className="mt-3 font-serif text-2xl uppercase tracking-[0.16em] text-[#10243d]">
+                Estamos abertos
+              </h3>
+
+              <div
+                className="mx-auto mt-4 h-px w-16 bg-gradient-to-r from-transparent via-[#e2bd93]/80 to-transparent"
+                aria-hidden="true"
+              />
+
+              <div className="mt-6 space-y-3 font-serif text-base leading-relaxed text-[#5f7285]">
+                <p>Terça a Sábado</p>
+                <p className="text-[#10243d]">12:00-15:30 / 19:00-22:30</p>
+
+                <p className="pt-3">Domingo</p>
+                <p className="text-[#10243d]">12:30-15:30</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
             <a
               href="tel:+351218955892"
-              className="font-serif text-2xl text-[#2d2d2d] tracking-wider hover:text-[#1e3a5f] transition-colors duration-300"
+              className="group flex items-center justify-center gap-5 rounded-2xl border border-stone-200/80 bg-white/75 p-7 shadow-sm transition-all duration-300 hover:border-[#c8a96a]/60 hover:shadow-md"
             >
-              +351 21 895 5892
-            </a>
-          </div>
+              <PhoneIcon className="h-11 w-11 text-[#10243d] transition-colors group-hover:text-[#c8a96a]" />
 
-          {/* Email */}
-          <div className="flex items-center justify-center gap-8">
-            <EmailIcon className="w-12 h-12 text-[#2d2d2d]" />
+              <div>
+                <p className="font-serif text-[10px] uppercase tracking-[0.3em] text-[#c8a96a]">
+                  Telefone
+                </p>
+                <p className="mt-2 font-serif text-xl tracking-wide text-[#10243d]">
+                  +351 21 895 5892
+                </p>
+              </div>
+            </a>
+
             <a
               href="mailto:restaurante.senhor.peixe@gmail.com"
-              className="font-serif text-xl text-[#2d2d2d] tracking-wide hover:text-[#1e3a5f] transition-colors duration-300"
+              className="group flex items-center justify-center gap-5 rounded-2xl border border-stone-200/80 bg-white/75 p-7 shadow-sm transition-all duration-300 hover:border-[#c8a96a]/60 hover:shadow-md"
             >
-              restaurante.senhor.peixe@gmail.com
+              <EmailIcon className="h-11 w-11 text-[#10243d] transition-colors group-hover:text-[#c8a96a]" />
+
+              <div>
+                <p className="font-serif text-[10px] uppercase tracking-[0.3em] text-[#c8a96a]">
+                  Email
+                </p>
+                <p className="mt-2 break-all font-serif text-base tracking-wide text-[#10243d] sm:text-lg">
+                  restaurante.senhor.peixe@gmail.com
+                </p>
+              </div>
             </a>
           </div>
-        </section>
 
-        {/* Google Maps Embed */}
-        <section className="mb-20">
-          <h2 className="font-serif text-3xl text-[#2d2d2d] tracking-wide mb-3 text-center">
-            Localização
-          </h2>
-          <div className="flex justify-center mb-8">
-            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-[#c9a962] to-transparent" />
-          </div>
-          <div className="rounded-lg overflow-hidden shadow-lg">
-            <iframe
-              src={googleMapsEmbed}
-              width="100%"
-              height="400"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Localização do Senhor Peixe"
-              className="w-full"
-            />
-          </div>
-        </section>
-
-        {/* Contact Form */}
-        <section>
-          <h2 className="font-serif text-3xl text-[#2d2d2d] tracking-wide mb-3 text-center">
-            Envie-nos uma Mensagem
-          </h2>
-          <div className="flex justify-center mb-10">
-            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-[#c9a962] to-transparent" />
-          </div>
-
-          <form onSubmit={handleSubmit} className="max-w-xl mx-auto space-y-6">
-            {/* Nome */}
-            <div>
-              <label
-                htmlFor="nome"
-                className="block font-serif text-sm text-[#2d2d2d] tracking-wider uppercase mb-2"
-              >
-                Nome
-              </label>
-              <input
-                type="text"
-                id="nome"
-                name="nome"
-                value={formData.nome}
-                onChange={(e) => setFormData({ ...formData, nome: e.target.value })}
-                required
-                autoComplete="name"
-                className="w-full px-4 py-3 bg-white border border-[#d4d4d4] rounded-md font-serif text-[#2d2d2d] focus:outline-none focus:border-[#1e3a5f] focus:ring-1 focus:ring-[#1e3a5f] transition-colors duration-300"
-                placeholder="O seu nome"
-              />
-              <ValidationError
-                prefix="Nome"
-                field="nome"
-                errors={state.errors}
-                className="mt-2 text-sm text-[#b65a5a] font-serif"
-              />
+          {/* Map */}
+          <section className="mt-20">
+            <div className="mb-12 flex items-center justify-center">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-stone-300 to-transparent" />
             </div>
 
-            {/* Email */}
-            <div>
-              <label
-                htmlFor="email"
-                className="block font-serif text-sm text-[#2d2d2d] tracking-wider uppercase mb-2"
+            <div className="mb-10 text-center">
+              <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
+                Localização
+              </p>
+
+              <div className="mt-3 flex items-center justify-center gap-x-3 sm:gap-x-4">
+                <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
+                  -
+                </span>
+
+                <h2 className="max-w-[92vw] font-serif text-xl uppercase leading-relaxed tracking-[0.12em] text-[#10243d] sm:text-3xl sm:tracking-[0.32em]">
+                  Encontre-nos no mapa
+                </h2>
+
+                <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
+                  -
+                </span>
+              </div>
+
+              <div
+                className="mx-auto mt-4 flex w-20 flex-col items-center gap-1 sm:w-24"
+                aria-hidden="true"
               >
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                required
-                autoComplete="email"
-                className="w-full px-4 py-3 bg-white border border-[#d4d4d4] rounded-md font-serif text-[#2d2d2d] focus:outline-none focus:border-[#1e3a5f] focus:ring-1 focus:ring-[#1e3a5f] transition-colors duration-300"
-                placeholder="o.seu@email.com"
-              />
-              <ValidationError
-                prefix="Email"
-                field="email"
-                errors={state.errors}
-                className="mt-2 text-sm text-[#b65a5a] font-serif"
-              />
+                <span className="h-px w-20 bg-[#e2bd93]/80 sm:w-24" />
+                <span className="h-px w-16 bg-[#e2bd93]/55 sm:w-20" />
+              </div>
             </div>
 
-            {/* Mensagem */}
-            <div>
-              <label
-                htmlFor="mensagem"
-                className="block font-serif text-sm text-[#2d2d2d] tracking-wider uppercase mb-2"
-              >
+            <div className="overflow-hidden rounded-2xl border border-stone-200/80 shadow-xl">
+              <iframe
+                src={googleMapsEmbed}
+                width="100%"
+                height="430"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Localização do Senhor Peixe"
+                className="w-full"
+              />
+            </div>
+          </section>
+
+          {/* Contact Form */}
+          <section className="mt-20">
+            <div className="mb-12 flex items-center justify-center">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-stone-300 to-transparent" />
+            </div>
+
+            <div className="mb-12 text-center">
+              <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
                 Mensagem
-              </label>
-              <textarea
-                id="mensagem"
-                name="mensagem"
-                value={formData.mensagem}
-                onChange={(e) => setFormData({ ...formData, mensagem: e.target.value })}
-                required
-                rows={5}
-                className="w-full px-4 py-3 bg-white border border-[#d4d4d4] rounded-md font-serif text-[#2d2d2d] focus:outline-none focus:border-[#1e3a5f] focus:ring-1 focus:ring-[#1e3a5f] transition-colors duration-300 resize-none"
-                placeholder="A sua mensagem..."
-              />
-              <ValidationError
-                prefix="Mensagem"
-                field="mensagem"
-                errors={state.errors}
-                className="mt-2 text-sm text-[#b65a5a] font-serif"
-              />
-            </div>
+              </p>
 
-            {state.errors && state.errors.length > 0 && (
-              <div role="alert" aria-live="assertive" className="text-center py-1">
-                <p className="font-serif text-[#b65a5a] text-base">
-                  O envio falhou. Verifique os dados e tente novamente.
-                </p>
+              <div className="mt-3 flex items-center justify-center gap-x-3 sm:gap-x-4">
+                <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
+                  -
+                </span>
+
+                <h2 className="max-w-[92vw] font-serif text-xl uppercase leading-relaxed tracking-[0.12em] text-[#10243d] sm:text-3xl sm:tracking-[0.32em]">
+                  Envie-nos uma mensagem
+                </h2>
+
+                <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
+                  -
+                </span>
               </div>
-            )}
 
-            {/* Submit Button */}
-            <div className="text-center pt-4">
-              <button
-                type="submit"
-                disabled={state.submitting}
-                aria-busy={state.submitting}
-                className="inline-flex items-center justify-center gap-2 px-12 py-3 bg-[#1e3a5f] text-white font-serif text-sm tracking-widest uppercase hover:bg-[#2d4a6f] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 rounded-md"
+              <div
+                className="mx-auto mt-4 flex w-20 flex-col items-center gap-1 sm:w-24"
+                aria-hidden="true"
               >
-                {state.submitting && (
-                  <svg
-                    className="h-4 w-4 animate-spin"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    />
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                    />
-                  </svg>
-                )}
-                {state.submitting ? "A enviar..." : "Enviar Mensagem"}
-              </button>
+                <span className="h-px w-20 bg-[#e2bd93]/80 sm:w-24" />
+                <span className="h-px w-16 bg-[#e2bd93]/55 sm:w-20" />
+              </div>
             </div>
 
-            {/* Success Message */}
-            {isSubmitted && (
-              <div className="text-center py-4">
-                <p className="font-serif text-[#1e3a5f] text-lg">
-                  Mensagem enviada com sucesso! Entraremos em contacto brevemente.
-                </p>
-              </div>
-            )}
-          </form>
-        </section>
-      </main>
+            <form
+              onSubmit={handleSubmit}
+              className="mx-auto max-w-2xl space-y-10 rounded-2xl border border-stone-200/80 bg-white/75 p-6 shadow-sm sm:p-10"
+            >
+              <div>
+                <label
+                  htmlFor="nome"
+                  className="mb-2 block font-serif text-sm uppercase tracking-widest text-[#5a6c7d]"
+                >
+                  Nome
+                </label>
 
-      {/* Footer with Social Icons */}
-      <footer className="fixed bottom-6 right-6">
-        <div className="flex items-center gap-4">
-          <a
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#2d2d2d] hover:text-[#1e3a5f] transition-colors duration-300"
-            aria-label="Instagram"
-          >
-            <InstagramIcon className="w-8 h-8" />
-          </a>
-          <a
-            href="https://facebook.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#2d2d2d] hover:text-[#1e3a5f] transition-colors duration-300"
-            aria-label="Facebook"
-          >
-            <FacebookIcon className="w-8 h-8" />
-          </a>
-          <a
-            href="https://tripadvisor.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#2d2d2d] hover:text-[#1e3a5f] transition-colors duration-300"
-            aria-label="TripAdvisor"
-          >
-            <TripAdvisorIcon className="w-8 h-8" />
-          </a>
-          <a
-            href="https://thefork.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#2d2d2d] hover:text-[#1e3a5f] transition-colors duration-300"
-            aria-label="TheFork"
-          >
-            <TheForkIcon className="w-8 h-8" />
-          </a>
+                <input
+                  type="text"
+                  id="nome"
+                  name="nome"
+                  value={formData.nome}
+                  onChange={(e) =>
+                    setFormData({ ...formData, nome: e.target.value })
+                  }
+                  required
+                  autoComplete="name"
+                  className="w-full border-0 border-b border-[#d4d0c8] bg-transparent py-3 font-serif text-lg text-[#2c3e50] outline-none transition-colors placeholder:text-[#a0a0a0] focus:border-[#10243d]"
+                  placeholder="O seu nome"
+                />
+
+                <ValidationError
+                  prefix="Nome"
+                  field="nome"
+                  errors={state.errors}
+                  className="mt-2 font-serif text-sm text-[#b65a5a]"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="email"
+                  className="mb-2 block font-serif text-sm uppercase tracking-widest text-[#5a6c7d]"
+                >
+                  Email
+                </label>
+
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
+                  required
+                  autoComplete="email"
+                  className="w-full border-0 border-b border-[#d4d0c8] bg-transparent py-3 font-serif text-lg text-[#2c3e50] outline-none transition-colors placeholder:text-[#a0a0a0] focus:border-[#10243d]"
+                  placeholder="o.seu@email.com"
+                />
+
+                <ValidationError
+                  prefix="Email"
+                  field="email"
+                  errors={state.errors}
+                  className="mt-2 font-serif text-sm text-[#b65a5a]"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="mensagem"
+                  className="mb-2 block font-serif text-sm uppercase tracking-widest text-[#5a6c7d]"
+                >
+                  Mensagem
+                </label>
+
+                <textarea
+                  id="mensagem"
+                  name="mensagem"
+                  value={formData.mensagem}
+                  onChange={(e) =>
+                    setFormData({ ...formData, mensagem: e.target.value })
+                  }
+                  required
+                  rows={5}
+                  className="w-full resize-none border-0 border-b border-[#d4d0c8] bg-transparent py-3 font-serif text-lg text-[#2c3e50] outline-none transition-colors placeholder:text-[#a0a0a0] focus:border-[#10243d]"
+                  placeholder="A sua mensagem..."
+                />
+
+                <ValidationError
+                  prefix="Mensagem"
+                  field="mensagem"
+                  errors={state.errors}
+                  className="mt-2 font-serif text-sm text-[#b65a5a]"
+                />
+              </div>
+
+              {state.errors && state.errors.length > 0 && (
+                <div
+                  role="alert"
+                  aria-live="assertive"
+                  className="text-center font-serif text-sm leading-relaxed text-[#b65a5a]"
+                >
+                  O envio falhou. Verifique os dados e tente novamente.
+                </div>
+              )}
+
+              <div className="pt-4 text-center">
+                <button
+                  type="submit"
+                  disabled={state.submitting}
+                  aria-busy={state.submitting}
+                  className="relative inline-flex min-w-64 items-center justify-center overflow-hidden rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-9 py-4 font-serif text-sm uppercase tracking-[0.2em] text-white shadow-lg shadow-[#10243d]/10 transition-all duration-300 hover:bg-[#10243d] disabled:cursor-not-allowed disabled:opacity-70"
+                >
+                  <span
+                    className={`transition-opacity duration-300 ${
+                      state.submitting ? "opacity-0" : "opacity-100"
+                    }`}
+                  >
+                    Enviar Mensagem
+                  </span>
+
+                  {state.submitting && (
+                    <span className="absolute inset-0 flex items-center justify-center">
+                      <svg
+                        className="mr-3 h-5 w-5 animate-spin text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        />
+
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                        />
+                      </svg>
+
+                      <span className="tracking-[0.2em]">A enviar...</span>
+                    </span>
+                  )}
+                </button>
+              </div>
+
+              {isSubmitted && (
+                <div className="text-center">
+                  <p className="font-serif text-base leading-relaxed text-[#10243d]">
+                    Mensagem enviada com sucesso. Entraremos em contacto brevemente.
+                  </p>
+                </div>
+              )}
+            </form>
+          </section>
+        </div>
+      </section>
+
+      {/* Social Icons */}
+      <div className="fixed bottom-4 right-4 z-40 flex items-center gap-2 md:bottom-6 md:right-6 md:gap-4">
+        <a
+          href="https://www.instagram.com/restaurante.senhor.peixe/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#10243d] transition-colors hover:text-[#c8a96a]"
+          aria-label="Instagram"
+        >
+          <InstagramIcon className="h-6 w-6 md:h-7 md:w-7" />
+        </a>
+
+        <a
+          href="https://facebook.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#10243d] transition-colors hover:text-[#c8a96a]"
+          aria-label="Facebook"
+        >
+          <FacebookIcon className="h-6 w-6 md:h-7 md:w-7" />
+        </a>
+
+        <a
+          href="https://www.tripadvisor.pt/Restaurant_Review-g189158-d1163802-Reviews-Sr_Peixe-Lisbon_Lisbon_District_Central_Portugal.html"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#10243d] transition-colors hover:text-[#c8a96a]"
+          aria-label="TripAdvisor"
+        >
+          <TripAdvisorIcon className="h-6 w-6 md:h-7 md:w-7" />
+        </a>
+
+        <a
+          href="https://thefork.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#10243d] transition-colors hover:text-[#c8a96a]"
+          aria-label="TheFork"
+        >
+          <TheForkIcon className="h-6 w-6 md:h-7 md:w-7" />
+        </a>
+      </div>
+
+      {/* Footer */}
+      <footer className="relative overflow-hidden bg-[#10243d] py-8 text-center">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#10243d] via-[#132b49] to-[#10243d]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#e2bd93]/40 to-transparent" />
+        <div className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-3xl" />
+
+        <div className="relative z-10">
+          <Link href="/" className="inline-block group">
+            <img
+              src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
+              alt="Senhor Peixe Logo"
+              className="mx-auto h-16 w-16 object-contain"
+            />
+          </Link>
+
+          <p className="mt-3 font-serif text-xs uppercase tracking-[0.2em] text-white/60">
+            Senhor Peixe — Desde 1999
+          </p>
         </div>
       </footer>
-    </div>
+    </main>
   )
 }
