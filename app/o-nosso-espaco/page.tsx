@@ -1,9 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { FishLogo } from "@/components/fish-logo"
 
 const interiorImages = [
   { src: "/images/space/interior-1.jpg", alt: "Sala de jantar principal" },
@@ -24,6 +23,7 @@ const upperDeckImages = [
 
 export default function ONossoEspacoPage() {
   const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [currentImage, setCurrentImage] = useState({ src: "", alt: "" })
 
   const openLightbox = (image: { src: string; alt: string }) => {
@@ -37,73 +37,218 @@ export default function ONossoEspacoPage() {
     document.body.style.overflow = "auto"
   }
 
+  useEffect(() => {
+    if (!isMenuOpen && !lightboxOpen) return
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsMenuOpen(false)
+
+        if (lightboxOpen) {
+          closeLightbox()
+        }
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [isMenuOpen, lightboxOpen])
+
   return (
-    <main className="min-h-screen bg-[#fafafa]">
-      {/* Header Navigation */}
-      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-sm border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          {/* Home Icon */}
-          <Link
-            href="/"
-            className="text-[#1e3a5f] hover:text-[#c9a55a] transition-colors duration-300"
-            aria-label="Voltar à página inicial"
+    <main className="min-h-screen bg-stone-50">
+      {/* Floating Site Menu */}
+      <div className="fixed left-4 top-4 z-[80] sm:left-6 sm:top-5">
+        {isMenuOpen && (
+          <button
+            type="button"
+            className="fixed inset-0 z-[70] cursor-default"
+            aria-label="Fechar menu"
+            onClick={() => setIsMenuOpen(false)}
+          />
+        )}
+
+        <div className="relative z-[90]">
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen((open) => !open)}
+            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={isMenuOpen}
+            aria-controls="espaco-site-menu"
+            className="group flex h-11 w-11 items-center justify-center rounded-full border border-[#c8a96a]/35 bg-[#10243d]/90 text-white shadow-lg shadow-black/15 backdrop-blur-md transition-all duration-300 hover:border-[#c8a96a] hover:bg-[#10243d]"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="w-7 h-7"
-            >
-              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-              <polyline points="9 22 9 12 15 12 15 22" />
-            </svg>
-          </Link>
-
-          {/* Center Logo */}
-          <Link href="/" className="flex flex-col items-center group">
-            <img
-  src="https://i.ibb.co/mCtT8PJ5/so-peixe-sem-olho.png"
-  alt="Senhor Peixe Logo"
-  className="w-16 h-16 object-contain"
-/>
-            <span className="font-serif text-sm tracking-[0.3em] text-[#1e3a5f] mt-1">
-              SENHOR PEIXE
+            <span className="flex flex-col gap-1.5">
+              <span
+                className={`block h-px w-5 bg-current transition-transform duration-300 ${
+                  isMenuOpen ? "translate-y-[7px] rotate-45" : ""
+                }`}
+              />
+              <span
+                className={`block h-px w-5 bg-current transition-opacity duration-300 ${
+                  isMenuOpen ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <span
+                className={`block h-px w-5 bg-current transition-transform duration-300 ${
+                  isMenuOpen ? "-translate-y-[7px] -rotate-45" : ""
+                }`}
+              />
             </span>
-          </Link>
+          </button>
 
-          {/* Spacer for balance */}
-          <div className="w-7" />
+          {isMenuOpen && (
+            <div
+              id="espaco-site-menu"
+              className="mt-4 max-h-[calc(100vh-110px)] w-64 overflow-y-auto rounded-2xl border border-white/20 bg-[#10243d]/95 p-3 shadow-2xl backdrop-blur-xl"
+            >
+              <nav aria-label="Menu principal">
+                <div className="px-4 pb-3 pt-2">
+                  <p className="font-serif text-[10px] uppercase tracking-[0.35em] text-white/45">
+                    Senhor Peixe
+                  </p>
+                </div>
+
+                <div className="space-y-1">
+                  <Link
+                    href="/"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Início
+                  </Link>
+
+                  <Link
+                    href="/gastronomia"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Gastronomia
+                  </Link>
+
+                  <Link
+                    href="/garrafeira"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Garrafeira
+                  </Link>
+
+                  <Link
+                    href="/o-nosso-espaco"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl bg-white/10 px-4 py-3 font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300"
+                  >
+                    O Nosso Espaço
+                  </Link>
+                </div>
+
+                <div className="my-2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+                <div className="space-y-1">
+                  <Link
+                    href="/reservas"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Reservas
+                  </Link>
+
+                  <Link
+                    href="/contactos"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Contactos
+                  </Link>
+
+                  <Link
+                    href="/sobre-nos"
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
+                  >
+                    Sobre Nós
+                  </Link>
+                </div>
+              </nav>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Header Elegant */}
+      <header className="relative flex h-[320px] items-center justify-center overflow-hidden bg-[#10243d] sm:h-[380px]">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#10243d] via-[#132b49] to-[#10243d]" />
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#e2bd93]/40 to-transparent" />
+        <div className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-3xl" />
+
+        {/* Central Logo */}
+        <div className="relative z-10 flex flex-col items-center justify-center px-6 text-center">
+          <img
+            src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
+            alt="Senhor Peixe Logo"
+            className="mb-4 h-16 w-16 object-contain drop-shadow-lg sm:h-20 sm:w-20"
+          />
+
+          <span className="font-serif text-xs uppercase tracking-[0.35em] text-white/70">
+            Senhor Peixe
+          </span>
+
+          <h1 className="mt-4 font-serif text-4xl uppercase tracking-[0.18em] text-white sm:text-5xl">
+            O Nosso Espaço
+          </h1>
+
+          <p className="mx-auto mt-4 max-w-xl font-serif text-sm italic leading-relaxed tracking-[0.08em] text-white/75 sm:text-base">
+            Ambientes pensados para receber com elegância, conforto e vista privilegiada.
+          </p>
+
+          <div
+            className="mt-5 h-px w-20 bg-gradient-to-r from-transparent via-[#e2bd93]/80 to-transparent"
+            aria-hidden="true"
+          />
         </div>
       </header>
 
       {/* Interior Section */}
-      <section className="py-16 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="font-serif text-3xl md:text-4xl tracking-[0.15em] text-[#1e3a5f]">
-              INTERIOR
-            </h2>
-            <div className="w-16 h-0.5 bg-[#c9a55a] mx-auto mt-3" />
+      <section className="px-4 py-16 sm:px-6">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-12 text-center">
+            <div className="flex items-center justify-center gap-x-3 sm:gap-x-4">
+              <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
+                -
+              </span>
+
+              <h2 className="max-w-[92vw] font-serif text-xl uppercase leading-relaxed tracking-[0.12em] text-[#10243d] sm:text-3xl sm:tracking-[0.32em]">
+                Interior
+              </h2>
+
+              <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
+                -
+              </span>
+            </div>
+
+            <div
+              className="mx-auto mt-4 flex w-20 flex-col items-center gap-1 sm:w-24"
+              aria-hidden="true"
+            >
+              <span className="h-px w-20 bg-[#e2bd93]/80 sm:w-24" />
+              <span className="h-px w-16 bg-[#e2bd93]/55 sm:w-20" />
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {interiorImages.map((image, index) => (
               <button
                 key={index}
                 onClick={() => openLightbox(image)}
-                className="group relative aspect-[4/3] overflow-hidden rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#c9a55a] focus:ring-offset-2"
+                className="group relative aspect-[4/3] cursor-pointer overflow-hidden rounded-2xl shadow-lg focus:outline-none focus:ring-2 focus:ring-[#c8a96a] focus:ring-offset-2"
               >
                 <Image
                   src={image.src}
                   alt={image.alt}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20" />
               </button>
             ))}
           </div>
@@ -111,34 +256,51 @@ export default function ONossoEspacoPage() {
       </section>
 
       {/* Divider */}
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
+      <div className="mx-auto max-w-5xl px-4">
+        <div className="h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent" />
       </div>
 
       {/* Exterior Section */}
-      <section className="py-16 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="font-serif text-3xl md:text-4xl tracking-[0.15em] text-[#1e3a5f]">
-              EXTERIOR
-            </h2>
-            <div className="w-16 h-0.5 bg-[#c9a55a] mx-auto mt-3" />
+      <section className="px-4 py-16 sm:px-6">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-12 text-center">
+            <div className="flex items-center justify-center gap-x-3 sm:gap-x-4">
+              <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
+                -
+              </span>
+
+              <h2 className="max-w-[92vw] font-serif text-xl uppercase leading-relaxed tracking-[0.12em] text-[#10243d] sm:text-3xl sm:tracking-[0.32em]">
+                Exterior
+              </h2>
+
+              <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
+                -
+              </span>
+            </div>
+
+            <div
+              className="mx-auto mt-4 flex w-20 flex-col items-center gap-1 sm:w-24"
+              aria-hidden="true"
+            >
+              <span className="h-px w-20 bg-[#e2bd93]/80 sm:w-24" />
+              <span className="h-px w-16 bg-[#e2bd93]/55 sm:w-20" />
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {exteriorImages.map((image, index) => (
               <button
                 key={index}
                 onClick={() => openLightbox(image)}
-                className="group relative aspect-[4/3] overflow-hidden rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#c9a55a] focus:ring-offset-2"
+                className="group relative aspect-[4/3] cursor-pointer overflow-hidden rounded-2xl shadow-lg focus:outline-none focus:ring-2 focus:ring-[#c8a96a] focus:ring-offset-2"
               >
                 <Image
                   src={image.src}
                   alt={image.alt}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20" />
               </button>
             ))}
           </div>
@@ -146,25 +308,43 @@ export default function ONossoEspacoPage() {
       </section>
 
       {/* Divider */}
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
+      <div className="mx-auto max-w-5xl px-4">
+        <div className="h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent" />
       </div>
 
-      {/* The Upper Deck Section - Premium Highlight */}
-      <section className="py-16 px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="font-serif text-3xl md:text-4xl tracking-[0.15em] text-[#1e3a5f]">
-              THE UPPER DECK
-            </h2>
-            <div className="w-16 h-0.5 bg-[#c9a55a] mx-auto mt-3" />
-            <p className="font-serif italic text-[#1e3a5f]/70 mt-4 text-lg">
-              Sala Privada
+      {/* The Upper Deck Section */}
+      <section className="px-4 py-16 sm:px-6">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-12 text-center">
+            <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
+              Sala privada
             </p>
+
+            <div className="mt-3 flex items-center justify-center gap-x-3 sm:gap-x-4">
+              <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
+                -
+              </span>
+
+              <h2 className="max-w-[92vw] font-serif text-xl uppercase leading-relaxed tracking-[0.12em] text-[#10243d] sm:text-3xl sm:tracking-[0.32em]">
+                The Upper Deck
+              </h2>
+
+              <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
+                -
+              </span>
+            </div>
+
+            <div
+              className="mx-auto mt-4 flex w-20 flex-col items-center gap-1 sm:w-24"
+              aria-hidden="true"
+            >
+              <span className="h-px w-20 bg-[#e2bd93]/80 sm:w-24" />
+              <span className="h-px w-16 bg-[#e2bd93]/55 sm:w-20" />
+            </div>
           </div>
 
           {/* Hero Image with Text Overlay */}
-          <div className="relative mb-10 rounded-xl overflow-hidden">
+          <div className="relative mb-10 overflow-hidden rounded-2xl shadow-xl">
             <button
               onClick={() =>
                 openLightbox({
@@ -172,24 +352,26 @@ export default function ONossoEspacoPage() {
                   alt: "The Upper Deck - Vista panorâmica",
                 })
               }
-              className="w-full focus:outline-none focus:ring-2 focus:ring-[#c9a55a] focus:ring-offset-2 rounded-xl"
+              className="w-full rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#c8a96a] focus:ring-offset-2"
             >
-              <div className="relative aspect-[21/9]">
+              <div className="relative aspect-[4/5] sm:aspect-[21/9]">
                 <Image
                   src="/images/space/upper-deck-hero.jpg"
                   alt="The Upper Deck - Vista panorâmica"
                   fill
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 text-white">
-                  <h3 className="font-serif text-2xl md:text-3xl tracking-wide mb-3">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent" />
+
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-left text-white sm:p-10 md:p-12">
+                  <h3 className="mb-3 font-serif text-2xl tracking-wide sm:text-3xl">
                     Uma Experiência Exclusiva
                   </h3>
-                  <p className="font-serif text-white/90 max-w-2xl text-sm md:text-base leading-relaxed">
+
+                  <p className="max-w-2xl font-serif text-sm leading-relaxed text-white/90 sm:text-base">
                     O nosso espaço privado oferece uma vista deslumbrante e um
                     ambiente íntimo para ocasiões especiais. Com capacidade até
-                    20 pessoas, é o local perfeito para jantares de negócios,
+                    50 pessoas, é o local perfeito para jantares de negócios,
                     celebrações familiares ou eventos privados.
                   </p>
                 </div>
@@ -198,48 +380,53 @@ export default function ONossoEspacoPage() {
           </div>
 
           {/* Additional Gallery Images */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {upperDeckImages.map((image, index) => (
               <button
                 key={index}
                 onClick={() => openLightbox(image)}
-                className="group relative aspect-[16/10] overflow-hidden rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#c9a55a] focus:ring-offset-2"
+                className="group relative aspect-[16/10] cursor-pointer overflow-hidden rounded-2xl shadow-lg focus:outline-none focus:ring-2 focus:ring-[#c8a96a] focus:ring-offset-2"
               >
                 <Image
                   src={image.src}
                   alt={image.alt}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                <div className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/20" />
               </button>
             ))}
           </div>
 
           {/* Reservation CTA */}
-          <div className="text-center mt-12">
+          <div className="mt-12 text-center">
             <Link
               href="/reservas"
-              className="inline-block font-serif text-sm tracking-[0.2em] text-[#1e3a5f] border border-[#1e3a5f] px-8 py-3 hover:bg-[#1e3a5f] hover:text-white transition-colors duration-300"
+              className="inline-flex min-w-56 items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-7 py-3 font-serif text-sm uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-[#10243d]"
             >
-              RESERVAR SALA PRIVADA
+              Reservar sala privada
             </Link>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-gray-200">
-        <div className="max-w-6xl mx-auto text-center">
-          <Link href="/" className="inline-block">
-          <img
-  src="https://i.ibb.co/mCtT8PJ5/so-peixe-sem-olho.png"
-  alt="Senhor Peixe Logo"
-  className="w-20 h-20 object-contain mx-auto"
-/>
+      <footer className="relative overflow-hidden bg-[#10243d] py-8 text-center">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#10243d] via-[#132b49] to-[#10243d]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#e2bd93]/40 to-transparent" />
+        <div className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-3xl" />
+
+        <div className="relative z-10">
+          <Link href="/" className="inline-block group">
+            <img
+              src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
+              alt="Senhor Peixe Logo"
+              className="mx-auto h-16 w-16 object-contain"
+            />
           </Link>
-          <p className="font-serif text-xs tracking-[0.3em] text-[#1e3a5f]/60 mt-4">
-            DESDE 1999
+
+          <p className="mt-3 font-serif text-xs uppercase tracking-[0.2em] text-white/60">
+            Senhor Peixe — Desde 1999
           </p>
         </div>
       </footer>
@@ -247,12 +434,12 @@ export default function ONossoEspacoPage() {
       {/* Lightbox Modal */}
       {lightboxOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-300"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 md:p-8"
           onClick={closeLightbox}
         >
           <button
             onClick={closeLightbox}
-            className="absolute top-6 right-6 text-white/80 hover:text-white transition-colors z-10"
+            className="absolute right-6 top-6 z-10 text-white/80 transition-colors hover:text-white"
             aria-label="Fechar"
           >
             <svg
@@ -261,7 +448,7 @@ export default function ONossoEspacoPage() {
               fill="none"
               stroke="currentColor"
               strokeWidth="1.5"
-              className="w-8 h-8"
+              className="h-8 w-8"
             >
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
@@ -269,7 +456,7 @@ export default function ONossoEspacoPage() {
           </button>
 
           <div
-            className="relative max-w-5xl max-h-[85vh] w-full"
+            className="relative max-h-[85vh] w-full max-w-5xl"
             onClick={(e) => e.stopPropagation()}
           >
             <Image
@@ -277,9 +464,10 @@ export default function ONossoEspacoPage() {
               alt={currentImage.alt}
               width={1200}
               height={800}
-              className="object-contain w-full h-full max-h-[85vh] rounded-lg"
+              className="h-full max-h-[85vh] w-full rounded-lg object-contain"
             />
-            <p className="text-white/70 text-center mt-4 font-serif text-sm">
+
+            <p className="mt-4 text-center font-serif text-sm text-white/70">
               {currentImage.alt}
             </p>
           </div>

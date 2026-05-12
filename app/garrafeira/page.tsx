@@ -77,7 +77,7 @@ export default function GarrafeiraPage() {
   return (
     <main className="min-h-screen bg-stone-50">
       {/* Floating Site Menu */}
-      <div className="fixed left-6 top-5 z-[80]">
+      <div className="fixed left-4 top-4 z-[80] sm:left-6 sm:top-5">
         {isMenuOpen && (
           <button
             type="button"
@@ -94,7 +94,7 @@ export default function GarrafeiraPage() {
             aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={isMenuOpen}
             aria-controls="garrafeira-site-menu"
-            className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/12 text-white/90 shadow-lg backdrop-blur-md transition-all duration-300 hover:border-white/40 hover:bg-white/20 hover:text-white"
+            className="group flex h-11 w-11 items-center justify-center rounded-full border border-[#c8a96a]/35 bg-[#10243d]/90 text-white shadow-lg shadow-black/15 backdrop-blur-md transition-all duration-300 hover:border-[#c8a96a] hover:bg-[#10243d]"
           >
             <span className="flex flex-col gap-1.5">
               <span
@@ -194,40 +194,34 @@ export default function GarrafeiraPage() {
         </div>
       </div>
 
-      {/* Header with Background */}
-      <header className="relative h-[360px] sm:h-[430px] overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: "url('/images/garrafeira-hero-v2.jpg')",
-          }}
-        >
-          <div className="absolute inset-0 bg-black/20" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/5 to-stone-50" />
-        </div>
+      {/* Header Elegant */}
+      <header className="relative flex h-[320px] items-center justify-center overflow-hidden bg-[#10243d] sm:h-[380px]">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#10243d] via-[#132b49] to-[#10243d]" />
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#e2bd93]/40 to-transparent" />
+        <div className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-3xl" />
 
         {/* Central Logo */}
-        <div className="relative z-10 flex h-full flex-col items-center justify-center text-center">
+        <div className="relative z-10 flex flex-col items-center justify-center px-6 text-center">
           <img
             src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
             alt="Senhor Peixe Logo"
-            className="mb-4 h-16 w-16 object-contain sm:h-20 sm:w-20 drop-shadow-lg"
+            className="mb-4 h-16 w-16 object-contain drop-shadow-lg sm:h-20 sm:w-20"
           />
 
-          <span className="text-white/80 text-xs tracking-[0.35em] uppercase font-serif">
+          <span className="font-serif text-xs uppercase tracking-[0.35em] text-white/70">
             Senhor Peixe
           </span>
 
-          <h1 className="mt-4 text-4xl sm:text-5xl text-white font-serif tracking-[0.18em] uppercase">
+          <h1 className="mt-4 font-serif text-4xl uppercase tracking-[0.18em] text-white sm:text-5xl">
             Garrafeira
           </h1>
 
-          <p className="mx-auto mt-4 max-w-xl px-6 font-serif text-sm sm:text-base italic tracking-[0.08em] text-white/85">
-            Uma seleção criteriosa dos melhores vinhos portugueses
+          <p className="mx-auto mt-4 max-w-xl font-serif text-sm italic leading-relaxed tracking-[0.08em] text-white/75 sm:text-base">
+            Uma seleção criteriosa dos melhores vinhos portugueses.
           </p>
 
           <div
-            className="mt-5 h-px w-20 bg-gradient-to-r from-transparent via-white/70 to-transparent"
+            className="mt-5 h-px w-20 bg-gradient-to-r from-transparent via-[#e2bd93]/80 to-transparent"
             aria-hidden="true"
           />
         </div>
@@ -373,18 +367,24 @@ export default function GarrafeiraPage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#1e3a5f] py-8 text-center">
-        <Link href="/" className="inline-block group">
-          <img
-            src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
-            alt="Senhor Peixe Logo"
-            className="w-16 h-16 object-contain mx-auto"
-          />
-        </Link>
+      <footer className="relative overflow-hidden bg-[#10243d] py-8 text-center">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#10243d] via-[#132b49] to-[#10243d]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#e2bd93]/40 to-transparent" />
+        <div className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-3xl" />
 
-        <p className="text-white/60 text-xs tracking-[0.2em] uppercase font-serif mt-3">
-          Senhor Peixe — Desde 1999
-        </p>
+        <div className="relative z-10">
+          <Link href="/" className="inline-block group">
+            <img
+              src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
+              alt="Senhor Peixe Logo"
+              className="w-16 h-16 object-contain mx-auto"
+            />
+          </Link>
+
+          <p className="text-white/60 text-xs tracking-[0.2em] uppercase font-serif mt-3">
+            Senhor Peixe — Desde 1999
+          </p>
+        </div>
       </footer>
     </main>
   )

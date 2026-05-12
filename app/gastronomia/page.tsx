@@ -207,7 +207,7 @@ export default function GastronomiaPage() {
             aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={isMenuOpen}
             aria-controls="gastronomia-site-menu"
-            className="group flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/12 text-white/90 shadow-lg backdrop-blur-md transition-all duration-300 hover:border-white/40 hover:bg-white/20 hover:text-white"
+            className="group flex h-11 w-11 items-center justify-center rounded-full border border-[#c8a96a]/35 bg-[#10243d]/90 text-white shadow-lg shadow-black/15 backdrop-blur-md transition-all duration-300 hover:border-[#c8a96a] hover:bg-[#10243d]"
           >
             <span className="flex flex-col gap-1.5">
               <span
@@ -347,7 +347,7 @@ export default function GastronomiaPage() {
       <nav
         className={`sticky top-0 z-30 -mt-[76px] transition-all duration-500 ${
           isHeaderScrolled
-            ? "border-b border-white/10 bg-[#10243d]/95 shadow-xl backdrop-blur-xl"
+            ? "border-b border-[#e2bd93]/25 bg-[#10243d]/95 shadow-xl shadow-black/20 backdrop-blur-xl"
             : "border-y border-white/15 bg-white/10 backdrop-blur-md"
         }`}
       >
@@ -373,8 +373,12 @@ export default function GastronomiaPage() {
                       onClick={() => scrollToSection(category.id)}
                       className={`whitespace-nowrap rounded-md border px-4 py-2 font-serif text-xs tracking-wide transition-all duration-300 sm:text-sm ${
                         activeSection === category.id
-                          ? "border-white/35 bg-white/18 text-white"
-                          : "border-white/15 bg-white/5 text-white/75 hover:border-white/35 hover:bg-white/12 hover:text-white"
+                          ? isHeaderScrolled
+                            ? "border-[#e2bd93]/80 bg-white/5 text-white shadow-[0_0_14px_rgba(226,189,147,0.18)]"
+                            : "border-white/35 bg-white/18 text-white"
+                          : isHeaderScrolled
+                            ? "border-white/15 bg-white/5 text-white/75 hover:border-[#e2bd93]/45 hover:bg-white/8 hover:text-white"
+                            : "border-white/15 bg-white/5 text-white/75 hover:border-white/35 hover:bg-white/12 hover:text-white"
                       }`}
                     >
                       {category.label}
@@ -508,18 +512,24 @@ export default function GastronomiaPage() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-[#1e3a5f] py-8 text-center">
-        <Link href="/" className="inline-block group">
-          <img
-            src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
-            alt="Senhor Peixe Logo"
-            className="mx-auto h-16 w-16 object-contain"
-          />
-        </Link>
+      <footer className="relative overflow-hidden bg-[#10243d] py-8 text-center">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#10243d] via-[#132b49] to-[#10243d]" />
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#e2bd93]/40 to-transparent" />
+        <div className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-3xl" />
 
-        <p className="mt-3 font-serif text-xs uppercase tracking-[0.2em] text-white/60">
-          Senhor Peixe — Desde 1999
-        </p>
+        <div className="relative z-10">
+          <Link href="/" className="inline-block group">
+            <img
+              src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
+              alt="Senhor Peixe Logo"
+              className="mx-auto h-16 w-16 object-contain"
+            />
+          </Link>
+
+          <p className="mt-3 font-serif text-xs uppercase tracking-[0.2em] text-white/60">
+            Senhor Peixe — Desde 1999
+          </p>
+        </div>
       </footer>
     </main>
   )
