@@ -177,7 +177,7 @@ export default function GastronomiaPage() {
     const element = document.getElementById(id)
 
     if (element) {
-      const navHeight = 92
+      const navHeight = window.innerWidth < 640 ? 82 : 92
       const elementPosition = element.offsetTop - navHeight
 
       window.scrollTo({
@@ -190,7 +190,7 @@ export default function GastronomiaPage() {
   return (
     <main className="min-h-screen bg-stone-50">
       {/* Floating Site Menu */}
-      <div className="fixed left-6 top-5 z-[80]">
+      <div className="fixed left-4 top-4 z-[80] sm:left-6 sm:top-5">
         {isMenuOpen && (
           <button
             type="button"
@@ -308,7 +308,7 @@ export default function GastronomiaPage() {
       </div>
 
       {/* Header with Background */}
-      <header className="relative h-[360px] sm:h-[430px] overflow-hidden">
+      <header className="relative h-[360px] overflow-hidden sm:h-[430px]">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
@@ -325,14 +325,14 @@ export default function GastronomiaPage() {
           <img
             src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
             alt="Senhor Peixe Logo"
-            className="mb-4 h-16 w-16 object-contain sm:h-20 sm:w-20 drop-shadow-lg"
+            className="mb-4 h-16 w-16 object-contain drop-shadow-lg sm:h-20 sm:w-20"
           />
 
-          <span className="text-white/80 text-xs tracking-[0.35em] uppercase font-serif">
+          <span className="font-serif text-xs uppercase tracking-[0.35em] text-white/80">
             Senhor Peixe
           </span>
 
-          <h1 className="mt-4 text-4xl sm:text-5xl text-white font-serif tracking-[0.18em] uppercase">
+          <h1 className="mt-4 font-serif text-4xl uppercase tracking-[0.18em] text-white sm:text-5xl">
             Menu
           </h1>
 
@@ -347,31 +347,31 @@ export default function GastronomiaPage() {
       <nav
         className={`sticky top-0 z-30 -mt-[76px] transition-all duration-500 ${
           isHeaderScrolled
-            ? "bg-[#10243d]/95 shadow-xl backdrop-blur-xl border-b border-white/10"
-            : "bg-white/10 backdrop-blur-md border-y border-white/15"
+            ? "border-b border-white/10 bg-[#10243d]/95 shadow-xl backdrop-blur-xl"
+            : "border-y border-white/15 bg-white/10 backdrop-blur-md"
         }`}
       >
-        <div className="max-w-6xl mx-auto px-4">
+        <div className="mx-auto max-w-6xl px-2 sm:px-4">
           <div
             className={`transition-all duration-500 ${
-              isHeaderScrolled ? "py-3" : "py-4"
+              isHeaderScrolled ? "py-2.5 sm:py-3" : "py-3 sm:py-4"
             }`}
           >
             {isHeaderScrolled && (
-              <div className="mb-3 text-center">
-                <span className="font-serif text-xs tracking-[0.35em] uppercase text-white/70">
+              <div className="mb-2 text-center sm:mb-3">
+                <span className="font-serif text-[10px] uppercase tracking-[0.28em] text-white/70 sm:text-xs sm:tracking-[0.35em]">
                   Senhor Peixe
                 </span>
               </div>
             )}
 
-            <div className="overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              <ul className="flex min-w-max items-center justify-center gap-2 sm:gap-3">
+            <div className="w-full overflow-x-auto overflow-y-hidden [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <ul className="flex min-w-max items-center justify-start gap-1.5 px-2 sm:justify-center sm:gap-3 sm:px-0">
                 {menuCategories.map((category) => (
                   <li key={category.id}>
                     <button
                       onClick={() => scrollToSection(category.id)}
-                      className={`rounded-md border px-4 py-2 font-serif text-xs sm:text-sm tracking-wide whitespace-nowrap transition-all duration-300 ${
+                      className={`whitespace-nowrap rounded-md border px-3 py-2 font-serif text-[11px] tracking-[0.08em] transition-all duration-300 sm:px-4 sm:text-sm sm:tracking-wide ${
                         activeSection === category.id
                           ? "border-white/35 bg-white/18 text-white"
                           : "border-white/15 bg-white/5 text-white/75 hover:border-white/35 hover:bg-white/12 hover:text-white"
@@ -388,42 +388,50 @@ export default function GastronomiaPage() {
       </nav>
 
       {/* Menu Content */}
-      <div className="max-w-5xl mx-auto px-4 py-16">
+      <div className="mx-auto max-w-5xl px-4 py-14 sm:py-16">
         {menuCategories.map((category, categoryIndex) => (
-          <section key={category.id} id={category.id} className="mb-16 scroll-mt-28">
+          <section
+            key={category.id}
+            id={category.id}
+            className="mb-16 scroll-mt-24 sm:scroll-mt-28"
+          >
             {/* Section Title with Divider */}
             {categoryIndex > 0 && (
-              <div className="flex items-center justify-center mb-12">
-                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent" />
+              <div className="mb-12 flex items-center justify-center">
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-stone-300 to-transparent" />
               </div>
             )}
 
-            <div className="text-center mb-12">
-              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
-                <span className="font-serif text-lg text-[#10243d]">-</span>
+            <div className="mb-12 text-center">
+              <div className="flex items-center justify-center gap-x-3 sm:gap-x-4">
+                <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
+                  -
+                </span>
 
-                <h2 className="font-serif text-2xl sm:text-3xl tracking-[0.22em] sm:tracking-[0.32em] text-[#10243d] uppercase">
+                <h2 className="max-w-[92vw] font-serif text-xl uppercase leading-relaxed tracking-[0.12em] text-[#10243d] sm:text-3xl sm:tracking-[0.32em]">
                   {category.label}
                 </h2>
 
-                <span className="font-serif text-lg text-[#10243d]">-</span>
+                <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
+                  -
+                </span>
               </div>
 
               <div
-                className="mx-auto mt-4 flex w-24 flex-col items-center gap-1"
+                className="mx-auto mt-4 flex w-20 flex-col items-center gap-1 sm:w-24"
                 aria-hidden="true"
               >
-                <span className="h-px w-24 bg-[#e2bd93]/80" />
-                <span className="h-px w-20 bg-[#e2bd93]/55" />
+                <span className="h-px w-20 bg-[#e2bd93]/80 sm:w-24" />
+                <span className="h-px w-16 bg-[#e2bd93]/55 sm:w-20" />
               </div>
             </div>
 
             {/* Two Column Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+            <div className="grid grid-cols-1 gap-x-12 gap-y-8 md:grid-cols-2">
               {menuItems[category.id as keyof typeof menuItems]?.map((item, index) => (
                 <div key={index} className="flex items-start gap-4">
                   {/* Dish Image */}
-                  <div className="relative w-20 h-20 flex-shrink-0 rounded-full overflow-hidden shadow-md">
+                  <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-full shadow-md">
                     <Image
                       src={item.image}
                       alt={item.name}
@@ -434,10 +442,10 @@ export default function GastronomiaPage() {
 
                   {/* Dish Info */}
                   <div className="flex-1 pt-1">
-                    <h3 className="text-base sm:text-lg font-serif font-medium text-stone-800 uppercase tracking-wide">
+                    <h3 className="font-serif text-base font-medium uppercase tracking-wide text-stone-800 sm:text-lg">
                       {item.name}
                     </h3>
-                    <p className="text-sm text-[#1e3a5f]/80 mt-1 leading-relaxed">
+                    <p className="mt-1 text-sm leading-relaxed text-[#1e3a5f]/80">
                       {item.description}
                     </p>
                   </div>
@@ -448,9 +456,9 @@ export default function GastronomiaPage() {
         ))}
 
         {/* Full Menu PDF */}
-        <section className="mt-20 scroll-mt-28">
-          <div className="flex items-center justify-center mb-12">
-            <div className="flex-1 h-px bg-gradient-to-r from-transparent via-stone-300 to-transparent" />
+        <section className="mt-20 scroll-mt-24 sm:scroll-mt-28">
+          <div className="mb-12 flex items-center justify-center">
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-stone-300 to-transparent" />
           </div>
 
           <div className="mx-auto max-w-3xl text-center">
@@ -458,25 +466,29 @@ export default function GastronomiaPage() {
               Carta completa
             </p>
 
-            <div className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
-              <span className="font-serif text-lg text-[#10243d]">-</span>
+            <div className="mt-3 flex items-center justify-center gap-x-3 sm:gap-x-4">
+              <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
+                -
+              </span>
 
-              <h2 className="font-serif text-2xl sm:text-3xl tracking-[0.22em] sm:tracking-[0.32em] text-[#10243d] uppercase">
+              <h2 className="max-w-[92vw] font-serif text-xl uppercase leading-relaxed tracking-[0.12em] text-[#10243d] sm:text-3xl sm:tracking-[0.32em]">
                 Menu completo
               </h2>
 
-              <span className="font-serif text-lg text-[#10243d]">-</span>
+              <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
+                -
+              </span>
             </div>
 
             <div
-              className="mx-auto mt-4 flex w-24 flex-col items-center gap-1"
+              className="mx-auto mt-4 flex w-20 flex-col items-center gap-1 sm:w-24"
               aria-hidden="true"
             >
-              <span className="h-px w-24 bg-[#e2bd93]/80" />
-              <span className="h-px w-20 bg-[#e2bd93]/55" />
+              <span className="h-px w-20 bg-[#e2bd93]/80 sm:w-24" />
+              <span className="h-px w-16 bg-[#e2bd93]/55 sm:w-20" />
             </div>
 
-            <p className="mx-auto mt-6 max-w-xl font-serif text-sm sm:text-base leading-relaxed text-[#5f7285]">
+            <p className="mx-auto mt-6 max-w-xl font-serif text-sm leading-relaxed text-[#5f7285] sm:text-base">
               Aqui pode consultar a nossa carta completa, com todos os produtos
               disponíveis e respetiva seleção gastronómica.
             </p>
@@ -486,7 +498,7 @@ export default function GastronomiaPage() {
                 href="/docs/carta-senhor-peixe.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-w-56 items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-7 py-3 font-serif text-sm tracking-[0.18em] text-white uppercase transition-all duration-300 hover:bg-[#10243d]"
+                className="inline-flex min-w-56 items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-7 py-3 font-serif text-sm uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-[#10243d]"
               >
                 Abrir carta
               </a>
@@ -501,11 +513,11 @@ export default function GastronomiaPage() {
           <img
             src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
             alt="Senhor Peixe Logo"
-            className="w-16 h-16 object-contain mx-auto"
+            className="mx-auto h-16 w-16 object-contain"
           />
         </Link>
 
-        <p className="text-white/60 text-xs tracking-[0.2em] uppercase font-serif mt-3">
+        <p className="mt-3 font-serif text-xs uppercase tracking-[0.2em] text-white/60">
           Senhor Peixe — Desde 1999
         </p>
       </footer>
