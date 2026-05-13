@@ -3,132 +3,302 @@
 import Link from "next/link"
 import Image from "next/image"
 import { useEffect, useState } from "react"
+import { useLanguage } from "@/components/language-provider"
 
-const menuCategories = [
-  { id: "entradas", label: "Entradas" },
-  { id: "especialidades-mar", label: "Especialidades do Mar" },
-  { id: "especialidades-terra", label: "Especialidades da Terra" },
-  { id: "acompanhamentos", label: "Acompanhamentos" },
-  { id: "sobremesas", label: "Sobremesas" },
-]
+const translations = {
+  pt: {
+    closeMenu: "Fechar menu",
+    openMenu: "Abrir menu",
+    mainMenu: "Menu principal",
+    home: "Início",
+    gastronomy: "Gastronomia",
+    wine: "Garrafeira",
+    space: "O Nosso Espaço",
+    reservations: "Reservas",
+    contacts: "Contactos",
+    about: "Sobre Nós",
+    pageTitle: "Menu",
+    fullCarta: "Carta completa",
+    fullMenu: "Menu completo",
+    fullMenuDescription:
+      "Aqui pode consultar a nossa carta completa, com todos os produtos disponíveis e respetiva seleção gastronómica.",
+    openCarta: "Abrir carta",
+    footer: "Senhor Peixe — Desde 1999",
+    language: "English",
+    languageLabel: "Mudar para inglês",
+    menuCategories: [
+      { id: "entradas", label: "Entradas" },
+      { id: "especialidades-mar", label: "Especialidades do Mar" },
+      { id: "especialidades-terra", label: "Especialidades da Terra" },
+      { id: "acompanhamentos", label: "Acompanhamentos" },
+      { id: "sobremesas", label: "Sobremesas" },
+    ],
+    menuItems: {
+      entradas: [
+        {
+          name: "Camarão ao Alho",
+          description: "Camarões salteados com alho, azeite e ervas aromáticas",
+          image: "/images/dishes/camarao-alho.jpg",
+        },
+        {
+          name: "Percebes",
+          description: "Percebes frescos cozidos ao natural com sal marinho",
+          image: "/images/dishes/percebes.jpg",
+        },
+        {
+          name: "Ameijoas à Bulhão Pato",
+          description: "Ameijoas salteadas com alho, coentros e vinho branco",
+          image: "/images/dishes/camarao-alho.jpg",
+        },
+        {
+          name: "Peixinhos da Horta",
+          description: "Feijão verde empanado servido com molho tártaro caseiro",
+          image: "/images/dishes/percebes.jpg",
+        },
+      ],
+      "especialidades-mar": [
+        {
+          name: "Robalo Grelhado",
+          description: "Robalo fresco grelhado com azeite e limão, servido com legumes",
+          image: "/images/dishes/robalo-grelhado.jpg",
+        },
+        {
+          name: "Cataplana de Marisco",
+          description: "Tradicional cataplana com camarão, amêijoas, mexilhão e peixe",
+          image: "/images/dishes/cataplana.jpg",
+        },
+        {
+          name: "Bacalhau à Brás",
+          description: "Bacalhau desfiado com batata palha, ovos e azeitonas",
+          image: "/images/dishes/robalo-grelhado.jpg",
+        },
+        {
+          name: "Arroz de Tamboril",
+          description: "Arroz cremoso de tamboril com gambas e coentros",
+          image: "/images/dishes/cataplana.jpg",
+        },
+      ],
+      "especialidades-terra": [
+        {
+          name: "Bife à Café de Paris",
+          description: "Bife da vazia grelhado com manteiga aromatizada especial",
+          image: "/images/dishes/bife-cafe.jpg",
+        },
+        {
+          name: "Secretos de Porco Preto",
+          description: "Secretos de porco ibérico grelhados na perfeição",
+          image: "/images/dishes/bife-cafe.jpg",
+        },
+        {
+          name: "Picanha na Brasa",
+          description: "Picanha grelhada no ponto, servida com arroz e farofa",
+          image: "/images/dishes/bife-cafe.jpg",
+        },
+        {
+          name: "Lombinho de Vitela",
+          description: "Lombinho de vitela grelhado com molho de cogumelos",
+          image: "/images/dishes/bife-cafe.jpg",
+        },
+      ],
+      acompanhamentos: [
+        {
+          name: "Batatas a Murro",
+          description: "Batatas assadas esmagadas com alho e azeite",
+          image: "/images/dishes/batatas.jpg",
+        },
+        {
+          name: "Legumes Grelhados",
+          description: "Seleção de legumes da época grelhados com ervas",
+          image: "/images/dishes/batatas.jpg",
+        },
+        {
+          name: "Arroz de Tomate",
+          description: "Arroz aromático com tomate fresco e manjericão",
+          image: "/images/dishes/batatas.jpg",
+        },
+        {
+          name: "Espinafres Salteados",
+          description: "Espinafres frescos salteados com alho e azeite",
+          image: "/images/dishes/batatas.jpg",
+        },
+      ],
+      sobremesas: [
+        {
+          name: "Pastel de Nata",
+          description: "Tradicional pastel de nata com canela e açúcar em pó",
+          image: "/images/dishes/pastel-nata.jpg",
+        },
+        {
+          name: "Mousse de Chocolate",
+          description: "Mousse de chocolate negro com crocante de amêndoa",
+          image: "/images/dishes/pastel-nata.jpg",
+        },
+        {
+          name: "Arroz Doce",
+          description: "Arroz doce cremoso com canela, receita tradicional",
+          image: "/images/dishes/pastel-nata.jpg",
+        },
+        {
+          name: "Tarte de Amêndoa",
+          description: "Tarte de amêndoa do Algarve com gelado de baunilha",
+          image: "/images/dishes/pastel-nata.jpg",
+        },
+      ],
+    },
+  },
+  en: {
+    closeMenu: "Close menu",
+    openMenu: "Open menu",
+    mainMenu: "Main menu",
+    home: "Home",
+    gastronomy: "Gastronomy",
+    wine: "Wine Cellar",
+    space: "The Space",
+    reservations: "Reservations",
+    contacts: "Contacts",
+    about: "About Us",
+    pageTitle: "Menu",
+    fullCarta: "Full menu",
+    fullMenu: "Complete Menu",
+    fullMenuDescription:
+      "Here you can view our complete menu, with all available products and the respective gastronomic selection.",
+    openCarta: "Open menu",
+    footer: "Senhor Peixe — Since 1999",
+    language: "Português",
+    languageLabel: "Switch to Portuguese",
+    menuCategories: [
+      { id: "entradas", label: "Starters" },
+      { id: "especialidades-mar", label: "Sea Specialities" },
+      { id: "especialidades-terra", label: "Meat Specialities" },
+      { id: "acompanhamentos", label: "Side Dishes" },
+      { id: "sobremesas", label: "Desserts" },
+    ],
+    menuItems: {
+      entradas: [
+        {
+          name: "Garlic Prawns",
+          description: "Prawns sautéed with garlic, olive oil and aromatic herbs",
+          image: "/images/dishes/camarao-alho.jpg",
+        },
+        {
+          name: "Goose Barnacles",
+          description: "Fresh goose barnacles cooked naturally with sea salt",
+          image: "/images/dishes/percebes.jpg",
+        },
+        {
+          name: "Clams Bulhão Pato Style",
+          description: "Clams sautéed with garlic, coriander and white wine",
+          image: "/images/dishes/camarao-alho.jpg",
+        },
+        {
+          name: "Peixinhos da Horta",
+          description: "Green beans in a light batter, served with homemade tartar sauce",
+          image: "/images/dishes/percebes.jpg",
+        },
+      ],
+      "especialidades-mar": [
+        {
+          name: "Grilled Sea Bass",
+          description: "Fresh sea bass grilled with olive oil and lemon, served with vegetables",
+          image: "/images/dishes/robalo-grelhado.jpg",
+        },
+        {
+          name: "Seafood Cataplana",
+          description: "Traditional cataplana with prawns, clams, mussels and fish",
+          image: "/images/dishes/cataplana.jpg",
+        },
+        {
+          name: "Bacalhau à Brás",
+          description: "Shredded cod with thin fried potatoes, eggs and olives",
+          image: "/images/dishes/robalo-grelhado.jpg",
+        },
+        {
+          name: "Monkfish Rice",
+          description: "Creamy monkfish rice with prawns and coriander",
+          image: "/images/dishes/cataplana.jpg",
+        },
+      ],
+      "especialidades-terra": [
+        {
+          name: "Café de Paris Steak",
+          description: "Grilled sirloin steak with our special aromatic butter",
+          image: "/images/dishes/bife-cafe.jpg",
+        },
+        {
+          name: "Iberian Pork Secretos",
+          description: "Perfectly grilled Iberian pork secretos",
+          image: "/images/dishes/bife-cafe.jpg",
+        },
+        {
+          name: "Grilled Picanha",
+          description: "Grilled picanha served with rice and farofa",
+          image: "/images/dishes/bife-cafe.jpg",
+        },
+        {
+          name: "Veal Tenderloin",
+          description: "Grilled veal tenderloin with mushroom sauce",
+          image: "/images/dishes/bife-cafe.jpg",
+        },
+      ],
+      acompanhamentos: [
+        {
+          name: "Smashed Potatoes",
+          description: "Roasted smashed potatoes with garlic and olive oil",
+          image: "/images/dishes/batatas.jpg",
+        },
+        {
+          name: "Grilled Vegetables",
+          description: "Selection of seasonal vegetables grilled with herbs",
+          image: "/images/dishes/batatas.jpg",
+        },
+        {
+          name: "Tomato Rice",
+          description: "Aromatic rice with fresh tomato and basil",
+          image: "/images/dishes/batatas.jpg",
+        },
+        {
+          name: "Sautéed Spinach",
+          description: "Fresh spinach sautéed with garlic and olive oil",
+          image: "/images/dishes/batatas.jpg",
+        },
+      ],
+      sobremesas: [
+        {
+          name: "Pastel de Nata",
+          description: "Traditional custard tart with cinnamon and powdered sugar",
+          image: "/images/dishes/pastel-nata.jpg",
+        },
+        {
+          name: "Chocolate Mousse",
+          description: "Dark chocolate mousse with almond crumble",
+          image: "/images/dishes/pastel-nata.jpg",
+        },
+        {
+          name: "Rice Pudding",
+          description: "Creamy rice pudding with cinnamon, prepared in the traditional way",
+          image: "/images/dishes/pastel-nata.jpg",
+        },
+        {
+          name: "Almond Tart",
+          description: "Algarve almond tart with vanilla ice cream",
+          image: "/images/dishes/pastel-nata.jpg",
+        },
+      ],
+    },
+  },
+} as const
 
-const menuItems = {
-  entradas: [
-    {
-      name: "Camarão ao Alho",
-      description: "Camarões salteados com alho, azeite e ervas aromáticas",
-      image: "/images/dishes/camarao-alho.jpg",
-    },
-    {
-      name: "Percebes",
-      description: "Percebes frescos cozidos ao natural com sal marinho",
-      image: "/images/dishes/percebes.jpg",
-    },
-    {
-      name: "Ameijoas à Bulhão Pato",
-      description: "Ameijoas salteadas com alho, coentros e vinho branco",
-      image: "/images/dishes/camarao-alho.jpg",
-    },
-    {
-      name: "Peixinhos da Horta",
-      description: "Feijão verde empanado servido com molho tártaro caseiro",
-      image: "/images/dishes/percebes.jpg",
-    },
-  ],
-  "especialidades-mar": [
-    {
-      name: "Robalo Grelhado",
-      description: "Robalo fresco grelhado com azeite e limão, servido com legumes",
-      image: "/images/dishes/robalo-grelhado.jpg",
-    },
-    {
-      name: "Cataplana de Marisco",
-      description: "Tradicional cataplana com camarão, amêijoas, mexilhão e peixe",
-      image: "/images/dishes/cataplana.jpg",
-    },
-    {
-      name: "Bacalhau à Brás",
-      description: "Bacalhau desfiado com batata palha, ovos e azeitonas",
-      image: "/images/dishes/robalo-grelhado.jpg",
-    },
-    {
-      name: "Arroz de Tamboril",
-      description: "Arroz cremoso de tamboril com gambas e coentros",
-      image: "/images/dishes/cataplana.jpg",
-    },
-  ],
-  "especialidades-terra": [
-    {
-      name: "Bife à Café de Paris",
-      description: "Bife da vazia grelhado com manteiga aromatizada especial",
-      image: "/images/dishes/bife-cafe.jpg",
-    },
-    {
-      name: "Secretos de Porco Preto",
-      description: "Secretos de porco ibérico grelhados na perfeição",
-      image: "/images/dishes/bife-cafe.jpg",
-    },
-    {
-      name: "Picanha na Brasa",
-      description: "Picanha grelhada no ponto, servida com arroz e farofa",
-      image: "/images/dishes/bife-cafe.jpg",
-    },
-    {
-      name: "Lombinho de Vitela",
-      description: "Lombinho de vitela grelhado com molho de cogumelos",
-      image: "/images/dishes/bife-cafe.jpg",
-    },
-  ],
-  acompanhamentos: [
-    {
-      name: "Batatas a Murro",
-      description: "Batatas assadas esmagadas com alho e azeite",
-      image: "/images/dishes/batatas.jpg",
-    },
-    {
-      name: "Legumes Grelhados",
-      description: "Seleção de legumes da época grelhados com ervas",
-      image: "/images/dishes/batatas.jpg",
-    },
-    {
-      name: "Arroz de Tomate",
-      description: "Arroz aromático com tomate fresco e manjericão",
-      image: "/images/dishes/batatas.jpg",
-    },
-    {
-      name: "Espinafres Salteados",
-      description: "Espinafres frescos salteados com alho e azeite",
-      image: "/images/dishes/batatas.jpg",
-    },
-  ],
-  sobremesas: [
-    {
-      name: "Pastel de Nata",
-      description: "Tradicional pastel de nata com canela e açúcar em pó",
-      image: "/images/dishes/pastel-nata.jpg",
-    },
-    {
-      name: "Mousse de Chocolate",
-      description: "Mousse de chocolate negro com crocante de amêndoa",
-      image: "/images/dishes/pastel-nata.jpg",
-    },
-    {
-      name: "Arroz Doce",
-      description: "Arroz doce cremoso com canela, receita tradicional",
-      image: "/images/dishes/pastel-nata.jpg",
-    },
-    {
-      name: "Tarte de Amêndoa",
-      description: "Tarte de amêndoa do Algarve com gelado de baunilha",
-      image: "/images/dishes/pastel-nata.jpg",
-    },
-  ],
-}
+type MenuCategoryId = keyof typeof translations.pt.menuItems
 
 export default function GastronomiaPage() {
-  const [activeSection, setActiveSection] = useState("entradas")
+  const { language, toggleLanguage } = useLanguage()
+  const [activeSection, setActiveSection] = useState<MenuCategoryId>("entradas")
   const [isHeaderScrolled, setIsHeaderScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const t = translations[language]
+  const menuCategories = t.menuCategories
+  const menuItems = t.menuItems
 
   useEffect(() => {
     const handleScroll = () => {
@@ -146,7 +316,7 @@ export default function GastronomiaPage() {
           const { offsetTop, offsetHeight } = section.element
 
           if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section.id)
+            setActiveSection(section.id as MenuCategoryId)
             break
           }
         }
@@ -157,7 +327,7 @@ export default function GastronomiaPage() {
     window.addEventListener("scroll", handleScroll, { passive: true })
 
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  }, [menuCategories])
 
   useEffect(() => {
     if (!isMenuOpen) return
@@ -187,6 +357,11 @@ export default function GastronomiaPage() {
     }
   }
 
+  function handleToggleLanguage() {
+    toggleLanguage()
+    setIsMenuOpen(false)
+  }
+
   return (
     <main className="min-h-screen bg-stone-50">
       {/* Floating Site Menu */}
@@ -195,7 +370,7 @@ export default function GastronomiaPage() {
           <button
             type="button"
             className="fixed inset-0 z-[70] cursor-default"
-            aria-label="Fechar menu"
+            aria-label={t.closeMenu}
             onClick={() => setIsMenuOpen(false)}
           />
         )}
@@ -204,7 +379,7 @@ export default function GastronomiaPage() {
           <button
             type="button"
             onClick={() => setIsMenuOpen((open) => !open)}
-            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-label={isMenuOpen ? t.closeMenu : t.openMenu}
             aria-expanded={isMenuOpen}
             aria-controls="gastronomia-site-menu"
             className="group flex h-11 w-11 items-center justify-center rounded-full border border-[#c8a96a]/35 bg-[#10243d]/90 text-white shadow-lg shadow-black/15 backdrop-blur-md transition-all duration-300 hover:border-[#c8a96a] hover:bg-[#10243d]"
@@ -233,7 +408,7 @@ export default function GastronomiaPage() {
               id="gastronomia-site-menu"
               className="mt-4 max-h-[calc(100vh-110px)] w-64 overflow-y-auto rounded-2xl border border-white/20 bg-[#10243d]/95 p-3 shadow-2xl backdrop-blur-xl"
             >
-              <nav aria-label="Menu principal">
+              <nav aria-label={t.mainMenu}>
                 <div className="px-4 pb-3 pt-2">
                   <p className="font-serif text-[10px] uppercase tracking-[0.35em] text-white/45">
                     Senhor Peixe
@@ -246,7 +421,7 @@ export default function GastronomiaPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Início
+                    {t.home}
                   </Link>
 
                   <Link
@@ -254,7 +429,7 @@ export default function GastronomiaPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl bg-white/10 px-4 py-3 font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300"
                   >
-                    Gastronomia
+                    {t.gastronomy}
                   </Link>
 
                   <Link
@@ -262,7 +437,7 @@ export default function GastronomiaPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Garrafeira
+                    {t.wine}
                   </Link>
 
                   <Link
@@ -270,7 +445,7 @@ export default function GastronomiaPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    O Nosso Espaço
+                    {t.space}
                   </Link>
                 </div>
 
@@ -282,7 +457,7 @@ export default function GastronomiaPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Reservas
+                    {t.reservations}
                   </Link>
 
                   <Link
@@ -290,7 +465,7 @@ export default function GastronomiaPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Contactos
+                    {t.contacts}
                   </Link>
 
                   <Link
@@ -298,9 +473,20 @@ export default function GastronomiaPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Sobre Nós
+                    {t.about}
                   </Link>
                 </div>
+
+                <div className="my-2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+                <button
+                  type="button"
+                  onClick={handleToggleLanguage}
+                  aria-label={t.languageLabel}
+                  className="block w-full rounded-xl px-4 py-3 text-left font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300 hover:bg-white/10 hover:text-white"
+                >
+                  {t.language}
+                </button>
               </nav>
             </div>
           )}
@@ -333,7 +519,7 @@ export default function GastronomiaPage() {
           </span>
 
           <h1 className="mt-4 font-serif text-4xl uppercase tracking-[0.18em] text-white sm:text-5xl">
-            Menu
+            {t.pageTitle}
           </h1>
 
           <div
@@ -432,7 +618,7 @@ export default function GastronomiaPage() {
 
             {/* Two Column Grid */}
             <div className="grid grid-cols-1 gap-x-12 gap-y-8 md:grid-cols-2">
-              {menuItems[category.id as keyof typeof menuItems]?.map((item, index) => (
+              {menuItems[category.id as MenuCategoryId]?.map((item, index) => (
                 <div key={index} className="flex items-start gap-4">
                   {/* Dish Image */}
                   <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-full shadow-md">
@@ -467,7 +653,7 @@ export default function GastronomiaPage() {
 
           <div className="mx-auto max-w-3xl text-center">
             <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
-              Carta completa
+              {t.fullCarta}
             </p>
 
             <div className="mt-3 flex items-center justify-center gap-x-3 sm:gap-x-4">
@@ -476,7 +662,7 @@ export default function GastronomiaPage() {
               </span>
 
               <h2 className="max-w-[92vw] font-serif text-xl uppercase leading-relaxed tracking-[0.12em] text-[#10243d] sm:text-3xl sm:tracking-[0.32em]">
-                Menu completo
+                {t.fullMenu}
               </h2>
 
               <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
@@ -493,8 +679,7 @@ export default function GastronomiaPage() {
             </div>
 
             <p className="mx-auto mt-6 max-w-xl font-serif text-sm leading-relaxed text-[#5f7285] sm:text-base">
-              Aqui pode consultar a nossa carta completa, com todos os produtos
-              disponíveis e respetiva seleção gastronómica.
+              {t.fullMenuDescription}
             </p>
 
             <div className="mt-8 flex justify-center">
@@ -504,7 +689,7 @@ export default function GastronomiaPage() {
                 rel="noopener noreferrer"
                 className="inline-flex min-w-56 items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-7 py-3 font-serif text-sm uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-[#10243d]"
               >
-                Abrir carta
+                {t.openCarta}
               </a>
             </div>
           </div>
@@ -527,7 +712,7 @@ export default function GastronomiaPage() {
           </Link>
 
           <p className="mt-3 font-serif text-xs uppercase tracking-[0.2em] text-white/60">
-            Senhor Peixe — Desde 1999
+            {t.footer}
           </p>
         </div>
       </footer>

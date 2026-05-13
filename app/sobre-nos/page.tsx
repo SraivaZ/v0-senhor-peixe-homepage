@@ -3,20 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-
-function FishLogo({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 100 100"
-      fill="currentColor"
-      className={className}
-      aria-label="Senhor Peixe Logo"
-    >
-      <path d="M50 15c-8 0-15 3-20 8l-5-8c-1-1.5-3-1.5-4 0l-5 8c-1 1.5 0 3.5 2 3.5h6c-2 4-3 9-3 14 0 20 13 35 29 35s29-15 29-35S66 15 50 15zm-15 30c-3 0-5-2-5-5s2-5 5-5 5 2 5 5-2 5-5 5zm20 15c-8 0-12-4-12-4 1-2 5-3 12-3s11 1 12 3c0 0-4 4-12 4z" />
-      <path d="M70 25c2-3 6-5 10-5 2 0 4 0.5 5.5 1.5-4 2-7 5-9 9-2-2-4-4-6.5-5.5z" />
-    </svg>
-  )
-}
+import { useLanguage } from "@/components/language-provider"
 
 function InstagramIcon({ className = "" }: { className?: string }) {
   return (
@@ -42,15 +29,111 @@ function TripAdvisorIcon({ className = "" }: { className?: string }) {
   )
 }
 
-function TheForkIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-    </svg>
-  )
-}
+const GOOGLE_MAPS_URL =
+  "https://www.google.com/maps/place/Senhor+Peixe/@38.7711153,-9.0950749,17z/data=!4m15!1m8!3m7!1s0xd19318fae5b0243:0x774590368c5ec79b!2sR.+da+Pimenta+35,+Parque+das+Na%C3%A7%C3%B5es,+1990-254+Lisboa!3b1!8m2!3d38.7711111!4d-9.0925!16s%2Fg%2F11rg64rhkz!3m5!1s0xd19337acbb1ab1b:0xeb80fb06738c323!8m2!3d38.7710801!4d-9.0923458!16s%2Fg%2F1tjfj34m?entry=ttu&g_ep=EgoyMDI2MDUxMS4wIKXMDSoASAFQAw%3D%3D"
+
+const INSTAGRAM_URL = "https://www.instagram.com/restaurante.senhor.peixe/"
+const FACEBOOK_URL = "https://facebook.com"
+const TRIPADVISOR_URL =
+  "https://www.tripadvisor.pt/Restaurant_Review-g189158-d1163802-Reviews-Sr_Peixe-Lisbon_Lisbon_District_Central_Portugal.html"
+
+const translations = {
+  pt: {
+    closeMenu: "Fechar menu",
+    openMenu: "Abrir menu",
+    mainMenu: "Menu principal",
+    home: "Início",
+    gastronomy: "Gastronomia",
+    wine: "Garrafeira",
+    space: "O Nosso Espaço",
+    reservations: "Reservas",
+    contacts: "Contactos",
+    about: "Sobre Nós",
+    language: "English",
+    languageLabel: "Mudar para inglês",
+
+    pageTitle: "Sobre Nós",
+    pageSubtitle: "Uma história ligada ao mar, à frescura e à tradição portuguesa.",
+
+    introSmallTitle: "A nossa essência",
+    introTitle: "Do mar, para o seu prato",
+    introText:
+      "O Senhor Peixe Restaurante Marisqueira abriu as portas ao público a 11 de Março de 1999 em Lisboa, com um pé no rio Tejo. Situado no Parque das Nações, o nosso restaurante tem como missão trazer-lhe o melhor que o mar nos oferece. Peixe fresco, marisco e uma seleção de vinhos que temos a confiança que o vai deixar muito satisfeito.",
+    introQuote: "É Setúbal em Lisboa... e o mar no seu prato.",
+
+    secondSmallTitle: "Tradição e frescura",
+    secondTitle: "Setúbal aqui tão perto",
+    secondText:
+      "Setúbal em Lisboa, com tudo o que o mar dá. Peixes vivos, grelhados no carvão de azinho e mariscos. Mas não faltará a saladinha de polvo, o choco frito, o escabeche. E ainda os moscatéis, os vinhos, os queijos de Azeitão e a doçaria... ou mesmo o bife da vazia para desenjoar.",
+
+    whereWeAre: "Onde estamos",
+    addressTitle: "Morada",
+    address:
+      "Rua da Pimenta 35, Parque das Nações, Zona Ribeirinha Norte, 1990-254 Lisboa",
+    viewLocation: "Ver localização",
+
+    visitTitle: "Quando nos visita",
+    scheduleTitle: "Horário",
+    tuesdayToSaturday: "Terça a Sábado",
+    sunday: "Domingo",
+
+    footer: "Senhor Peixe — Desde 1999",
+
+    imageAltTejo: "Vista do Rio Tejo no Parque das Nações",
+    imageAltSeafood: "Marisco fresco",
+    imageAltExterior: "Exterior do restaurante Senhor Peixe",
+  },
+  en: {
+    closeMenu: "Close menu",
+    openMenu: "Open menu",
+    mainMenu: "Main menu",
+    home: "Home",
+    gastronomy: "Gastronomy",
+    wine: "Wine Cellar",
+    space: "The Space",
+    reservations: "Reservations",
+    contacts: "Contacts",
+    about: "About Us",
+    language: "Português",
+    languageLabel: "Switch to Portuguese",
+
+    pageTitle: "About Us",
+    pageSubtitle: "A story connected to the sea, freshness and Portuguese tradition.",
+
+    introSmallTitle: "Our essence",
+    introTitle: "From the sea, to your plate",
+    introText:
+      "Senhor Peixe Restaurante Marisqueira opened its doors to the public on March 11, 1999 in Lisbon, with the Tagus River close by. Located in Parque das Nações, our restaurant’s mission is to bring you the very best the sea has to offer. Fresh fish, seafood and a wine selection that we are confident will leave you very satisfied.",
+    introQuote: "Setúbal in Lisbon... and the sea on your plate.",
+
+    secondSmallTitle: "Tradition and freshness",
+    secondTitle: "Setúbal so close by",
+    secondText:
+      "Setúbal in Lisbon, with everything the sea provides. Live fish, grilled over holm oak charcoal, and seafood. There is also octopus salad, fried cuttlefish, escabeche, moscatel wines, wines, Azeitão cheeses and traditional sweets... or even a sirloin steak for those looking for something different.",
+
+    whereWeAre: "Where we are",
+    addressTitle: "Address",
+    address:
+      "Rua da Pimenta 35, Parque das Nações, Zona Ribeirinha Norte, 1990-254 Lisbon",
+    viewLocation: "View location",
+
+    visitTitle: "When to visit us",
+    scheduleTitle: "Opening Hours",
+    tuesdayToSaturday: "Tuesday to Saturday",
+    sunday: "Sunday",
+
+    footer: "Senhor Peixe — Since 1999",
+
+    imageAltTejo: "View of the Tagus River in Parque das Nações",
+    imageAltSeafood: "Fresh seafood",
+    imageAltExterior: "Exterior of Senhor Peixe restaurant",
+  },
+} as const
 
 export default function SobreNosPage() {
+  const { language, toggleLanguage } = useLanguage()
+  const t = translations[language]
+
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useEffect(() => {
@@ -67,6 +150,11 @@ export default function SobreNosPage() {
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [isMenuOpen])
 
+  function handleToggleLanguage() {
+    toggleLanguage()
+    setIsMenuOpen(false)
+  }
+
   return (
     <main className="min-h-screen bg-stone-50">
       {/* Floating Site Menu */}
@@ -75,7 +163,7 @@ export default function SobreNosPage() {
           <button
             type="button"
             className="fixed inset-0 z-[70] cursor-default"
-            aria-label="Fechar menu"
+            aria-label={t.closeMenu}
             onClick={() => setIsMenuOpen(false)}
           />
         )}
@@ -84,7 +172,7 @@ export default function SobreNosPage() {
           <button
             type="button"
             onClick={() => setIsMenuOpen((open) => !open)}
-            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-label={isMenuOpen ? t.closeMenu : t.openMenu}
             aria-expanded={isMenuOpen}
             aria-controls="sobre-nos-site-menu"
             className="group flex h-11 w-11 items-center justify-center rounded-full border border-[#c8a96a]/35 bg-[#10243d]/90 text-white shadow-lg shadow-black/15 backdrop-blur-md transition-all duration-300 hover:border-[#c8a96a] hover:bg-[#10243d]"
@@ -113,7 +201,7 @@ export default function SobreNosPage() {
               id="sobre-nos-site-menu"
               className="mt-4 max-h-[calc(100vh-110px)] w-64 overflow-y-auto rounded-2xl border border-white/20 bg-[#10243d]/95 p-3 shadow-2xl backdrop-blur-xl"
             >
-              <nav aria-label="Menu principal">
+              <nav aria-label={t.mainMenu}>
                 <div className="px-4 pb-3 pt-2">
                   <p className="font-serif text-[10px] uppercase tracking-[0.35em] text-white/45">
                     Senhor Peixe
@@ -126,7 +214,7 @@ export default function SobreNosPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Início
+                    {t.home}
                   </Link>
 
                   <Link
@@ -134,7 +222,7 @@ export default function SobreNosPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Gastronomia
+                    {t.gastronomy}
                   </Link>
 
                   <Link
@@ -142,7 +230,7 @@ export default function SobreNosPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Garrafeira
+                    {t.wine}
                   </Link>
 
                   <Link
@@ -150,7 +238,7 @@ export default function SobreNosPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    O Nosso Espaço
+                    {t.space}
                   </Link>
                 </div>
 
@@ -162,7 +250,7 @@ export default function SobreNosPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Reservas
+                    {t.reservations}
                   </Link>
 
                   <Link
@@ -170,7 +258,7 @@ export default function SobreNosPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Contactos
+                    {t.contacts}
                   </Link>
 
                   <Link
@@ -178,9 +266,20 @@ export default function SobreNosPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl bg-white/10 px-4 py-3 font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300"
                   >
-                    Sobre Nós
+                    {t.about}
                   </Link>
                 </div>
+
+                <div className="my-2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+                <button
+                  type="button"
+                  onClick={handleToggleLanguage}
+                  aria-label={t.languageLabel}
+                  className="block w-full rounded-xl px-4 py-3 text-left font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300 hover:bg-white/10 hover:text-white"
+                >
+                  {t.language}
+                </button>
               </nav>
             </div>
           )}
@@ -205,11 +304,11 @@ export default function SobreNosPage() {
           </span>
 
           <h1 className="mt-4 font-serif text-4xl uppercase tracking-[0.18em] text-white sm:text-5xl">
-            Sobre Nós
+            {t.pageTitle}
           </h1>
 
           <p className="mx-auto mt-4 max-w-xl font-serif text-sm italic leading-relaxed tracking-[0.08em] text-white/75 sm:text-base">
-            Uma história ligada ao mar, à frescura e à tradição portuguesa.
+            {t.pageSubtitle}
           </p>
 
           <div
@@ -225,7 +324,7 @@ export default function SobreNosPage() {
           {/* Intro Title */}
           <div className="mb-14 text-center">
             <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
-              A nossa essência
+              {t.introSmallTitle}
             </p>
 
             <div className="mt-3 flex items-center justify-center gap-x-3 sm:gap-x-4">
@@ -234,7 +333,7 @@ export default function SobreNosPage() {
               </span>
 
               <h2 className="max-w-[92vw] font-serif text-xl uppercase leading-relaxed tracking-[0.12em] text-[#10243d] sm:text-3xl sm:tracking-[0.32em]">
-                Do mar, para o seu prato
+                {t.introTitle}
               </h2>
 
               <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
@@ -255,15 +354,11 @@ export default function SobreNosPage() {
           <section className="mb-20">
             <div className="mx-auto max-w-3xl text-center">
               <p className="font-serif text-base leading-relaxed text-[#5f7285] sm:text-lg">
-                O Senhor Peixe Restaurante Marisqueira abriu as portas ao público a
-                11 de Março de 1999 em Lisboa, com um pé no rio Tejo. Situado no
-                Parque das Nações, o nosso restaurante tem como missão trazer-lhe o
-                melhor que o mar nos oferece. Peixe fresco, marisco e uma seleção
-                de vinhos que temos a confiança que o vai deixar muito satisfeito.
+                {t.introText}
               </p>
 
               <p className="mt-8 font-serif text-lg italic leading-relaxed text-[#10243d] sm:text-xl">
-                É Setúbal em Lisboa... e o mar no seu prato.
+                {t.introQuote}
               </p>
             </div>
 
@@ -271,7 +366,7 @@ export default function SobreNosPage() {
               <div className="relative h-72 w-full sm:h-96">
                 <Image
                   src="/images/about/tejo-river.jpg"
-                  alt="Vista do Rio Tejo no Parque das Nações"
+                  alt={t.imageAltTejo}
                   fill
                   className="object-cover"
                 />
@@ -288,7 +383,7 @@ export default function SobreNosPage() {
           {/* Section 2 Title */}
           <div className="mb-14 text-center">
             <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
-              Tradição e frescura
+              {t.secondSmallTitle}
             </p>
 
             <div className="mt-3 flex items-center justify-center gap-x-3 sm:gap-x-4">
@@ -297,7 +392,7 @@ export default function SobreNosPage() {
               </span>
 
               <h2 className="max-w-[92vw] font-serif text-xl uppercase leading-relaxed tracking-[0.12em] text-[#10243d] sm:text-3xl sm:tracking-[0.32em]">
-                Setúbal aqui tão perto
+                {t.secondTitle}
               </h2>
 
               <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
@@ -317,18 +412,14 @@ export default function SobreNosPage() {
           {/* Section 2 */}
           <section className="mb-20">
             <p className="mx-auto mb-12 max-w-3xl text-center font-serif text-base leading-relaxed text-[#5f7285] sm:text-lg">
-              Setúbal em Lisboa, com tudo o que o mar dá. Peixes vivos, grelhados
-              no carvão de azinho e mariscos. Mas não faltará a saladinha de
-              polvo, o choco frito, o escabeche. E ainda os moscatéis, os vinhos,
-              os queijos de Azeitão e a doçaria... ou mesmo o bife da vazia para
-              desenjoar.
+              {t.secondText}
             </p>
 
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="group relative h-72 overflow-hidden rounded-2xl shadow-lg sm:h-80">
                 <Image
                   src="/images/about/fresh-seafood.jpg"
-                  alt="Marisco fresco"
+                  alt={t.imageAltSeafood}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -338,7 +429,7 @@ export default function SobreNosPage() {
               <div className="group relative h-72 overflow-hidden rounded-2xl shadow-lg sm:h-80">
                 <Image
                   src="/images/about/restaurant-exterior.jpg"
-                  alt="Exterior do restaurante Senhor Peixe"
+                  alt={t.imageAltExterior}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
@@ -347,22 +438,20 @@ export default function SobreNosPage() {
             </div>
           </section>
 
-          {/* Decorative Divider */}
-          <div className="mb-16 flex items-center justify-center gap-4">
-            <div className="h-px w-24 bg-gradient-to-r from-transparent to-[#c8a96a]/60" />
-            <FishLogo className="h-8 w-8 text-[#10243d]" />
-            <div className="h-px w-24 bg-gradient-to-l from-transparent to-[#c8a96a]/60" />
+          {/* Decorative Divider - only lines */}
+          <div className="mb-16 flex items-center justify-center">
+            <div className="h-px w-full max-w-md bg-gradient-to-r from-transparent via-[#c8a96a]/60 to-transparent" />
           </div>
 
           {/* Info Cards */}
           <section className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <div className="rounded-2xl border border-stone-200/80 bg-white/70 p-8 text-center shadow-sm">
               <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
-                Onde estamos
+                {t.whereWeAre}
               </p>
 
               <h3 className="mt-3 font-serif text-2xl uppercase tracking-[0.16em] text-[#10243d]">
-                Morada
+                {t.addressTitle}
               </h3>
 
               <div
@@ -371,27 +460,26 @@ export default function SobreNosPage() {
               />
 
               <p className="mx-auto mt-6 max-w-sm font-serif text-base leading-relaxed text-[#5f7285]">
-                Rua da Pimenta 35, Parque das Nações, Zona Ribeirinha Norte,
-                1990-254 Lisboa
+                {t.address}
               </p>
 
               <a
-                href="https://maps.google.com/?q=Rua+da+Pimenta+35+Lisboa"
+                href={GOOGLE_MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-6 inline-flex items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-6 py-3 font-serif text-xs uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-[#10243d]"
               >
-                Ver localização
+                {t.viewLocation}
               </a>
             </div>
 
             <div className="rounded-2xl border border-stone-200/80 bg-white/70 p-8 text-center shadow-sm">
               <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
-                Quando nos visita
+                {t.visitTitle}
               </p>
 
               <h3 className="mt-3 font-serif text-2xl uppercase tracking-[0.16em] text-[#10243d]">
-                Horário
+                {t.scheduleTitle}
               </h3>
 
               <div
@@ -400,9 +488,9 @@ export default function SobreNosPage() {
               />
 
               <div className="mt-6 space-y-3 font-serif text-base leading-relaxed text-[#5f7285]">
-                <p>Terça a Sábado</p>
+                <p>{t.tuesdayToSaturday}</p>
                 <p className="text-[#10243d]">12:00-15:30 / 19:00-22:30</p>
-                <p className="pt-3">Domingo</p>
+                <p className="pt-3">{t.sunday}</p>
                 <p className="text-[#10243d]">12:30-15:30</p>
               </div>
             </div>
@@ -413,7 +501,7 @@ export default function SobreNosPage() {
       {/* Social Icons */}
       <div className="fixed bottom-4 right-4 z-40 flex items-center gap-2 md:bottom-6 md:right-6 md:gap-4">
         <a
-          href="https://instagram.com/senhorpeixe"
+          href={INSTAGRAM_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="text-[#10243d] transition-colors hover:text-[#c8a96a]"
@@ -423,7 +511,7 @@ export default function SobreNosPage() {
         </a>
 
         <a
-          href="https://facebook.com/senhorpeixe"
+          href={FACEBOOK_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="text-[#10243d] transition-colors hover:text-[#c8a96a]"
@@ -433,23 +521,13 @@ export default function SobreNosPage() {
         </a>
 
         <a
-          href="https://tripadvisor.com/senhorpeixe"
+          href={TRIPADVISOR_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="text-[#10243d] transition-colors hover:text-[#c8a96a]"
           aria-label="TripAdvisor"
         >
           <TripAdvisorIcon className="h-6 w-6 md:h-7 md:w-7" />
-        </a>
-
-        <a
-          href="https://thefork.com/senhorpeixe"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[#10243d] transition-colors hover:text-[#c8a96a]"
-          aria-label="TheFork"
-        >
-          <TheForkIcon className="h-6 w-6 md:h-7 md:w-7" />
         </a>
       </div>
 
@@ -469,7 +547,7 @@ export default function SobreNosPage() {
           </Link>
 
           <p className="mt-3 font-serif text-xs uppercase tracking-[0.2em] text-white/60">
-            Senhor Peixe — Desde 1999
+            {t.footer}
           </p>
         </div>
       </footer>

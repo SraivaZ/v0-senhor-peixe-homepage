@@ -5,8 +5,8 @@ import { useEffect, useState } from "react"
 import { useForm, ValidationError } from "@formspree/react"
 import PhoneInput from "react-phone-number-input"
 import "react-phone-number-input/style.css"
+import { useLanguage } from "@/components/language-provider"
 
-// Social Icons
 function InstagramIcon({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -26,15 +26,24 @@ function FacebookIcon({ className = "" }: { className?: string }) {
 function TripAdvisorIcon({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm4-6c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm4 6c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z" />
+      <path d="M12.006 4.295c-2.67 0-5.338.784-7.645 2.353H0l1.963 2.135a5.997 5.997 0 004.04 10.43 5.976 5.976 0 004.075-1.6L12 19.5l1.922-1.886a5.976 5.976 0 004.075 1.6 5.997 5.997 0 004.04-10.43L24 6.648h-4.35a13.573 13.573 0 00-7.644-2.353zM12 6.255c1.531 0 3.063.303 4.504.91C14.5 8.075 13.096 9.45 12 11.372c-1.096-1.922-2.5-3.297-4.504-4.207A11.577 11.577 0 0112 6.255zM6.003 9.79a4.006 4.006 0 110 8.013 4.006 4.006 0 010-8.013zm11.994 0a4.006 4.006 0 110 8.013 4.006 4.006 0 010-8.013zM6.003 11.79a2.003 2.003 0 100 4.006 2.003 2.003 0 000-4.006zm11.994 0a2.003 2.003 0 100 4.006 2.003 2.003 0 000-4.006z" />
     </svg>
   )
 }
 
-function TheForkIcon({ className = "" }: { className?: string }) {
+function PhoneIcon({ className = "" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c.55 0 1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V6c0-.55.45-1 1-1zm-3 0c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1s-1-.45-1-1V6c0-.55.45-1 1-1zm6 0c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1s-1-.45-1-1V6c0-.55.45-1 1-1zm-3 9c.55 0 1 .45 1 1v4c0 .55-.45 1-1 1s-1-.45-1-1v-4c0-.55.45-1 1-1z" />
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.78 19.78 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.78 19.78 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.32 1.77.59 2.61a2 2 0 0 1-.45 2.11L8 9.69a16 16 0 0 0 6.31 6.31l1.25-1.25a2 2 0 0 1 2.11-.45c.84.27 1.71.47 2.61.59A2 2 0 0 1 22 16.92Z" />
     </svg>
   )
 }
@@ -48,6 +57,11 @@ const INITIAL_FORM_DATA = {
   notas: "",
 }
 
+const PHONE_NUMBERS = [
+  { label: "+351 21 895 5892", href: "tel:+351218955892" },
+  { label: "+351 914 671 702", href: "tel:+351914671702" },
+]
+
 const DINNER_TIMES = [
   "19:00",
   "19:30",
@@ -57,6 +71,136 @@ const DINNER_TIMES = [
   "21:30",
   "22:00",
 ] as const
+
+const INSTAGRAM_URL = "https://www.instagram.com/restaurante.senhor.peixe/"
+const TRIPADVISOR_URL =
+  "https://www.tripadvisor.pt/Restaurant_Review-g189158-d1163802-Reviews-Sr_Peixe-Lisbon_Lisbon_District_Central_Portugal.html"
+
+const translations = {
+  pt: {
+    closeMenu: "Fechar menu",
+    openMenu: "Abrir menu",
+    close: "Fechar",
+    mainMenu: "Menu principal",
+    home: "Início",
+    gastronomy: "Gastronomia",
+    wine: "Garrafeira",
+    space: "O Nosso Espaço",
+    reservations: "Reservas",
+    contacts: "Contactos",
+    about: "Sobre Nós",
+    language: "English",
+    languageLabel: "Mudar para inglês",
+
+    pageTitle: "Reservas",
+    pageSubtitle:
+      "Reserve a sua mesa e deixe-nos preparar uma experiência à sua medida.",
+    requestLabel: "Pedido de reserva",
+    yourTable: "A sua mesa",
+
+    name: "Nome",
+    namePlaceholder: "O seu nome completo",
+    date: "Data",
+    time: "Hora",
+    select: "Selecione",
+    lunch: "Almoço",
+    dinner: "Jantar",
+    contact: "Contacto",
+    phonePlaceholder: "O seu número de telefone",
+    peopleNumber: "Número de Pessoas",
+    onePerson: "1 Pessoa",
+    people: "Pessoas",
+    moreThanTen: "10+ Pessoas",
+    notes: "Notas Adicionais",
+    notesPlaceholder:
+      "Indique-nos, por favor, eventuais alergias, ocasiões especiais, preferências de mesa ou necessidades específicas de acessibilidade.",
+    requestReservation: "Solicitar Reserva",
+    sending: "A enviar...",
+
+    mondayClosed: "Estamos encerrados à segunda-feira.",
+    sundayLunchOnly: "Ao domingo só aceitamos reservas ao almoço.",
+    sundayLunchPrompt: "Por favor, escolha um horário de almoço.",
+    submitError:
+      "Não foi possível enviar o pedido. Por favor, tente novamente ou contacte-nos por telefone.",
+    subject: "Novo pedido de reserva - Senhor Peixe",
+
+    successTitle: "Pedido de Reserva Enviado",
+    successLine1: "Obrigado pelo seu pedido de reserva.",
+    successLine2:
+      "A nossa equipa entrará em contacto consigo brevemente para confirmar a disponibilidade.",
+
+    largeGroupsLine1:
+      "Para reservas superiores a 10 pessoas ou pedidos de eventos privados,",
+    largeGroupsLine2:
+      "recomendamos o contacto direto através do telefone,",
+    largeGroupsLine3: "para melhor acompanhamento do pedido.",
+    choosePhone: "Escolha o número para ligar",
+    call: "Ligar",
+
+    footer: "Senhor Peixe — Desde 1999",
+  },
+  en: {
+    closeMenu: "Close menu",
+    openMenu: "Open menu",
+    close: "Close",
+    mainMenu: "Main menu",
+    home: "Home",
+    gastronomy: "Gastronomy",
+    wine: "Wine Cellar",
+    space: "The Space",
+    reservations: "Reservations",
+    contacts: "Contacts",
+    about: "About Us",
+    language: "Português",
+    languageLabel: "Switch to Portuguese",
+
+    pageTitle: "Reservations",
+    pageSubtitle:
+      "Reserve your table and let us prepare an experience tailored to you.",
+    requestLabel: "Reservation request",
+    yourTable: "Your table",
+
+    name: "Name",
+    namePlaceholder: "Your full name",
+    date: "Date",
+    time: "Time",
+    select: "Select",
+    lunch: "Lunch",
+    dinner: "Dinner",
+    contact: "Contact",
+    phonePlaceholder: "Your phone number",
+    peopleNumber: "Number of Guests",
+    onePerson: "1 Guest",
+    people: "Guests",
+    moreThanTen: "10+ Guests",
+    notes: "Additional Notes",
+    notesPlaceholder:
+      "Please let us know about any allergies, special occasions, table preferences or specific accessibility needs.",
+    requestReservation: "Request Reservation",
+    sending: "Sending...",
+
+    mondayClosed: "We are closed on Mondays.",
+    sundayLunchOnly: "On Sundays, we only accept reservations for lunch.",
+    sundayLunchPrompt: "Please choose a lunch time.",
+    submitError:
+      "It was not possible to send your request. Please try again or contact us by phone.",
+    subject: "New reservation request - Senhor Peixe",
+
+    successTitle: "Reservation Request Sent",
+    successLine1: "Thank you for your reservation request.",
+    successLine2:
+      "Our team will contact you shortly to confirm availability.",
+
+    largeGroupsLine1:
+      "For reservations for more than 10 guests or private event requests,",
+    largeGroupsLine2: "we recommend contacting us directly by phone,",
+    largeGroupsLine3: "so we can assist you properly.",
+    choosePhone: "Choose a number to call",
+    call: "Call",
+
+    footer: "Senhor Peixe — Since 1999",
+  },
+} as const
 
 function getDayFromDateString(dateString: string): number | null {
   if (!dateString) return null
@@ -68,6 +212,9 @@ function isDinnerTime(hora: string): boolean {
 }
 
 export default function ReservasPage() {
+  const { language, toggleLanguage } = useLanguage()
+  const t = translations[language]
+
   const [formData, setFormData] = useState({
     ...INITIAL_FORM_DATA,
   })
@@ -78,6 +225,7 @@ export default function ReservasPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState("")
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [phoneOpen, setPhoneOpen] = useState(false)
 
   const selectedDay = getDayFromDateString(formData.data)
   const isMondayClosed = selectedDay === 1
@@ -128,12 +276,12 @@ export default function ReservasPage() {
     const day = getDayFromDateString(formData.data)
 
     if (day === 1) {
-      setSubmitError("Estamos encerrados à segunda-feira.")
+      setSubmitError(t.mondayClosed)
       return
     }
 
     if (day === 0 && isDinnerTime(formData.hora)) {
-      setSubmitError("Ao domingo só aceitamos reservas ao almoço.")
+      setSubmitError(t.sundayLunchOnly)
       return
     }
 
@@ -148,7 +296,7 @@ export default function ReservasPage() {
         },
         body: JSON.stringify({
           ...formData,
-          _subject: "Novo pedido de reserva - Senhor Peixe",
+          _subject: t.subject,
         }),
       })
 
@@ -160,12 +308,15 @@ export default function ReservasPage() {
       setFormData({ ...INITIAL_FORM_DATA })
       setSundayLunchPrompt(false)
     } catch (error) {
-      setSubmitError(
-        "Não foi possível enviar o pedido. Por favor, tente novamente ou contacte-nos por telefone."
-      )
+      setSubmitError(t.submitError)
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  function handleToggleLanguage() {
+    toggleLanguage()
+    setIsMenuOpen(false)
   }
 
   useEffect(() => {
@@ -177,18 +328,27 @@ export default function ReservasPage() {
   }, [state.succeeded])
 
   useEffect(() => {
-    if (!isMenuOpen) return
+    document.body.style.overflow = isMenuOpen || phoneOpen ? "hidden" : ""
+
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [isMenuOpen, phoneOpen])
+
+  useEffect(() => {
+    if (!isMenuOpen && !phoneOpen) return
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setIsMenuOpen(false)
+        setPhoneOpen(false)
       }
     }
 
     window.addEventListener("keydown", handleKeyDown)
 
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [isMenuOpen])
+  }, [isMenuOpen, phoneOpen])
 
   return (
     <main className="min-h-screen bg-stone-50">
@@ -198,7 +358,7 @@ export default function ReservasPage() {
           <button
             type="button"
             className="fixed inset-0 z-[70] cursor-default"
-            aria-label="Fechar menu"
+            aria-label={t.closeMenu}
             onClick={() => setIsMenuOpen(false)}
           />
         )}
@@ -207,7 +367,7 @@ export default function ReservasPage() {
           <button
             type="button"
             onClick={() => setIsMenuOpen((open) => !open)}
-            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-label={isMenuOpen ? t.closeMenu : t.openMenu}
             aria-expanded={isMenuOpen}
             aria-controls="reservas-site-menu"
             className="group flex h-11 w-11 items-center justify-center rounded-full border border-[#c8a96a]/35 bg-[#10243d]/90 text-white shadow-lg shadow-black/15 backdrop-blur-md transition-all duration-300 hover:border-[#c8a96a] hover:bg-[#10243d]"
@@ -236,7 +396,7 @@ export default function ReservasPage() {
               id="reservas-site-menu"
               className="mt-4 max-h-[calc(100vh-110px)] w-64 overflow-y-auto rounded-2xl border border-white/20 bg-[#10243d]/95 p-3 shadow-2xl backdrop-blur-xl"
             >
-              <nav aria-label="Menu principal">
+              <nav aria-label={t.mainMenu}>
                 <div className="px-4 pb-3 pt-2">
                   <p className="font-serif text-[10px] uppercase tracking-[0.35em] text-white/45">
                     Senhor Peixe
@@ -249,7 +409,7 @@ export default function ReservasPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Início
+                    {t.home}
                   </Link>
 
                   <Link
@@ -257,7 +417,7 @@ export default function ReservasPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Gastronomia
+                    {t.gastronomy}
                   </Link>
 
                   <Link
@@ -265,7 +425,7 @@ export default function ReservasPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Garrafeira
+                    {t.wine}
                   </Link>
 
                   <Link
@@ -273,7 +433,7 @@ export default function ReservasPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    O Nosso Espaço
+                    {t.space}
                   </Link>
                 </div>
 
@@ -285,7 +445,7 @@ export default function ReservasPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl bg-white/10 px-4 py-3 font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300"
                   >
-                    Reservas
+                    {t.reservations}
                   </Link>
 
                   <Link
@@ -293,7 +453,7 @@ export default function ReservasPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Contactos
+                    {t.contacts}
                   </Link>
 
                   <Link
@@ -301,9 +461,20 @@ export default function ReservasPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Sobre Nós
+                    {t.about}
                   </Link>
                 </div>
+
+                <div className="my-2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+                <button
+                  type="button"
+                  onClick={handleToggleLanguage}
+                  aria-label={t.languageLabel}
+                  className="block w-full rounded-xl px-4 py-3 text-left font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300 hover:bg-white/10 hover:text-white"
+                >
+                  {t.language}
+                </button>
               </nav>
             </div>
           )}
@@ -328,11 +499,11 @@ export default function ReservasPage() {
           </span>
 
           <h1 className="mt-4 font-serif text-4xl uppercase tracking-[0.18em] text-white sm:text-5xl">
-            Reservas
+            {t.pageTitle}
           </h1>
 
           <p className="mx-auto mt-4 max-w-xl font-serif text-sm italic leading-relaxed tracking-[0.08em] text-white/75 sm:text-base">
-            Reserve a sua mesa e deixe-nos preparar uma experiência à sua medida.
+            {t.pageSubtitle}
           </p>
 
           <div
@@ -346,7 +517,7 @@ export default function ReservasPage() {
       <div className="mx-auto max-w-2xl px-6 py-16">
         <div className="mb-16 text-center">
           <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
-            Pedido de reserva
+            {t.requestLabel}
           </p>
 
           <div className="mt-3 flex items-center justify-center gap-x-3 sm:gap-x-4">
@@ -355,7 +526,7 @@ export default function ReservasPage() {
             </span>
 
             <h2 className="max-w-[92vw] font-serif text-xl uppercase leading-relaxed tracking-[0.12em] text-[#10243d] sm:text-3xl sm:tracking-[0.32em]">
-              A sua mesa
+              {t.yourTable}
             </h2>
 
             <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
@@ -380,6 +551,7 @@ export default function ReservasPage() {
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
@@ -391,16 +563,12 @@ export default function ReservasPage() {
             </div>
 
             <h2 className="mb-5 font-serif text-2xl text-[#10243d]">
-              Pedido de Reserva Enviado
+              {t.successTitle}
             </h2>
 
             <div className="space-y-2 text-center font-serif leading-relaxed text-[#5f7285]">
-              <p>Obrigado pelo seu pedido de reserva.</p>
-              <p>
-                A nossa equipa entrará em contacto consigo brevemente
-                <br />
-                para confirmar a disponibilidade.
-              </p>
+              <p>{t.successLine1}</p>
+              <p>{t.successLine2}</p>
             </div>
 
             <div
@@ -410,13 +578,12 @@ export default function ReservasPage() {
           </div>
         ) : (
           <form onSubmit={handleFormSubmit} className="space-y-12">
-            {/* Nome */}
             <div className="group">
               <label
                 htmlFor="nome"
                 className="mb-2 block font-serif text-sm uppercase tracking-widest text-[#5a6c7d]"
               >
-                Nome
+                {t.name}
               </label>
 
               <input
@@ -428,25 +595,24 @@ export default function ReservasPage() {
                 value={formData.nome}
                 onChange={handleChange}
                 className="w-full border-0 border-b border-[#d4d0c8] bg-transparent py-3 font-serif text-lg text-[#2c3e50] outline-none transition-colors placeholder:text-[#a0a0a0] focus:border-[#10243d]"
-                placeholder="O seu nome completo"
+                placeholder={t.namePlaceholder}
               />
 
               <ValidationError
-                prefix="Nome"
+                prefix={t.name}
                 field="nome"
                 errors={state.errors}
                 className="mt-2 font-serif text-sm text-[#b65a5a]"
               />
             </div>
 
-            {/* Data e Hora */}
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12">
               <div className="group">
                 <label
                   htmlFor="data"
                   className="mb-2 block font-serif text-sm uppercase tracking-widest text-[#5a6c7d]"
                 >
-                  Data
+                  {t.date}
                 </label>
 
                 <input
@@ -465,12 +631,12 @@ export default function ReservasPage() {
                     aria-live="polite"
                     className="mt-2 font-serif text-sm leading-relaxed text-[#b65a5a]"
                   >
-                    Estamos encerrados à segunda-feira.
+                    {t.mondayClosed}
                   </p>
                 )}
 
                 <ValidationError
-                  prefix="Data"
+                  prefix={t.date}
                   field="data"
                   errors={state.errors}
                   className="mt-2 font-serif text-sm text-[#b65a5a]"
@@ -482,7 +648,7 @@ export default function ReservasPage() {
                   htmlFor="hora"
                   className="mb-2 block font-serif text-sm uppercase tracking-widest text-[#5a6c7d]"
                 >
-                  Hora
+                  {t.time}
                 </label>
 
                 <select
@@ -493,9 +659,9 @@ export default function ReservasPage() {
                   onChange={handleChange}
                   className="w-full cursor-pointer border-0 border-b border-[#d4d0c8] bg-transparent py-3 font-serif text-lg text-[#2c3e50] outline-none transition-colors focus:border-[#10243d]"
                 >
-                  <option value="">Selecione</option>
+                  <option value="">{t.select}</option>
 
-                  <optgroup label="Almoço">
+                  <optgroup label={t.lunch}>
                     <option value="12:00">12:00</option>
                     <option value="12:30">12:30</option>
                     <option value="13:00">13:00</option>
@@ -505,7 +671,7 @@ export default function ReservasPage() {
                     <option value="15:00">15:00</option>
                   </optgroup>
 
-                  <optgroup label="Jantar">
+                  <optgroup label={t.dinner}>
                     <option value="19:00" disabled={isSundayLunchOnly}>
                       19:00
                     </option>
@@ -536,12 +702,12 @@ export default function ReservasPage() {
                     aria-live="polite"
                     className="mt-2 font-serif text-sm leading-relaxed text-[#5a6c7d]"
                   >
-                    Por favor, escolha um horário de almoço.
+                    {t.sundayLunchPrompt}
                   </p>
                 )}
 
                 <ValidationError
-                  prefix="Hora"
+                  prefix={t.time}
                   field="hora"
                   errors={state.errors}
                   className="mt-2 font-serif text-sm text-[#b65a5a]"
@@ -549,14 +715,13 @@ export default function ReservasPage() {
               </div>
             </div>
 
-            {/* Contacto e Pessoas */}
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-12">
               <div className="group">
                 <label
                   htmlFor="contacto"
                   className="mb-2 block font-serif text-sm uppercase tracking-widest text-[#5a6c7d]"
                 >
-                  Contacto
+                  {t.contact}
                 </label>
 
                 <PhoneInput
@@ -572,12 +737,12 @@ export default function ReservasPage() {
                     }))
                   }
                   className="phone-input-senhor-peixe"
-                  placeholder="O seu número de telefone"
+                  placeholder={t.phonePlaceholder}
                   required
                 />
 
                 <ValidationError
-                  prefix="Contacto"
+                  prefix={t.contact}
                   field="contacto"
                   errors={state.errors}
                   className="mt-2 font-serif text-sm text-[#b65a5a]"
@@ -589,7 +754,7 @@ export default function ReservasPage() {
                   htmlFor="pessoas"
                   className="mb-2 block font-serif text-sm uppercase tracking-widest text-[#5a6c7d]"
                 >
-                  Número de Pessoas
+                  {t.peopleNumber}
                 </label>
 
                 <select
@@ -600,21 +765,21 @@ export default function ReservasPage() {
                   onChange={handleChange}
                   className="w-full cursor-pointer border-0 border-b border-[#d4d0c8] bg-transparent py-3 font-serif text-lg text-[#2c3e50] outline-none transition-colors focus:border-[#10243d]"
                 >
-                  <option value="">Selecione</option>
-                  <option value="1">1 Pessoa</option>
-                  <option value="2">2 Pessoas</option>
-                  <option value="3">3 Pessoas</option>
-                  <option value="4">4 Pessoas</option>
-                  <option value="5">5 Pessoas</option>
-                  <option value="6">6 Pessoas</option>
-                  <option value="7">7 Pessoas</option>
-                  <option value="8">8 Pessoas</option>
-                  <option value="9">9 Pessoas</option>
-                  <option value="10">10+ Pessoas</option>
+                  <option value="">{t.select}</option>
+                  <option value="1">{t.onePerson}</option>
+                  <option value="2">2 {t.people}</option>
+                  <option value="3">3 {t.people}</option>
+                  <option value="4">4 {t.people}</option>
+                  <option value="5">5 {t.people}</option>
+                  <option value="6">6 {t.people}</option>
+                  <option value="7">7 {t.people}</option>
+                  <option value="8">8 {t.people}</option>
+                  <option value="9">9 {t.people}</option>
+                  <option value="10">{t.moreThanTen}</option>
                 </select>
 
                 <ValidationError
-                  prefix="Número de Pessoas"
+                  prefix={t.peopleNumber}
                   field="pessoas"
                   errors={state.errors}
                   className="mt-2 font-serif text-sm text-[#b65a5a]"
@@ -622,13 +787,12 @@ export default function ReservasPage() {
               </div>
             </div>
 
-            {/* Notas */}
             <div className="group">
               <label
                 htmlFor="notas"
                 className="mb-2 block font-serif text-sm uppercase tracking-widest text-[#5a6c7d]"
               >
-                Notas Adicionais
+                {t.notes}
               </label>
 
               <textarea
@@ -638,11 +802,11 @@ export default function ReservasPage() {
                 value={formData.notas}
                 onChange={handleChange}
                 className="w-full resize-none border-0 border-b border-[#d4d0c8] bg-transparent py-3 font-serif text-lg text-[#2c3e50] outline-none transition-colors placeholder:text-[#a0a0a0] focus:border-[#10243d]"
-                placeholder="Indique-nos, por favor, eventuais alergias, ocasiões especiais, preferências de mesa ou necessidades específicas de acessibilidade."
+                placeholder={t.notesPlaceholder}
               />
 
               <ValidationError
-                prefix="Notas"
+                prefix={t.notes}
                 field="notas"
                 errors={state.errors}
                 className="mt-2 font-serif text-sm text-[#b65a5a]"
@@ -659,7 +823,6 @@ export default function ReservasPage() {
               </div>
             )}
 
-            {/* Submit Button */}
             <div className="pt-8 text-center">
               <button
                 type="submit"
@@ -672,7 +835,7 @@ export default function ReservasPage() {
                     isSubmitting ? "opacity-0" : "opacity-100"
                   }`}
                 >
-                  Solicitar Reserva
+                  {t.requestReservation}
                 </span>
 
                 {isSubmitting && (
@@ -682,6 +845,7 @@ export default function ReservasPage() {
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
+                      aria-hidden="true"
                     >
                       <circle
                         className="opacity-25"
@@ -699,35 +863,75 @@ export default function ReservasPage() {
                       />
                     </svg>
 
-                    <span className="tracking-[0.18em]">A enviar...</span>
+                    <span className="tracking-[0.18em]">{t.sending}</span>
                   </span>
                 )}
               </button>
             </div>
 
             <p className="text-center font-serif text-sm leading-relaxed text-[#8a9ba8]">
-              Para reservas superiores a 10 pessoas ou pedidos de eventos privados,
+              {t.largeGroupsLine1}
               <br />
-              recomendamos o contacto direto através do telefone,
+              {t.largeGroupsLine2}
               <br />
-              para melhor acompanhamento do pedido.
+              {t.largeGroupsLine3}
               <br />
 
-              <a
-                href="tel:+351218955892"
-                className="mt-2 inline-block text-[#10243d] transition-colors hover:text-[#c8a96a]"
+              <button
+                type="button"
+                onClick={() => setPhoneOpen(true)}
+                aria-label={t.call}
+                className="mt-4 inline-flex items-center justify-center text-[#10243d] transition-colors hover:text-[#c8a96a]"
               >
-                +351 21 895 5892
-              </a>
+                <PhoneIcon className="h-6 w-6" />
+              </button>
             </p>
           </form>
         )}
       </div>
 
+      {/* Phone chooser */}
+      {phoneOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#020b12]/80 px-6 backdrop-blur-md">
+          <button
+            type="button"
+            className="absolute inset-0 h-full w-full cursor-default"
+            aria-label={t.close}
+            onClick={() => setPhoneOpen(false)}
+          />
+
+          <div className="relative w-full max-w-sm border border-[#c9a46a]/35 bg-[#03111f]/95 p-8 text-center shadow-2xl">
+            <button
+              type="button"
+              onClick={() => setPhoneOpen(false)}
+              className="absolute right-5 top-5 text-xs uppercase tracking-[0.25em] text-white/50 transition hover:text-white"
+            >
+              {t.close}
+            </button>
+
+            <p className="mt-8 font-serif text-xl text-white">
+              {t.choosePhone}
+            </p>
+
+            <div className="mt-8 space-y-4">
+              {PHONE_NUMBERS.map((phone) => (
+                <a
+                  key={phone.href}
+                  href={phone.href}
+                  className="block border border-[#c9a46a]/45 px-6 py-4 font-serif text-lg tracking-[0.12em] text-[#d8b77b] transition hover:bg-[#c9a46a]/10 hover:text-[#f1d7a0]"
+                >
+                  {phone.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Social Icons */}
       <div className="fixed bottom-4 right-4 z-40 flex items-center gap-2 md:bottom-6 md:right-6 md:gap-4">
         <a
-          href="https://www.instagram.com/restaurante.senhor.peixe/"
+          href={INSTAGRAM_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="text-[#10243d] transition-colors hover:text-[#c8a96a]"
@@ -747,23 +951,13 @@ export default function ReservasPage() {
         </a>
 
         <a
-          href="https://tripadvisor.com"
+          href={TRIPADVISOR_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="text-[#10243d] transition-colors hover:text-[#c8a96a]"
           aria-label="TripAdvisor"
         >
           <TripAdvisorIcon className="h-6 w-6 md:h-7 md:w-7" />
-        </a>
-
-        <a
-          href="https://thefork.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[#10243d] transition-colors hover:text-[#c8a96a]"
-          aria-label="TheFork"
-        >
-          <TheForkIcon className="h-6 w-6 md:h-7 md:w-7" />
         </a>
       </div>
 
@@ -783,7 +977,7 @@ export default function ReservasPage() {
           </Link>
 
           <p className="mt-3 font-serif text-xs uppercase tracking-[0.2em] text-white/60">
-            Senhor Peixe — Desde 1999
+            {t.footer}
           </p>
         </div>
       </footer>

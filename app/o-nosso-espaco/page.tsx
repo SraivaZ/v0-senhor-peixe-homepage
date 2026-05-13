@@ -3,28 +3,105 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
+import { useLanguage } from "@/components/language-provider"
 
-const interiorImages = [
-  { src: "/images/space/interior-1.jpg", alt: "Sala de jantar principal" },
-  { src: "/images/space/interior-2.jpg", alt: "Bar e zona de vinhos" },
-  { src: "/images/space/interior-3.jpg", alt: "Detalhes da decoração" },
-]
-
-const exteriorImages = [
-  { src: "/images/space/exterior-1.jpg", alt: "Esplanada com vista rio" },
-  { src: "/images/space/exterior-2.jpg", alt: "Terraço ao entardecer" },
-  { src: "/images/space/exterior-3.jpg", alt: "Jardim exterior" },
-]
-
-const upperDeckImages = [
-  { src: "/images/space/upper-deck-1.jpg", alt: "Sala privada vista geral" },
-  { src: "/images/space/upper-deck-2.jpg", alt: "Detalhes mesa privada" },
-]
+const translations = {
+  pt: {
+    close: "Fechar",
+    closeMenu: "Fechar menu",
+    openMenu: "Abrir menu",
+    mainMenu: "Menu principal",
+    home: "Início",
+    gastronomy: "Gastronomia",
+    wine: "Garrafeira",
+    space: "O Nosso Espaço",
+    reservations: "Reservas",
+    contacts: "Contactos",
+    about: "Sobre Nós",
+    pageTitle: "O Nosso Espaço",
+    pageSubtitle:
+      "Ambientes pensados para receber com elegância, conforto e vista privilegiada.",
+    interior: "Interior",
+    exterior: "Exterior",
+    privateRoom: "Sala privada",
+    upperDeck: "The Upper Deck",
+    exclusiveExperience: "Uma Experiência Exclusiva",
+    exclusiveDescription:
+      "O nosso espaço privado oferece uma vista deslumbrante e um ambiente íntimo para ocasiões especiais. Com capacidade até 50 pessoas, é o local perfeito para jantares de negócios, celebrações familiares ou eventos privados.",
+    reservePrivateRoom: "Reservar sala privada",
+    footer: "Senhor Peixe — Desde 1999",
+    language: "English",
+    languageLabel: "Mudar para inglês",
+    interiorImages: [
+      { src: "/images/space/interior-1.jpg", alt: "Sala de jantar principal" },
+      { src: "/images/space/interior-2.jpg", alt: "Bar e zona de vinhos" },
+      { src: "/images/space/interior-3.jpg", alt: "Detalhes da decoração" },
+    ],
+    exteriorImages: [
+      { src: "/images/space/exterior-1.jpg", alt: "Esplanada com vista rio" },
+      { src: "/images/space/exterior-2.jpg", alt: "Terraço ao entardecer" },
+      { src: "/images/space/exterior-3.jpg", alt: "Jardim exterior" },
+    ],
+    upperDeckImages: [
+      { src: "/images/space/upper-deck-1.jpg", alt: "Sala privada vista geral" },
+      { src: "/images/space/upper-deck-2.jpg", alt: "Detalhes mesa privada" },
+    ],
+    upperDeckHeroAlt: "The Upper Deck - Vista panorâmica",
+  },
+  en: {
+    close: "Close",
+    closeMenu: "Close menu",
+    openMenu: "Open menu",
+    mainMenu: "Main menu",
+    home: "Home",
+    gastronomy: "Gastronomy",
+    wine: "Wine Cellar",
+    space: "The Space",
+    reservations: "Reservations",
+    contacts: "Contacts",
+    about: "About Us",
+    pageTitle: "The Space",
+    pageSubtitle:
+      "Spaces designed to welcome guests with elegance, comfort and a privileged view.",
+    interior: "Interior",
+    exterior: "Exterior",
+    privateRoom: "Private room",
+    upperDeck: "The Upper Deck",
+    exclusiveExperience: "An Exclusive Experience",
+    exclusiveDescription:
+      "Our private space offers a stunning view and an intimate atmosphere for special occasions. With capacity for up to 50 guests, it is the perfect setting for business dinners, family celebrations or private events.",
+    reservePrivateRoom: "Book private room",
+    footer: "Senhor Peixe — Since 1999",
+    language: "Português",
+    languageLabel: "Switch to Portuguese",
+    interiorImages: [
+      { src: "/images/space/interior-1.jpg", alt: "Main dining room" },
+      { src: "/images/space/interior-2.jpg", alt: "Bar and wine area" },
+      { src: "/images/space/interior-3.jpg", alt: "Decor details" },
+    ],
+    exteriorImages: [
+      { src: "/images/space/exterior-1.jpg", alt: "Terrace with river view" },
+      { src: "/images/space/exterior-2.jpg", alt: "Terrace at sunset" },
+      { src: "/images/space/exterior-3.jpg", alt: "Outdoor garden" },
+    ],
+    upperDeckImages: [
+      { src: "/images/space/upper-deck-1.jpg", alt: "Private room overview" },
+      { src: "/images/space/upper-deck-2.jpg", alt: "Private table details" },
+    ],
+    upperDeckHeroAlt: "The Upper Deck - Panoramic view",
+  },
+} as const
 
 export default function ONossoEspacoPage() {
+  const { language, toggleLanguage } = useLanguage()
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [currentImage, setCurrentImage] = useState({ src: "", alt: "" })
+
+  const t = translations[language]
+  const interiorImages = t.interiorImages
+  const exteriorImages = t.exteriorImages
+  const upperDeckImages = t.upperDeckImages
 
   const openLightbox = (image: { src: string; alt: string }) => {
     setCurrentImage(image)
@@ -35,6 +112,11 @@ export default function ONossoEspacoPage() {
   const closeLightbox = () => {
     setLightboxOpen(false)
     document.body.style.overflow = "auto"
+  }
+
+  function handleToggleLanguage() {
+    toggleLanguage()
+    setIsMenuOpen(false)
   }
 
   useEffect(() => {
@@ -63,7 +145,7 @@ export default function ONossoEspacoPage() {
           <button
             type="button"
             className="fixed inset-0 z-[70] cursor-default"
-            aria-label="Fechar menu"
+            aria-label={t.closeMenu}
             onClick={() => setIsMenuOpen(false)}
           />
         )}
@@ -72,7 +154,7 @@ export default function ONossoEspacoPage() {
           <button
             type="button"
             onClick={() => setIsMenuOpen((open) => !open)}
-            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-label={isMenuOpen ? t.closeMenu : t.openMenu}
             aria-expanded={isMenuOpen}
             aria-controls="espaco-site-menu"
             className="group flex h-11 w-11 items-center justify-center rounded-full border border-[#c8a96a]/35 bg-[#10243d]/90 text-white shadow-lg shadow-black/15 backdrop-blur-md transition-all duration-300 hover:border-[#c8a96a] hover:bg-[#10243d]"
@@ -101,7 +183,7 @@ export default function ONossoEspacoPage() {
               id="espaco-site-menu"
               className="mt-4 max-h-[calc(100vh-110px)] w-64 overflow-y-auto rounded-2xl border border-white/20 bg-[#10243d]/95 p-3 shadow-2xl backdrop-blur-xl"
             >
-              <nav aria-label="Menu principal">
+              <nav aria-label={t.mainMenu}>
                 <div className="px-4 pb-3 pt-2">
                   <p className="font-serif text-[10px] uppercase tracking-[0.35em] text-white/45">
                     Senhor Peixe
@@ -114,7 +196,7 @@ export default function ONossoEspacoPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Início
+                    {t.home}
                   </Link>
 
                   <Link
@@ -122,7 +204,7 @@ export default function ONossoEspacoPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Gastronomia
+                    {t.gastronomy}
                   </Link>
 
                   <Link
@@ -130,7 +212,7 @@ export default function ONossoEspacoPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Garrafeira
+                    {t.wine}
                   </Link>
 
                   <Link
@@ -138,7 +220,7 @@ export default function ONossoEspacoPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl bg-white/10 px-4 py-3 font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300"
                   >
-                    O Nosso Espaço
+                    {t.space}
                   </Link>
                 </div>
 
@@ -150,7 +232,7 @@ export default function ONossoEspacoPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Reservas
+                    {t.reservations}
                   </Link>
 
                   <Link
@@ -158,7 +240,7 @@ export default function ONossoEspacoPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Contactos
+                    {t.contacts}
                   </Link>
 
                   <Link
@@ -166,9 +248,20 @@ export default function ONossoEspacoPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Sobre Nós
+                    {t.about}
                   </Link>
                 </div>
+
+                <div className="my-2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+                <button
+                  type="button"
+                  onClick={handleToggleLanguage}
+                  aria-label={t.languageLabel}
+                  className="block w-full rounded-xl px-4 py-3 text-left font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300 hover:bg-white/10 hover:text-white"
+                >
+                  {t.language}
+                </button>
               </nav>
             </div>
           )}
@@ -194,11 +287,11 @@ export default function ONossoEspacoPage() {
           </span>
 
           <h1 className="mt-4 font-serif text-4xl uppercase tracking-[0.18em] text-white sm:text-5xl">
-            O Nosso Espaço
+            {t.pageTitle}
           </h1>
 
           <p className="mx-auto mt-4 max-w-xl font-serif text-sm italic leading-relaxed tracking-[0.08em] text-white/75 sm:text-base">
-            Ambientes pensados para receber com elegância, conforto e vista privilegiada.
+            {t.pageSubtitle}
           </p>
 
           <div
@@ -218,7 +311,7 @@ export default function ONossoEspacoPage() {
               </span>
 
               <h2 className="max-w-[92vw] font-serif text-xl uppercase leading-relaxed tracking-[0.12em] text-[#10243d] sm:text-3xl sm:tracking-[0.32em]">
-                Interior
+                {t.interior}
               </h2>
 
               <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
@@ -270,7 +363,7 @@ export default function ONossoEspacoPage() {
               </span>
 
               <h2 className="max-w-[92vw] font-serif text-xl uppercase leading-relaxed tracking-[0.12em] text-[#10243d] sm:text-3xl sm:tracking-[0.32em]">
-                Exterior
+                {t.exterior}
               </h2>
 
               <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
@@ -317,7 +410,7 @@ export default function ONossoEspacoPage() {
         <div className="mx-auto max-w-6xl">
           <div className="mb-12 text-center">
             <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
-              Sala privada
+              {t.privateRoom}
             </p>
 
             <div className="mt-3 flex items-center justify-center gap-x-3 sm:gap-x-4">
@@ -326,7 +419,7 @@ export default function ONossoEspacoPage() {
               </span>
 
               <h2 className="max-w-[92vw] font-serif text-xl uppercase leading-relaxed tracking-[0.12em] text-[#10243d] sm:text-3xl sm:tracking-[0.32em]">
-                The Upper Deck
+                {t.upperDeck}
               </h2>
 
               <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
@@ -349,7 +442,7 @@ export default function ONossoEspacoPage() {
               onClick={() =>
                 openLightbox({
                   src: "/images/space/upper-deck-hero.jpg",
-                  alt: "The Upper Deck - Vista panorâmica",
+                  alt: t.upperDeckHeroAlt,
                 })
               }
               className="w-full rounded-2xl focus:outline-none focus:ring-2 focus:ring-[#c8a96a] focus:ring-offset-2"
@@ -357,7 +450,7 @@ export default function ONossoEspacoPage() {
               <div className="relative aspect-[4/5] sm:aspect-[21/9]">
                 <Image
                   src="/images/space/upper-deck-hero.jpg"
-                  alt="The Upper Deck - Vista panorâmica"
+                  alt={t.upperDeckHeroAlt}
                   fill
                   className="object-cover"
                 />
@@ -365,14 +458,11 @@ export default function ONossoEspacoPage() {
 
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-left text-white sm:p-10 md:p-12">
                   <h3 className="mb-3 font-serif text-2xl tracking-wide sm:text-3xl">
-                    Uma Experiência Exclusiva
+                    {t.exclusiveExperience}
                   </h3>
 
                   <p className="max-w-2xl font-serif text-sm leading-relaxed text-white/90 sm:text-base">
-                    O nosso espaço privado oferece uma vista deslumbrante e um
-                    ambiente íntimo para ocasiões especiais. Com capacidade até
-                    50 pessoas, é o local perfeito para jantares de negócios,
-                    celebrações familiares ou eventos privados.
+                    {t.exclusiveDescription}
                   </p>
                 </div>
               </div>
@@ -404,7 +494,7 @@ export default function ONossoEspacoPage() {
               href="/reservas"
               className="inline-flex min-w-56 items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-7 py-3 font-serif text-sm uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-[#10243d]"
             >
-              Reservar sala privada
+              {t.reservePrivateRoom}
             </Link>
           </div>
         </div>
@@ -426,7 +516,7 @@ export default function ONossoEspacoPage() {
           </Link>
 
           <p className="mt-3 font-serif text-xs uppercase tracking-[0.2em] text-white/60">
-            Senhor Peixe — Desde 1999
+            {t.footer}
           </p>
         </div>
       </footer>
@@ -440,7 +530,7 @@ export default function ONossoEspacoPage() {
           <button
             onClick={closeLightbox}
             className="absolute right-6 top-6 z-10 text-white/80 transition-colors hover:text-white"
-            aria-label="Fechar"
+            aria-label={t.close}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

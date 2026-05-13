@@ -3,48 +3,8 @@
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { useForm, ValidationError } from "@formspree/react"
+import { useLanguage } from "@/components/language-provider"
 
-// Fish Logo Component
-function FishLogo({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 100 120"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={className}
-      aria-label="Senhor Peixe Logo"
-    >
-      <rect x="10" y="10" width="80" height="100" fill="#10243d" rx="4" />
-      <g transform="translate(20, 25)">
-        <path
-          d="M30 5 C20 0, 5 10, 5 30 C5 50, 20 60, 35 55 C25 50, 20 40, 20 30 C20 20, 25 10, 30 5"
-          fill="white"
-        />
-        <path
-          d="M35 8 C45 3, 55 10, 55 25 C55 40, 45 50, 30 55 C45 50, 50 40, 50 28 C50 16, 42 8, 35 8"
-          fill="white"
-        />
-        <circle cx="42" cy="22" r="3" fill="#10243d" />
-        <path d="M55 20 C58 18, 62 20, 60 25 C58 22, 55 22, 55 20" fill="white" />
-        <path d="M10 5 C15 0, 25 2, 28 8 C20 5, 15 5, 10 5" fill="white" />
-        <path d="M8 8 C12 3, 20 5, 22 10 C16 8, 12 8, 8 8" fill="white" />
-      </g>
-      <text
-        x="50"
-        y="95"
-        textAnchor="middle"
-        fill="white"
-        fontSize="6"
-        fontFamily="serif"
-        letterSpacing="1"
-      >
-        SENHOR PEIXE
-      </text>
-    </svg>
-  )
-}
-
-// Social Icons
 function InstagramIcon({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
@@ -69,37 +29,37 @@ function TripAdvisorIcon({ className = "" }: { className?: string }) {
   )
 }
 
-function TheForkIcon({ className = "" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2.4c5.302 0 9.6 4.298 9.6 9.6s-4.298 9.6-9.6 9.6S2.4 17.302 2.4 12 6.698 2.4 12 2.4zm-1.2 3.6v7.2l-2.4 2.4 1.697 1.697L12 15.394l1.903 1.903L15.6 15.6l-2.4-2.4V6h-2.4z" />
-    </svg>
-  )
-}
-
-// Contact Icons
 function PhoneIcon({ className = "" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" className={className}>
-      <circle cx="24" cy="24" r="20" />
-      <circle cx="24" cy="24" r="8" />
-      <circle cx="24" cy="8" r="3" fill="currentColor" />
-      <circle cx="36" cy="16" r="3" fill="currentColor" />
-      <circle cx="36" cy="32" r="3" fill="currentColor" />
-      <circle cx="12" cy="16" r="3" fill="currentColor" />
-      <circle cx="12" cy="32" r="3" fill="currentColor" />
-      <path d="M20 40 C16 42, 8 40, 6 36" strokeLinecap="round" />
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.78 19.78 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.78 19.78 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.32 1.77.59 2.61a2 2 0 0 1-.45 2.11L8 9.69a16 16 0 0 0 6.31 6.31l1.25-1.25a2 2 0 0 1 2.11-.45c.84.27 1.71.47 2.61.59A2 2 0 0 1 22 16.92Z" />
     </svg>
   )
 }
 
 function EmailIcon({ className = "" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" className={className}>
-      <rect x="4" y="10" width="40" height="28" rx="2" />
-      <path d="M4 14 L24 26 L44 14" />
-      <circle cx="24" cy="24" r="6" />
-      <path d="M30 24 C30 20, 27 18, 24 18 C21 18, 18 20, 18 24 C18 28, 21 30, 24 30 C26 30, 28 29, 30 27" />
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z" />
+      <path d="m22 6-10 7L2 6" />
     </svg>
   )
 }
@@ -118,7 +78,119 @@ const INITIAL_FORM_DATA = {
   mensagem: "",
 }
 
+const PHONE_NUMBERS = [
+  { label: "+351 21 895 5892", href: "tel:+351218955892" },
+  { label: "+351 914 671 702", href: "tel:+351914671702" },
+]
+
+const CONTACT_EMAIL = "reservas@senhorpeixe.pt"
+
+const INSTAGRAM_URL = "https://www.instagram.com/restaurante.senhor.peixe/"
+const FACEBOOK_URL = "https://facebook.com"
+const TRIPADVISOR_URL =
+  "https://www.tripadvisor.pt/Restaurant_Review-g189158-d1163802-Reviews-Sr_Peixe-Lisbon_Lisbon_District_Central_Portugal.html"
+
+const translations = {
+  pt: {
+    closeMenu: "Fechar menu",
+    openMenu: "Abrir menu",
+    mainMenu: "Menu principal",
+    home: "Início",
+    gastronomy: "Gastronomia",
+    wine: "Garrafeira",
+    space: "O Nosso Espaço",
+    reservations: "Reservas",
+    contacts: "Contactos",
+    about: "Sobre Nós",
+    language: "English",
+    languageLabel: "Mudar para inglês",
+
+    pageTitle: "Contactos",
+    pageSubtitle: "Fale connosco, encontre-nos ou envie-nos a sua mensagem.",
+    information: "Informação",
+    howToReachUs: "Como chegar até nós",
+    address: "Morada",
+    locationName: "Parque das Nações",
+    schedule: "Horário",
+    openStatus: "Estamos abertos",
+    tuesdayToSaturday: "Terça a Sábado",
+    sunday: "Domingo",
+    phone: "Telefone",
+    email: "Email",
+    location: "Localização",
+    findUsOnMap: "Encontre-nos no mapa",
+    mapTitle: "Localização do Senhor Peixe",
+    message: "Mensagem",
+    sendUsMessage: "Envie-nos uma mensagem",
+
+    nameLabel: "Nome",
+    namePlaceholder: "O seu nome",
+    emailPlaceholder: "o.seu@email.com",
+    messageLabel: "Mensagem",
+    messagePlaceholder: "A sua mensagem...",
+    nameErrorPrefix: "Nome",
+    emailErrorPrefix: "Email",
+    messageErrorPrefix: "Mensagem",
+    sendError: "O envio falhou. Verifique os dados e tente novamente.",
+    sendMessage: "Enviar Mensagem",
+    sending: "A enviar...",
+    sentSuccess: "Mensagem enviada com sucesso. Entraremos em contacto brevemente.",
+
+    footer: "Senhor Peixe — Desde 1999",
+  },
+  en: {
+    closeMenu: "Close menu",
+    openMenu: "Open menu",
+    mainMenu: "Main menu",
+    home: "Home",
+    gastronomy: "Gastronomy",
+    wine: "Wine Cellar",
+    space: "The Space",
+    reservations: "Reservations",
+    contacts: "Contacts",
+    about: "About Us",
+    language: "Português",
+    languageLabel: "Switch to Portuguese",
+
+    pageTitle: "Contacts",
+    pageSubtitle: "Contact us, find us or send us your message.",
+    information: "Information",
+    howToReachUs: "How to reach us",
+    address: "Address",
+    locationName: "Parque das Nações",
+    schedule: "Opening Hours",
+    openStatus: "We are open",
+    tuesdayToSaturday: "Tuesday to Saturday",
+    sunday: "Sunday",
+    phone: "Phone",
+    email: "Email",
+    location: "Location",
+    findUsOnMap: "Find us on the map",
+    mapTitle: "Senhor Peixe location",
+    message: "Message",
+    sendUsMessage: "Send us a message",
+
+    nameLabel: "Name",
+    namePlaceholder: "Your name",
+    emailPlaceholder: "your.email@example.com",
+    messageLabel: "Message",
+    messagePlaceholder: "Your message...",
+    nameErrorPrefix: "Name",
+    emailErrorPrefix: "Email",
+    messageErrorPrefix: "Message",
+    sendError: "The message could not be sent. Please check your details and try again.",
+    sendMessage: "Send Message",
+    sending: "Sending...",
+    sentSuccess: "Message sent successfully. We will contact you shortly.",
+
+    footer: "Senhor Peixe — Since 1999",
+  },
+} as const
+
 export default function ContactosPage() {
+  const { language, toggleLanguage } = useLanguage()
+  const t = translations[language]
+
   const [formData, setFormData] = useState({
     ...INITIAL_FORM_DATA,
   })
@@ -158,11 +230,16 @@ export default function ContactosPage() {
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [isMenuOpen])
 
+  function handleToggleLanguage() {
+    toggleLanguage()
+    setIsMenuOpen(false)
+  }
+
   const googleMapsUrl =
-    "https://www.google.com/maps/place/Rua+da+Pimenta+35,+1990-254+Lisboa,+Portugal"
+    "https://www.google.com/maps/place/Senhor+Peixe/@38.7711153,-9.0950749,17z/data=!4m15!1m8!3m7!1s0xd19318fae5b0243:0x774590368c5ec79b!2sR.+da+Pimenta+35,+Parque+das+Na%C3%A7%C3%B5es,+1990-254+Lisboa!3b1!8m2!3d38.7711111!4d-9.0925!16s%2Fg%2F11rg64rhkz!3m5!1s0xd19337acbb1ab1b:0xeb80fb06738c323!8m2!3d38.7710801!4d-9.0923458!16s%2Fg%2F1tjfj34m?entry=ttu&g_ep=EgoyMDI2MDUxMS4wIKXMDSoASAFQAw%3D%3D"
 
   const googleMapsEmbed =
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3112.5!2d-9.0939!3d38.7633!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd19316a4c5b1b8d%3A0x0!2sRua%20da%20Pimenta%2035%2C%20Parque%20das%20Na%C3%A7%C3%B5es%2C%20Lisboa!5e0!3m2!1spt-PT!2spt!4v1699999999999!5m2!1spt-PT!2spt"
+    "https://www.google.com/maps?q=Senhor%20Peixe%2C%20Rua%20da%20Pimenta%2035%2C%20Parque%20das%20Na%C3%A7%C3%B5es%2C%20Lisboa&output=embed"
 
   return (
     <main className="min-h-screen bg-stone-50">
@@ -172,7 +249,7 @@ export default function ContactosPage() {
           <button
             type="button"
             className="fixed inset-0 z-[70] cursor-default"
-            aria-label="Fechar menu"
+            aria-label={t.closeMenu}
             onClick={() => setIsMenuOpen(false)}
           />
         )}
@@ -181,7 +258,7 @@ export default function ContactosPage() {
           <button
             type="button"
             onClick={() => setIsMenuOpen((open) => !open)}
-            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-label={isMenuOpen ? t.closeMenu : t.openMenu}
             aria-expanded={isMenuOpen}
             aria-controls="contactos-site-menu"
             className="group flex h-11 w-11 items-center justify-center rounded-full border border-[#c8a96a]/35 bg-[#10243d]/90 text-white shadow-lg shadow-black/15 backdrop-blur-md transition-all duration-300 hover:border-[#c8a96a] hover:bg-[#10243d]"
@@ -210,7 +287,7 @@ export default function ContactosPage() {
               id="contactos-site-menu"
               className="mt-4 max-h-[calc(100vh-110px)] w-64 overflow-y-auto rounded-2xl border border-white/20 bg-[#10243d]/95 p-3 shadow-2xl backdrop-blur-xl"
             >
-              <nav aria-label="Menu principal">
+              <nav aria-label={t.mainMenu}>
                 <div className="px-4 pb-3 pt-2">
                   <p className="font-serif text-[10px] uppercase tracking-[0.35em] text-white/45">
                     Senhor Peixe
@@ -223,7 +300,7 @@ export default function ContactosPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Início
+                    {t.home}
                   </Link>
 
                   <Link
@@ -231,7 +308,7 @@ export default function ContactosPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Gastronomia
+                    {t.gastronomy}
                   </Link>
 
                   <Link
@@ -239,7 +316,7 @@ export default function ContactosPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Garrafeira
+                    {t.wine}
                   </Link>
 
                   <Link
@@ -247,7 +324,7 @@ export default function ContactosPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    O Nosso Espaço
+                    {t.space}
                   </Link>
                 </div>
 
@@ -259,7 +336,7 @@ export default function ContactosPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Reservas
+                    {t.reservations}
                   </Link>
 
                   <Link
@@ -267,7 +344,7 @@ export default function ContactosPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl bg-white/10 px-4 py-3 font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300"
                   >
-                    Contactos
+                    {t.contacts}
                   </Link>
 
                   <Link
@@ -275,9 +352,20 @@ export default function ContactosPage() {
                     onClick={() => setIsMenuOpen(false)}
                     className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
                   >
-                    Sobre Nós
+                    {t.about}
                   </Link>
                 </div>
+
+                <div className="my-2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+
+                <button
+                  type="button"
+                  onClick={handleToggleLanguage}
+                  aria-label={t.languageLabel}
+                  className="block w-full rounded-xl px-4 py-3 text-left font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300 hover:bg-white/10 hover:text-white"
+                >
+                  {t.language}
+                </button>
               </nav>
             </div>
           )}
@@ -302,11 +390,11 @@ export default function ContactosPage() {
           </span>
 
           <h1 className="mt-4 font-serif text-4xl uppercase tracking-[0.18em] text-white sm:text-5xl">
-            Contactos
+            {t.pageTitle}
           </h1>
 
           <p className="mx-auto mt-4 max-w-xl font-serif text-sm italic leading-relaxed tracking-[0.08em] text-white/75 sm:text-base">
-            Fale connosco, encontre-nos ou envie-nos a sua mensagem.
+            {t.pageSubtitle}
           </p>
 
           <div
@@ -321,7 +409,7 @@ export default function ContactosPage() {
         <div className="mx-auto max-w-5xl">
           <div className="mb-14 text-center">
             <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
-              Informação
+              {t.information}
             </p>
 
             <div className="mt-3 flex items-center justify-center gap-x-3 sm:gap-x-4">
@@ -330,7 +418,7 @@ export default function ContactosPage() {
               </span>
 
               <h2 className="max-w-[92vw] font-serif text-xl uppercase leading-relaxed tracking-[0.12em] text-[#10243d] sm:text-3xl sm:tracking-[0.32em]">
-                Como chegar até nós
+                {t.howToReachUs}
               </h2>
 
               <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
@@ -350,11 +438,11 @@ export default function ContactosPage() {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div className="rounded-2xl border border-stone-200/80 bg-white/75 p-8 text-center shadow-sm">
               <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
-                Morada
+                {t.address}
               </p>
 
               <h3 className="mt-3 font-serif text-2xl uppercase tracking-[0.16em] text-[#10243d]">
-                Parque das Nações
+                {t.locationName}
               </h3>
 
               <div
@@ -378,11 +466,11 @@ export default function ContactosPage() {
 
             <div className="rounded-2xl border border-stone-200/80 bg-white/75 p-8 text-center shadow-sm">
               <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
-                Horário
+                {t.schedule}
               </p>
 
               <h3 className="mt-3 font-serif text-2xl uppercase tracking-[0.16em] text-[#10243d]">
-                Estamos abertos
+                {t.openStatus}
               </h3>
 
               <div
@@ -391,44 +479,50 @@ export default function ContactosPage() {
               />
 
               <div className="mt-6 space-y-3 font-serif text-base leading-relaxed text-[#5f7285]">
-                <p>Terça a Sábado</p>
+                <p>{t.tuesdayToSaturday}</p>
                 <p className="text-[#10243d]">12:00-15:30 / 19:00-22:30</p>
 
-                <p className="pt-3">Domingo</p>
+                <p className="pt-3">{t.sunday}</p>
                 <p className="text-[#10243d]">12:30-15:30</p>
               </div>
             </div>
           </div>
 
           <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
-            <a
-              href="tel:+351218955892"
-              className="group flex items-center justify-center gap-5 rounded-2xl border border-stone-200/80 bg-white/75 p-7 shadow-sm transition-all duration-300 hover:border-[#c8a96a]/60 hover:shadow-md"
-            >
-              <PhoneIcon className="h-11 w-11 text-[#10243d] transition-colors group-hover:text-[#c8a96a]" />
+            <div className="group flex items-center justify-center gap-5 rounded-2xl border border-stone-200/80 bg-white/75 p-7 shadow-sm transition-all duration-300 hover:border-[#c8a96a]/60 hover:shadow-md">
+              <PhoneIcon className="h-7 w-7 shrink-0 text-[#10243d] transition-colors group-hover:text-[#c8a96a]" />
 
               <div>
                 <p className="font-serif text-[10px] uppercase tracking-[0.3em] text-[#c8a96a]">
-                  Telefone
+                  {t.phone}
                 </p>
-                <p className="mt-2 font-serif text-xl tracking-wide text-[#10243d]">
-                  +351 21 895 5892
-                </p>
+
+                <div className="mt-2 space-y-1">
+                  {PHONE_NUMBERS.map((phone) => (
+                    <a
+                      key={phone.href}
+                      href={phone.href}
+                      className="block font-serif text-lg tracking-wide text-[#10243d] transition-colors hover:text-[#c8a96a] sm:text-xl"
+                    >
+                      {phone.label}
+                    </a>
+                  ))}
+                </div>
               </div>
-            </a>
+            </div>
 
             <a
-              href="mailto:restaurante.senhor.peixe@gmail.com"
+              href={`mailto:${CONTACT_EMAIL}`}
               className="group flex items-center justify-center gap-5 rounded-2xl border border-stone-200/80 bg-white/75 p-7 shadow-sm transition-all duration-300 hover:border-[#c8a96a]/60 hover:shadow-md"
             >
-              <EmailIcon className="h-11 w-11 text-[#10243d] transition-colors group-hover:text-[#c8a96a]" />
+              <EmailIcon className="h-7 w-7 shrink-0 text-[#10243d] transition-colors group-hover:text-[#c8a96a]" />
 
               <div>
                 <p className="font-serif text-[10px] uppercase tracking-[0.3em] text-[#c8a96a]">
-                  Email
+                  {t.email}
                 </p>
                 <p className="mt-2 break-all font-serif text-base tracking-wide text-[#10243d] sm:text-lg">
-                  restaurante.senhor.peixe@gmail.com
+                  {CONTACT_EMAIL}
                 </p>
               </div>
             </a>
@@ -442,7 +536,7 @@ export default function ContactosPage() {
 
             <div className="mb-10 text-center">
               <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
-                Localização
+                {t.location}
               </p>
 
               <div className="mt-3 flex items-center justify-center gap-x-3 sm:gap-x-4">
@@ -451,7 +545,7 @@ export default function ContactosPage() {
                 </span>
 
                 <h2 className="max-w-[92vw] font-serif text-xl uppercase leading-relaxed tracking-[0.12em] text-[#10243d] sm:text-3xl sm:tracking-[0.32em]">
-                  Encontre-nos no mapa
+                  {t.findUsOnMap}
                 </h2>
 
                 <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
@@ -477,7 +571,7 @@ export default function ContactosPage() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Localização do Senhor Peixe"
+                title={t.mapTitle}
                 className="w-full"
               />
             </div>
@@ -491,7 +585,7 @@ export default function ContactosPage() {
 
             <div className="mb-12 text-center">
               <p className="font-serif text-[11px] uppercase tracking-[0.35em] text-[#c8a96a]">
-                Mensagem
+                {t.message}
               </p>
 
               <div className="mt-3 flex items-center justify-center gap-x-3 sm:gap-x-4">
@@ -500,7 +594,7 @@ export default function ContactosPage() {
                 </span>
 
                 <h2 className="max-w-[92vw] font-serif text-xl uppercase leading-relaxed tracking-[0.12em] text-[#10243d] sm:text-3xl sm:tracking-[0.32em]">
-                  Envie-nos uma mensagem
+                  {t.sendUsMessage}
                 </h2>
 
                 <span className="hidden font-serif text-lg text-[#10243d] sm:inline">
@@ -526,7 +620,7 @@ export default function ContactosPage() {
                   htmlFor="nome"
                   className="mb-2 block font-serif text-sm uppercase tracking-widest text-[#5a6c7d]"
                 >
-                  Nome
+                  {t.nameLabel}
                 </label>
 
                 <input
@@ -540,11 +634,11 @@ export default function ContactosPage() {
                   required
                   autoComplete="name"
                   className="w-full border-0 border-b border-[#d4d0c8] bg-transparent py-3 font-serif text-lg text-[#2c3e50] outline-none transition-colors placeholder:text-[#a0a0a0] focus:border-[#10243d]"
-                  placeholder="O seu nome"
+                  placeholder={t.namePlaceholder}
                 />
 
                 <ValidationError
-                  prefix="Nome"
+                  prefix={t.nameErrorPrefix}
                   field="nome"
                   errors={state.errors}
                   className="mt-2 font-serif text-sm text-[#b65a5a]"
@@ -556,7 +650,7 @@ export default function ContactosPage() {
                   htmlFor="email"
                   className="mb-2 block font-serif text-sm uppercase tracking-widest text-[#5a6c7d]"
                 >
-                  Email
+                  {t.email}
                 </label>
 
                 <input
@@ -570,11 +664,11 @@ export default function ContactosPage() {
                   required
                   autoComplete="email"
                   className="w-full border-0 border-b border-[#d4d0c8] bg-transparent py-3 font-serif text-lg text-[#2c3e50] outline-none transition-colors placeholder:text-[#a0a0a0] focus:border-[#10243d]"
-                  placeholder="o.seu@email.com"
+                  placeholder={t.emailPlaceholder}
                 />
 
                 <ValidationError
-                  prefix="Email"
+                  prefix={t.emailErrorPrefix}
                   field="email"
                   errors={state.errors}
                   className="mt-2 font-serif text-sm text-[#b65a5a]"
@@ -586,7 +680,7 @@ export default function ContactosPage() {
                   htmlFor="mensagem"
                   className="mb-2 block font-serif text-sm uppercase tracking-widest text-[#5a6c7d]"
                 >
-                  Mensagem
+                  {t.messageLabel}
                 </label>
 
                 <textarea
@@ -599,11 +693,11 @@ export default function ContactosPage() {
                   required
                   rows={5}
                   className="w-full resize-none border-0 border-b border-[#d4d0c8] bg-transparent py-3 font-serif text-lg text-[#2c3e50] outline-none transition-colors placeholder:text-[#a0a0a0] focus:border-[#10243d]"
-                  placeholder="A sua mensagem..."
+                  placeholder={t.messagePlaceholder}
                 />
 
                 <ValidationError
-                  prefix="Mensagem"
+                  prefix={t.messageErrorPrefix}
                   field="mensagem"
                   errors={state.errors}
                   className="mt-2 font-serif text-sm text-[#b65a5a]"
@@ -616,7 +710,7 @@ export default function ContactosPage() {
                   aria-live="assertive"
                   className="text-center font-serif text-sm leading-relaxed text-[#b65a5a]"
                 >
-                  O envio falhou. Verifique os dados e tente novamente.
+                  {t.sendError}
                 </div>
               )}
 
@@ -632,7 +726,7 @@ export default function ContactosPage() {
                       state.submitting ? "opacity-0" : "opacity-100"
                     }`}
                   >
-                    Enviar Mensagem
+                    {t.sendMessage}
                   </span>
 
                   {state.submitting && (
@@ -660,7 +754,7 @@ export default function ContactosPage() {
                         />
                       </svg>
 
-                      <span className="tracking-[0.2em]">A enviar...</span>
+                      <span className="tracking-[0.2em]">{t.sending}</span>
                     </span>
                   )}
                 </button>
@@ -669,7 +763,7 @@ export default function ContactosPage() {
               {isSubmitted && (
                 <div className="text-center">
                   <p className="font-serif text-base leading-relaxed text-[#10243d]">
-                    Mensagem enviada com sucesso. Entraremos em contacto brevemente.
+                    {t.sentSuccess}
                   </p>
                 </div>
               )}
@@ -681,7 +775,7 @@ export default function ContactosPage() {
       {/* Social Icons */}
       <div className="fixed bottom-4 right-4 z-40 flex items-center gap-2 md:bottom-6 md:right-6 md:gap-4">
         <a
-          href="https://www.instagram.com/restaurante.senhor.peixe/"
+          href={INSTAGRAM_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="text-[#10243d] transition-colors hover:text-[#c8a96a]"
@@ -691,7 +785,7 @@ export default function ContactosPage() {
         </a>
 
         <a
-          href="https://facebook.com"
+          href={FACEBOOK_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="text-[#10243d] transition-colors hover:text-[#c8a96a]"
@@ -701,23 +795,13 @@ export default function ContactosPage() {
         </a>
 
         <a
-          href="https://www.tripadvisor.pt/Restaurant_Review-g189158-d1163802-Reviews-Sr_Peixe-Lisbon_Lisbon_District_Central_Portugal.html"
+          href={TRIPADVISOR_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="text-[#10243d] transition-colors hover:text-[#c8a96a]"
           aria-label="TripAdvisor"
         >
           <TripAdvisorIcon className="h-6 w-6 md:h-7 md:w-7" />
-        </a>
-
-        <a
-          href="https://thefork.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-[#10243d] transition-colors hover:text-[#c8a96a]"
-          aria-label="TheFork"
-        >
-          <TheForkIcon className="h-6 w-6 md:h-7 md:w-7" />
         </a>
       </div>
 
@@ -737,7 +821,7 @@ export default function ContactosPage() {
           </Link>
 
           <p className="mt-3 font-serif text-xs uppercase tracking-[0.2em] text-white/60">
-            Senhor Peixe — Desde 1999
+            {t.footer}
           </p>
         </div>
       </footer>
