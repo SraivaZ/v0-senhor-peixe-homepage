@@ -6,6 +6,7 @@ import { useForm, ValidationError } from "@formspree/react"
 import PhoneInput from "react-phone-number-input"
 import "react-phone-number-input/style.css"
 import { useLanguage } from "@/components/language-provider"
+import { SiteMenu } from "@/components/site-menu"
 
 function InstagramIcon({ className = "" }: { className?: string }) {
   return (
@@ -78,20 +79,7 @@ const TRIPADVISOR_URL =
 
 const translations = {
   pt: {
-    closeMenu: "Fechar menu",
-    openMenu: "Abrir menu",
     close: "Fechar",
-    mainMenu: "Menu principal",
-    home: "Início",
-    gastronomy: "Gastronomia",
-    wine: "Garrafeira",
-    space: "O Nosso Espaço",
-    reservations: "Reservas",
-    contacts: "Contactos",
-    about: "Sobre Nós",
-    language: "English",
-    languageLabel: "Mudar para inglês",
-
     pageTitle: "Reservas",
     pageSubtitle:
       "Reserve a sua mesa e deixe-nos preparar uma experiência à sua medida.",
@@ -140,20 +128,7 @@ const translations = {
     footer: "Senhor Peixe — Desde 1999",
   },
   en: {
-    closeMenu: "Close menu",
-    openMenu: "Open menu",
     close: "Close",
-    mainMenu: "Main menu",
-    home: "Home",
-    gastronomy: "Gastronomy",
-    wine: "Wine Cellar",
-    space: "The Space",
-    reservations: "Reservations",
-    contacts: "Contacts",
-    about: "About Us",
-    language: "Português",
-    languageLabel: "Switch to Portuguese",
-
     pageTitle: "Reservations",
     pageSubtitle:
       "Reserve your table and let us prepare an experience tailored to you.",
@@ -212,7 +187,7 @@ function isDinnerTime(hora: string): boolean {
 }
 
 export default function ReservasPage() {
-  const { language, toggleLanguage } = useLanguage()
+  const { language } = useLanguage()
   const t = translations[language]
 
   const [formData, setFormData] = useState({
@@ -224,7 +199,6 @@ export default function ReservasPage() {
   const [state] = useForm("meenpror")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState("")
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [phoneOpen, setPhoneOpen] = useState(false)
 
   const selectedDay = getDayFromDateString(formData.data)
@@ -314,11 +288,6 @@ export default function ReservasPage() {
     }
   }
 
-  function handleToggleLanguage() {
-    toggleLanguage()
-    setIsMenuOpen(false)
-  }
-
   useEffect(() => {
     if (state.succeeded) {
       setIsSubmitted(true)
@@ -328,19 +297,18 @@ export default function ReservasPage() {
   }, [state.succeeded])
 
   useEffect(() => {
-    document.body.style.overflow = isMenuOpen || phoneOpen ? "hidden" : ""
+    document.body.style.overflow = phoneOpen ? "hidden" : ""
 
     return () => {
       document.body.style.overflow = ""
     }
-  }, [isMenuOpen, phoneOpen])
+  }, [phoneOpen])
 
   useEffect(() => {
-    if (!isMenuOpen && !phoneOpen) return
+    if (!phoneOpen) return
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setIsMenuOpen(false)
         setPhoneOpen(false)
       }
     }
@@ -348,138 +316,11 @@ export default function ReservasPage() {
     window.addEventListener("keydown", handleKeyDown)
 
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [isMenuOpen, phoneOpen])
+  }, [phoneOpen])
 
   return (
     <main className="min-h-screen bg-stone-50">
-      {/* Floating Site Menu */}
-      <div className="fixed left-4 top-4 z-[80] sm:left-6 sm:top-5">
-        {isMenuOpen && (
-          <button
-            type="button"
-            className="fixed inset-0 z-[70] cursor-default"
-            aria-label={t.closeMenu}
-            onClick={() => setIsMenuOpen(false)}
-          />
-        )}
-
-        <div className="relative z-[90]">
-          <button
-            type="button"
-            onClick={() => setIsMenuOpen((open) => !open)}
-            aria-label={isMenuOpen ? t.closeMenu : t.openMenu}
-            aria-expanded={isMenuOpen}
-            aria-controls="reservas-site-menu"
-            className="group flex h-11 w-11 items-center justify-center rounded-full border border-[#c8a96a]/35 bg-[#10243d]/90 text-white shadow-lg shadow-black/15 backdrop-blur-md transition-all duration-300 hover:border-[#c8a96a] hover:bg-[#10243d]"
-          >
-            <span className="flex flex-col gap-1.5">
-              <span
-                className={`block h-px w-5 bg-current transition-transform duration-300 ${
-                  isMenuOpen ? "translate-y-[7px] rotate-45" : ""
-                }`}
-              />
-              <span
-                className={`block h-px w-5 bg-current transition-opacity duration-300 ${
-                  isMenuOpen ? "opacity-0" : "opacity-100"
-                }`}
-              />
-              <span
-                className={`block h-px w-5 bg-current transition-transform duration-300 ${
-                  isMenuOpen ? "-translate-y-[7px] -rotate-45" : ""
-                }`}
-              />
-            </span>
-          </button>
-
-          {isMenuOpen && (
-            <div
-              id="reservas-site-menu"
-              className="mt-4 max-h-[calc(100vh-110px)] w-64 overflow-y-auto rounded-2xl border border-white/20 bg-[#10243d]/95 p-3 shadow-2xl backdrop-blur-xl"
-            >
-              <nav aria-label={t.mainMenu}>
-                <div className="px-4 pb-3 pt-2">
-                  <p className="font-serif text-[10px] uppercase tracking-[0.35em] text-white/45">
-                    Senhor Peixe
-                  </p>
-                </div>
-
-                <div className="space-y-1">
-                  <Link
-                    href="/"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.home}
-                  </Link>
-
-                  <Link
-                    href="/gastronomia"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.gastronomy}
-                  </Link>
-
-                  <Link
-                    href="/garrafeira"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.wine}
-                  </Link>
-
-                  <Link
-                    href="/o-nosso-espaco"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.space}
-                  </Link>
-                </div>
-
-                <div className="my-2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-
-                <div className="space-y-1">
-                  <Link
-                    href="/reservas"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl bg-white/10 px-4 py-3 font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300"
-                  >
-                    {t.reservations}
-                  </Link>
-
-                  <Link
-                    href="/contactos"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.contacts}
-                  </Link>
-
-                  <Link
-                    href="/sobre-nos"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.about}
-                  </Link>
-                </div>
-
-                <div className="my-2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-
-                <button
-                  type="button"
-                  onClick={handleToggleLanguage}
-                  aria-label={t.languageLabel}
-                  className="block w-full rounded-xl px-4 py-3 text-left font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300 hover:bg-white/10 hover:text-white"
-                >
-                  {t.language}
-                </button>
-              </nav>
-            </div>
-          )}
-        </div>
-      </div>
+      <SiteMenu activePage="reservas" />
 
       {/* Header Elegant */}
       <header className="relative flex h-[320px] items-center justify-center overflow-hidden bg-[#10243d] sm:h-[380px]">

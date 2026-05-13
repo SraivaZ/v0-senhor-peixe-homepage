@@ -1,9 +1,9 @@
 "use client"
 
-import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useLanguage } from "@/components/language-provider"
+import { SiteMenu } from "@/components/site-menu"
 
 function InstagramIcon({ className = "" }: { className?: string }) {
   return (
@@ -24,7 +24,7 @@ function FacebookIcon({ className = "" }: { className?: string }) {
 function TripAdvisorIcon({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path d="M12.006 4.295c-2.67 0-5.338.784-7.645 2.353H0l1.963 2.135a5.997 5.997 0 0 0 4.04 10.43 5.976 5.976 0 0 0 4.075-1.6L12 19.705l1.922-2.09a5.972 5.972 0 0 0 4.072 1.598 5.997 5.997 0 0 0 4.04-10.43L24 6.648h-4.35a13.573 13.573 0 0 0-7.644-2.353zM6.003 17.212a3.996 3.996 0 1 1 0-7.992 3.996 3.996 0 0 1 0 7.992zm5.997-4.287a6.013 6.013 0 0 0-1.37-3.796 11.718 11.718 0 0 1 2.37-.237c.834 0 1.647.083 2.436.247a6.013 6.013 0 0 0-1.436 3.786zm6.003 4.287a3.996 3.996 0 1 1 0-7.992 3.996 3.996 0 0 1 0 7.992zM6.003 11.22a1.998 1.998 0 1 0 0 3.996 1.998 1.998 0 0 0 0-3.996zm11.994 0a1.998 1.998 0 1 0 0 3.996 1.998 1.998 0 0 0 0-3.996z" />
+      <path d="M12.006 4.295c-2.67 0-5.338.784-7.645 2.353H0l1.963 2.135a5.997 5.997 0 004.04 10.43 5.976 5.976 0 004.075-1.6L12 19.5l1.922-1.886a5.976 5.976 0 004.075 1.6 5.997 5.997 0 004.04-10.43L24 6.648h-4.35a13.573 13.573 0 00-7.644-2.353zM12 6.255c1.531 0 3.063.303 4.504.91C14.5 8.075 13.096 9.45 12 11.372c-1.096-1.922-2.5-3.297-4.504-4.207A11.577 11.577 0 0112 6.255zM6.003 9.79a4.006 4.006 0 110 8.013 4.006 4.006 0 010-8.013zm11.994 0a4.006 4.006 0 110 8.013 4.006 4.006 0 010-8.013zM6.003 11.79a2.003 2.003 0 100 4.006 2.003 2.003 0 000-4.006zm11.994 0a2.003 2.003 0 100 4.006 2.003 2.003 0 000-4.006z" />
     </svg>
   )
 }
@@ -39,21 +39,9 @@ const TRIPADVISOR_URL =
 
 const translations = {
   pt: {
-    closeMenu: "Fechar menu",
-    openMenu: "Abrir menu",
-    mainMenu: "Menu principal",
-    home: "Início",
-    gastronomy: "Gastronomia",
-    wine: "Garrafeira",
-    space: "O Nosso Espaço",
-    reservations: "Reservas",
-    contacts: "Contactos",
-    about: "Sobre Nós",
-    language: "English",
-    languageLabel: "Mudar para inglês",
-
     pageTitle: "Sobre Nós",
-    pageSubtitle: "Uma história ligada ao mar, à frescura e à tradição portuguesa.",
+    pageSubtitle:
+      "Uma história ligada ao mar, à frescura e à tradição portuguesa.",
 
     introSmallTitle: "A nossa essência",
     introTitle: "Do mar, para o seu prato",
@@ -84,21 +72,9 @@ const translations = {
     imageAltExterior: "Exterior do restaurante Senhor Peixe",
   },
   en: {
-    closeMenu: "Close menu",
-    openMenu: "Open menu",
-    mainMenu: "Main menu",
-    home: "Home",
-    gastronomy: "Gastronomy",
-    wine: "Wine Cellar",
-    space: "The Space",
-    reservations: "Reservations",
-    contacts: "Contacts",
-    about: "About Us",
-    language: "Português",
-    languageLabel: "Switch to Portuguese",
-
     pageTitle: "About Us",
-    pageSubtitle: "A story connected to the sea, freshness and Portuguese tradition.",
+    pageSubtitle:
+      "A story connected to the sea, freshness and Portuguese tradition.",
 
     introSmallTitle: "Our essence",
     introTitle: "From the sea, to your plate",
@@ -131,160 +107,12 @@ const translations = {
 } as const
 
 export default function SobreNosPage() {
-  const { language, toggleLanguage } = useLanguage()
+  const { language } = useLanguage()
   const t = translations[language]
-
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-
-  useEffect(() => {
-    if (!isMenuOpen) return
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setIsMenuOpen(false)
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyDown)
-
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [isMenuOpen])
-
-  function handleToggleLanguage() {
-    toggleLanguage()
-    setIsMenuOpen(false)
-  }
 
   return (
     <main className="min-h-screen bg-stone-50">
-      {/* Floating Site Menu */}
-      <div className="fixed left-4 top-4 z-[80] sm:left-6 sm:top-5">
-        {isMenuOpen && (
-          <button
-            type="button"
-            className="fixed inset-0 z-[70] cursor-default"
-            aria-label={t.closeMenu}
-            onClick={() => setIsMenuOpen(false)}
-          />
-        )}
-
-        <div className="relative z-[90]">
-          <button
-            type="button"
-            onClick={() => setIsMenuOpen((open) => !open)}
-            aria-label={isMenuOpen ? t.closeMenu : t.openMenu}
-            aria-expanded={isMenuOpen}
-            aria-controls="sobre-nos-site-menu"
-            className="group flex h-11 w-11 items-center justify-center rounded-full border border-[#c8a96a]/35 bg-[#10243d]/90 text-white shadow-lg shadow-black/15 backdrop-blur-md transition-all duration-300 hover:border-[#c8a96a] hover:bg-[#10243d]"
-          >
-            <span className="flex flex-col gap-1.5">
-              <span
-                className={`block h-px w-5 bg-current transition-transform duration-300 ${
-                  isMenuOpen ? "translate-y-[7px] rotate-45" : ""
-                }`}
-              />
-              <span
-                className={`block h-px w-5 bg-current transition-opacity duration-300 ${
-                  isMenuOpen ? "opacity-0" : "opacity-100"
-                }`}
-              />
-              <span
-                className={`block h-px w-5 bg-current transition-transform duration-300 ${
-                  isMenuOpen ? "-translate-y-[7px] -rotate-45" : ""
-                }`}
-              />
-            </span>
-          </button>
-
-          {isMenuOpen && (
-            <div
-              id="sobre-nos-site-menu"
-              className="mt-4 max-h-[calc(100vh-110px)] w-64 overflow-y-auto rounded-2xl border border-white/20 bg-[#10243d]/95 p-3 shadow-2xl backdrop-blur-xl"
-            >
-              <nav aria-label={t.mainMenu}>
-                <div className="px-4 pb-3 pt-2">
-                  <p className="font-serif text-[10px] uppercase tracking-[0.35em] text-white/45">
-                    Senhor Peixe
-                  </p>
-                </div>
-
-                <div className="space-y-1">
-                  <Link
-                    href="/"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.home}
-                  </Link>
-
-                  <Link
-                    href="/gastronomia"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.gastronomy}
-                  </Link>
-
-                  <Link
-                    href="/garrafeira"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.wine}
-                  </Link>
-
-                  <Link
-                    href="/o-nosso-espaco"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.space}
-                  </Link>
-                </div>
-
-                <div className="my-2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-
-                <div className="space-y-1">
-                  <Link
-                    href="/reservas"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.reservations}
-                  </Link>
-
-                  <Link
-                    href="/contactos"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.contacts}
-                  </Link>
-
-                  <Link
-                    href="/sobre-nos"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl bg-white/10 px-4 py-3 font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300"
-                  >
-                    {t.about}
-                  </Link>
-                </div>
-
-                <div className="my-2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-
-                <button
-                  type="button"
-                  onClick={handleToggleLanguage}
-                  aria-label={t.languageLabel}
-                  className="block w-full rounded-xl px-4 py-3 text-left font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300 hover:bg-white/10 hover:text-white"
-                >
-                  {t.language}
-                </button>
-              </nav>
-            </div>
-          )}
-        </div>
-      </div>
+      <SiteMenu activePage="sobre" />
 
       {/* Header Elegant */}
       <header className="relative flex h-[320px] items-center justify-center overflow-hidden bg-[#10243d] sm:h-[380px]">
@@ -490,6 +318,7 @@ export default function SobreNosPage() {
               <div className="mt-6 space-y-3 font-serif text-base leading-relaxed text-[#5f7285]">
                 <p>{t.tuesdayToSaturday}</p>
                 <p className="text-[#10243d]">12:00-15:30 / 19:00-22:30</p>
+
                 <p className="pt-3">{t.sunday}</p>
                 <p className="text-[#10243d]">12:30-15:30</p>
               </div>

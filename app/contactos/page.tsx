@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { useForm, ValidationError } from "@formspree/react"
 import { useLanguage } from "@/components/language-provider"
+import { SiteMenu } from "@/components/site-menu"
 
 function InstagramIcon({ className = "" }: { className?: string }) {
   return (
@@ -85,6 +86,12 @@ const PHONE_NUMBERS = [
 
 const CONTACT_EMAIL = "reservas@senhorpeixe.pt"
 
+const GOOGLE_MAPS_URL =
+  "https://www.google.com/maps/place/Senhor+Peixe/@38.7711153,-9.0950749,17z/data=!4m15!1m8!3m7!1s0xd19318fae5b0243:0x774590368c5ec79b!2sR.+da+Pimenta+35,+Parque+das+Na%C3%A7%C3%B5es,+1990-254+Lisboa!3b1!8m2!3d38.7711111!4d-9.0925!16s%2Fg%2F11rg64rhkz!3m5!1s0xd19337acbb1ab1b:0xeb80fb06738c323!8m2!3d38.7710801!4d-9.0923458!16s%2Fg%2F1tjfj34m?entry=ttu&g_ep=EgoyMDI2MDUxMS4wIKXMDSoASAFQAw%3D%3D"
+
+const GOOGLE_MAPS_EMBED =
+  "https://www.google.com/maps?q=Senhor%20Peixe%2C%20Rua%20da%20Pimenta%2035%2C%20Parque%20das%20Na%C3%A7%C3%B5es%2C%20Lisboa&output=embed"
+
 const INSTAGRAM_URL = "https://www.instagram.com/restaurante.senhor.peixe/"
 const FACEBOOK_URL = "https://facebook.com"
 const TRIPADVISOR_URL =
@@ -92,19 +99,6 @@ const TRIPADVISOR_URL =
 
 const translations = {
   pt: {
-    closeMenu: "Fechar menu",
-    openMenu: "Abrir menu",
-    mainMenu: "Menu principal",
-    home: "Início",
-    gastronomy: "Gastronomia",
-    wine: "Garrafeira",
-    space: "O Nosso Espaço",
-    reservations: "Reservas",
-    contacts: "Contactos",
-    about: "Sobre Nós",
-    language: "English",
-    languageLabel: "Mudar para inglês",
-
     pageTitle: "Contactos",
     pageSubtitle: "Fale connosco, encontre-nos ou envie-nos a sua mensagem.",
     information: "Informação",
@@ -139,19 +133,6 @@ const translations = {
     footer: "Senhor Peixe — Desde 1999",
   },
   en: {
-    closeMenu: "Close menu",
-    openMenu: "Open menu",
-    mainMenu: "Main menu",
-    home: "Home",
-    gastronomy: "Gastronomy",
-    wine: "Wine Cellar",
-    space: "The Space",
-    reservations: "Reservations",
-    contacts: "Contacts",
-    about: "About Us",
-    language: "Português",
-    languageLabel: "Switch to Portuguese",
-
     pageTitle: "Contacts",
     pageSubtitle: "Contact us, find us or send us your message.",
     information: "Information",
@@ -188,7 +169,7 @@ const translations = {
 } as const
 
 export default function ContactosPage() {
-  const { language, toggleLanguage } = useLanguage()
+  const { language } = useLanguage()
   const t = translations[language]
 
   const [formData, setFormData] = useState({
@@ -196,7 +177,6 @@ export default function ContactosPage() {
   })
 
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [state, handleSubmit] = useForm("xykolbyw")
 
   useEffect(() => {
@@ -216,161 +196,9 @@ export default function ContactosPage() {
     }
   }, [state.succeeded])
 
-  useEffect(() => {
-    if (!isMenuOpen) return
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setIsMenuOpen(false)
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyDown)
-
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [isMenuOpen])
-
-  function handleToggleLanguage() {
-    toggleLanguage()
-    setIsMenuOpen(false)
-  }
-
-  const googleMapsUrl =
-    "https://www.google.com/maps/place/Senhor+Peixe/@38.7711153,-9.0950749,17z/data=!4m15!1m8!3m7!1s0xd19318fae5b0243:0x774590368c5ec79b!2sR.+da+Pimenta+35,+Parque+das+Na%C3%A7%C3%B5es,+1990-254+Lisboa!3b1!8m2!3d38.7711111!4d-9.0925!16s%2Fg%2F11rg64rhkz!3m5!1s0xd19337acbb1ab1b:0xeb80fb06738c323!8m2!3d38.7710801!4d-9.0923458!16s%2Fg%2F1tjfj34m?entry=ttu&g_ep=EgoyMDI2MDUxMS4wIKXMDSoASAFQAw%3D%3D"
-
-  const googleMapsEmbed =
-    "https://www.google.com/maps?q=Senhor%20Peixe%2C%20Rua%20da%20Pimenta%2035%2C%20Parque%20das%20Na%C3%A7%C3%B5es%2C%20Lisboa&output=embed"
-
   return (
     <main className="min-h-screen bg-stone-50">
-      {/* Floating Site Menu */}
-      <div className="fixed left-4 top-4 z-[80] sm:left-6 sm:top-5">
-        {isMenuOpen && (
-          <button
-            type="button"
-            className="fixed inset-0 z-[70] cursor-default"
-            aria-label={t.closeMenu}
-            onClick={() => setIsMenuOpen(false)}
-          />
-        )}
-
-        <div className="relative z-[90]">
-          <button
-            type="button"
-            onClick={() => setIsMenuOpen((open) => !open)}
-            aria-label={isMenuOpen ? t.closeMenu : t.openMenu}
-            aria-expanded={isMenuOpen}
-            aria-controls="contactos-site-menu"
-            className="group flex h-11 w-11 items-center justify-center rounded-full border border-[#c8a96a]/35 bg-[#10243d]/90 text-white shadow-lg shadow-black/15 backdrop-blur-md transition-all duration-300 hover:border-[#c8a96a] hover:bg-[#10243d]"
-          >
-            <span className="flex flex-col gap-1.5">
-              <span
-                className={`block h-px w-5 bg-current transition-transform duration-300 ${
-                  isMenuOpen ? "translate-y-[7px] rotate-45" : ""
-                }`}
-              />
-              <span
-                className={`block h-px w-5 bg-current transition-opacity duration-300 ${
-                  isMenuOpen ? "opacity-0" : "opacity-100"
-                }`}
-              />
-              <span
-                className={`block h-px w-5 bg-current transition-transform duration-300 ${
-                  isMenuOpen ? "-translate-y-[7px] -rotate-45" : ""
-                }`}
-              />
-            </span>
-          </button>
-
-          {isMenuOpen && (
-            <div
-              id="contactos-site-menu"
-              className="mt-4 max-h-[calc(100vh-110px)] w-64 overflow-y-auto rounded-2xl border border-white/20 bg-[#10243d]/95 p-3 shadow-2xl backdrop-blur-xl"
-            >
-              <nav aria-label={t.mainMenu}>
-                <div className="px-4 pb-3 pt-2">
-                  <p className="font-serif text-[10px] uppercase tracking-[0.35em] text-white/45">
-                    Senhor Peixe
-                  </p>
-                </div>
-
-                <div className="space-y-1">
-                  <Link
-                    href="/"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.home}
-                  </Link>
-
-                  <Link
-                    href="/gastronomia"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.gastronomy}
-                  </Link>
-
-                  <Link
-                    href="/garrafeira"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.wine}
-                  </Link>
-
-                  <Link
-                    href="/o-nosso-espaco"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.space}
-                  </Link>
-                </div>
-
-                <div className="my-2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-
-                <div className="space-y-1">
-                  <Link
-                    href="/reservas"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.reservations}
-                  </Link>
-
-                  <Link
-                    href="/contactos"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl bg-white/10 px-4 py-3 font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300"
-                  >
-                    {t.contacts}
-                  </Link>
-
-                  <Link
-                    href="/sobre-nos"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.about}
-                  </Link>
-                </div>
-
-                <div className="my-2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-
-                <button
-                  type="button"
-                  onClick={handleToggleLanguage}
-                  aria-label={t.languageLabel}
-                  className="block w-full rounded-xl px-4 py-3 text-left font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300 hover:bg-white/10 hover:text-white"
-                >
-                  {t.language}
-                </button>
-              </nav>
-            </div>
-          )}
-        </div>
-      </div>
+      <SiteMenu activePage="contactos" />
 
       {/* Header */}
       <header className="relative flex h-[320px] items-center justify-center overflow-hidden bg-[#10243d] sm:h-[380px]">
@@ -451,7 +279,7 @@ export default function ContactosPage() {
               />
 
               <a
-                href={googleMapsUrl}
+                href={GOOGLE_MAPS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mx-auto mt-6 flex max-w-sm items-center justify-center gap-2 font-serif text-base leading-relaxed text-[#5f7285] transition-colors hover:text-[#10243d]"
@@ -460,6 +288,7 @@ export default function ContactosPage() {
                   Rua da Pimenta 35, Parque das Nações, Zona Ribeirinha Norte,
                   1990-254 Lisboa
                 </span>
+
                 <MapPinIcon className="h-5 w-5 shrink-0 text-[#c8a96a]" />
               </a>
             </div>
@@ -521,6 +350,7 @@ export default function ContactosPage() {
                 <p className="font-serif text-[10px] uppercase tracking-[0.3em] text-[#c8a96a]">
                   {t.email}
                 </p>
+
                 <p className="mt-2 break-all font-serif text-base tracking-wide text-[#10243d] sm:text-lg">
                   {CONTACT_EMAIL}
                 </p>
@@ -564,7 +394,7 @@ export default function ContactosPage() {
 
             <div className="overflow-hidden rounded-2xl border border-stone-200/80 shadow-xl">
               <iframe
-                src={googleMapsEmbed}
+                src={GOOGLE_MAPS_EMBED}
                 width="100%"
                 height="430"
                 style={{ border: 0 }}

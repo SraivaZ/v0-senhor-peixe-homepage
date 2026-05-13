@@ -4,20 +4,11 @@ import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { useLanguage } from "@/components/language-provider"
+import { SiteMenu } from "@/components/site-menu"
 
 const translations = {
   pt: {
     close: "Fechar",
-    closeMenu: "Fechar menu",
-    openMenu: "Abrir menu",
-    mainMenu: "Menu principal",
-    home: "Início",
-    gastronomy: "Gastronomia",
-    wine: "Garrafeira",
-    space: "O Nosso Espaço",
-    reservations: "Reservas",
-    contacts: "Contactos",
-    about: "Sobre Nós",
     pageTitle: "O Nosso Espaço",
     pageSubtitle:
       "Ambientes pensados para receber com elegância, conforto e vista privilegiada.",
@@ -30,8 +21,6 @@ const translations = {
       "O nosso espaço privado oferece uma vista deslumbrante e um ambiente íntimo para ocasiões especiais. Com capacidade até 50 pessoas, é o local perfeito para jantares de negócios, celebrações familiares ou eventos privados.",
     reservePrivateRoom: "Reservar sala privada",
     footer: "Senhor Peixe — Desde 1999",
-    language: "English",
-    languageLabel: "Mudar para inglês",
     interiorImages: [
       { src: "/images/space/interior-1.jpg", alt: "Sala de jantar principal" },
       { src: "/images/space/interior-2.jpg", alt: "Bar e zona de vinhos" },
@@ -50,16 +39,6 @@ const translations = {
   },
   en: {
     close: "Close",
-    closeMenu: "Close menu",
-    openMenu: "Open menu",
-    mainMenu: "Main menu",
-    home: "Home",
-    gastronomy: "Gastronomy",
-    wine: "Wine Cellar",
-    space: "The Space",
-    reservations: "Reservations",
-    contacts: "Contacts",
-    about: "About Us",
     pageTitle: "The Space",
     pageSubtitle:
       "Spaces designed to welcome guests with elegance, comfort and a privileged view.",
@@ -72,8 +51,6 @@ const translations = {
       "Our private space offers a stunning view and an intimate atmosphere for special occasions. With capacity for up to 50 guests, it is the perfect setting for business dinners, family celebrations or private events.",
     reservePrivateRoom: "Book private room",
     footer: "Senhor Peixe — Since 1999",
-    language: "Português",
-    languageLabel: "Switch to Portuguese",
     interiorImages: [
       { src: "/images/space/interior-1.jpg", alt: "Main dining room" },
       { src: "/images/space/interior-2.jpg", alt: "Bar and wine area" },
@@ -93,9 +70,8 @@ const translations = {
 } as const
 
 export default function ONossoEspacoPage() {
-  const { language, toggleLanguage } = useLanguage()
+  const { language } = useLanguage()
   const [lightboxOpen, setLightboxOpen] = useState(false)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [currentImage, setCurrentImage] = useState({ src: "", alt: "" })
 
   const t = translations[language]
@@ -114,159 +90,29 @@ export default function ONossoEspacoPage() {
     document.body.style.overflow = "auto"
   }
 
-  function handleToggleLanguage() {
-    toggleLanguage()
-    setIsMenuOpen(false)
-  }
-
   useEffect(() => {
-    if (!isMenuOpen && !lightboxOpen) return
+    if (!lightboxOpen) return
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setIsMenuOpen(false)
-
-        if (lightboxOpen) {
-          closeLightbox()
-        }
+        closeLightbox()
       }
     }
 
     window.addEventListener("keydown", handleKeyDown)
 
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [isMenuOpen, lightboxOpen])
+  }, [lightboxOpen])
+
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = "auto"
+    }
+  }, [])
 
   return (
     <main className="min-h-screen bg-stone-50">
-      {/* Floating Site Menu */}
-      <div className="fixed left-4 top-4 z-[80] sm:left-6 sm:top-5">
-        {isMenuOpen && (
-          <button
-            type="button"
-            className="fixed inset-0 z-[70] cursor-default"
-            aria-label={t.closeMenu}
-            onClick={() => setIsMenuOpen(false)}
-          />
-        )}
-
-        <div className="relative z-[90]">
-          <button
-            type="button"
-            onClick={() => setIsMenuOpen((open) => !open)}
-            aria-label={isMenuOpen ? t.closeMenu : t.openMenu}
-            aria-expanded={isMenuOpen}
-            aria-controls="espaco-site-menu"
-            className="group flex h-11 w-11 items-center justify-center rounded-full border border-[#c8a96a]/35 bg-[#10243d]/90 text-white shadow-lg shadow-black/15 backdrop-blur-md transition-all duration-300 hover:border-[#c8a96a] hover:bg-[#10243d]"
-          >
-            <span className="flex flex-col gap-1.5">
-              <span
-                className={`block h-px w-5 bg-current transition-transform duration-300 ${
-                  isMenuOpen ? "translate-y-[7px] rotate-45" : ""
-                }`}
-              />
-              <span
-                className={`block h-px w-5 bg-current transition-opacity duration-300 ${
-                  isMenuOpen ? "opacity-0" : "opacity-100"
-                }`}
-              />
-              <span
-                className={`block h-px w-5 bg-current transition-transform duration-300 ${
-                  isMenuOpen ? "-translate-y-[7px] -rotate-45" : ""
-                }`}
-              />
-            </span>
-          </button>
-
-          {isMenuOpen && (
-            <div
-              id="espaco-site-menu"
-              className="mt-4 max-h-[calc(100vh-110px)] w-64 overflow-y-auto rounded-2xl border border-white/20 bg-[#10243d]/95 p-3 shadow-2xl backdrop-blur-xl"
-            >
-              <nav aria-label={t.mainMenu}>
-                <div className="px-4 pb-3 pt-2">
-                  <p className="font-serif text-[10px] uppercase tracking-[0.35em] text-white/45">
-                    Senhor Peixe
-                  </p>
-                </div>
-
-                <div className="space-y-1">
-                  <Link
-                    href="/"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.home}
-                  </Link>
-
-                  <Link
-                    href="/gastronomia"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.gastronomy}
-                  </Link>
-
-                  <Link
-                    href="/garrafeira"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.wine}
-                  </Link>
-
-                  <Link
-                    href="/o-nosso-espaco"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl bg-white/10 px-4 py-3 font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300"
-                  >
-                    {t.space}
-                  </Link>
-                </div>
-
-                <div className="my-2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-
-                <div className="space-y-1">
-                  <Link
-                    href="/reservas"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.reservations}
-                  </Link>
-
-                  <Link
-                    href="/contactos"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.contacts}
-                  </Link>
-
-                  <Link
-                    href="/sobre-nos"
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-xl px-4 py-3 font-serif text-sm tracking-wide text-white/78 transition-all duration-300 hover:bg-white/10 hover:text-white"
-                  >
-                    {t.about}
-                  </Link>
-                </div>
-
-                <div className="my-2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-
-                <button
-                  type="button"
-                  onClick={handleToggleLanguage}
-                  aria-label={t.languageLabel}
-                  className="block w-full rounded-xl px-4 py-3 text-left font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300 hover:bg-white/10 hover:text-white"
-                >
-                  {t.language}
-                </button>
-              </nav>
-            </div>
-          )}
-        </div>
-      </div>
+      <SiteMenu activePage="espaco" />
 
       {/* Header Elegant */}
       <header className="relative flex h-[320px] items-center justify-center overflow-hidden bg-[#10243d] sm:h-[380px]">
@@ -274,7 +120,6 @@ export default function ONossoEspacoPage() {
         <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#e2bd93]/40 to-transparent" />
         <div className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5 blur-3xl" />
 
-        {/* Central Logo */}
         <div className="relative z-10 flex flex-col items-center justify-center px-6 text-center">
           <img
             src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"

@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { useLanguage } from "@/components/language-provider"
 
 const BACKGROUND_IMAGE =
-  "https://i.ibb.co/GQyCWf4g/Chat-GPT-Image-13-05-2026-15-10-03.png"
+  "https://i.ibb.co/qL7pTchy/Chat-GPT-Image-13-05-2026-23-04-15.png"
 
 const PHONE_NUMBERS = [
   { label: "+351 21 895 5892", href: "tel:+351218955892" },
@@ -20,7 +20,6 @@ const translations = {
     reserve: "Reservar",
     menu: "Menu",
     close: "Fechar",
-    home: "Início",
     gastronomy: "Gastronomia",
     wine: "Garrafeira",
     space: "O Espaço",
@@ -42,7 +41,6 @@ const translations = {
     reserve: "Book",
     menu: "Menu",
     close: "Close",
-    home: "Home",
     gastronomy: "Gastronomy",
     wine: "Wine Cellar",
     space: "The Space",
@@ -71,7 +69,6 @@ export default function HomePage() {
   const t = translations[language]
 
   const navLinks = [
-    { href: "/", label: t.home },
     { href: "/gastronomia", label: t.gastronomy },
     { href: "/garrafeira", label: t.wine },
     { href: "/o-nosso-espaco", label: t.space },
@@ -125,13 +122,13 @@ export default function HomePage() {
         <img
           src={BACKGROUND_IMAGE}
           alt="Ocean background"
-          className="h-full w-full object-cover object-[42%_center] opacity-100 md:object-center"
+          className="h-full w-full object-cover object-[44%_center] opacity-100 md:object-center"
         />
 
         {/* Premium treatment */}
-        <div className="absolute inset-0 bg-[#03111f]/35" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#020b12]/70 via-[#061826]/25 to-[#020b12]/82" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-[#020b12]/35" />
+        <div className="absolute inset-0 bg-[#03111f]/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#020b12]/62 via-[#061826]/18 to-[#020b12]/78" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/14 via-transparent to-[#020b12]/32" />
       </div>
 
       {/* Header */}
@@ -273,16 +270,23 @@ export default function HomePage() {
             </div>
 
             <nav className="mt-16">
-              <ul className="space-y-7">
+              <ul className="space-y-5">
                 {navLinks.map((link) => (
                   <li key={link.href}>
+                    {link.href === "/reservas" && (
+                      <div
+                        className="mb-5 h-px w-full bg-gradient-to-r from-transparent via-[#c9a46a]/35 to-transparent"
+                        aria-hidden="true"
+                      />
+                    )}
+
                     <Link
                       href={link.href}
                       onClick={() => setMenuOpen(false)}
-                      className="group inline-flex font-serif text-2xl text-white/90 transition hover:text-[#d8b77b] sm:text-3xl"
+                      className="group inline-flex font-serif text-xl text-white/90 transition hover:text-[#d8b77b] sm:text-2xl"
                     >
                       {link.label}
-                      <span className="ml-4 mt-4 h-px w-0 bg-[#c9a46a] transition-all duration-300 group-hover:w-12" />
+                      <span className="ml-4 mt-3.5 h-px w-0 bg-[#c9a46a] transition-all duration-300 group-hover:w-12" />
                     </Link>
                   </li>
                 ))}
