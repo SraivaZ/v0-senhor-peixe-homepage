@@ -270,12 +270,12 @@ export default function HomePage() {
             </div>
 
             <nav className="mt-16">
-              <ul className="space-y-5">
+              <ul className="space-y-7">
                 {navLinks.map((link) => (
                   <li key={link.href}>
                     {link.href === "/reservas" && (
                       <div
-                        className="mb-5 h-px w-full bg-gradient-to-r from-transparent via-[#c9a46a]/35 to-transparent"
+                        className="mb-7 h-px w-full bg-gradient-to-r from-transparent via-[#c9a46a]/35 to-transparent"
                         aria-hidden="true"
                       />
                     )}
@@ -283,10 +283,10 @@ export default function HomePage() {
                     <Link
                       href={link.href}
                       onClick={() => setMenuOpen(false)}
-                      className="group inline-flex font-serif text-xl text-white/90 transition hover:text-[#d8b77b] sm:text-2xl"
+                      className="group inline-flex font-serif text-2xl text-white/90 transition hover:text-[#d8b77b] sm:text-3xl"
                     >
                       {link.label}
-                      <span className="ml-4 mt-3.5 h-px w-0 bg-[#c9a46a] transition-all duration-300 group-hover:w-12" />
+                      <span className="ml-4 mt-4 h-px w-0 bg-[#c9a46a] transition-all duration-300 group-hover:w-12" />
                     </Link>
                   </li>
                 ))}
