@@ -1075,18 +1075,24 @@ function CountryLabel({ label }: { label: string }) {
             font-weight: 700;
           }
   
-          @media screen and (max-width: 900px) {
-            .page-shell {
-              padding: 20px 10px;
-              gap: 24px;
-              overflow-x: auto;
-              align-items: flex-start;
-            }
-  
-            .a4-page {
-              flex: 0 0 auto;
-            }
-          }
+         @media screen and (max-width: 900px) {
+  .page-shell {
+    --mobile-scale: calc((100vw - 20px) / 793.7);
+    padding: 10px 10px;
+    gap: 0;
+    overflow-x: hidden;
+    align-items: center;
+  }
+
+  .a4-page {
+    flex: 0 0 auto;
+    width: 210mm;
+    min-height: 297mm;
+    transform: scale(var(--mobile-scale));
+    transform-origin: top center;
+    margin-bottom: calc((297mm * var(--mobile-scale)) - 297mm + 24px);
+  }
+}
   
           @media print {
             @page {
