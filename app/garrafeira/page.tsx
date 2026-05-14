@@ -128,14 +128,12 @@ export default function GarrafeiraPage() {
           </div>
 
           <div className="mt-9 flex justify-center">
-            <a
-              href="/docs/carta-vinhos-senhor-peixe.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/garrafeira/carta"
               className="inline-flex min-w-56 items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-7 py-3 font-serif text-sm uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-[#10243d]"
             >
               {t.openCarta}
-            </a>
+            </Link>
           </div>
         </div>
       </section>
