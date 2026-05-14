@@ -1075,25 +1075,54 @@ function CountryLabel({ label }: { label: string }) {
             font-weight: 700;
           }
   
-         @media screen and (max-width: 900px) {
+       @media screen and (max-width: 900px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    background: #e9e3d8;
+  }
+
   .page-shell {
-    --mobile-scale: calc((100vw - 20px) / 793.7);
-    padding: 10px 10px;
-    gap: 0;
+    --a4-width-px: 793.7;
+    --mobile-scale: calc((100vw - 20px) / var(--a4-width-px));
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+    padding: 10px 0 24px;
+    gap: 24px;
     overflow-x: hidden;
     align-items: center;
   }
 
   .a4-page {
-    flex: 0 0 auto;
     width: 210mm;
+    min-width: 210mm;
     min-height: 297mm;
-    transform: scale(var(--mobile-scale));
-    transform-origin: top center;
-    margin-bottom: calc((297mm * var(--mobile-scale)) - 297mm + 24px);
+    flex: 0 0 auto;
+    zoom: var(--mobile-scale);
+    transform: none;
+    margin: 0 auto;
+    box-shadow: 0 10px 34px rgba(0, 0, 0, 0.14);
   }
 }
-  
+
+@supports not (zoom: 1) {
+  @media screen and (max-width: 900px) {
+    .page-shell {
+      gap: 0;
+      padding: 10px 0 24px;
+    }
+
+    .a4-page {
+      zoom: 1;
+      transform: scale(var(--mobile-scale));
+      transform-origin: top center;
+      margin-bottom: calc((297mm * var(--mobile-scale)) - 297mm + 24px);
+    }
+  }
+}
           @media print {
             @page {
               size: A4;
