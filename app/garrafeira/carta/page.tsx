@@ -1123,32 +1123,55 @@ function CountryLabel({ label }: { label: string }) {
     }
   }
 }
-          @media print {
-            @page {
-              size: A4;
-              margin: 0;
-            }
-  
-            html,
-            body {
-              background: ${paper};
-            }
-  
-            .page-shell {
-              padding: 0;
-              gap: 0;
-              background: ${paper};
-            }
-  
-            .a4-page {
-              width: 210mm;
-              min-height: 297mm;
-              box-shadow: none;
-              page-break-after: always;
-              break-after: page;
-            }
-          }
-        `}</style>
+         @media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  html,
+  body {
+    width: 210mm;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    background: ${paper};
+    overflow: visible;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .page-shell {
+    display: block;
+    width: 210mm;
+    min-height: auto;
+    padding: 0;
+    margin: 0;
+    gap: 0;
+    background: ${paper};
+    overflow: visible;
+  }
+
+  .a4-page {
+    width: 210mm;
+    height: 297mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    margin: 0;
+    box-sizing: border-box;
+    box-shadow: none;
+    overflow: hidden;
+    page-break-after: always;
+    break-after: page;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .a4-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+}</style>
       </main>
     )
   }
