@@ -669,7 +669,7 @@ export default function ReservasPage() {
                 type="submit"
                 disabled={isSubmitting || !availabilityAllowsSubmit}
                 aria-busy={isSubmitting}
-                className="relative inline-flex min-w-64 items-center justify-center overflow-hidden rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-9 py-4 font-serif text-sm uppercase tracking-[0.18em] text-white shadow-lg shadow-[#10243d]/10 transition-all duration-300 hover:bg-[#10243d] disabled:cursor-not-allowed disabled:opacity-70"
+                className="relative inline-flex min-w-64 items-center justify-center overflow-hidden rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-9 py-4 font-serif text-sm uppercase tracking-[0.18em] text-white shadow-[0_14px_35px_rgba(16,36,61,0.18)] transition-all duration-300 hover:border-[#c8a96a] hover:bg-[#10243d] hover:text-[#f8ead8] hover:shadow-[0_0_0_1px_rgba(200,169,106,0.45),0_18px_42px_rgba(16,36,61,0.25)] focus:outline-none focus:ring-2 focus:ring-[#c8a96a] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:border-[#1e3a5f] disabled:hover:bg-[#1e3a5f] disabled:hover:text-white disabled:hover:shadow-[0_14px_35px_rgba(16,36,61,0.18)]"
               >
                 <span
                   className={`transition-opacity duration-300 ${
@@ -700,7 +700,7 @@ export default function ReservasPage() {
                       <path
                         className="opacity-75"
                         fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 714 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                       />
                     </svg>
 

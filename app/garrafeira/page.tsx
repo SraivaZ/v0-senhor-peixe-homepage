@@ -128,20 +128,9 @@ export default function GarrafeiraPage() {
           </div>
 
           <div className="mt-9 flex justify-center">
-            {/* Mobile: abre diretamente o PDF */}
-            <Link
-              href="/docs/carta-vinhos-senhor-peixe.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex min-w-56 items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-7 py-3 font-serif text-sm uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-[#10243d] sm:hidden"
-            >
-              {t.openCarta}
-            </Link>
-
-            {/* Desktop/tablet: mantém a página da carta */}
             <Link
               href="/garrafeira/carta"
-              className="hidden min-w-56 items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-7 py-3 font-serif text-sm uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-[#10243d] sm:inline-flex"
+              className="inline-flex min-w-56 items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-7 py-3 font-serif text-sm uppercase tracking-[0.18em] text-white shadow-sm transition-all duration-300 hover:border-[#e2bd93] hover:bg-[#10243d] hover:shadow-[0_0_22px_rgba(226,189,147,0.24)] focus:outline-none focus:ring-2 focus:ring-[#e2bd93]/50 focus:ring-offset-2 focus:ring-offset-stone-50"
             >
               {t.openCarta}
             </Link>

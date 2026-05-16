@@ -426,12 +426,14 @@ function MenuPage({
   fish = false,
   shellfish = false,
   sides = false,
+  finalNotes = false,
 }: {
   sections: Section[]
   dense?: boolean
   fish?: boolean
   shellfish?: boolean
   sides?: boolean
+  finalNotes?: boolean
 }) {
   return (
     <section
@@ -462,9 +464,39 @@ function MenuPage({
           ))}
         </div>
 
-        <footer className="sp-legal">
-          PREÇO EM <span className="sp-euro">€</span>, INCLUI IVA À TAXA LEGAL EM VIGOR
-        </footer>
+        {finalNotes ? (
+          <footer className="sp-legal sp-final-legal">
+            <p className="sp-final-consumption-note">
+              TODOS OS PRODUTOS “NÃO SOLICITADOS” COLOCADOS NA MESA, SE FOREM
+              CONSUMIDOS SERÃO
+              <br />
+              COBRADOS PELO VALOR QUE ESTÁ NO MENU
+            </p>
+
+            <div className="sp-final-tax-note">
+              <p>
+                PREÇO EM <span className="sp-euro">€</span> , INCLUI IVA À TAXA
+                LEGAL EM VIGOR
+              </p>
+              <p>
+                PRICES IN <span className="sp-euro">€</span> , INCLUDE VAT AT THE
+                CURRENT LEGAL RATE
+              </p>
+              <p>
+                PRIX EN <span className="sp-euro">€</span> , AVEC LA TVA AU TAUX
+                EN VIGUEUR
+              </p>
+              <p>
+                PRECIOS EN <span className="sp-euro">€</span> , INCLUYEN IVA AL
+                TIPO LEGAL VIGENTE
+              </p>
+            </div>
+          </footer>
+        ) : (
+          <footer className="sp-legal">
+            PREÇO EM <span className="sp-euro">€</span>, INCLUI IVA À TAXA LEGAL EM VIGOR
+          </footer>
+        )}
       </div>
     </section>
   )
@@ -489,7 +521,7 @@ export default function CartaGastronomiaPage() {
       <MenuPage sections={especialidadesSections} dense />
       <MenuPage sections={peixesSections} fish />
       <MenuPage sections={mariscoSections} shellfish />
-      <MenuPage sections={sopasSections} sides />
+      <MenuPage sections={sopasSections} sides finalNotes />
 
       <style jsx global>{`
         :root {
@@ -624,6 +656,42 @@ export default function CartaGastronomiaPage() {
           text-transform: none;
           font-variant-caps: small-caps;
           white-space: nowrap;
+        }
+
+        .sp-ornament {
+          width: 154px;
+          margin: 11px auto 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          color: var(--sp-gold);
+        }
+
+        .sp-ornament span {
+          display: block;
+          flex: 1 1 auto;
+          height: 1px;
+          background: linear-gradient(
+            to right,
+            transparent,
+            rgba(197, 154, 97, 0.78),
+            transparent
+          );
+        }
+
+        .sp-ornament strong {
+          display: block;
+          color: var(--sp-gold);
+          font-size: 10px;
+          font-weight: 400;
+          line-height: 1;
+          transform: translateY(-0.5px);
+        }
+
+        .sp-ornament-small {
+          width: 140px;
+          margin-top: 10px;
         }
 
         .sp-sections {
@@ -951,6 +1019,31 @@ export default function CartaGastronomiaPage() {
           font-feature-settings: "lnum" 1, "pnum" 1;
         }
 
+        .sp-final-legal {
+          max-width: 500px;
+          margin: 0 auto;
+          font-size: 7.1px;
+          line-height: 1.32;
+          letter-spacing: 0.055em;
+        }
+
+        .sp-final-legal p {
+          margin: 0;
+        }
+
+        .sp-final-consumption-note {
+          max-width: 470px;
+          margin: 0 auto 18px;
+          transform: translateY(-16px);
+        }
+
+        .sp-final-tax-note {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 2px;
+        }
+
         .sp-euro {
           font-family: Georgia, "Times New Roman", serif;
           font-size: 0.95em;
@@ -1126,6 +1219,23 @@ export default function CartaGastronomiaPage() {
 
           .sp-legal {
             font-size: 0.83vw;
+          }
+
+          .sp-final-legal {
+            max-width: 59vw;
+            font-size: 0.84vw;
+            line-height: 1.32;
+            letter-spacing: 0.055em;
+          }
+
+          .sp-final-consumption-note {
+            max-width: 56vw;
+            margin-bottom: 2vw;
+            transform: translateY(-1.9vw);
+          }
+
+          .sp-final-tax-note {
+            gap: 0.24vw;
           }
         }
 

@@ -312,7 +312,7 @@ export default function ContactosPage() {
                 <p className="text-[#10243d]">12:00-15:30 / 19:00-22:30</p>
 
                 <p className="pt-3">{t.sunday}</p>
-                <p className="text-[#10243d]">12:30-15:30</p>
+                <p className="text-[#10243d]">12:00-15:30</p>
               </div>
             </div>
           </div>
@@ -549,7 +549,7 @@ export default function ContactosPage() {
                   type="submit"
                   disabled={state.submitting}
                   aria-busy={state.submitting}
-                  className="relative inline-flex min-w-64 items-center justify-center overflow-hidden rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-9 py-4 font-serif text-sm uppercase tracking-[0.2em] text-white shadow-lg shadow-[#10243d]/10 transition-all duration-300 hover:bg-[#10243d] disabled:cursor-not-allowed disabled:opacity-70"
+                  className="relative inline-flex min-w-64 items-center justify-center overflow-hidden rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-9 py-4 font-serif text-sm uppercase tracking-[0.18em] text-white shadow-[0_14px_35px_rgba(16,36,61,0.18)] transition-all duration-300 hover:border-[#c8a96a] hover:bg-[#10243d] hover:text-[#f8ead8] hover:shadow-[0_0_0_1px_rgba(200,169,106,0.45),0_18px_42px_rgba(16,36,61,0.25)] focus:outline-none focus:ring-2 focus:ring-[#c8a96a] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   <span
                     className={`transition-opacity duration-300 ${

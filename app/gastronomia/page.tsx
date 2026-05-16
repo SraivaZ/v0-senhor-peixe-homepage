@@ -309,7 +309,7 @@ export default function GastronomiaPage() {
     const element = document.getElementById(id)
 
     if (element) {
-      const navHeight = window.innerWidth < 640 ? 82 : 92
+      const navHeight = window.innerWidth < 640 ? 82 : 148
       const elementPosition = element.offsetTop - navHeight
 
       window.scrollTo({
@@ -369,12 +369,12 @@ export default function GastronomiaPage() {
         <div className="mx-auto max-w-6xl px-0 sm:px-4">
           <div
             className={`transition-all duration-500 ${
-              isHeaderScrolled ? "py-3" : "py-4"
+              isHeaderScrolled ? "py-4 sm:py-7 md:py-8" : "py-4"
             }`}
           >
             {isHeaderScrolled && (
-              <div className="mb-3 text-center">
-                <span className="font-serif text-xs uppercase tracking-[0.35em] text-white/70">
+              <div className="mb-4 text-center sm:mb-6 md:mb-7">
+                <span className="font-serif text-sm uppercase leading-none tracking-[0.35em] text-white/80 sm:text-2xl md:text-[30px] lg:text-[32px]">
                   Senhor Peixe
                 </span>
               </div>
@@ -413,7 +413,7 @@ export default function GastronomiaPage() {
           <section
             key={category.id}
             id={category.id}
-            className="mb-16 scroll-mt-24 sm:scroll-mt-28"
+            className="mb-16 scroll-mt-24 sm:scroll-mt-40"
           >
             {categoryIndex > 0 && (
               <div className="mb-12 flex items-center justify-center">
@@ -472,8 +472,8 @@ export default function GastronomiaPage() {
           </section>
         ))}
 
-        {/* Full Menu PDF */}
-        <section className="mt-20 scroll-mt-24 sm:scroll-mt-28">
+        {/* Full Menu */}
+        <section className="mt-20 scroll-mt-24 sm:scroll-mt-40">
           <div className="mb-12 flex items-center justify-center">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-stone-300 to-transparent" />
           </div>
@@ -510,14 +510,12 @@ export default function GastronomiaPage() {
             </p>
 
             <div className="mt-8 flex justify-center">
-              <a
-                href="/docs/carta-senhor-peixe.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-w-56 items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-7 py-3 font-serif text-sm uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-[#10243d]"
+              <Link
+                href="/gastronomia/Carta"
+                className="inline-flex min-w-56 items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-7 py-3 font-serif text-sm uppercase tracking-[0.18em] text-white shadow-sm transition-all duration-300 hover:border-[#e2bd93] hover:bg-[#10243d] hover:shadow-[0_0_22px_rgba(226,189,147,0.24)] focus:outline-none focus:ring-2 focus:ring-[#e2bd93]/50 focus:ring-offset-2 focus:ring-offset-stone-50"
               >
                 {t.openCarta}
-              </a>
+              </Link>
             </div>
           </div>
         </section>
