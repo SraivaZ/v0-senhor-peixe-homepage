@@ -309,16 +309,12 @@ const sopasSections: Section[] = [
   },
 ]
 
-function PremiumFrame({ cover = false }: { cover?: boolean }) {
+function PremiumFrame() {
   return (
     <img
-      src={cover ? "/senhor-peixe-frame.png" : "/senhor-peixe-menu-frame.png"}
+      src="/senhor-peixe-menu-frame.png"
       alt=""
-      className={
-        cover
-          ? "sp-frame-image sp-cover-frame-image"
-          : "sp-frame-image sp-menu-frame-image"
-      }
+      className="sp-frame-image sp-menu-frame-image"
       aria-hidden="true"
       draggable={false}
       decoding="sync"
@@ -481,34 +477,12 @@ export default function CartaGastronomiaPage() {
         Voltar
       </Link>
 
-      <section className="sp-page sp-cover">
-        <PremiumFrame cover />
-
-        <div className="sp-cover-texture" />
-
-        <div className="sp-cover-content">
-          <img
-            src="/senhor-peixe-logo%20branco.png"
-            alt="Senhor Peixe"
-            className="sp-cover-logo"
-          />
-
-          <h1 className={playfair.className}>Senhor Peixe</h1>
-
-          <Ornament />
-
-          <div className={`sp-cover-subtitle ${playfair.className}`}>
-            <p>Cozinha Portuguesa</p>
-            <p>Peixe e Marisco</p>
-          </div>
-
-          <p className={`sp-since ${playfair.className}`}>
-            <span>DESDE</span>
-            <span className="sp-since-number">1999</span>
-          </p>
-
-          <div className="sp-small-line" />
-        </div>
+      <section className="sp-page sp-cover-image-only">
+        <img
+          src="/senhor-peixe-capa.png"
+          alt="Capa Senhor Peixe"
+          className="sp-cover-full-image"
+        />
       </section>
 
       <MenuPage sections={couvertSections} />
@@ -520,8 +494,6 @@ export default function CartaGastronomiaPage() {
       <style jsx global>{`
         :root {
           --sp-site-blue: #12385c;
-          --sp-cover-blue: #03182d;
-          --sp-cover-blue-mid: #082844;
           --sp-ink: #12385c;
           --sp-ink-soft: #12385c;
           --sp-gold: #c59a61;
@@ -555,15 +527,19 @@ export default function CartaGastronomiaPage() {
           align-self: flex-start;
           margin: 0 auto -28px;
           width: min(92vw, var(--sp-page-width));
-          color: var(--sp-site-blue);
+          color: #c59a61;
           font-size: 11px;
           letter-spacing: 0.18em;
           text-transform: uppercase;
           text-decoration: none;
-          opacity: 0.58;
+          opacity: 0.85;
+          transition:
+            color 180ms ease,
+            opacity 180ms ease;
         }
 
         .sp-back-link:hover {
+          color: #a97d3f;
           opacity: 1;
         }
 
@@ -593,123 +569,20 @@ export default function CartaGastronomiaPage() {
           image-rendering: auto;
         }
 
-        .sp-cover-frame-image {
-          z-index: 8;
+        .sp-cover-image-only {
+          background: transparent;
+          overflow: hidden;
+        }
+
+        .sp-cover-full-image {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
 
         .sp-menu-frame-image {
           transform: translate3d(0, -2px, 0);
-        }
-
-        .sp-cover {
-          color: #fbf4e7;
-          background:
-            radial-gradient(
-              circle at 50% 39%,
-              rgba(24, 70, 107, 0.42) 0%,
-              rgba(10, 42, 73, 0.3) 31%,
-              transparent 57%
-            ),
-            radial-gradient(
-              circle at 50% 51%,
-              #0b3151 0%,
-              var(--sp-cover-blue-mid) 36%,
-              var(--sp-cover-blue) 72%,
-              #02101f 100%
-            );
-        }
-
-        .sp-cover::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          z-index: 0;
-          pointer-events: none;
-          background:
-            radial-gradient(
-              circle at 50% 42%,
-              rgba(255, 255, 255, 0.045),
-              transparent 23%
-            ),
-            linear-gradient(
-              135deg,
-              rgba(255, 255, 255, 0.035),
-              transparent 32%,
-              rgba(255, 255, 255, 0.014) 64%,
-              transparent 100%
-            );
-          opacity: 0.68;
-        }
-
-        .sp-cover::after {
-          content: "";
-          position: absolute;
-          inset: 0;
-          z-index: 0;
-          pointer-events: none;
-          background:
-            radial-gradient(
-              circle at 50% 48%,
-              transparent 0%,
-              transparent 48%,
-              rgba(0, 0, 0, 0.2) 78%,
-              rgba(0, 0, 0, 0.34) 100%
-            ),
-            linear-gradient(
-              to bottom,
-              rgba(0, 0, 0, 0.08),
-              transparent 24%,
-              transparent 70%,
-              rgba(0, 0, 0, 0.16)
-            );
-          opacity: 0.95;
-        }
-
-        .sp-cover-texture {
-          position: absolute;
-          inset: 0;
-          z-index: 1;
-          pointer-events: none;
-          opacity: 0.72;
-          mix-blend-mode: soft-light;
-          background-image:
-            radial-gradient(
-              circle at 18% 22%,
-              rgba(255, 255, 255, 0.16) 0 0.35px,
-              transparent 0.8px
-            ),
-            radial-gradient(
-              circle at 72% 28%,
-              rgba(255, 255, 255, 0.12) 0 0.35px,
-              transparent 0.8px
-            ),
-            radial-gradient(
-              circle at 44% 74%,
-              rgba(217, 168, 93, 0.12) 0 0.35px,
-              transparent 0.85px
-            ),
-            repeating-linear-gradient(
-              32deg,
-              rgba(255, 255, 255, 0.028) 0 1px,
-              transparent 1px 5px
-            ),
-            repeating-linear-gradient(
-              118deg,
-              rgba(0, 0, 0, 0.08) 0 1px,
-              transparent 1px 7px
-            ),
-            repeating-radial-gradient(
-              circle at 50% 50%,
-              rgba(255, 255, 255, 0.018) 0 1px,
-              transparent 1px 4px
-            );
-          background-size:
-            9px 9px,
-            13px 13px,
-            19px 19px,
-            90px 90px,
-            120px 120px,
-            8px 8px;
         }
 
         .sp-menu-page {
@@ -724,135 +597,6 @@ export default function CartaGastronomiaPage() {
           display: flex;
           flex-direction: column;
           padding: 54px 112px 36px;
-        }
-
-        .sp-cover-content {
-          position: relative;
-          z-index: 2;
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-          padding: 82px 76px;
-          transform: translateY(-3px);
-        }
-
-        .sp-cover-logo {
-          width: clamp(188px, 26.5vw, 252px);
-          height: auto;
-          object-fit: contain;
-          margin-bottom: 44px;
-          filter:
-            drop-shadow(0 8px 14px rgba(0, 0, 0, 0.24))
-            drop-shadow(0 0 5px rgba(255, 255, 255, 0.05));
-        }
-
-        .sp-cover h1 {
-          display: block;
-          width: 100%;
-          margin: 0 auto;
-          padding-left: 0.045em;
-          color: #fff9ee;
-          font-size: clamp(58px, 7vw, 76px);
-          font-weight: 700;
-          line-height: 0.95;
-          letter-spacing: 0.055em;
-          text-align: center;
-          text-transform: none;
-          font-variant-caps: small-caps;
-          white-space: nowrap;
-          text-shadow:
-            0 7px 13px rgba(0, 0, 0, 0.28),
-            0 0 1px rgba(255, 255, 255, 0.38);
-        }
-
-        .sp-ornament {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 13px;
-          width: min(390px, 64%);
-          margin: 48px auto 44px;
-          color: var(--sp-gold-bright);
-        }
-
-        .sp-ornament span {
-          height: 1px;
-          flex: 1;
-          background: linear-gradient(
-            to right,
-            transparent,
-            rgba(217, 168, 93, 0.95)
-          );
-        }
-
-        .sp-ornament span:last-child {
-          background: linear-gradient(
-            to left,
-            transparent,
-            rgba(217, 168, 93, 0.95)
-          );
-        }
-
-        .sp-ornament strong {
-          font-size: 17px;
-          line-height: 1;
-          font-weight: 400 !important;
-          transform: translateY(-0.5px);
-        }
-
-        .sp-ornament-small {
-          width: 136px;
-          gap: 9px;
-          margin: 10px auto 0;
-        }
-
-        .sp-ornament-small strong {
-          font-size: 9px;
-        }
-
-        .sp-cover-subtitle {
-          color: var(--sp-gold-bright);
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.31em;
-          font-size: clamp(15px, 1.75vw, 19px);
-          line-height: 2.04;
-          text-shadow: 0 5px 14px rgba(0, 0, 0, 0.22);
-        }
-
-        .sp-cover-subtitle p {
-          margin: 0;
-        }
-
-        .sp-since {
-          margin: 52px 0 0;
-          color: var(--sp-gold-bright);
-          font-weight: 700;
-          font-size: clamp(14px, 1.55vw, 18px);
-          line-height: 1;
-          letter-spacing: 0.36em;
-          text-transform: uppercase;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 28px;
-          text-shadow: 0 5px 14px rgba(0, 0, 0, 0.22);
-        }
-
-        .sp-since-number {
-          letter-spacing: 0.2em;
-          font-variant-numeric: lining-nums proportional-nums;
-          font-feature-settings: "lnum" 1, "pnum" 1;
-        }
-
-        .sp-small-line {
-          width: 54px;
-          height: 1px;
-          margin-top: 46px;
-          background: rgba(217, 168, 93, 0.95);
         }
 
         .sp-menu-header {
@@ -1227,55 +971,6 @@ export default function CartaGastronomiaPage() {
 
           .sp-page {
             width: 94vw;
-          }
-
-          .sp-cover-content {
-            padding: 7.7vw 7vw;
-            transform: translateY(-0.35vw);
-          }
-
-          .sp-cover-logo {
-            width: 23vw;
-            margin-bottom: 5.2vw;
-          }
-
-          .sp-cover h1 {
-            width: 100%;
-            padding-left: 0.035em;
-            font-size: 7.9vw;
-            letter-spacing: 0.045em;
-            text-align: center;
-          }
-
-          .sp-ornament {
-            width: 36vw;
-            gap: 1.55vw;
-            margin: 5.7vw auto 5.2vw;
-          }
-
-          .sp-ornament strong {
-            font-size: 2vw;
-          }
-
-          .sp-cover-subtitle {
-            font-size: 1.78vw;
-            letter-spacing: 0.31em;
-            line-height: 2.04;
-          }
-
-          .sp-since {
-            margin-top: 6.2vw;
-            gap: 3.3vw;
-            font-size: 1.66vw;
-          }
-
-          .sp-since-number {
-            letter-spacing: 0.2em;
-          }
-
-          .sp-small-line {
-            width: 6.4vw;
-            margin-top: 5.45vw;
           }
 
           .sp-menu-content,
