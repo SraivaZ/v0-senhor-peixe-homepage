@@ -1,7 +1,12 @@
 "use client"
 
 import Link from "next/link"
-import { Cormorant_Garamond, Playfair_Display } from "next/font/google"
+import { Cinzel, Cormorant_Garamond, Playfair_Display } from "next/font/google"
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+})
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -149,6 +154,10 @@ const especialidadesSections: Section[] = [
         description:
           "TIRAS DE CHOCO FRITO EM POLME CROCANTE DE MILHO, BATATA FRITA, SALADA",
       },
+      {
+        name: "MISTAS DE MARISCO",
+        note: "PREÇO SOB CONSULTA",
+      },
     ],
   },
 ]
@@ -252,8 +261,9 @@ const mariscoSections: Section[] = [
     title: "VEGAN",
     items: [
       {
-        name: "HAMBURGUER DE SOJA COM BATATA COZIDA, SALADA",
+        name: "HAMBURGUER DE SOJA",
         price: "18",
+        description: "COM BATATA COZIDA E SALADA",
       },
     ],
   },
@@ -279,7 +289,7 @@ const sopasSections: Section[] = [
       { name: "AÇORDA DE OVAS", price: "10" },
       { name: "BATATA - DOCE", price: "4" },
       { name: "BATATA FRITA", price: "4" },
-      { name: "OVO", note: "FRITO , COZIDO", price: "2" },
+      { name: "OVO", note: "FRITO, COZIDO", price: "2" },
       { name: "LEGUMES", price: "5" },
       { name: "LEGUMES SALTEADOS", price: "6" },
       { name: "SALADA", price: "5" },
@@ -298,35 +308,30 @@ const sopasSections: Section[] = [
   },
 ]
 
+function PremiumFrame({ cover = false }: { cover?: boolean }) {
+  return (
+    <img
+      src={cover ? "/senhor-peixe-frame.png" : "/senhor-peixe-menu-frame.png"}
+      alt=""
+      className={cover ? "sp-frame-image sp-cover-frame-image" : "sp-frame-image"}
+      aria-hidden="true"
+      draggable={false}
+      decoding="sync"
+      loading="eager"
+    />
+  )
+}
+
 function Ornament({ small = false }: { small?: boolean }) {
   return (
-    <div className={`sp-ornament ${small ? "sp-ornament-small" : ""}`} aria-hidden="true">
+    <div
+      className={`sp-ornament ${small ? "sp-ornament-small" : ""}`}
+      aria-hidden="true"
+    >
       <span />
-      <strong>◆</strong>
+      <strong>◇</strong>
       <span />
     </div>
-  )
-}
-
-function CoverCorners() {
-  return (
-    <>
-      <div className="sp-art-corner sp-art-corner-top-left" />
-      <div className="sp-art-corner sp-art-corner-top-right" />
-      <div className="sp-art-corner sp-art-corner-bottom-left" />
-      <div className="sp-art-corner sp-art-corner-bottom-right" />
-    </>
-  )
-}
-
-function MenuCorners() {
-  return (
-    <>
-      <div className="sp-menu-corner sp-menu-corner-top-left" />
-      <div className="sp-menu-corner sp-menu-corner-top-right" />
-      <div className="sp-menu-corner sp-menu-corner-bottom-left" />
-      <div className="sp-menu-corner sp-menu-corner-bottom-right" />
-    </>
   )
 }
 
@@ -343,14 +348,14 @@ function SectionTitle({
     <div className="sp-section-title">
       <div className="sp-title-row">
         <span />
-        <h2 className={playfair.className}>
+        <h2 className={cinzel.className}>
           {title}
           {unitLabel && <em>/{unitLabel}</em>}
         </h2>
         <span />
       </div>
 
-      {subtitle && <p className={playfair.className}>{subtitle}</p>}
+      {subtitle && <p className={cinzel.className}>{subtitle}</p>}
 
       <div className="sp-title-double-line" aria-hidden="true">
         <span />
@@ -377,16 +382,26 @@ function MenuHeader() {
 }
 
 function ItemRow({ name, note, unit, price, description, compact }: Item) {
+  const hasPrice = Boolean(price)
+
   return (
-    <li className={`sp-item-wrap ${description ? "sp-has-description" : ""}`}>
-      <div className={`sp-item ${compact ? "sp-item-compact" : ""}`}>
+    <li
+      className={`sp-item-wrap ${description ? "sp-has-description" : ""} ${
+        !hasPrice ? "sp-item-wrap-no-price" : ""
+      }`}
+    >
+      <div
+        className={`sp-item ${compact ? "sp-item-compact" : ""} ${
+          !hasPrice ? "sp-item-no-price" : ""
+        }`}
+      >
         <span className="sp-item-label">
           <span className="sp-item-name">{name}</span>
           {note && <span className="sp-item-note">({note})</span>}
           {unit && <span className="sp-item-unit">({unit})</span>}
         </span>
 
-        <span className="sp-leader" aria-hidden="true" />
+        {hasPrice && <span className="sp-leader" aria-hidden="true" />}
 
         {price && <span className="sp-price">{price}</span>}
       </div>
@@ -415,12 +430,7 @@ function MenuPage({
         fish ? "sp-fish-page" : ""
       } ${shellfish ? "sp-shellfish-page" : ""} ${sides ? "sp-sides-page" : ""}`}
     >
-      <div className="sp-menu-border sp-outer-menu-border" />
-      <div className="sp-menu-border sp-inner-menu-border" />
-
-      <MenuCorners />
-
-      <div className="sp-paper-texture" />
+      <PremiumFrame />
 
       <div className="sp-menu-content">
         <MenuHeader />
@@ -459,10 +469,9 @@ export default function CartaGastronomiaPage() {
       </Link>
 
       <section className="sp-page sp-cover">
-        <div className="sp-cover-border sp-outer-cover-border" />
-        <div className="sp-cover-border sp-inner-cover-border" />
+        <PremiumFrame cover />
 
-        <CoverCorners />
+        <div className="sp-cover-texture" />
 
         <div className="sp-cover-content">
           <img
@@ -498,11 +507,12 @@ export default function CartaGastronomiaPage() {
       <style jsx global>{`
         :root {
           --sp-site-blue: #112f51;
+          --sp-cover-blue: #061c35;
+          --sp-cover-blue-mid: #0a2948;
           --sp-ink: #092747;
           --sp-ink-soft: #385472;
           --sp-gold: #c59a61;
-          --sp-gold-soft: rgba(197, 154, 97, 0.5);
-          --sp-gold-light: rgba(197, 154, 97, 0.24);
+          --sp-gold-bright: #d9a85d;
           --sp-paper: #fffdf8;
           --sp-page-width: 794px;
           --sp-page-ratio: 210 / 297;
@@ -520,7 +530,11 @@ export default function CartaGastronomiaPage() {
         .sp-shell {
           min-height: 100vh;
           background:
-            radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.85), transparent 34%),
+            radial-gradient(
+              circle at 50% 0%,
+              rgba(255, 255, 255, 0.85),
+              transparent 34%
+            ),
             #e7ded0;
           display: flex;
           flex-direction: column;
@@ -557,19 +571,117 @@ export default function CartaGastronomiaPage() {
             0 0 0 1px rgba(255, 255, 255, 0.7) inset;
         }
 
+        .sp-frame-image {
+          position: absolute;
+          inset: 0;
+          z-index: 5;
+          width: 100%;
+          height: 100%;
+          object-fit: fill;
+          pointer-events: none;
+          user-select: none;
+          transform: translate3d(0, 0, 0);
+          backface-visibility: hidden;
+          image-rendering: auto;
+        }
+
+        .sp-cover-frame-image {
+          z-index: 8;
+        }
+
         .sp-cover {
-          background:
-            radial-gradient(circle at 50% 40%, #27496e 0%, var(--sp-site-blue) 54%, #061d36 100%);
           color: #fbf4e7;
+          background:
+            radial-gradient(
+              circle at 50% 39%,
+              rgba(24, 70, 107, 0.62) 0%,
+              rgba(11, 42, 74, 0.42) 34%,
+              transparent 58%
+            ),
+            radial-gradient(
+              circle at 50% 50%,
+              var(--sp-cover-blue-mid) 0%,
+              var(--sp-cover-blue) 62%,
+              #031426 100%
+            );
         }
 
         .sp-cover::before {
           content: "";
           position: absolute;
           inset: 0;
-          background:
-            linear-gradient(135deg, rgba(255,255,255,0.055), transparent 34%, rgba(255,255,255,0.025) 64%, transparent 100%);
+          z-index: 0;
           pointer-events: none;
+          background:
+            linear-gradient(
+              135deg,
+              rgba(255, 255, 255, 0.04),
+              transparent 34%,
+              rgba(255, 255, 255, 0.022) 68%,
+              transparent 100%
+            ),
+            radial-gradient(
+              circle at 50% 42%,
+              rgba(255, 255, 255, 0.06),
+              transparent 20%
+            );
+          opacity: 0.82;
+        }
+
+        .sp-cover::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          pointer-events: none;
+          background: radial-gradient(
+            circle at 50% 50%,
+            transparent 0%,
+            transparent 58%,
+            rgba(0, 0, 0, 0.22) 100%
+          );
+          opacity: 0.7;
+        }
+
+        .sp-cover-texture {
+          position: absolute;
+          inset: 0;
+          z-index: 1;
+          pointer-events: none;
+          opacity: 0.42;
+          mix-blend-mode: soft-light;
+          background-image:
+            radial-gradient(
+              circle at 14% 18%,
+              rgba(255, 255, 255, 0.13) 0 0.45px,
+              transparent 0.75px
+            ),
+            radial-gradient(
+              circle at 68% 32%,
+              rgba(255, 255, 255, 0.1) 0 0.45px,
+              transparent 0.7px
+            ),
+            radial-gradient(
+              circle at 45% 78%,
+              rgba(217, 168, 93, 0.12) 0 0.45px,
+              transparent 0.75px
+            ),
+            repeating-linear-gradient(
+              34deg,
+              rgba(255, 255, 255, 0.028) 0 1px,
+              transparent 1px 7px
+            ),
+            repeating-linear-gradient(
+              124deg,
+              rgba(0, 0, 0, 0.04) 0 1px,
+              transparent 1px 9px
+            );
+          background-size:
+            12px 12px,
+            17px 17px,
+            23px 23px,
+            140px 140px,
+            160px 160px;
         }
 
         .sp-menu-page {
@@ -577,114 +689,13 @@ export default function CartaGastronomiaPage() {
           color: var(--sp-ink);
         }
 
-        .sp-menu-page::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          z-index: 0;
-          pointer-events: none;
-          background:
-            radial-gradient(circle at 50% 34%, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.62) 48%, rgba(248,241,231,0.5) 100%),
-            linear-gradient(90deg, rgba(197,154,97,0.035), transparent 18%, transparent 82%, rgba(197,154,97,0.035));
-        }
-
-        .sp-paper-texture {
-          position: absolute;
-          inset: 0;
-          z-index: 0;
-          pointer-events: none;
-          opacity: 0.1;
-          background:
-            radial-gradient(circle at 22% 20%, rgba(197,154,97,0.08), transparent 26%),
-            radial-gradient(circle at 78% 76%, rgba(9,39,71,0.035), transparent 34%);
-        }
-
-        .sp-cover-border,
-        .sp-menu-border {
-          position: absolute;
-          pointer-events: none;
-          z-index: 2;
-        }
-
-        .sp-outer-cover-border {
-          inset: 30px;
-          border: 1.4px solid rgba(197, 154, 97, 0.82);
-        }
-
-        .sp-inner-cover-border {
-          inset: 45px;
-          border: 0.7px solid rgba(197, 154, 97, 0.54);
-        }
-
-        .sp-outer-menu-border {
-          inset: 27px;
-          border: 0.8px solid var(--sp-gold-soft);
-        }
-
-        .sp-inner-menu-border {
-          inset: 42px;
-          border: 0.5px solid var(--sp-gold-light);
-        }
-
-        .sp-art-corner,
-        .sp-menu-corner {
-          position: absolute;
-          z-index: 3;
-          width: 68px;
-          height: 68px;
-          pointer-events: none;
-          opacity: 0.55;
-        }
-
-        .sp-art-corner::before,
-        .sp-menu-corner::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          border-top: 1px solid var(--sp-gold);
-          border-left: 1px solid var(--sp-gold);
-          border-top-left-radius: 58px;
-        }
-
-        .sp-art-corner::after,
-        .sp-menu-corner::after {
-          content: "";
-          position: absolute;
-          top: 13px;
-          left: 13px;
-          width: 38px;
-          height: 38px;
-          border-top: 0.7px solid var(--sp-gold);
-          border-left: 0.7px solid var(--sp-gold);
-          border-top-left-radius: 34px;
-          opacity: 0.62;
-        }
-
-        .sp-art-corner-top-left,
-        .sp-menu-corner-top-left {
-          top: 27px;
-          left: 27px;
-        }
-
-        .sp-art-corner-top-right,
-        .sp-menu-corner-top-right {
-          top: 27px;
-          right: 27px;
-          transform: scaleX(-1);
-        }
-
-        .sp-art-corner-bottom-left,
-        .sp-menu-corner-bottom-left {
-          bottom: 27px;
-          left: 27px;
-          transform: scaleY(-1);
-        }
-
-        .sp-art-corner-bottom-right,
-        .sp-menu-corner-bottom-right {
-          bottom: 27px;
-          right: 27px;
-          transform: scale(-1);
+        .sp-menu-content {
+          position: relative;
+          z-index: 1;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          padding: 54px 112px 36px;
         }
 
         .sp-cover-content {
@@ -696,30 +707,36 @@ export default function CartaGastronomiaPage() {
           align-items: center;
           justify-content: center;
           text-align: center;
-          padding: 82px 70px;
+          padding: 82px 76px;
+          transform: translateY(-3px);
         }
 
         .sp-cover-logo {
-          width: clamp(165px, 25vw, 235px);
+          width: clamp(188px, 26.5vw, 252px);
           height: auto;
           object-fit: contain;
-          margin-bottom: 42px;
-          filter: drop-shadow(0 9px 16px rgba(0, 0, 0, 0.22));
+          margin-bottom: 44px;
+          filter:
+            drop-shadow(0 10px 18px rgba(0, 0, 0, 0.28))
+            drop-shadow(0 0 16px rgba(255, 255, 255, 0.08));
         }
 
         .sp-cover h1 {
           display: block;
           width: 100%;
           margin: 0 auto;
-          padding-left: 0.04em;
-          color: #fbf4e7;
-          font-size: clamp(58px, 7.2vw, 78px);
-          line-height: 0.92;
-          letter-spacing: 0.04em;
+          padding-left: 0.045em;
+          color: #fff9ee;
+          font-size: clamp(58px, 7vw, 76px);
+          line-height: 0.95;
+          letter-spacing: 0.055em;
           text-align: center;
-          text-transform: uppercase;
+          text-transform: none;
+          font-variant-caps: small-caps;
           white-space: nowrap;
-          text-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+          text-shadow:
+            0 10px 20px rgba(0, 0, 0, 0.32),
+            0 0 1px rgba(255, 255, 255, 0.52);
         }
 
         .sp-ornament {
@@ -727,43 +744,53 @@ export default function CartaGastronomiaPage() {
           align-items: center;
           justify-content: center;
           gap: 13px;
-          width: min(430px, 68%);
-          margin: 50px auto 48px;
-          color: var(--sp-gold);
+          width: min(390px, 64%);
+          margin: 48px auto 44px;
+          color: var(--sp-gold-bright);
         }
 
         .sp-ornament span {
           height: 1px;
           flex: 1;
-          background: linear-gradient(to right, transparent, rgba(197,154,97,0.58));
+          background: linear-gradient(
+            to right,
+            transparent,
+            rgba(217, 168, 93, 0.95)
+          );
         }
 
         .sp-ornament span:last-child {
-          background: linear-gradient(to left, transparent, rgba(197,154,97,0.58));
+          background: linear-gradient(
+            to left,
+            transparent,
+            rgba(217, 168, 93, 0.95)
+          );
         }
 
         .sp-ornament strong {
-          font-size: 18px;
+          font-size: 17px;
           line-height: 1;
+          font-weight: 400 !important;
+          transform: translateY(-0.5px);
         }
 
         .sp-ornament-small {
-          width: 120px;
-          gap: 10px;
+          width: 136px;
+          gap: 9px;
           margin: 10px auto 0;
         }
 
         .sp-ornament-small strong {
-          font-size: 7px;
-          transform: scaleX(0.84);
+          font-size: 9px;
         }
 
         .sp-cover-subtitle {
-          color: var(--sp-gold);
+          color: var(--sp-gold-bright);
           text-transform: uppercase;
-          letter-spacing: 0.3em;
-          font-size: clamp(16px, 1.9vw, 21px);
-          line-height: 1.95;
+          letter-spacing: 0.31em;
+          font-size: clamp(15px, 1.75vw, 19px);
+          line-height: 2.04;
+          text-shadow: 0 5px 14px rgba(0, 0, 0, 0.22);
         }
 
         .sp-cover-subtitle p {
@@ -771,38 +798,30 @@ export default function CartaGastronomiaPage() {
         }
 
         .sp-since {
-          margin: 50px 0 0;
-          color: var(--sp-gold);
-          font-size: clamp(15px, 1.7vw, 20px);
+          margin: 52px 0 0;
+          color: var(--sp-gold-bright);
+          font-size: clamp(14px, 1.55vw, 18px);
           line-height: 1;
-          letter-spacing: 0.34em;
+          letter-spacing: 0.36em;
           text-transform: uppercase;
           display: flex;
           align-items: center;
           justify-content: center;
           gap: 28px;
+          text-shadow: 0 5px 14px rgba(0, 0, 0, 0.22);
         }
 
         .sp-since-number {
-          letter-spacing: 0.18em;
+          letter-spacing: 0.2em;
           font-variant-numeric: lining-nums proportional-nums;
           font-feature-settings: "lnum" 1, "pnum" 1;
         }
 
         .sp-small-line {
-          width: 56px;
+          width: 54px;
           height: 1px;
-          margin-top: 34px;
-          background: rgba(197, 154, 97, 0.68);
-        }
-
-        .sp-menu-content {
-          position: relative;
-          z-index: 1;
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          padding: 50px 112px 36px;
+          margin-top: 46px;
+          background: rgba(217, 168, 93, 0.95);
         }
 
         .sp-menu-header {
@@ -826,7 +845,8 @@ export default function CartaGastronomiaPage() {
           font-size: 34px;
           line-height: 1;
           letter-spacing: 0.08em;
-          text-transform: uppercase;
+          text-transform: none;
+          font-variant-caps: small-caps;
           white-space: nowrap;
         }
 
@@ -862,7 +882,12 @@ export default function CartaGastronomiaPage() {
 
         .sp-title-row span {
           height: 1px;
-          background: linear-gradient(to right, transparent, rgba(197,154,97,0.56), transparent);
+          background: linear-gradient(
+            to right,
+            transparent,
+            rgba(197, 154, 97, 0.56),
+            transparent
+          );
         }
 
         .sp-section-title h2,
@@ -871,9 +896,9 @@ export default function CartaGastronomiaPage() {
         .sp-sides-page .sp-section-title h2 {
           margin: 0;
           color: var(--sp-site-blue);
-          font-size: 27px;
-          line-height: 0.98;
-          letter-spacing: 0.15em;
+          font-size: 28px;
+          line-height: 1;
+          letter-spacing: 0.14em;
           text-transform: uppercase;
           white-space: nowrap;
         }
@@ -927,7 +952,10 @@ export default function CartaGastronomiaPage() {
         .sp-fish-page .sp-item-wrap + .sp-item-wrap,
         .sp-shellfish-page .sp-item-wrap + .sp-item-wrap,
         .sp-sides-page .sp-item-wrap + .sp-item-wrap,
-        .sp-shellfish-page .sp-menu-section:first-child .sp-item-wrap + .sp-item-wrap {
+        .sp-shellfish-page
+          .sp-menu-section:first-child
+          .sp-item-wrap
+          + .sp-item-wrap {
           margin-top: 4px;
         }
 
@@ -977,13 +1005,31 @@ export default function CartaGastronomiaPage() {
           white-space: nowrap;
         }
 
+        .sp-item-no-price {
+          justify-content: center;
+          text-align: center;
+        }
+
+        .sp-item-no-price .sp-item-label {
+          max-width: 100%;
+          justify-content: center;
+        }
+
+        .sp-item-wrap-no-price {
+          margin-top: 10px;
+        }
+
         .sp-leader {
           flex: 1 1 auto;
           min-width: 22px;
           height: 1px;
           margin: 0 8px;
           transform: translateY(-4px);
-          background-image: linear-gradient(to right, rgba(197,154,97,0.34) 35%, transparent 0%);
+          background-image: linear-gradient(
+            to right,
+            rgba(197, 154, 97, 0.34) 35%,
+            transparent 0%
+          );
           background-size: 6px 1px;
           background-repeat: repeat-x;
           background-position: left center;
@@ -1028,7 +1074,7 @@ export default function CartaGastronomiaPage() {
         .sp-fish-page .sp-menu-content,
         .sp-shellfish-page .sp-menu-content,
         .sp-sides-page .sp-menu-content {
-          padding: 46px 112px 36px;
+          padding: 50px 112px 36px;
         }
 
         .sp-fish-page .sp-menu-logo,
@@ -1064,7 +1110,7 @@ export default function CartaGastronomiaPage() {
         }
 
         .sp-shellfish-page .sp-menu-content {
-          padding-top: 44px;
+          padding-top: 48px;
         }
 
         .sp-shellfish-page .sp-menu-section:nth-child(3) {
@@ -1072,7 +1118,7 @@ export default function CartaGastronomiaPage() {
         }
 
         .sp-sides-page .sp-menu-content {
-          padding-top: 50px;
+          padding-top: 52px;
         }
 
         .sp-sides-page .sp-menu-header {
@@ -1126,12 +1172,41 @@ export default function CartaGastronomiaPage() {
             width: 94vw;
           }
 
+          .sp-cover-content {
+            padding: 62px 42px;
+          }
+
+          .sp-cover-logo {
+            width: clamp(130px, 32vw, 175px);
+            margin-bottom: 30px;
+          }
+
           .sp-cover h1 {
             width: 100%;
             padding-left: 0.035em;
             font-size: clamp(42px, 12vw, 60px);
-            letter-spacing: 0.035em;
+            letter-spacing: 0.04em;
             text-align: center;
+          }
+
+          .sp-ornament {
+            width: min(290px, 70%);
+            margin: 34px auto 34px;
+          }
+
+          .sp-cover-subtitle {
+            font-size: clamp(12px, 3vw, 15px);
+            letter-spacing: 0.22em;
+          }
+
+          .sp-since {
+            margin-top: 38px;
+            gap: 18px;
+            font-size: clamp(11px, 2.8vw, 14px);
+          }
+
+          .sp-since-number {
+            letter-spacing: 0.12em;
           }
 
           .sp-menu-content,
@@ -1222,8 +1297,15 @@ export default function CartaGastronomiaPage() {
           .sp-fish-page .sp-item-wrap + .sp-item-wrap,
           .sp-shellfish-page .sp-item-wrap + .sp-item-wrap,
           .sp-sides-page .sp-item-wrap + .sp-item-wrap,
-          .sp-shellfish-page .sp-menu-section:first-child .sp-item-wrap + .sp-item-wrap {
+          .sp-shellfish-page
+            .sp-menu-section:first-child
+            .sp-item-wrap
+            + .sp-item-wrap {
             margin-top: 3px;
+          }
+
+          .sp-item-wrap-no-price {
+            margin-top: 8px;
           }
 
           .sp-description,
@@ -1248,14 +1330,6 @@ export default function CartaGastronomiaPage() {
           .sp-sides-page .sp-price {
             flex-basis: 21px;
             min-width: 21px;
-          }
-
-          .sp-since {
-            gap: 18px;
-          }
-
-          .sp-since-number {
-            letter-spacing: 0.12em;
           }
 
           .sp-legal {
@@ -1294,6 +1368,16 @@ export default function CartaGastronomiaPage() {
             box-shadow: none;
             page-break-after: always;
             break-after: page;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+
+          .sp-frame-image {
+            width: 210mm;
+            height: 297mm;
+            object-fit: fill;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
           }
         }
       `}</style>
