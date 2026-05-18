@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { useLanguage } from "@/components/language-provider"
 import { Cinzel, Cormorant_Garamond, Playfair_Display } from "next/font/google"
 
 const cinzel = Cinzel({
@@ -309,6 +310,233 @@ const sopasSections: Section[] = [
   },
 ]
 
+const pageCopy = {
+  pt: {
+    backLabel: "Voltar",
+    coverAlt: "Capa Senhor Peixe",
+    legalNote: "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR",
+    finalConsumptionLine1: "TODOS OS PRODUTOS “NÃO SOLICITADOS” COLOCADOS NA MESA, SE FOREM CONSUMIDOS SERÃO",
+    finalConsumptionLine2: "COBRADOS PELO VALOR QUE ESTÁ NO MENU",
+    finalTaxNotes: [
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR",
+      "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE",
+      "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+      "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE",
+    ],
+  },
+  en: {
+    backLabel: "Back",
+    coverAlt: "Senhor Peixe cover",
+    legalNote: "PRICE IN €, INCLUDES VAT AT THE CURRENT LEGAL RATE",
+    finalConsumptionLine1: "ALL UNSOLICITED PRODUCTS PLACED ON THE TABLE, IF CONSUMED, WILL BE",
+    finalConsumptionLine2: "CHARGED ACCORDING TO THE MENU PRICE",
+    finalTaxNotes: [
+      "PRICE IN €, INCLUDES VAT AT THE CURRENT LEGAL RATE",
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR",
+      "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+      "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE",
+    ],
+  },
+} as const
+
+const sectionTitleTranslations: Record<string, string> = {
+  "COUVERT": "COUVERT",
+  "ENTRADAS": "STARTERS",
+  "ENTRADAS QUENTES": "HOT STARTERS",
+  "ESPECIALIDADES": "SPECIALITIES",
+  "PEIXE": "FISH",
+  "À LAGAREIRO": "LAGAREIRO STYLE",
+  "MARISCO": "SEAFOOD",
+  "CARNE": "MEAT",
+  "VEGAN": "VEGAN",
+  "SOPAS": "SOUPS",
+  "ACOMPANHAMENTOS": "SIDE DISHES",
+  "MOLHOS": "SAUCES",
+}
+
+const itemNameTranslations: Record<string, string> = {
+  "AZEITONAS": "OLIVES",
+  "MANTEIGA": "BUTTER",
+  "PÃO": "BREAD",
+  "PÃO TORRADO COM MANTEIGA": "TOASTED BREAD WITH BUTTER",
+  "PATÉ": "PÂTÉ",
+  "QUEIJO AZEITÃO / ALENTEJANO": "AZEITÃO / ALENTEJO CHEESE",
+  "TÁBUA DE QUEIJOS": "CHEESE BOARD",
+  "BIQUEIRÃO": "WHITE ANCHOVY",
+  "PEIXINHOS FRITOS": "FRIED SMALL FISH",
+  "PRATO DE PRESUNTO": "CURED HAM PLATE",
+  "SALADA DE CENOURA": "CARROT SALAD",
+  "SALADA DE POLVO": "OCTOPUS SALAD",
+  "COCKTAIL DE CAMARÃO": "PRAWN COCKTAIL",
+  "AMÊIJOAS": "CLAMS",
+  "AMÊIJOLA": "LARGE CLAM",
+  "BERBIGÃO": "COCKLES",
+  "LONGUEIRÃO": "RAZOR CLAMS",
+  "LAPAS": "LIMPETS",
+  "CAMARÃO AO ALHO": "GARLIC PRAWNS",
+  "TIRAS DE CHOCO": "CUTTLEFISH STRIPS",
+  "GAMBA DO ALGARVE": "ALGARVE PRAWN",
+  "MEXILHÃO": "MUSSELS",
+  "VIEIRA": "SCALLOP",
+  "ZAMBURINAS": "QUEEN SCALLOPS",
+  "CASCO DE SAPATEIRA COM PÃO TORRADO": "BROWN CRAB SHELL WITH TOASTED BREAD",
+  "CARABINEIROS": "SCARLET PRAWNS",
+  "CAMARÃO TIGRE": "TIGER PRAWN",
+  "AÇORDA DE CAMARÃO": "PRAWN BREAD STEW",
+  "ARROZ DE CHERNE E AMÊIJOAS": "WRECKFISH AND CLAM RICE",
+  "ARROZ DO MAR": "SEAFOOD RICE",
+  "ARROZ DE LAGOSTA": "SPINY LOBSTER RICE",
+  "ARROZ DE LAVAGANTE": "LOBSTER RICE",
+  "MASSA DE CHERNE": "WRECKFISH PASTA",
+  "CALDEIRADA": "FISH STEW",
+  "PEIXE À PESCADOR": "FISHERMAN-STYLE FISH",
+  "BITOQUE DE CAMARÃO": "PRAWN BITOQUE",
+  "CHOCO FRITO": "FRIED CUTTLEFISH",
+  "MISTA DE MARISCO": "SEAFOOD SELECTION",
+  "BESUGO": "BLACKSPOT SEABREAM",
+  "CABEÇA DE CHERNE / GAROUPA": "WRECKFISH / GROUPER HEAD",
+  "CANTARIL": "SCORPIONFISH",
+  "CHERNE": "WRECKFISH",
+  "CHOCOS": "CUTTLEFISH",
+  "DOURADA": "GILTHEAD SEA BREAM",
+  "GAROUPA": "GROUPER",
+  "GORAZ": "BLACKSPOT SEA BREAM",
+  "IMPERADOR": "IMPERADOR FISH",
+  "LINGUADO": "SOLE",
+  "LULAS": "SQUID",
+  "OVAS": "ROE",
+  "PARGO": "RED PORGY",
+  "PEIXE GALO": "JOHN DORY",
+  "PREGADO": "TURBOT",
+  "ROBALO": "SEA BASS",
+  "RASCASSO": "SCORPIONFISH",
+  "RODOVALHO": "BRILL",
+  "SALMONETES": "RED MULLET",
+  "SALONGO": "SALONGO FISH",
+  "SARGO": "WHITE SEABREAM",
+  "SARDINHA": "SARDINES",
+  "TODOS OS PEIXES SÃO ACOMPANHADOS DE BATATA COZIDA": "ALL FISH ARE SERVED WITH BOILED POTATOES",
+  "BACALHAU": "CODFISH",
+  "POLVO": "OCTOPUS",
+  "BURRIÉ": "SEA SNAILS",
+  "CANILHA": "SEA SNAILS",
+  "BÚZIOS": "WHELKS",
+  "CAMARÃO ESPINHO": "SPINY PRAWN",
+  "CAMARÃO DE MOÇAMBIQUE": "MOZAMBIQUE PRAWN",
+  "CAMARÃO RABO AZUL": "BLUE-TAIL PRAWN",
+  "CAMARÃO LISTADO": "STRIPED PRAWN",
+  "GAMBA BRANCA DO ALGARVE": "WHITE ALGARVE PRAWN",
+  "BRUXAS": "SLIPPER LOBSTERS",
+  "LAGOSTA": "SPINY LOBSTER",
+  "LAVAGANTE": "LOBSTER",
+  "LAGOSTIM": "NORWAY LOBSTER",
+  "OSTRAS": "OYSTERS",
+  "PERCEBES": "GOOSE BARNACLES",
+  "SAPATEIRA": "BROWN CRAB",
+  "SANTOLA": "SPIDER CRAB",
+  "PATAS DE CARANGUEJO DO ALASCA": "ALASKAN KING CRAB LEGS",
+  "BIFE DO LOMBO": "TENDERLOIN STEAK",
+  "BIFE DA VAZIA": "SIRLOIN STEAK",
+  "ENTRECÔTE": "ENTRECÔTE",
+  "TODOS OS BIFES SÃO ACOMPANHADOS DE BATATA FRITA E SALADA": "ALL STEAKS ARE SERVED WITH FRENCH FRIES AND SALAD",
+  "CARNE DE PORCO IBÉRICO": "IBERIAN PORK",
+  "HAMBÚRGUER DE SOJA": "SOY BURGER",
+  "CREME DE MARISCO": "SEAFOOD CREAM SOUP",
+  "SOPA DE PEIXE": "FISH SOUP",
+  "SOPA DE LEGUMES": "VEGETABLE SOUP",
+  "ARROZ DE ALHO": "GARLIC RICE",
+  "ARROZ BRANCO": "WHITE RICE",
+  "ARROZ DE FEIJÃO": "BEAN RICE",
+  "ARROZ DE GRELOS": "TURNIP GREENS RICE",
+  "ARROZ DE TOMATE": "TOMATO RICE",
+  "AÇORDA DE OVAS": "ROE BREAD STEW",
+  "BATATA-DOCE": "SWEET POTATO",
+  "BATATA FRITA": "FRENCH FRIES",
+  "OVO": "EGG",
+  "LEGUMES": "VEGETABLES",
+  "LEGUMES SALTEADOS": "SAUTÉED VEGETABLES",
+  "SALADA": "SALAD",
+  "SALADA DE PIMENTOS": "PEPPER SALAD",
+  "AZEITE E ALHO": "OLIVE OIL AND GARLIC",
+  "ESCABECHE": "ESCABECHE",
+  "FÍGADOS": "LIVERS",
+  "VERDE": "GREEN SAUCE",
+}
+
+const itemNoteTranslations: Record<string, string> = {
+  "SARDINHA / ATUM": "SARDINE / TUNA",
+  "3 QUEIJOS, DOCE, MARMELADA, NOZES, UVAS, TOSTAS": "3 CHEESES, JAM, MARMALADE, WALNUTS, GRAPES, TOASTS",
+  "2 PAX": "2 PAX",
+  "1 PAX": "1 PAX",
+  "3 PAX": "3 PAX",
+  "PREÇO SOB CONSULTA": "PRICE ON REQUEST",
+  "+0,6KG": "+0.6KG",
+  "6 UN": "6 UNITS",
+  "HALAL": "HALAL",
+  "MATURADO 60 DIAS": "60-DAY AGED",
+  "FRITO, COZIDO": "FRIED, BOILED",
+}
+
+const itemUnitTranslations: Record<string, string> = {
+  "UN": "UNIT",
+  "/KG": "/KG",
+  "KG": "KG",
+}
+
+const itemDescriptionTranslations: Record<string, string> = {
+  "AÇORDA CREMOSA DE PÃO ALENTEJANO, AZEITE, ALHO, COENTROS, OVO, CAMARÃO DE MOÇAMBIQUE E LISTADO FRITO": "CREAMY ALENTEJO BREAD STEW WITH OLIVE OIL, GARLIC, CORIANDER, EGG, MOZAMBIQUE PRAWN AND FRIED STRIPED PRAWN",
+  "ARROZ AGULHA COM CHERNE AOS CUBOS E AMÊIJOAS": "LONG-GRAIN RICE WITH DICED WRECKFISH AND CLAMS",
+  "MISTO DE MARISCOS: BOCAS DE SAPATEIRA / CARANGUEJO, CAMARÃO, MEXILHÃO, AMÊIJOA, BERBIGÃO": "MIXED SEAFOOD: BROWN CRAB / CRAB CLAWS, PRAWN, MUSSELS, CLAMS AND COCKLES",
+  "ARROZ AGULHA COM LAGOSTA / LAVAGANTE": "LONG-GRAIN RICE WITH SPINY LOBSTER / LOBSTER",
+  "CHERNE AOS CUBOS COM MASSA DE COTOVELINHOS": "DICED WRECKFISH WITH ELBOW PASTA",
+  "REFOGADO DE TOMATE, CEBOLA E PIMENTO, COM MISTO DE PEIXES TÍPICOS DA CALDEIRADA": "TOMATO, ONION AND PEPPER BASE WITH A MIX OF TRADITIONAL FISH FOR CALDEIRADA",
+  "CHERNE COZIDO COM BATATAS, CEBOLA E PIMENTOS. PRATO RÚSTICO DE SETÚBAL": "BOILED WRECKFISH WITH POTATOES, ONION AND PEPPERS. A RUSTIC DISH FROM SETÚBAL",
+  "CAMARÃO FRITO, BATATA FRITA ÀS RODELAS, ARROZ BRANCO, OVO ESTRELADO": "FRIED PRAWNS, SLICED FRIED POTATOES, WHITE RICE AND FRIED EGG",
+  "TIRAS DE CHOCO FRITAS EM POLME CROCANTE DE MILHO, BATATA FRITA, SALADA": "CUTTLEFISH STRIPS FRIED IN CRISPY CORN BATTER, FRENCH FRIES AND SALAD",
+  "POSTA GRELHADA NO CARVÃO COM BATATA A MURRO": "CHARCOAL-GRILLED COD LOIN WITH PUNCHED POTATOES",
+  "TENTÁCULOS DE POLVO GRELHADOS NO CARVÃO, BATATA A MURRO E GRELOS": "CHARCOAL-GRILLED OCTOPUS TENTACLES WITH PUNCHED POTATOES AND TURNIP GREENS",
+  "CARNE DE PORCO FRITA EM MASSA DE PIMENTÃO COM AMÊIJOAS E BATATA FRITA": "FRIED PORK IN RED PEPPER PASTE WITH CLAMS AND FRENCH FRIES",
+  "COM BATATA COZIDA E SALADA": "WITH BOILED POTATOES AND SALAD",
+}
+
+function translateText(value: string | undefined, dictionary: Record<string, string>, shouldTranslate: boolean) {
+  if (!value || !shouldTranslate) return value
+  return dictionary[value] ?? value
+}
+
+function translateSections(sections: Section[], shouldTranslate: boolean): Section[] {
+  if (!shouldTranslate) return sections
+
+  return sections.map((section) => ({
+    ...section,
+    title: translateText(section.title, sectionTitleTranslations, true) ?? section.title,
+    subtitle: translateText(section.subtitle, sectionTitleTranslations, true),
+    unitLabel: translateText(section.unitLabel, itemUnitTranslations, true),
+    items: section.items.map((item) => ({
+      ...item,
+      name: translateText(item.name, itemNameTranslations, true) ?? item.name,
+      note: translateText(item.note, itemNoteTranslations, true),
+      unit: translateText(item.unit, itemUnitTranslations, true),
+      description: translateText(item.description, itemDescriptionTranslations, true),
+    })),
+  }))
+}
+
+function EuroText({ text }: { text: string }) {
+  const parts = text.split("€")
+
+  return (
+    <>
+      {parts.map((part, index) => (
+        <span key={`${part}-${index}`}>
+          {part}
+          {index < parts.length - 1 ? <span className="sp-euro">€</span> : null}
+        </span>
+      ))}
+    </>
+  )
+}
+
 function PremiumFrame() {
   return (
     <img
@@ -422,6 +650,7 @@ function ItemRow({ name, note, unit, price, description, compact, notice }: Item
 
 function MenuPage({
   sections,
+  copy,
   dense = false,
   fish = false,
   shellfish = false,
@@ -429,6 +658,7 @@ function MenuPage({
   finalNotes = false,
 }: {
   sections: Section[]
+  copy: (typeof pageCopy)["pt"] | (typeof pageCopy)["en"]
   dense?: boolean
   fish?: boolean
   shellfish?: boolean
@@ -467,34 +697,22 @@ function MenuPage({
         {finalNotes ? (
           <footer className="sp-legal sp-final-legal">
             <p className="sp-final-consumption-note">
-              TODOS OS PRODUTOS “NÃO SOLICITADOS” COLOCADOS NA MESA, SE FOREM
-              CONSUMIDOS SERÃO
+              {copy.finalConsumptionLine1}
               <br />
-              COBRADOS PELO VALOR QUE ESTÁ NO MENU
+              {copy.finalConsumptionLine2}
             </p>
 
             <div className="sp-final-tax-note">
-              <p>
-                PREÇO EM <span className="sp-euro">€</span> , INCLUI IVA À TAXA
-                LEGAL EM VIGOR
-              </p>
-              <p>
-                PRICES IN <span className="sp-euro">€</span> , INCLUDE VAT AT THE
-                CURRENT LEGAL RATE
-              </p>
-              <p>
-                PRIX EN <span className="sp-euro">€</span> , AVEC LA TVA AU TAUX
-                EN VIGUEUR
-              </p>
-              <p>
-                PRECIOS EN <span className="sp-euro">€</span> , INCLUYEN IVA AL
-                TIPO LEGAL VIGENTE
-              </p>
+              {copy.finalTaxNotes.map((note) => (
+                <p key={note}>
+                  <EuroText text={note} />
+                </p>
+              ))}
             </div>
           </footer>
         ) : (
           <footer className="sp-legal">
-            PREÇO EM <span className="sp-euro">€</span>, INCLUI IVA À TAXA LEGAL EM VIGOR
+            <EuroText text={copy.legalNote} />
           </footer>
         )}
       </div>
@@ -503,25 +721,29 @@ function MenuPage({
 }
 
 export default function CartaGastronomiaPage() {
+  const { language } = useLanguage()
+  const isEnglish = language === "en"
+  const copy = isEnglish ? pageCopy.en : pageCopy.pt
+
   return (
     <main className={`sp-shell ${cormorant.className}`}>
       <Link href="/gastronomia" className="sp-back-link">
-        Voltar
+        {copy.backLabel}
       </Link>
 
       <section className="sp-page sp-cover-image-only">
         <img
           src="/senhor-peixe-capa.png"
-          alt="Capa Senhor Peixe"
+          alt={copy.coverAlt}
           className="sp-cover-full-image"
         />
       </section>
 
-      <MenuPage sections={couvertSections} />
-      <MenuPage sections={especialidadesSections} dense />
-      <MenuPage sections={peixesSections} fish />
-      <MenuPage sections={mariscoSections} shellfish />
-      <MenuPage sections={sopasSections} sides finalNotes />
+      <MenuPage sections={translateSections(couvertSections, isEnglish)} copy={copy} />
+      <MenuPage sections={translateSections(especialidadesSections, isEnglish)} copy={copy} dense />
+      <MenuPage sections={translateSections(peixesSections, isEnglish)} copy={copy} fish />
+      <MenuPage sections={translateSections(mariscoSections, isEnglish)} copy={copy} shellfish />
+      <MenuPage sections={translateSections(sopasSections, isEnglish)} copy={copy} sides finalNotes />
 
       <style jsx global>{`
         :root {
