@@ -413,9 +413,8 @@ function SummaryPage() {
   return (
     <Page className="summary-page">
       <section className="summary-content">
-        <div className="summary-top-line" />
-
         <h2 className={`summary-title ${cinzel.className}`}>A NOSSA GARRAFEIRA</h2>
+
         <div className="summary-title-line" />
 
         <div className="summary-text">
@@ -802,46 +801,42 @@ export default function CartaVinhosPage() {
           padding-top: 5mm;
         }
 
-        .summary-top-line {
-          width: 100%;
-          height: 1px;
-          background: var(--wine-gold);
-          margin: 0 auto;
-        }
+     .summary-top-line {
+  display: none;
+}
 
-        .summary-title {
-          margin: 39mm 0 0;
-          color: var(--wine-navy);
-          font-size: 28px;
-          line-height: 1;
-          letter-spacing: 10px;
-          font-weight: 500;
-        }
-          .summary-title-line {
+.summary-title {
+  margin: 39mm 0 0;
+  color: var(--wine-navy);
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: 10px;
+  font-weight: 500;
+}
+
+.summary-title-line {
   width: 100%;
-  max-width: 145mm;
   height: 1px;
   background: var(--wine-gold);
   margin: 12mm auto 0;
 }
 
-        .summary-text {
-          max-width: 128mm;
-          margin: 22mm auto 0;
-          color: var(--wine-navy);
-          font-size: 18.5px;
-          line-height: 1.55;
-          font-weight: 500;
-        }
+.summary-text {
+  max-width: 128mm;
+  margin: 22mm auto 0;
+  color: var(--wine-navy);
+  font-size: 18.5px;
+  line-height: 1.55;
+  font-weight: 500;
+}
 
-        .summary-text p {
-          margin: 0 0 17mm;
-        }
+.summary-text p {
+  margin: 0 0 17mm;
+}
 
-        .summary-text p:last-child {
-          margin-bottom: 0;
-        }
-
+.summary-text p:last-child {
+  margin-bottom: 0;
+}
         .summary-notice {
           margin: 18mm auto 0;
           padding: 7mm 10mm;
