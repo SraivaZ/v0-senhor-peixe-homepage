@@ -466,14 +466,17 @@ export default function CartaVinhosPage() {
         ]}
       />
 
-      <WineListPage
-        sections={[
-          { title: "ROSÉ", subtitle: "Rosé · Rosado · Rosé", volume: "37,5cl", rows: halfRoseRows },
-          { title: "BRANCO", subtitle: "White · Blancos · Blancs · Weiss", volume: "37,5cl", rows: halfWhiteRows },
-          { title: "TINTO", subtitle: "Red · Tintos · Rouges · Rotwein", volume: "37,5cl", rows: halfRedRows },
-          { title: "ROSÉ", subtitle: "Rosé · Rosado · Rosé", volume: "75cl", rows: roseRows },
-        ]}
-      />
+<WineListPage
+  sections={[
+    { title: "ROSÉ", subtitle: "Rosé · Rosado · Rosé", volume: "37,5cl", rows: halfRoseRows },
+    { title: "BRANCO", subtitle: "White · Blancos · Blancs · Weiss", volume: "37,5cl", rows: halfWhiteRows },
+    { title: "TINTO", subtitle: "Red · Tintos · Rouges · Rotwein", volume: "37,5cl", rows: halfRedRows },
+  ]}
+/><WineListPage
+  sections={[
+    { title: "ROSÉ", subtitle: "Rosé · Rosado · Rosé", volume: "75cl", rows: roseRows },
+  ]}
+/>
 
       <WineListPage sections={[{ title: "BRANCO", subtitle: "White · Blancos · Blancs · Weiss", volume: "75cl", rows: whitePage1Rows, compact: true }]} />
       <WineListPage sections={[{ title: "BRANCO", subtitle: "White · Blancos · Blancs · Weiss", volume: "75cl", rows: whitePage2Rows, compact: true }]} />
