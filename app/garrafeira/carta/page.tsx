@@ -1,656 +1,611 @@
 "use client"
 
+import type { ReactNode } from "react"
+import { Cinzel, Cormorant_Garamond } from "next/font/google"
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+})
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+})
+
 type WineRow = {
-  region: string
-  year: string
-  name: string
-  grapes: string
-  price: string
-  countryLabel?: never
+  region?: string
+  year?: string
+  name?: string
+  grapes?: string
+  price?: string
+  countryLabel?: string
 }
 
-type CountryRow = {
-  countryLabel: string
-  region?: never
-  year?: never
-  name?: never
-  grapes?: never
-  price?: never
-}
-
-type DividerRow = {
-  divider: true
+type WineSection = {
+  title: string
+  subtitle: string
   volume?: string
-  region?: never
-  year?: never
-  name?: never
-  grapes?: never
-  price?: never
-  countryLabel?: never
+  rows: WineRow[]
+  compact?: boolean
+  simple?: boolean
 }
 
-type Row = WineRow | CountryRow | DividerRow
+const wineByGlassSparkling: WineRow[] = [{ year: "NV", price: "6" }]
+const wineByGlassWhite: WineRow[] = [{ year: "NV", price: "5" }]
+const wineByGlassRose: WineRow[] = [{ year: "NV", price: "6" }]
+const wineByGlassRed: WineRow[] = [{ year: "NV", price: "6" }]
 
-const navy = "#10243d"
-const gold = "#b88a45"
-const muted = "#617287"
-const paper = "#f7f3ec"
-
-const spain = "Espanha · España · Spain · Espagne · Spanien"
-const france = "França · Francia · France · Frankreich"
-const italy = "Itália · Italia · Italy · Italie · Italien"
-const germany = "Alemanha · Alemania · Germany · Allemagne · Deutschland"
-const austria = "Áustria · Austria · Autriche · Österreich"
-const hungary = "Hungria · Hungría · Hungary · Hongrie · Ungarn"
-
-const wineByGlassSparkling: Row[] = [
-  { region: "Bairrada", year: "2022", name: "Quinta do Ortigão", grapes: "Baga", price: "7" },
-  { countryLabel: france },
-  { region: "Champagne", year: "-", name: "Telmont Réserve Brut", grapes: "Chardonnay, Pinot Meunier, Pinot Noir", price: "17" },
+const champagneRows: WineRow[] = [
+  { region: "Champagne", year: "NV", name: "Charles Mignon", grapes: "Pinot Meunier, Chardonnay, Pinot Noir", price: "70" },
+  { region: "Champagne", year: "NV", name: "Louis Roederer Collection", grapes: "Chardonnay, Pinot Noir, Pinot Meunier", price: "100" },
+  { region: "Champagne", year: "NV", name: "Ruinart Blanc de Blancs", grapes: "Chardonnay", price: "160" },
+  { region: "Champagne", year: "NV", name: "Cattier", grapes: "Pinot Meunier, Pinot Noir, Chardonnay", price: "79" },
+  { region: "Champagne", year: "NV", name: "Diamant Blanc de Blancs", grapes: "Chardonnay", price: "120" },
+  { region: "Champagne", year: "NV", name: "Moët & Chandon Ice Impérial", grapes: "Pinot Noir, Pinot Meunier, Chardonnay", price: "120" },
+  { region: "Champagne", year: "NV", name: "Moët & Chandon Nectar Impérial", grapes: "Pinot Noir, Pinot Meunier, Chardonnay", price: "110" },
+  { region: "Champagne", year: "NV", name: "Cristal", grapes: "Pinot Noir, Chardonnay", price: "630" },
 ]
 
-const wineByGlassWhite: Row[] = [
-  { region: "Vinho Verde", year: "2023", name: "Expressoes", grapes: "Alvarinho", price: "7" },
-  { region: "Vinho Verde", year: "2023", name: "Varanda do Conde", grapes: "Alvarinho, Trajadura", price: "5" },
-  { region: "Douro", year: "2022", name: "Quinta Nova", grapes: "Gouveio, Viosinho, Rabigato", price: "7" },
-  { region: "Península de Setúbal", year: "2023", name: "Dona Ermelinda Reserva", grapes: "Arinto, Chardonnay, Viognier", price: "6" },
-  { region: "Madeira", year: "2023", name: "Ilha", grapes: "Verdelho", price: "7" },
-  { countryLabel: spain },
-  { region: "Rías Baixas", year: "2023", name: "Santiago Ruiz", grapes: "Albariño, Loureiro, Treixadura, Caiño Blanco, Godello", price: "7" },
+const champagneRoseRows: WineRow[] = [
+  { region: "Champagne", year: "2006", name: "Bollinger Limited Edition", grapes: "Pinot Noir, Chardonnay", price: "190" },
+  { region: "Champagne", year: "NV", name: "Diamant Rosé", grapes: "Pinot Noir, Chardonnay", price: "160" },
+  { region: "Champagne", year: "NV", name: "Ruinart Rosé", grapes: "Chardonnay, Pinot Noir", price: "180" },
 ]
 
-const wineByGlassRose: Row[] = [
-  { region: "Douro", year: "2023", name: "Portal", grapes: "Touriga Nacional, Tinta Roriz, Tinta Barroca", price: "6" },
-  { countryLabel: france },
-  { region: "Provença", year: "2024", name: "Whispering Angel", grapes: "Grenache, Rolle, Syrah, Cinsault, Tibouren", price: "9" },
+const sparklingRows: WineRow[] = [
+  { region: "Trás-os-Montes", year: "NV", name: "Quinta do Sobreiró Reserva Bruto", grapes: "", price: "50" },
+  { region: "Távora-Varosa", year: "NV", name: "Raposeira Brut", grapes: "Malvasia Fina, Cerceal, Gouveio", price: "29" },
+  { region: "Távora-Varosa", year: "NV", name: "Raposeira Blanc de Noirs", grapes: "Touriga Nacional, Tinta Roriz", price: "30" },
+  { region: "Távora-Varosa", year: "NV", name: "Murganheira Super Reserva Brut", grapes: "", price: "37" },
+  { region: "Bairrada", year: "NV", name: "Ortigão Cuvée", grapes: "Baga, Bical, Arinto", price: "33" },
+  { region: "Bairrada", year: "NV", name: "Marquês de Marialva", grapes: "Bical, Arinto, Baga", price: "27" },
+  { region: "Bairrada", year: "NV", name: "Marquês de Marialva Rosé", grapes: "Baga", price: "29" },
 ]
 
-const wineByGlassRed: Row[] = [
-  { region: "Douro", year: "2022", name: "Quinta dos Aciprestes", grapes: "Touriga Nacional, Tinta Roriz, Touriga Franca", price: "6" },
-  { region: "Douro", year: "2020", name: "Poças Vale de Cavalos Reserva", grapes: "Tinta Roriz, Touriga Franca, Touriga Nacional", price: "7" },
-  { region: "Península de Setúbal", year: "2021", name: "Dona Ermelinda Reserva", grapes: "Syrah, Aragonez, Castelão", price: "6" },
-  { region: "Alentejo", year: "2021", name: "Herdade do Rocim Amphora", grapes: "Moreto, Tinta Grossa, Trincadeira", price: "6" },
+const halfRoseRows: WineRow[] = [
+  { region: "Portugal", year: "NV", name: "Mateus Rosé", grapes: "Baga, Rufete, Tinta Barroca, Touriga Franca", price: "10" },
 ]
 
-const page3SparklingRows: Row[] = [
-  { region: "Bairrada", year: "2022", name: "Kompassus Private Collection", grapes: "Baga", price: "55" },
-  { region: "Bairrada", year: "2022", name: "Quinta do Ortigão", grapes: "Baga", price: "39" },
-  { region: "Bairrada", year: "2021", name: "Quinta do Poço do Lobo Baga Blanc de Noirs", grapes: "Baga", price: "59" },
-  { region: "Douro", year: "2020", name: "Vértice Millésime", grapes: "Gouveio, Malvasia Fina, Rabigato, Viosinho", price: "70" },
-  { countryLabel: italy },
-  { region: "Trento DOC", year: "2019", name: "Ferrari Perlé", grapes: "Chardonnay", price: "92" },
+const halfWhiteRows: WineRow[] = [
+  { region: "Douro", year: "NV", name: "Castello d’Alba Reserva Branco", grapes: "Viosinho, Rabigato, Códega do Larinho, Gouveio", price: "13" },
+  { region: "Vinho Verde", year: "NV", name: "Bico Amarelo", grapes: "Loureiro, Alvarinho, Avesso", price: "10" },
+  { region: "Douro", year: "NV", name: "Planalto", grapes: "Viosinho, Malvasia Fina, Gouveio, Códega, Rabigato, Moscatel", price: "9" },
+  { region: "Península de Setúbal", year: "NV", name: "Dona Ermelinda Branco", grapes: "Fernão Pires, Antão Vaz, Arinto, Chardonnay", price: "9" },
+  { region: "Douro", year: "NV", name: "Isento Branco", grapes: "", price: "13" },
 ]
 
-const page3RoseRows: Row[] = [
-  { region: "Douro", year: "2023", name: "Portal", grapes: "Touriga Nacional, Tinta Roriz, Tinta Barroca", price: "25" },
-  { divider: true, volume: "75cl" },
-  { region: "Douro", year: "2023", name: "Portal", grapes: "Touriga Nacional, Tinta Roriz, Tinta Barroca", price: "25" },
-  { countryLabel: france },
-  { region: "Provença", year: "2024", name: "Whispering Angel", grapes: "Grenache, Rolle, Syrah, Cinsault, Tibouren", price: "52" },
-  { region: "Provença", year: "2021", name: "Château d'Esclans", grapes: "Grenache, Rolle", price: "90" },
+const halfRedRows: WineRow[] = [
+  { region: "Douro", year: "NV", name: "Castello d’Alba Reserva Tinto", grapes: "Touriga Nacional, Touriga Franca, Tinta Roriz", price: "14" },
+  { region: "Douro", year: "NV", name: "Assobio Tinto", grapes: "Touriga Nacional, Touriga Franca, Tinta Roriz", price: "10" },
+  { region: "Península de Setúbal", year: "NV", name: "Dona Ermelinda Tinto", grapes: "Castelão, Aragonez, Trincadeira", price: "9" },
+  { region: "Douro", year: "NV", name: "Isento Tinto", grapes: "", price: "13" },
 ]
 
-const page3WhiteRows: Row[] = [
-  { region: "Douro", year: "2023", name: "Castello d'Alba Vinhas Velhas", grapes: "Viosinho, Rabigato, Códega do Larinho, Gouveio", price: "-" },
-  { region: "Douro", year: "-", name: "Isento Reserva", grapes: "", price: "-" },
-  { region: "Douro", year: "-", name: "Planalto", grapes: "", price: "-" },
-  { divider: true, volume: "75cl" },
-  { region: "Vinho Verde", year: "2023", name: "Anselmo Mendes, Curtimenta", grapes: "Alvarinho", price: "73" },
-  { region: "Vinho Verde", year: "2018", name: "Cinética", grapes: "Alvarinho", price: "35" },
-  { region: "Vinho Verde", year: "-", name: "Parcela Única", grapes: "", price: "-" },
+const roseRows: WineRow[] = [
+  { region: "Douro", year: "NV", name: "Assobio Rosé", grapes: "Touriga Nacional, Tinta Roriz, Touriga Franca", price: "19" },
+  { region: "Península de Setúbal", year: "NV", name: "Bacalhôa Roxo Rosé", grapes: "Moscatel Roxo", price: "23" },
+  { region: "Península de Setúbal", year: "NV", name: "Casa Ermelinda Freitas Rosé", grapes: "Castelão, Touriga Nacional, Syrah", price: "22" },
+  { region: "Portugal", year: "NV", name: "Mateus Rosé", grapes: "Baga, Rufete, Tinta Barroca, Touriga Franca", price: "18" },
+  { region: "Trás-os-Montes", year: "NV", name: "Vale Pradinhos Rosé", grapes: "", price: "24" },
 ]
 
-const page4WhiteRows: Row[] = [
-  { region: "Vinho Verde", year: "2023", name: "Expressões", grapes: "Alvarinho", price: "36" },
-  { region: "Vinho Verde", year: "2023", name: "Varanda do Conde", grapes: "Alvarinho, Trajadura", price: "25" },
-  { region: "Douro", year: "2022", name: "Quinta Nova", grapes: "Gouveio, Viosinho, Rabigato", price: "35" },
-  { region: "Douro", year: "2023", name: "Redoma", grapes: "Rabigato, Códega, Viosinho, Arinto", price: "59" },
-  { region: "Douro", year: "2023", name: "Redoma Reserva", grapes: "Rabigato, Códega, Viosinho, Arinto", price: "95" },
-  { region: "Douro", year: "2023", name: "Vallado Reserva", grapes: "Rabigato, Gouveio, Viosinho, Arinto", price: "47" },
-  { region: "Douro", year: "2023", name: "Quinta do Crasto Superior", grapes: "Viosinho, Verdelho", price: "36" },
-  { region: "Douro", year: "2022", name: "Quinta do Crasto Reserva Vinhas Velhas", grapes: "Viosinho, Rabigato, Verdelho", price: "72" },
-  { region: "Douro", year: "2022", name: "Quinta do Crasto Vinha da Ponte", grapes: "Viosinho, Rabigato", price: "210" },
-  { region: "Douro", year: "2021", name: "Quinta do Noval Cedro do Noval", grapes: "Viosinho, Gouveio, Arinto", price: "36" },
-  { region: "Douro", year: "2022", name: "Conceito", grapes: "Rabigato, Códega, Arinto", price: "42" },
+const whitePage1Rows: WineRow[] = [
+  { region: "Vinho Verde", year: "NV", name: "Quinta de Azevedo Escolha", grapes: "Loureiro, Alvarinho", price: "27" },
+  { region: "Vinho Verde", year: "NV", name: "Bico Amarelo", grapes: "Loureiro, Alvarinho, Avesso", price: "19" },
+  { region: "Vinho Verde", year: "NV", name: "Mar Salgado", grapes: "Loureiro, Trajadura", price: "19" },
+  { region: "Vinho Verde", year: "NV", name: "Qta Ameal Loureiro", grapes: "Loureiro", price: "23" },
+  { region: "Vinho Verde", year: "NV", name: "Muros Melgaço", grapes: "Alvarinho", price: "38" },
+  { region: "Vinho Verde", year: "NV", name: "Palácio da Brejoeira", grapes: "Alvarinho", price: "40" },
+  { region: "Vinho Verde", year: "NV", name: "Milagres by Quinta da Pedra", grapes: "Alvarinho", price: "35" },
+  { region: "Vinho Verde", year: "NV", name: "Parcela Única", grapes: "Alvarinho", price: "78" },
+  { region: "Vinho Verde", year: "NV", name: "Ronfe", grapes: "Alvarinho", price: "28" },
+  { region: "Trás-os-Montes", year: "NV", name: "Quinta do Sobreiró Grande Reserva Branco", grapes: "", price: "32" },
+  { region: "Trás-os-Montes", year: "NV", name: "Quinta do Sobreiró Reserva Branco", grapes: "", price: "22" },
+  { region: "Trás-os-Montes", year: "NV", name: "Vale Pradinhos Branco", grapes: "", price: "31" },
+  { region: "Trás-os-Montes", year: "NV", name: "Flor do Tua Reserva Branco", grapes: "", price: "23" },
+  { region: "Douro", year: "NV", name: "Quinta da Rede Reserva Branco", grapes: "Viosinho, Rabigato, Gouveio, Arinto", price: "33" },
+  { region: "Douro", year: "NV", name: "Planalto Branco", grapes: "Viosinho, Malvasia Fina, Gouveio, Códega, Rabigato, Moscatel", price: "18" },
+  { region: "Douro", year: "NV", name: "Redoma Reserva Branco", grapes: "Rabigato, Códega, Viosinho, Arinto", price: "75" },
+  { region: "Douro", year: "NV", name: "Isento Reserva Branco", grapes: "Códega do Larinho, Viosinho", price: "24" },
+  { region: "Douro", year: "NV", name: "CARM Reserva Branco", grapes: "Rabigato, Códega do Larinho, Viosinho", price: "28" },
+  { region: "Douro", year: "NV", name: "Assobio Branco", grapes: "Viosinho, Rabigato, Gouveio, Códega do Larinho", price: "18" },
+  { region: "Douro", year: "NV", name: "Casa Velha Branco", grapes: "", price: "24" },
+  { region: "Douro", year: "NV", name: "Quinta do Crasto Superior Branco", grapes: "Viosinho, Verdelho", price: "36" },
+  { region: "Douro", year: "NV", name: "Três Bagos Branco", grapes: "Viosinho, Rabigato, Gouveio, Malvasia Fina", price: "29" },
 ]
 
-const page5WhiteRows: Row[] = [
-  { region: "Dão", year: "2023", name: "Quinta dos Roques Encruzado", grapes: "Encruzado", price: "39" },
-  { region: "Dão", year: "2023", name: "Quinta dos Roques Reserva Encruzado", grapes: "Encruzado", price: "60" },
-  { region: "Dão", year: "2021", name: "Taboadella Reserva", grapes: "Encruzado", price: "48" },
-  { region: "Bairrada", year: "2022", name: "Luis Pato Vinhas Velhas", grapes: "Bical, Cercial, Sercialinho", price: "43" },
-  { region: "Bairrada", year: "2022", name: "Luis Pato Quinta do Ribeirinho Pé Franco", grapes: "Bical", price: "110" },
-  { region: "Lisboa", year: "2023", name: "Quinta de Chocapalha Arinto", grapes: "Arinto", price: "32" },
-  { region: "Lisboa", year: "2022", name: "Quinta de Chocapalha Vinha Mãe", grapes: "Arinto", price: "55" },
-  { region: "Península de Setúbal", year: "2023", name: "Dona Ermelinda Reserva", grapes: "Arinto, Chardonnay, Viognier", price: "28" },
-  { region: "Península de Setúbal", year: "2022", name: "Dona Ermelinda Grande Reserva", grapes: "Antão Vaz, Arinto, Chardonnay, Viognier", price: "39" },
-  { region: "Alentejo", year: "2023", name: "Esporão Reserva", grapes: "Antão Vaz, Arinto, Roupeiro", price: "36" },
-  { region: "Alentejo", year: "2023", name: "Esporão Private Selection", grapes: "Semillon", price: "70" },
-  { region: "Madeira", year: "2023", name: "Ilha", grapes: "Verdelho", price: "36" },
+const whitePage2Rows: WineRow[] = [
+  { region: "Douro", year: "NV", name: "Odisseia Branco", grapes: "Rabigato, Viosinho, Gouveio", price: "25" },
+  { region: "Douro", year: "NV", name: "Vinha Grande Branco", grapes: "Viosinho, Arinto, Rabigato, Gouveio", price: "27" },
+  { region: "Beira Interior", year: "NV", name: "Beyra Reserva Quartz", grapes: "Síria, Fonte Cal", price: "26" },
+  { region: "Douro", year: "NV", name: "Castello d’Alba Reserva Branco", grapes: "Viosinho, Rabigato, Códega do Larinho, Gouveio", price: "25" },
+  { region: "Beira Interior", year: "NV", name: "Vinha do Carloto Branco", grapes: "Síria, Fonte Cal", price: "24" },
+  { region: "Dão", year: "NV", name: "Bella Elegance Branco", grapes: "", price: "30" },
+  { region: "Dão", year: "NV", name: "Quinta dos Carvalhais Branco", grapes: "Encruzado, Gouveio", price: "48" },
+  { region: "Dão", year: "NV", name: "Quinta dos Carvalhais Colheita Branco", grapes: "Encruzado, Gouveio", price: "29" },
+  { region: "Dão", year: "NV", name: "Taboadella Branco", grapes: "Encruzado, Bical, Cercial", price: "29" },
+  { region: "Dão", year: "NV", name: "Soito Branco", grapes: "Encruzado, Malvasia Fina", price: "31" },
+  { region: "Dão", year: "NV", name: "Quinta dos Carvalhiços Reserva Branco", grapes: "Encruzado", price: "33" },
+  { region: "Dão", year: "NV", name: "Dona Sancha Vinha Avarenta Branco", grapes: "Encruzado", price: "36" },
+  { region: "Bairrada", year: "NV", name: "Ortigão Branco", grapes: "Bical, Arinto, Maria Gomes", price: "22" },
+  { region: "Portugal — blend Bairrada/Lisboa", year: "NV", name: "Silk & Spice White", grapes: "Bical, Arinto, Chardonnay", price: "21" },
+  { region: "Lisboa", year: "NV", name: "Quinta do Gradil Arinto", grapes: "Arinto", price: "20" },
+  { region: "Lisboa", year: "NV", name: "Quinta do Gradil Viosinho", grapes: "Viosinho", price: "20" },
+  { region: "Lisboa", year: "NV", name: "Prova Régia Arinto", grapes: "Arinto", price: "21" },
+  { region: "Lisboa", year: "NV", name: "Mar Salgado Arinto/Chardonnay", grapes: "Arinto, Chardonnay", price: "24" },
+  { region: "Península de Setúbal", year: "NV", name: "Quinta da Bacalhôa Chardonnay", grapes: "Chardonnay", price: "25" },
+  { region: "Península de Setúbal", year: "NV", name: "Dona Ermelinda Reserva Branco", grapes: "Arinto, Chardonnay, Viognier", price: "17" },
+  { region: "Península de Setúbal", year: "NV", name: "Ermelinda Freitas Branco", grapes: "Fernão Pires, Arinto", price: "21" },
 ]
 
-const page6Rows: Row[] = [
-  { countryLabel: spain },
-  { region: "Rías Baixas", year: "2023", name: "Santiago Ruiz", grapes: "Albariño, Loureiro, Treixadura, Caiño Blanco, Godello", price: "40" },
-  { region: "Rías Baixas", year: "2023", name: "Pazo Señorans", grapes: "Albariño", price: "45" },
-  { region: "Rueda", year: "2023", name: "José Pariente", grapes: "Verdejo", price: "38" },
-  { countryLabel: france },
-  { region: "Loire", year: "2023", name: "Pascal Jolivet Sancerre", grapes: "Sauvignon Blanc", price: "65" },
-  { region: "Loire", year: "2022", name: "Domaine Vacheron Sancerre", grapes: "Sauvignon Blanc", price: "83" },
-  { region: "Borgonha", year: "2022", name: "Jean-Marc Brocard Chablis", grapes: "Chardonnay", price: "58" },
-  { region: "Borgonha", year: "2021", name: "Joseph Drouhin Meursault", grapes: "Chardonnay", price: "135" },
+const whitePage3Rows: WineRow[] = [
+  { region: "Alentejo", year: "NV", name: "Adega Mayor Reserva Branco", grapes: "Antão Vaz, Arinto, Verdelho", price: "22" },
+  { region: "Alentejo", year: "NV", name: "Esquecido (Casa Relvas) Branco", grapes: "", price: "34" },
+  { region: "Alentejo", year: "NV", name: "Herdade dos Grous Reserva Branco", grapes: "Antão Vaz, Arinto, Gouveio", price: "40" },
+  { region: "Alentejo", year: "NV", name: "Já Te Disse Branco", grapes: "", price: "70" },
+  { region: "Alentejo", year: "NV", name: "Paço do Conde Branco", grapes: "Antão Vaz, Arinto, Roupeiro", price: "17" },
+  { region: "Alentejo", year: "NV", name: "Quinta do Carmo Branco", grapes: "Arinto, Antão Vaz, Roupeiro", price: "23" },
+  { region: "Alentejo", year: "NV", name: "Esporão Reserva Branco", grapes: "Antão Vaz, Arinto, Roupeiro", price: "33" },
+  { region: "Alentejo", year: "NV", name: "Esporão Colheita Branco", grapes: "", price: "22" },
+  { region: "Alentejo", year: "NV", name: "Divai Reserva Branco", grapes: "Antão Vaz, Arinto", price: "41" },
+  { region: "Alentejo", year: "NV", name: "Revelado Branco", grapes: "", price: "30" },
+  { region: "Alentejo", year: "NV", name: "Pêra-Manca Branco", grapes: "Antão Vaz, Arinto", price: "108" },
+  { region: "Alentejo", year: "NV", name: "Reserva do Comendador Branco", grapes: "Antão Vaz, Arinto, Verdelho", price: "48" },
+  { region: "Alentejo", year: "NV", name: "Flor de Sal Branco", grapes: "Antão Vaz, Arinto", price: "22" },
+  { region: "Alentejo", year: "NV", name: "Folha do Meio Branco", grapes: "", price: "27" },
+  { region: "Alentejo", year: "NV", name: "Quinta do Carmo Reserva Branco", grapes: "Arinto, Antão Vaz, Roupeiro", price: "45" },
+  { region: "Alentejo", year: "NV", name: "Vicentino Branco", grapes: "Sauvignon Blanc, Arinto, Alvarinho", price: "23" },
+  { region: "Alentejo", year: "NV", name: "Pousio Reserva Branco", grapes: "Antão Vaz, Arinto", price: "35" },
 ]
 
-const page6Red375Rows: Row[] = [
-  { region: "Douro", year: "2021", name: "Quinta dos Aciprestes", grapes: "Touriga Nacional, Tinta Roriz, Touriga Franca", price: "18" },
+const redPage1Rows: WineRow[] = [
+  { region: "Trás-os-Montes", year: "NV", name: "Quinta do Sobreiró Grande Reserva Tinto", grapes: "", price: "40" },
+  { region: "Trás-os-Montes", year: "NV", name: "Quinta do Sobreiró Reserva Tinto", grapes: "", price: "29" },
+  { region: "Trás-os-Montes", year: "NV", name: "Flor do Tua Reserva Tinto", grapes: "", price: "28" },
+  { region: "Douro", year: "NV", name: "Assobio Tinto", grapes: "Touriga Nacional, Touriga Franca, Tinta Roriz", price: "19" },
+  { region: "Douro", year: "2023", name: "Isento Reserva Tinto", grapes: "Touriga Nacional, Touriga Franca, Tinta Roriz", price: "24" },
+  { region: "Douro", year: "2020", name: "Isento Grande Reserva Tinto", grapes: "Touriga Nacional, Touriga Franca, Tinta Roriz", price: "42" },
+  { region: "Douro", year: "2014", name: "Casa Ferreirinha Tinta Francisca", grapes: "Tinta Francisca", price: "180" },
+  { region: "Douro", year: "NV", name: "Quinta da Leda Tinto", grapes: "Touriga Franca, Touriga Nacional, Tinta Roriz, Tinto Cão", price: "98" },
+  { region: "Douro", year: "2019", name: "Castas Escondidas Tinto", grapes: "", price: "65" },
+  { region: "Douro", year: "NV", name: "Callabriga Tinto", grapes: "Touriga Franca, Touriga Nacional, Tinta Roriz", price: "40" },
+  { region: "Douro", year: "NV", name: "CARM Reserva Tinto", grapes: "Touriga Nacional, Touriga Franca, Tinta Roriz", price: "33" },
+  { region: "Douro", year: "NV", name: "Oboé 17 Tinto", grapes: "", price: "60" },
+  { region: "Douro", year: "NV", name: "Odisseia Tinto", grapes: "Touriga Nacional, Touriga Franca, Tinta Roriz", price: "25" },
+  { region: "Douro", year: "NV", name: "Quinta do Crasto Altitude Tinto", grapes: "Touriga Nacional, Touriga Franca, Tinta Roriz, Sousão", price: "38" },
+  { region: "Douro", year: "NV", name: "Quinta do Crasto Vinhas Velhas Tinto", grapes: "Vinhas Velhas", price: "70" },
+  { region: "Dão", year: "2011", name: "Conde de Santar Tinto", grapes: "Touriga Nacional, Alfrocheiro, Tinta Roriz", price: "122" },
+  { region: "Dão", year: "NV", name: "Soito Tinto", grapes: "Touriga Nacional, Alfrocheiro, Jaen, Tinta Roriz", price: "29" },
+  { region: "Beira Interior", year: "NV", name: "Carloto Tinto", grapes: "", price: "27" },
+  { region: "Lisboa", year: "NV", name: "Quinta de Vale Mourisco Syrah", grapes: "Syrah", price: "31" },
+  { region: "Península de Setúbal", year: "NV", name: "Dona Ermelinda Reserva Tinto", grapes: "Syrah, Aragonez, Castelão", price: "17" },
+  { region: "Península de Setúbal", year: "2020", name: "D. Ermelinda Grande Reserva Tinto", grapes: "Syrah, Touriga Nacional, Aragonez", price: "63" },
+  { region: "Alentejo", year: "NV", name: "Adega Mayor Reserva Tinto", grapes: "Alicante Bouschet, Aragonez, Touriga Nacional", price: "23" },
 ]
 
-const page6Red75Rows: Row[] = [
-  { region: "Douro", year: "2022", name: "Quinta dos Aciprestes", grapes: "Touriga Nacional, Tinta Roriz, Touriga Franca", price: "30" },
-  { region: "Douro", year: "2020", name: "Poças Vale de Cavalos Reserva", grapes: "Tinta Roriz, Touriga Franca, Touriga Nacional", price: "34" },
-  { region: "Douro", year: "2020", name: "Quinta Nova Reserva", grapes: "Touriga Nacional, Touriga Franca, Tinta Roriz", price: "45" },
-  { region: "Douro", year: "2020", name: "Quinta Nova Grande Reserva", grapes: "Touriga Nacional, Touriga Franca, Tinta Roriz", price: "75" },
+const redPage2Rows: WineRow[] = [
+  { region: "Alentejo", year: "2009", name: "Grou Family Collection Tinto", grapes: "", price: "189" },
+  { region: "Alentejo", year: "2016", name: "Blog Bi-Varietal Tinto", grapes: "Alicante Bouschet, Syrah", price: "135" },
+  { region: "Alentejo", year: "2016", name: "Blog Tinto", grapes: "Alicante Bouschet, Syrah, Touriga Nacional", price: "90" },
+  { region: "Alentejo", year: "2015", name: "Fita Preta Grande Reserva Tinto", grapes: "Alicante Bouschet, Aragonez, Trincadeira", price: "131" },
+  { region: "Alentejo", year: "2013", name: "Furtiva Lágrima Tinto", grapes: "", price: "95" },
+  { region: "Alentejo", year: "2011", name: "Ímpar Tinto", grapes: "", price: "133" },
+  { region: "Alentejo", year: "2020", name: "Já Te Disse Tinto", grapes: "", price: "149" },
+  { region: "Alentejo", year: "2013", name: "Mouchão Tonel 3-4 Tinto", grapes: "Alicante Bouschet", price: "300" },
+  { region: "Alentejo", year: "2020", name: "Torre de Palma Musas Tinto", grapes: "Alicante Bouschet, Aragonez, Touriga Nacional, Tinta Miúda", price: "159" },
+  { region: "Alentejo", year: "2021", name: "Torre de Palma Reserva Tinto", grapes: "Alicante Bouschet, Aragonez, Touriga Nacional, Tinta Miúda", price: "47" },
+  { region: "Alentejo", year: "NV", name: "Esporão Reserva Tinto", grapes: "Aragonez, Trincadeira, Cabernet Sauvignon, Alicante Bouschet", price: "38" },
+  { region: "Alentejo", year: "NV", name: "Reserva do Comendador Tinto", grapes: "Alicante Bouschet, Aragonez, Syrah", price: "63" },
+  { region: "Alentejo", year: "NV", name: "Paço do Conde Grande Reserva Tinto", grapes: "Alicante Bouschet, Syrah, Touriga Nacional", price: "60" },
+  { countryLabel: "ITÁLIA · ITALIA · ITALY · ITALIE · ITALIEN" },
+  { region: "Toscana", year: "2015", name: "Toscana Chianti", grapes: "Sangiovese", price: "138" },
+  { countryLabel: "FRANÇA · FRANCIA · FRANCE · FRANKREICH" },
+  { region: "Haut-Médoc", year: "2017", name: "Château Malescasse", grapes: "Cabernet Sauvignon, Merlot, Cabernet Franc, Petit Verdot", price: "93" },
+  { region: "Châteauneuf-du-Pape", year: "2015", name: "Château de Beaucastel Rhône", grapes: "Grenache, Mourvèdre, Syrah, Counoise", price: "140" },
 ]
 
-const page7RedRows: Row[] = [
-  { region: "Douro", year: "2020", name: "Quinta do Crasto Superior", grapes: "Touriga Nacional, Touriga Franca, Tinta Roriz, Sousão", price: "39" },
-  { region: "Douro", year: "2020", name: "Quinta do Crasto Reserva Vinhas Velhas", grapes: "Vinhas Velhas", price: "69" },
-  { region: "Douro", year: "2019", name: "Quinta do Crasto Touriga Nacional", grapes: "Touriga Nacional", price: "105" },
-  { region: "Douro", year: "2019", name: "Quinta do Crasto Vinha Maria Teresa", grapes: "Vinhas Velhas", price: "265" },
-  { region: "Douro", year: "2019", name: "Quinta do Crasto Vinha da Ponte", grapes: "Vinhas Velhas", price: "265" },
-  { region: "Douro", year: "2021", name: "Niepoort Redoma", grapes: "Touriga Franca, Tinta Roriz, Tinta Amarela, Tinto Cão", price: "52" },
-  { region: "Douro", year: "2020", name: "Niepoort Batuta", grapes: "Vinhas Velhas", price: "115" },
-  { region: "Douro", year: "2020", name: "Niepoort Charme", grapes: "Tinta Roriz, Touriga Franca", price: "145" },
-  { region: "Douro", year: "2020", name: "Quinta do Noval Cedro do Noval", grapes: "Touriga Nacional, Syrah, Tinta Roriz", price: "36" },
-  { region: "Douro", year: "2019", name: "Quinta do Noval Reserva", grapes: "Touriga Nacional, Touriga Franca, Tinta Roriz", price: "74" },
-  { region: "Douro", year: "2019", name: "Quinta do Noval Nacional", grapes: "Touriga Nacional", price: "690" },
+const exceptionalRows: WineRow[] = [
+  { region: "Douro", year: "2004", name: "Barca Velha Tinto", grapes: "Touriga Franca, Touriga Nacional, Tinta Roriz, Tinto Cão", price: "1050" },
+  { region: "Alentejo", year: "2013", name: "Pêra-Manca Tinto", grapes: "Trincadeira, Aragonez", price: "850" },
+  { region: "Douro", year: "2009", name: "Legado Tinto", grapes: "Vinhas Velhas", price: "580" },
+  { region: "Alentejo", year: "2015", name: "Crónica 328 Tinto", grapes: "", price: "316" },
+  { region: "Trás-os-Montes", year: "2015", name: "Costa Boal Homenagem Tinto", grapes: "Touriga Nacional, Touriga Franca, Tinta Roriz", price: "193" },
+  { region: "Douro", year: "2014", name: "Antónia Adelaide Ferreira Tinto", grapes: "Touriga Franca, Touriga Nacional, Tinta Roriz, Tinto Cão", price: "200" },
+  { region: "Douro", year: "2014", name: "Tinta Francisca Tinto", grapes: "Tinta Francisca", price: "180" },
+  { region: "Alentejo", year: "2020", name: "Incola Tinto", grapes: "Alicante Bouschet, Trincadeira, Aragonez", price: "250" },
+  { region: "Alentejo", year: "2013", name: "Mouchão Tonel 3-4 Tinto", grapes: "Alicante Bouschet", price: "300" },
+  { region: "Alentejo", year: "2015", name: "Grande Rocim Tinto", grapes: "Alicante Bouschet, Touriga Nacional, Aragonez", price: "150" },
+  { region: "Dão", year: "2015", name: "Quinta dos Carvalhais Único Tinto", grapes: "Touriga Nacional", price: "185" },
+  { region: "Alentejo", year: "2009", name: "Grou Family Collection Tinto", grapes: "", price: "189" },
+  { region: "Alentejo", year: "2014", name: "H.P. Ícone Tinto", grapes: "", price: "159" },
+  { region: "Douro", year: "2020", name: "Quinta da Gaivosa Tinto", grapes: "Vinhas Velhas", price: "103" },
+  { region: "Douro", year: "2017", name: "Quinta da Corte Grande Reserva Tinto", grapes: "Touriga Nacional, Touriga Franca, Tinta Roriz", price: "114" },
+  { region: "Douro", year: "2020", name: "Quinta da Vacaria Grande Reserva Tinto", grapes: "Touriga Nacional, Touriga Franca, Tinta Roriz", price: "140" },
+  { region: "Douro", year: "2009", name: "Casa Ferreirinha Reserva Especial Tinto", grapes: "Touriga Franca, Touriga Nacional, Tinta Roriz, Tinto Cão", price: "660" },
 ]
 
-const page8RedRows: Row[] = [
-  { region: "Dão", year: "2020", name: "Quinta dos Roques", grapes: "Touriga Nacional, Jaen, Alfrocheiro, Tinta Roriz", price: "36" },
-  { region: "Dão", year: "2020", name: "Quinta dos Roques Reserva", grapes: "Touriga Nacional, Jaen, Alfrocheiro, Tinta Roriz", price: "55" },
-  { region: "Dão", year: "2019", name: "Taboadella Reserva", grapes: "Touriga Nacional, Alfrocheiro, Tinta Roriz", price: "52" },
-  { region: "Bairrada", year: "2019", name: "Luis Pato Vinhas Velhas", grapes: "Baga", price: "42" },
-  { region: "Bairrada", year: "2019", name: "Luis Pato Quinta do Ribeirinho Pé Franco", grapes: "Baga", price: "110" },
-  { region: "Lisboa", year: "2020", name: "Quinta de Chocapalha Reserva", grapes: "Touriga Nacional, Tinta Roriz, Syrah", price: "38" },
-  { region: "Lisboa", year: "2019", name: "Quinta de Chocapalha Vinha Mãe", grapes: "Tinta Roriz, Touriga Nacional, Syrah", price: "65" },
-  { region: "Península de Setúbal", year: "2021", name: "Dona Ermelinda Reserva", grapes: "Syrah, Aragonez, Castelão", price: "29" },
-  { region: "Península de Setúbal", year: "2020", name: "Dona Ermelinda Grande Reserva", grapes: "Syrah, Touriga Nacional, Aragonez", price: "44" },
-  { region: "Alentejo", year: "2021", name: "Herdade do Rocim Amphora", grapes: "Moreto, Tinta Grossa, Trincadeira", price: "32" },
+const largeFormatRows: WineRow[] = [
+  { region: "Península de Setúbal", year: "2008", name: "Herdade Portocarro Tinto · Magnum 1,5L", grapes: "Touriga Nacional, Aragonez, Cabernet Sauvignon", price: "133" },
+  { region: "Douro", year: "2008", name: "Quinta da Leda Tinto · Magnum 1,5L", grapes: "Touriga Franca, Touriga Nacional, Tinta Roriz, Tinto Cão", price: "190" },
+  { region: "Douro", year: "2020", name: "Callabriga Tinto · Magnum 1,5L", grapes: "Touriga Franca, Touriga Nacional, Tinta Roriz", price: "92" },
+  { region: "Douro", year: "2013", name: "Esteva Tinto · Magnum 1,5L", grapes: "Tinta Roriz, Touriga Franca, Tinta Barroca, Touriga Nacional", price: "60" },
+  { region: "Douro", year: "2010", name: "Vinhas Velhas Tinto · Magnum 1,5L", grapes: "Vinhas Velhas", price: "570" },
+  { region: "Douro", year: "2019", name: "Vinha Grande Tinto · Magnum 1,5L", grapes: "Touriga Franca, Touriga Nacional, Tinta Roriz, Tinta Barroca", price: "72" },
+  { region: "Douro", year: "2015", name: "Real Companhia Velha Séries Tinto · Magnum 1,5L", grapes: "", price: "90" },
+  { region: "Alentejo", year: "2021", name: "Quinta do Carmo Tinto · Magnum 1,5L", grapes: "Aragonez, Trincadeira, Alicante Bouschet, Cabernet Sauvignon", price: "60" },
+  { region: "Alentejo", year: "2008", name: "Reserva do Comendador Tinto · Magnum 1,5L", grapes: "Alicante Bouschet, Aragonez, Syrah", price: "163" },
+  { region: "Alentejo", year: "2018", name: "Paço do Conde Tinto · Double Magnum 3L", grapes: "Aragonez, Trincadeira", price: "128" },
+  { region: "Douro", year: "NV", name: "Quinta da Vacaria Grande Reserva Tinto · Double Magnum 3L", grapes: "Touriga Nacional, Touriga Franca, Tinta Roriz", price: "650" },
+  { region: "Douro", year: "NV", name: "Quinta da Vacaria Tinto · Jeroboam 5L", grapes: "Touriga Nacional, Touriga Franca, Tinta Roriz", price: "550" },
+  { region: "Alentejo", year: "2019", name: "Paço do Conde Tinto · Imperial 6L", grapes: "Aragonez, Trincadeira", price: "168" },
+  { region: "Alentejo", year: "2019", name: "Paço do Conde Tinto · Salmanazar 9L", grapes: "Aragonez, Trincadeira", price: "285" },
+  { region: "Alentejo", year: "2019", name: "Paço do Conde Tinto · Baltazar 12L", grapes: "Aragonez, Trincadeira", price: "487" },
+  { region: "Alentejo", year: "2018", name: "Pai Chão Tinto · Baltazar 12L", grapes: "", price: "1700" },
+  { region: "Alentejo", year: "2019", name: "Reserva do Comendador Tinto · Baltazar 12L", grapes: "Alicante Bouschet, Aragonez, Syrah", price: "1300" },
 ]
 
-const page9RedRows: Row[] = [
-  { region: "Alentejo", year: "2021", name: "Esporão Reserva", grapes: "Aragonez, Trincadeira, Cabernet Sauvignon, Alicante Bouschet", price: "38" },
-  { region: "Alentejo", year: "2019", name: "Esporão Private Selection", grapes: "Alicante Bouschet, Aragonez, Syrah", price: "75" },
-  { region: "Alentejo", year: "2020", name: "Mouchão", grapes: "Alicante Bouschet, Trincadeira", price: "75" },
-  { region: "Alentejo", year: "2017", name: "Mouchão Tonel 3-4", grapes: "Alicante Bouschet", price: "165" },
-  { countryLabel: spain },
-  { region: "Rioja", year: "2018", name: "La Rioja Alta Viña Ardanza Reserva", grapes: "Tempranillo, Garnacha", price: "67" },
-  { region: "Ribera del Duero", year: "2020", name: "Emilio Moro", grapes: "Tinto Fino", price: "58" },
-  { region: "Ribera del Duero", year: "2019", name: "Malleolus", grapes: "Tinto Fino", price: "95" },
-  { region: "Toro", year: "2019", name: "Numanthia", grapes: "Tinta de Toro", price: "115" },
-]
+const HERO_LOGO = "/senhor-peixe-logo.png"
+const COVER_IMAGE = "/CAPA VINHOS.png"
+const BOTTLES_TITLE = "GARRAFAS"
+const BOTTLES_SUBTITLE = "BOTTLES · BOTELLAS · BOUTEILLE · FLASCHE"
 
-const page10RedRows: Row[] = [
-  { countryLabel: france },
-  { region: "Bordeaux", year: "2018", name: "Château Giscours", grapes: "Cabernet Sauvignon, Merlot", price: "135" },
-  { region: "Borgonha", year: "2020", name: "Joseph Drouhin Côte de Beaune", grapes: "Pinot Noir", price: "98" },
-  { region: "Rhône", year: "2020", name: "Domaine de Beaurenard Châteauneuf-du-Pape", grapes: "Grenache, Syrah, Mourvèdre", price: "105" },
-  { countryLabel: italy },
-  { region: "Toscana", year: "2020", name: "Marchesi Antinori Tignanello", grapes: "Sangiovese, Cabernet Sauvignon, Cabernet Franc", price: "210" },
-  { region: "Piemonte", year: "2019", name: "Pio Cesare Barolo", grapes: "Nebbiolo", price: "125" },
-]
+function Page({ children, className = "" }: { children: ReactNode; className?: string }) {
+  return <section className={`wine-page ${className}`}>{children}</section>
+}
 
-const sweetRows: Row[] = [
-  { region: "Porto", year: "-", name: "Poças Ruby", grapes: "", price: "6" },
-  { region: "Porto", year: "-", name: "Poças Tawny", grapes: "", price: "6" },
-  { region: "Porto", year: "-", name: "Poças 10 Anos", grapes: "", price: "9" },
-  { region: "Porto", year: "-", name: "Poças 20 Anos", grapes: "", price: "15" },
-  { region: "Porto", year: "-", name: "Poças 30 Anos", grapes: "", price: "25" },
-  { region: "Porto", year: "-", name: "Poças 40 Anos", grapes: "", price: "38" },
-  { region: "Porto", year: "2018", name: "Quinta do Noval LBV", grapes: "", price: "8" },
-  { region: "Porto", year: "2017", name: "Quinta do Noval Vintage", grapes: "", price: "22" },
-  { region: "Madeira", year: "-", name: "Blandy's 5 Anos Sercial", grapes: "", price: "7" },
-  { region: "Madeira", year: "-", name: "Blandy's 10 Anos Malvasia", grapes: "", price: "10" },
-  { region: "Setúbal", year: "-", name: "Moscatel de Setúbal", grapes: "", price: "5" },
-  { region: "Setúbal", year: "-", name: "Moscatel Roxo", grapes: "", price: "8" },
-  { countryLabel: france },
-  { region: "Sauternes", year: "2018", name: "Château Roumieu-Lacoste", grapes: "Sémillon, Sauvignon Blanc", price: "12" },
-  { countryLabel: hungary },
-  { region: "Tokaji", year: "2017", name: "Royal Tokaji 5 Puttonyos", grapes: "Furmint, Hárslevelű", price: "18" },
-]
+function formatWineName(name?: string) {
+  if (!name) return null
 
-function MenuHeader({
-  title = "VINHOS",
-  subtitle = "WINE · VINO · VIN · WEINE",
+  return name.split(/(\d+(?:,\d+)?L)/g).map((part, index) => {
+    if (/^\d+(?:,\d+)?L$/.test(part)) {
+      return (
+        <span key={`${part}-${index}`} className="wine-unit">
+          {part}
+        </span>
+      )
+    }
+
+    return part
+  })
+}
+
+function Header({
+  mainTitle = "VINHOS",
+  mainSubtitle = "WINE · VINO · VIN · WEINE",
 }: {
-  title?: string
-  subtitle?: string
+  mainTitle?: string
+  mainSubtitle?: string
 }) {
   return (
-    <header className="menu-header">
-      <img src="/senhor-peixe-logo.png" alt="Senhor Peixe" className="logo" />
-      <h1>SENHOR PEIXE</h1>
-      <div className="small-gold-line" />
-      <h2>{title}</h2>
-      <p>{subtitle}</p>
-      <div className="gold-line" />
+    <header className="wine-header">
+      <img src={HERO_LOGO} alt="Senhor Peixe" className="wine-logo" />
+      <h1 className={`brand-title ${cinzel.className}`}>SENHOR PEIXE</h1>
+      <div className="gold-small-line" />
+      <h2 className={`main-title ${cinzel.className}`}>{mainTitle}</h2>
+      <p className={`main-subtitle ${cinzel.className}`}>{mainSubtitle}</p>
     </header>
   )
 }
 
-function Section({
-  title,
-  subtitle,
-  volume,
-  rows,
-  compact = false,
-}: {
-  title: string
-  subtitle: string
-  volume: string
-  rows: Row[]
-  compact?: boolean
-}) {
+function FooterOrnament() {
   return (
-    <section className={compact ? "wine-section compact-section" : "wine-section"}>
-      {(title || subtitle) && (
-        <div className="section-title-wrap">
-          {title && <h2>{title}</h2>}
-          {subtitle && <p>{subtitle}</p>}
-          {volume && <span>{volume}</span>}
-        </div>
-      )}
-
-      <div className="section-line" />
-
-      <div className="rows">
-        {rows.map((row, index) => {
-          if ("divider" in row) {
-            return (
-              <div className="divider-row" key={`divider-${index}`}>
-                {row.volume && <span>{row.volume}</span>}
-              </div>
-            )
-          }
-
-          if ("countryLabel" in row) {
-            return (
-              <div
-                className={`country-row ${index === 0 ? "country-first" : ""}`}
-                key={`${row.countryLabel}-${index}`}
-              >
-                {row.countryLabel}
-              </div>
-            )
-          }
-
-          return (
-            <div className="wine-row" key={`${row.name}-${index}`}>
-              <span className="region">{row.region}</span>
-              <span className="year">{row.year}</span>
-              <span className="name">{row.name}</span>
-              <span className="grapes">{row.grapes}</span>
-              <span className="price">{row.price}</span>
-            </div>
-          )
-        })}
-      </div>
-    </section>
-  )
-}
-
-function FooterMark() {
-  return (
-    <footer className="footer-mark">
-      <div />
-      <span>✣</span>
-      <div />
-    </footer>
+    <div className="footer-ornament" aria-hidden="true">
+      <span className="ornament-line" />
+      <span className="ornament-diamond">◇</span>
+      <span className="ornament-line" />
+    </div>
   )
 }
 
 function CoverPage() {
   return (
-    <section className="a4-page cover-page">
-      <div className="cover-center">
-        <img src="/senhor-peixe-logo.png" alt="Senhor Peixe" className="cover-logo" />
-        <h1>SENHOR PEIXE</h1>
-        <div className="cover-small-line" />
-        <h2>VINHOS</h2>
-        <p className="cover-subtitle">WINE · VINO · VIN · WEINE</p>
+    <Page className="cover-page image-cover-page">
+      <img src={COVER_IMAGE} alt="Carta de Vinhos Senhor Peixe" className="cover-image" />
+    </Page>
+  )
+}
+
+function SectionHeader({ title, subtitle, volume }: { title: string; subtitle: string; volume?: string }) {
+  return (
+    <div className="section-heading">
+      <div className="section-title-wrap">
+        <h3 className={`section-title ${cinzel.className}`}>{title}</h3>
+        <p className="section-subtitle">{subtitle}</p>
       </div>
+      {volume ? <span className="section-volume">{volume}</span> : null}
+      <span className="section-rule" />
+    </div>
+  )
+}
 
-      <div className="cover-footer">
-        <div className="cover-ornament">
-          <span />
-          <strong>✦</strong>
-          <span />
-        </div>
+function WineRows({ rows, compact = false, simple = false }: { rows: WineRow[]; compact?: boolean; simple?: boolean }) {
+  return (
+    <div className={`wine-rows ${compact ? "wine-rows-compact" : ""} ${simple ? "wine-rows-simple" : ""}`}>
+      {rows.map((row, index) => {
+        if (row.countryLabel) {
+          return (
+            <div key={`${row.countryLabel}-${index}`} className="country-label">
+              {row.countryLabel}
+            </div>
+          )
+        }
 
-        <p className="cover-note-main">
-          A NOSSA OFERTA DE VINHOS É ATUALIZADA COM FREQUÊNCIA.
-          <br />
-          A CARTA ONLINE PODERÁ NÃO SER A VERSÃO EM VIGOR.
-        </p>
+        if (simple) {
+          return (
+            <div key={`${row.year}-${row.price}-${index}`} className="wine-row-simple">
+              <div className="wine-year">{row.year}</div>
+              <div className="wine-price">{row.price}</div>
+            </div>
+          )
+        }
 
-        <p className="cover-note-secondary">
-          OUR WINE LIST OFFER IS OFTEN UPDATED.
-          <br />
-          THIS ONLINE LIST MIGHT NOT BE THE CURRENT VERSION.
-        </p>
-      </div>
+        return (
+          <div key={`${row.name}-${row.year}-${index}`} className="wine-row">
+            <div className="wine-region">{row.region}</div>
+            <div className="wine-year">{row.year}</div>
+            <div className="wine-name">{formatWineName(row.name)}</div>
+            <div className="wine-grapes">{row.grapes}</div>
+            <div className="wine-price">{row.price}</div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+function WineSectionBlock({ title, subtitle, volume, rows, compact, simple }: WineSection) {
+  return (
+    <section className="wine-section">
+      <SectionHeader title={title} subtitle={subtitle} volume={volume} />
+      <WineRows rows={rows} compact={compact} simple={simple} />
     </section>
+  )
+}
+
+function WineListPage({ sections, className = "" }: { sections: WineSection[]; className?: string }) {
+  return (
+    <Page className={`list-page bottles-page ${className}`}>
+      <Header mainTitle={BOTTLES_TITLE} mainSubtitle={BOTTLES_SUBTITLE} />
+      <div className="top-gold-rule" />
+      <div className="sections-stack">
+        {sections.map((section, index) => (
+          <WineSectionBlock key={`${section.title}-${index}`} {...section} />
+        ))}
+      </div>
+      <FooterOrnament />
+    </Page>
   )
 }
 
 function WineByGlassPage() {
   return (
-    <section className="a4-page wine-page">
-      <MenuHeader
-        title="VINHO A COPO"
-        subtitle="WINE BY THE GLASS · VINO A COPA · VIN AU VERRE · WEIN IM GLAS"
+    <Page className="list-page by-glass-page">
+      <Header
+        mainTitle="VINHO A COPO"
+        mainSubtitle="WINE BY THE GLASS · VINO A COPA · VIN AU VERRE · WEIN IM GLAS"
       />
-
-      <div className="content">
-        <Section title="ESPUMANTE" subtitle="Sparkling · Espumoso · Mousseux · Sekt" volume="15cl" rows={wineByGlassSparkling} />
-        <Section title="BRANCO" subtitle="White · Blancos · Blancs · Weiss" volume="15cl" rows={wineByGlassWhite} />
-        <Section title="ROSÉ" subtitle="Rosé · Rosado · Rosé" volume="15cl" rows={wineByGlassRose} />
-        <Section title="TINTO" subtitle="Red · Rojo · Rouge · Rot" volume="15cl" rows={wineByGlassRed} />
+      <div className="top-gold-rule" />
+      <div className="sections-stack">
+        <WineSectionBlock title="ESPUMANTE" subtitle="Sparkling · Espumoso · Mousseux · Sekt" volume="15cl" rows={wineByGlassSparkling} simple />
+        <WineSectionBlock title="BRANCO" subtitle="White · Blancos · Blancs · Weiss" volume="15cl" rows={wineByGlassWhite} simple />
+        <WineSectionBlock title="ROSÉ" subtitle="Rosé · Rosado · Rosé" volume="15cl" rows={wineByGlassRose} simple />
+        <WineSectionBlock title="TINTO" subtitle="Red · Tintos · Rouges · Rotwein" volume="15cl" rows={wineByGlassRed} simple />
       </div>
-
-      <FooterMark />
-    </section>
+      <FooterOrnament />
+    </Page>
   )
 }
 
-function BottlePage({
-  children,
-  compact = false,
-}: {
-  children: React.ReactNode
-  compact?: boolean
-}) {
+function SummaryPage() {
   return (
-    <section className={compact ? "a4-page wine-page compact-page" : "a4-page wine-page"}>
-      <MenuHeader />
-      <div className="content">{children}</div>
-      <FooterMark />
-    </section>
+    <Page className="summary-page">
+      <section className="summary-content">
+        <div className="summary-top-line" />
+
+        <h2 className={`summary-title ${cinzel.className}`}>A NOSSA GARRAFEIRA</h2>
+
+        <div className="summary-text">
+          <p>
+            A seleção de vinhos do Senhor Peixe foi pensada para acompanhar a cozinha portuguesa, o peixe fresco e o
+            marisco, reunindo referências nacionais e internacionais, vinhos a copo, garrafas especiais e grandes
+            formatos.
+          </p>
+
+          <p>Para harmonizações ou sugestões, a nossa equipa terá todo o gosto em aconselhar.</p>
+        </div>
+
+        <div className={`${cinzel.className} summary-notice`}>
+          <p>A NOSSA OFERTA DE VINHOS É ATUALIZADA COM FREQUÊNCIA. A CARTA ONLINE PODERÁ NÃO SER A VERSÃO EM VIGOR.</p>
+          <p>OUR WINE LIST OFFER IS OFTEN UPDATED. THIS ONLINE LIST MIGHT NOT BE THE CURRENT VERSION.</p>
+        </div>
+
+        <div className={`${cinzel.className} summary-prices`}>
+          <p>PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR</p>
+          <p>
+            PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE | PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE |
+            PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR | PREISE IN € INKLUSIVE MWST. ZUM GELTENDEN SATZ
+          </p>
+        </div>
+      </section>
+
+      <FooterOrnament />
+    </Page>
   )
 }
 
 export default function CartaVinhosPage() {
   return (
-    <main className="page-shell">
+    <main className={`wine-menu-shell ${cormorant.className}`}>
       <CoverPage />
+
       <WineByGlassPage />
 
-      <BottlePage compact>
-        <Section title="ESPUMANTE" subtitle="Sparkling · Espumoso · Mousseux · Sekt" volume="75cl" rows={page3SparklingRows} compact />
-        <Section title="ROSÉ" subtitle="Rose · Rosado · Rosé" volume="37,5cl" rows={page3RoseRows} compact />
-        <Section title="BRANCO" subtitle="White · Blancos · Blancs · Weiss" volume="37,5cl" rows={page3WhiteRows} compact />
-      </BottlePage>
+      <WineListPage
+        sections={[
+          { title: "CHAMPAGNE", subtitle: "Champagne · Champaña · Champagne · Champagner", volume: "75cl", rows: champagneRows, compact: true },
+          { title: "CHAMPAGNE ROSÉ", subtitle: "Rosé Champagne · Champaña Rosé", volume: "75cl", rows: champagneRoseRows, compact: true },
+          { title: "ESPUMANTE", subtitle: "Sparkling · Espumoso · Mousseux · Sekt", volume: "75cl", rows: sparklingRows, compact: true },
+        ]}
+      />
 
-      <BottlePage compact>
-        <Section title="BRANCO" subtitle="White · Blancos · Blancs · Weiss" volume="75cl" rows={page4WhiteRows} compact />
-      </BottlePage>
+      <WineListPage
+        sections={[
+          { title: "ROSÉ", subtitle: "Rosé · Rosado · Rosé", volume: "37,5cl", rows: halfRoseRows },
+          { title: "BRANCO", subtitle: "White · Blancos · Blancs · Weiss", volume: "37,5cl", rows: halfWhiteRows },
+          { title: "TINTO", subtitle: "Red · Tintos · Rouges · Rotwein", volume: "37,5cl", rows: halfRedRows },
+          { title: "ROSÉ", subtitle: "Rosé · Rosado · Rosé", volume: "75cl", rows: roseRows },
+        ]}
+      />
 
-      <BottlePage compact>
-        <Section title="BRANCO" subtitle="White · Blancos · Blancs · Weiss" volume="75cl" rows={page5WhiteRows} compact />
-      </BottlePage>
+      <WineListPage sections={[{ title: "BRANCO", subtitle: "White · Blancos · Blancs · Weiss", volume: "75cl", rows: whitePage1Rows, compact: true }]} />
+      <WineListPage sections={[{ title: "BRANCO", subtitle: "White · Blancos · Blancs · Weiss", volume: "75cl", rows: whitePage2Rows, compact: true }]} />
+      <WineListPage sections={[{ title: "BRANCO", subtitle: "White · Blancos · Blancs · Weiss", volume: "75cl", rows: whitePage3Rows, compact: true }]} />
+      <WineListPage sections={[{ title: "TINTO", subtitle: "Red · Tintos · Rouges · Rotwein", volume: "75cl", rows: redPage1Rows, compact: true }]} />
+      <WineListPage sections={[{ title: "TINTO", subtitle: "Red · Tintos · Rouges · Rotwein", volume: "75cl", rows: redPage2Rows, compact: true }]} />
+      <WineListPage sections={[{ title: "VINHOS DE EXCEÇÃO", subtitle: "Exceptional wines · Vinos de excepción · Vins d’exception", volume: "75cl", rows: exceptionalRows, compact: true }]} />
+      <WineListPage sections={[{ title: "GRANDES FORMATOS", subtitle: "Large formats · Grandes formatos · Grands formats", rows: largeFormatRows, compact: true }]} />
 
-      <BottlePage compact>
-        <Section title="BRANCO" subtitle="White · Blancos · Blancs · Weiss" volume="75cl" rows={page6Rows} compact />
-        <Section title="TINTO" subtitle="Red · Rojo · Rouge · Rot" volume="37,5cl" rows={page6Red375Rows} compact />
-        <Section title="" subtitle="" volume="75cl" rows={page6Red75Rows} compact />
-      </BottlePage>
-
-      <BottlePage compact>
-        <Section title="TINTO" subtitle="Red · Rojo · Rouge · Rot" volume="75cl" rows={page7RedRows} compact />
-      </BottlePage>
-
-      <BottlePage compact>
-        <Section title="TINTO" subtitle="Red · Rojo · Rouge · Rot" volume="75cl" rows={page8RedRows} compact />
-      </BottlePage>
-
-      <BottlePage compact>
-        <Section title="TINTO" subtitle="Red · Rojo · Rouge · Rot" volume="75cl" rows={page9RedRows} compact />
-      </BottlePage>
-
-      <BottlePage>
-        <Section title="TINTO" subtitle="Red · Rojo · Rouge · Rot" volume="75cl" rows={page10RedRows} />
-      </BottlePage>
-
-      <section className="a4-page wine-page sweet-page">
-        <MenuHeader
-          title="VINHOS DOCES E FORTIFICADOS"
-          subtitle="SWEET AND FORTIFIED WINES · VINOS DULCES Y FORTIFICADOS · VINS DOUX ET FORTIFIÉS · SÜSSE WEINE UND LIKÖRWEINE"
-        />
-
-        <div className="content sweet-content">
-          <Section title="" subtitle="" volume="5cl" rows={sweetRows} />
-        </div>
-
-        <div className="tax-note">
-          <p>PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR</p>
-          <span>PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE | PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE</span>
-          <span>PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR | PREISE IN € INKLUSIVE MWST. ZUM GELTENDEN SATZ</span>
-        </div>
-
-        <FooterMark />
-      </section>
+      <SummaryPage />
 
       <style jsx global>{`
-        .page-shell {
+        :root {
+          --wine-navy: #10243d;
+          --wine-gold: #b88a45;
+          --wine-muted: #617287;
+          --wine-paper: #f7f3ec;
+          --wine-paper-edge: #e9e3d8;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        html,
+        body {
+          margin: 0;
+          padding: 0;
+          background: var(--wine-paper-edge);
+        }
+
+        .wine-menu-shell {
           min-height: 100vh;
-          background: #e9e3d8;
+          background: var(--wine-paper-edge);
           display: flex;
           flex-direction: column;
           align-items: center;
           gap: 40px;
           padding: 40px 20px;
+          color: var(--wine-navy);
         }
 
-        .a4-page {
+        .wine-page {
           width: 210mm;
           min-height: 297mm;
           background:
             radial-gradient(
               circle at center,
               rgba(255, 255, 255, 0.72) 0%,
-              rgba(247, 243, 236, 0.96) 62%,
+              rgba(247, 243, 236, 0.97) 62%,
               rgba(238, 232, 222, 1) 100%
             );
-          color: ${navy};
           box-shadow: 0 18px 60px rgba(0, 0, 0, 0.16);
           position: relative;
-          font-family: Georgia, "Times New Roman", serif;
           overflow: hidden;
+          padding: 18mm 10mm 15mm;
         }
 
         .cover-page {
           display: flex;
           flex-direction: column;
-          justify-content: center;
           align-items: center;
           text-align: center;
-          padding: 32mm 22mm 36mm;
+          padding: 26mm 22mm 34mm;
         }
 
-        .cover-center {
-          transform: translateY(-26mm);
+        .image-cover-page {
+          display: block;
+          height: 297mm;
+          min-height: 297mm;
+          padding: 0;
+          background: #061f35;
         }
 
-        .cover-logo {
-          width: 47mm;
-          height: 47mm;
+        .cover-image {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .wine-header {
+          text-align: center;
+          width: 100%;
+        }
+
+        .wine-logo {
+          width: 33mm;
+          height: 33mm;
           object-fit: contain;
           display: block;
-          margin: 0 auto 11mm;
+          margin: 0 auto 7mm;
         }
 
-        .cover-page h1 {
+        .brand-title {
           margin: 0;
-          color: ${navy};
-          font-size: 27px;
-          line-height: 1;
-          letter-spacing: 10px;
-          font-weight: 700;
-        }
-
-        .cover-small-line {
-          width: 17mm;
-          height: 1.2px;
-          background: ${gold};
-          margin: 14mm auto 19mm;
-        }
-
-        .cover-page h2 {
-          margin: 0;
-          color: ${gold};
-          font-size: 57px;
-          line-height: 1;
-          letter-spacing: 18px;
-          font-weight: 500;
-        }
-
-        .cover-subtitle {
-          margin: 12mm 0 0;
-          color: ${navy};
-          font-size: 15px;
-          line-height: 1;
-          letter-spacing: 8px;
-          font-weight: 700;
-          text-transform: uppercase;
-        }
-
-        .cover-footer {
-          position: absolute;
-          left: 0;
-          right: 0;
-          bottom: 40mm;
-          text-align: center;
-        }
-
-        .cover-ornament {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 8mm;
-          color: ${gold};
-          margin-bottom: 16mm;
-        }
-
-        .cover-ornament span {
-          width: 47mm;
-          height: 1px;
-          background: ${gold};
-        }
-
-        .cover-ornament strong {
+          color: var(--wine-navy);
           font-size: 24px;
           line-height: 1;
-          font-weight: 400;
-        }
-
-        .cover-note-main {
-          margin: 0;
-          color: ${navy};
-          font-size: 13px;
-          line-height: 1.75;
-          letter-spacing: 2.2px;
-          font-weight: 700;
-          text-transform: uppercase;
-        }
-
-        .cover-note-secondary {
-          margin: 8mm 0 0;
-          color: ${muted};
-          font-size: 13px;
-          line-height: 1.75;
-          letter-spacing: 2px;
-          font-weight: 700;
-          text-transform: uppercase;
-        }
-
-        .wine-page {
-          padding: 28mm 10mm 14mm;
-        }
-
-        .compact-page {
-          padding-top: 18mm;
-        }
-
-        .menu-header {
-          text-align: center;
-        }
-
-        .logo {
-          width: 31mm;
-          height: 31mm;
-          object-fit: contain;
-          display: block;
-          margin: 0 auto 6mm;
-        }
-
-        .compact-page .logo {
-          width: 29mm;
-          height: 29mm;
-          margin-bottom: 5mm;
-        }
-
-        .menu-header h1 {
-          margin: 0;
-          color: ${navy};
-          font-size: 23px;
-          line-height: 1;
-          letter-spacing: 8px;
+          letter-spacing: 8.5px;
           font-weight: 700;
         }
 
-        .small-gold-line {
-          width: 15mm;
+        .gold-small-line {
+          width: 17mm;
           height: 1px;
-          background: ${gold};
-          margin: 9mm auto 12mm;
+          background: var(--wine-gold);
+          margin: 8.5mm auto 10mm;
         }
 
-        .compact-page .small-gold-line {
-          margin: 7mm auto 9mm;
-        }
-
-        .menu-header h2 {
+        .main-title {
           margin: 0;
-          color: ${gold};
-          font-size: 38px;
+          color: var(--wine-gold);
+          font-size: 40px;
           line-height: 1;
           letter-spacing: 14px;
           font-weight: 500;
         }
 
-        .menu-header p {
-          margin: 8mm 0 0;
-          color: ${navy};
-          font-size: 12px;
+        .main-subtitle {
+          margin: 7mm 0 0;
+          color: var(--wine-navy);
+          font-size: 13px;
           line-height: 1;
-          letter-spacing: 0.8px;
+          letter-spacing: 1px;
           font-weight: 700;
           text-transform: uppercase;
         }
 
-        .gold-line {
+        .by-glass-page .main-title,
+        .bottles-page .main-title {
+          font-size: 38px;
+          letter-spacing: 13px;
+        }
+
+        .by-glass-page .main-subtitle,
+        .bottles-page .main-subtitle {
+          font-size: 12.4px;
+          letter-spacing: 1.1px;
+        }
+
+        .top-gold-rule {
           width: 100%;
           height: 1px;
-          background: ${gold};
-          margin: 9mm 0 13mm;
+          background: var(--wine-gold);
+          margin: 8mm 0 12mm;
         }
 
-        .compact-page .gold-line {
-          margin: 7mm 0 9mm;
-        }
-
-        .content {
+        .sections-stack {
           width: 100%;
         }
 
@@ -658,243 +613,282 @@ export default function CartaVinhosPage() {
           margin-bottom: 9mm;
         }
 
-        .compact-section {
-          margin-bottom: 7mm;
+        .by-glass-page .wine-section {
+          margin-bottom: 12mm;
+        }
+
+        .wine-section:last-child {
+          margin-bottom: 0;
+        }
+
+        .section-heading {
+          position: relative;
+          width: 100%;
+          padding-bottom: 3.1mm;
+          margin-bottom: 3.8mm;
         }
 
         .section-title-wrap {
-          position: relative;
           text-align: center;
-          margin-bottom: 2mm;
-          min-height: 9mm;
+          padding: 0 23mm;
         }
 
-        .section-title-wrap h2 {
+        .section-title {
           margin: 0;
-          color: ${navy};
+          color: var(--wine-navy);
           font-size: 24px;
           line-height: 1;
           letter-spacing: 8px;
           font-weight: 500;
         }
 
-        .section-title-wrap p {
+        .section-subtitle {
           margin: 2mm 0 0;
-          color: ${navy};
+          color: var(--wine-navy);
           font-size: 12px;
           line-height: 1;
           font-weight: 700;
         }
 
-        .section-title-wrap span {
+        .section-volume {
           position: absolute;
-          right: 3mm;
-          bottom: 0;
-          color: ${muted};
+          right: 0;
+          bottom: 5.2mm;
+          width: 12mm;
+          text-align: right;
+          color: var(--wine-muted);
           font-size: 11px;
           line-height: 1;
           font-weight: 400;
+          font-family: "Cormorant Garamond", Georgia, serif;
+          font-variant-numeric: lining-nums tabular-nums;
+          font-feature-settings: "lnum" 1, "tnum" 1;
         }
 
-        .section-line {
+        .section-rule {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
           height: 1px;
-          background: ${navy};
+          background: var(--wine-navy);
           opacity: 0.95;
-          margin-bottom: 4mm;
         }
 
-        .rows {
+        .wine-rows {
           display: flex;
           flex-direction: column;
-          gap: 3.2mm;
+          gap: 3mm;
         }
 
-        .compact-section .rows {
+        .wine-rows-compact {
           gap: 2.1mm;
+        }
+
+        .wine-rows-simple {
+          gap: 0;
         }
 
         .wine-row {
           display: grid;
-          grid-template-columns: 31mm 18mm 60mm 1fr 12mm;
+          grid-template-columns: 31mm 15mm 58mm 1fr 12mm;
           column-gap: 5mm;
           align-items: baseline;
-          color: ${navy};
-          font-size: 14px;
-          line-height: 1.22;
+          color: var(--wine-navy);
+          font-size: 12.35px;
+          line-height: 1.14;
         }
 
-        .compact-section .wine-row {
-          grid-template-columns: 30mm 17mm 58mm 1fr 11mm;
+        .wine-row-simple {
+          display: grid;
+          grid-template-columns: 1fr 12mm;
           column-gap: 5mm;
-          font-size: 12.6px;
-          line-height: 1.18;
+          align-items: baseline;
+          color: var(--wine-navy);
+          font-size: 13.2px;
+          line-height: 1;
+          padding: 0 1mm;
         }
 
-        .region,
-        .year,
-        .grapes {
+        .wine-rows-compact .wine-row {
+          grid-template-columns: 30mm 14mm 57mm 1fr 11mm;
+          column-gap: 4.5mm;
+          font-size: 11.45px;
+          line-height: 1.12;
+        }
+
+        .wine-region,
+        .wine-grapes {
           font-weight: 500;
         }
 
-        .name,
-        .price {
-          font-weight: 700;
+        .wine-year {
+          font-weight: 500;
+          font-family: "Cormorant Garamond", Georgia, serif;
+          font-variant-numeric: lining-nums tabular-nums;
+          font-feature-settings: "lnum" 1, "tnum" 1;
         }
 
-        .price {
+        .wine-name {
+          font-weight: 600;
+          line-height: 1.06;
+        }
+
+        .wine-unit {
+          display: inline-block;
+          vertical-align: baseline;
+          line-height: 1;
+          font-family: "Cormorant Garamond", Georgia, serif;
+          font-variant-numeric: lining-nums tabular-nums;
+          font-feature-settings: "lnum" 1, "tnum" 1;
+          transform: translateY(-0.01em);
+        }
+
+        .wine-grapes {
+          line-height: 1.1;
+        }
+
+        .wine-price {
           text-align: right;
+          font-weight: 700;
+          font-size: 1.08em;
+          line-height: 1;
+          letter-spacing: 0.01em;
+          align-self: baseline;
+          font-family: "Cormorant Garamond", Georgia, serif;
+          font-variant-numeric: lining-nums tabular-nums;
+          font-feature-settings: "lnum" 1, "tnum" 1;
         }
 
-        .country-row {
+        .country-label {
           text-align: center;
-          color: ${muted};
+          color: var(--wine-muted);
           font-size: 12px;
           line-height: 1;
           font-weight: 700;
-          letter-spacing: 0.3px;
-          margin: 1.2mm 0 0.4mm;
+          letter-spacing: 0.35px;
+          margin: 1.4mm 0 0.4mm;
           text-transform: uppercase;
         }
 
-        .compact-section .country-row {
+        .wine-rows-compact .country-label {
           font-size: 11px;
           margin: 1mm 0 0.2mm;
         }
 
-        .country-first {
-          color: ${gold};
-        }
+        .summary-content {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  position: relative;
+  padding-top: 5mm;
+}
 
-        .divider-row {
-          height: 1px;
-          background: ${navy};
-          opacity: 0.95;
-          position: relative;
-          margin: 2mm 0 3mm;
-        }
+.summary-top-line {
+  width: 100%;
+  height: 1px;
+  background: var(--wine-gold);
+  margin: 0 auto;
+}
 
-        .divider-row span {
-          position: absolute;
-          right: 3mm;
-          top: -3.5mm;
-          color: ${muted};
-          font-size: 11px;
-          font-weight: 400;
-        }
+.summary-title {
+  margin: 39mm 0 0;
+  color: var(--wine-navy);
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: 10px;
+  font-weight: 500;
+}
 
-        .footer-mark {
+.summary-text {
+  max-width: 128mm;
+  margin: 22mm auto 0;
+  color: var(--wine-navy);
+  font-size: 18.5px;
+  line-height: 1.55;
+  font-weight: 500;
+}
+
+.summary-text p {
+  margin: 0 0 17mm;
+}
+
+.summary-text p:last-child {
+  margin-bottom: 0;
+}
+
+.summary-notice {
+  margin: 18mm auto 0;
+  padding: 7mm 10mm;
+  border-top: 1px solid var(--wine-gold);
+  border-bottom: 1px solid var(--wine-gold);
+  max-width: 145mm;
+}
+
+.summary-notice p {
+  margin: 0 0 6mm;
+  color: var(--wine-navy);
+  font-size: 12.5px;
+  line-height: 1.35;
+  letter-spacing: 1.8px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.summary-notice p:last-child {
+  margin-bottom: 0;
+}
+
+.summary-prices {
+  width: 100%;
+  max-width: 158mm;
+  margin: 7mm auto 0;
+  text-align: center;
+}
+
+.summary-prices p {
+  margin: 0 0 2.3mm;
+  color: var(--wine-navy);
+  font-size: 11.5px;
+  line-height: 1.35;
+  letter-spacing: 0.35px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: "lnum" 1, "tnum" 1;
+}
+
+.summary-prices p:last-child {
+  margin-bottom: 0;
+  color: var(--wine-muted);
+  font-size: 10.2px;
+  line-height: 1.35;
+}
+
+        .footer-ornament {
           position: absolute;
           left: 50%;
           bottom: 11mm;
           transform: translateX(-50%);
           display: flex;
           align-items: center;
-          gap: 6mm;
-          color: ${gold};
+          justify-content: center;
+          gap: 8mm;
+          color: var(--wine-gold);
         }
 
-        .footer-mark div {
+        .ornament-line {
           width: 34mm;
           height: 1px;
-          background: ${gold};
-        }
-
-        .footer-mark span {
-          font-size: 22px;
-          line-height: 1;
-        }
-
-        .sweet-page {
-          padding-top: 18mm;
-          padding-bottom: 14mm;
-        }
-
-        .sweet-page .logo {
-          width: 27mm;
-          height: 27mm;
-          margin-bottom: 5mm;
-        }
-
-        .sweet-page .menu-header h1 {
-          font-size: 22px;
-          letter-spacing: 7px;
-        }
-
-        .sweet-page .small-gold-line {
-          margin: 7mm auto 9mm;
-        }
-
-        .sweet-page .menu-header h2 {
-          max-width: 150mm;
-          margin: 0 auto;
-          font-size: 31px;
-          line-height: 1.12;
-          letter-spacing: 10px;
-        }
-
-        .sweet-page .menu-header p {
-          max-width: 178mm;
-          margin: 6mm auto 0;
-          font-size: 10.5px;
-          line-height: 1.25;
-          letter-spacing: 0.35px;
-        }
-
-        .sweet-page .gold-line {
-          margin: 7mm 0 10mm;
-        }
-
-        .sweet-content {
-          padding-bottom: 42mm;
-        }
-
-        .sweet-page .wine-section {
-          margin-bottom: 0;
-        }
-
-        .sweet-page .rows {
-          gap: 2.45mm;
-        }
-
-        .sweet-page .wine-row {
-          grid-template-columns: 31mm 18mm 63mm 1fr 10mm;
-          column-gap: 5mm;
-          font-size: 12.4px;
-          line-height: 1.08;
-        }
-
-        .sweet-page .name {
-          line-height: 1.05;
-        }
-
-        .tax-note {
-          position: absolute;
-          left: 10mm;
-          right: 10mm;
-          bottom: 27mm;
-          text-align: center;
-          text-transform: uppercase;
-          background: transparent;
-          padding-top: 0;
-          z-index: 2;
-        }
-
-        .tax-note p {
-          margin: 0 0 2mm;
-          color: ${navy};
-          font-size: 9.5px;
-          line-height: 1.2;
-          letter-spacing: 0.9px;
-          font-weight: 700;
-        }
-
-        .tax-note span {
+          background: var(--wine-gold);
           display: block;
-          color: ${muted};
-          font-size: 8px;
-          line-height: 1.45;
-          letter-spacing: 0.35px;
-          font-weight: 700;
+        }
+
+        .ornament-diamond {
+          color: var(--wine-gold);
+          font-size: 12px;
+          line-height: 1;
+          font-weight: 400;
         }
 
         @media screen and (max-width: 900px) {
@@ -903,310 +897,206 @@ export default function CartaVinhosPage() {
             width: 100%;
             max-width: 100%;
             overflow-x: hidden;
-            background: #e9e3d8;
+            background: var(--wine-paper-edge);
           }
 
-          .page-shell {
+          .wine-menu-shell {
             width: 100%;
             max-width: 100%;
-            min-height: 100vh;
             padding: 28px 10px 48px;
             gap: 34px;
             overflow-x: hidden;
-            align-items: center;
           }
 
-          .a4-page {
+          .wine-page {
             width: 94vw;
             height: 132.914vw;
             min-height: 0;
             max-height: 132.914vw;
-            flex: 0 0 auto;
-            margin: 0 auto;
+            padding: 8.06vw 4.48vw 6.71vw;
             box-shadow: 0 10px 34px rgba(0, 0, 0, 0.14);
-            zoom: 1;
-            transform: none;
-            overflow: hidden;
           }
 
-          .cover-page {
-            padding: 14.32vw 9.85vw 16.11vw;
+          .image-cover-page {
+            height: 132.914vw;
+            min-height: 0;
+            padding: 0;
           }
 
-          .cover-center {
-            transform: translateY(-11.64vw);
+          .wine-logo {
+            width: 14.77vw;
+            height: 14.77vw;
+            margin-bottom: 3.13vw;
           }
 
-          .cover-logo {
-            width: 21.05vw;
-            height: 21.05vw;
-            margin-bottom: 4.92vw;
+          .brand-title {
+            font-size: 2.85vw;
+            letter-spacing: 1.01vw;
           }
 
-          .cover-page h1 {
-            font-size: 3.2vw;
-            letter-spacing: 1.18vw;
-          }
-
-          .cover-small-line {
+          .gold-small-line {
             width: 7.61vw;
-            height: 1px;
-            margin: 6.27vw auto 8.51vw;
+            margin: 3.8vw auto 4.48vw;
           }
 
-          .cover-page h2 {
-            font-size: 6.75vw;
-            letter-spacing: 2.13vw;
-          }
-
-          .cover-subtitle {
-            margin-top: 5.37vw;
-            font-size: 1.78vw;
-            letter-spacing: 0.95vw;
-          }
-
-          .cover-footer {
-            bottom: 17.9vw;
-          }
-
-          .cover-ornament {
-            gap: 3.58vw;
-            margin-bottom: 7.16vw;
-          }
-
-          .cover-ornament span {
-            width: 21.05vw;
-          }
-
-          .cover-ornament strong {
-            font-size: 2.84vw;
-          }
-
-          .cover-note-main,
-          .cover-note-secondary {
-            font-size: 1.54vw;
-            line-height: 1.75;
-          }
-
-          .cover-note-main {
-            letter-spacing: 0.26vw;
-          }
-
-          .cover-note-secondary {
-            margin-top: 3.58vw;
-            letter-spacing: 0.24vw;
-          }
-
-          .wine-page {
-            padding: 12.53vw 4.48vw 6.27vw;
-          }
-
-          .compact-page {
-            padding-top: 8.06vw;
-          }
-
-          .menu-header {
-            text-align: center;
-          }
-
-          .logo {
-            width: 13.88vw;
-            height: 13.88vw;
-            margin-bottom: 2.69vw;
-          }
-
-          .compact-page .logo {
-            width: 12.98vw;
-            height: 12.98vw;
-            margin-bottom: 2.24vw;
-          }
-
-          .menu-header h1 {
-            font-size: 2.72vw;
-            letter-spacing: 0.95vw;
-          }
-
-          .small-gold-line {
-            width: 6.71vw;
-            margin: 4.03vw auto 5.37vw;
-          }
-
-          .compact-page .small-gold-line {
-            margin: 3.13vw auto 4.03vw;
-          }
-
-          .menu-header h2 {
-            font-size: 4.5vw;
+          .main-title {
+            font-size: 4.75vw;
             letter-spacing: 1.66vw;
           }
 
-          .menu-header p {
-            margin-top: 3.58vw;
-            font-size: 1.42vw;
-            letter-spacing: 0.1vw;
+          .main-subtitle {
+            margin-top: 3.13vw;
+            font-size: 1.54vw;
+            letter-spacing: 0.12vw;
           }
 
-          .gold-line {
-            margin: 4.03vw 0 5.82vw;
+          .by-glass-page .main-title,
+          .bottles-page .main-title {
+            font-size: 4.5vw;
+            letter-spacing: 1.54vw;
           }
 
-          .compact-page .gold-line {
-            margin: 3.13vw 0 4.03vw;
+          .by-glass-page .main-subtitle,
+          .bottles-page .main-subtitle {
+            font-size: 1.47vw;
+            letter-spacing: 0.13vw;
+          }
+
+          .top-gold-rule {
+            margin: 3.58vw 0 5.37vw;
           }
 
           .wine-section {
             margin-bottom: 4.03vw;
           }
 
-          .compact-section {
-            margin-bottom: 3.13vw;
+          .by-glass-page .wine-section {
+            margin-bottom: 5.37vw;
+          }
+
+          .section-heading {
+            padding-bottom: 1.39vw;
+            margin-bottom: 1.7vw;
           }
 
           .section-title-wrap {
-            margin-bottom: 0.9vw;
-            min-height: 4.03vw;
+            padding: 0 10.3vw;
           }
 
-          .section-title-wrap h2 {
-            font-size: 2.84vw;
+          .section-title {
+            font-size: 2.85vw;
             letter-spacing: 0.95vw;
           }
 
-          .section-title-wrap p {
+          .section-subtitle {
             margin-top: 0.9vw;
             font-size: 1.42vw;
           }
 
-          .section-title-wrap span {
-            right: 1.34vw;
+          .section-volume {
+            right: 0;
+            bottom: 2.33vw;
+            width: 5.37vw;
+            text-align: right;
             font-size: 1.3vw;
           }
 
-          .section-line {
-            margin-bottom: 1.79vw;
+          .wine-rows {
+            gap: 1.34vw;
           }
 
-          .rows {
-            gap: 1.43vw;
-          }
-
-          .compact-section .rows {
+          .wine-rows-compact {
             gap: 0.94vw;
           }
 
           .wine-row {
-            grid-template-columns: 13.88vw 8.06vw 26.86vw 1fr 5.37vw;
+            grid-template-columns: 13.88vw 6.71vw 25.95vw 1fr 5.37vw;
             column-gap: 2.24vw;
-            font-size: 1.66vw;
-            line-height: 1.22;
+            font-size: 1.47vw;
+            line-height: 1.14;
           }
 
-          .compact-section .wine-row {
-            grid-template-columns: 13.43vw 7.61vw 25.95vw 1fr 4.92vw;
+          .wine-row-simple {
+            grid-template-columns: 1fr 5.37vw;
             column-gap: 2.24vw;
-            font-size: 1.49vw;
-            line-height: 1.18;
+            font-size: 1.57vw;
+            padding: 0 0.45vw;
           }
 
-          .country-row {
+          .wine-rows-compact .wine-row {
+            grid-template-columns: 13.43vw 6.27vw 25.5vw 1fr 4.92vw;
+            column-gap: 2.01vw;
+            font-size: 1.36vw;
+            line-height: 1.12;
+          }
+
+          .country-label {
             font-size: 1.42vw;
-            margin: 0.54vw 0 0.18vw;
+            margin: 0.63vw 0 0.18vw;
           }
 
-          .compact-section .country-row {
+          .wine-rows-compact .country-label {
             font-size: 1.3vw;
             margin: 0.45vw 0 0.09vw;
           }
 
-          .divider-row {
-            margin: 0.9vw 0 1.34vw;
-          }
+          .summary-content {
+  padding-top: 2.24vw;
+}
 
-          .divider-row span {
-            right: 1.34vw;
-            top: -1.57vw;
-            font-size: 1.3vw;
-          }
+.summary-title {
+  margin-top: 17.46vw;
+  font-size: 3.13vw;
+  letter-spacing: 1.12vw;
+}
 
-          .footer-mark {
+.summary-text {
+  max-width: 57.32vw;
+  margin-top: 9.85vw;
+  font-size: 2.07vw;
+}
+
+.summary-text p {
+  margin-bottom: 7.61vw;
+}
+
+.summary-notice {
+  margin-top: 8.06vw;
+  padding: 3.13vw 4.48vw;
+  max-width: 64.94vw;
+}
+
+.summary-notice p {
+  margin-bottom: 2.69vw;
+  font-size: 1.48vw;
+  letter-spacing: 0.21vw;
+}
+
+.summary-prices {
+  max-width: 70.75vw;
+  margin-top: 3.13vw;
+}
+
+.summary-prices p {
+  margin-bottom: 1.03vw;
+  font-size: 1.36vw;
+}
+
+.summary-prices p:last-child {
+  font-size: 1.2vw;
+}
+
+          .footer-ornament {
             bottom: 4.92vw;
-            gap: 2.69vw;
+            gap: 3.58vw;
           }
 
-          .footer-mark div {
+          .ornament-line {
             width: 15.22vw;
           }
 
-          .footer-mark span {
-            font-size: 2.61vw;
-          }
-
-          .sweet-page {
-            padding-top: 8.06vw;
-            padding-bottom: 6.27vw;
-          }
-
-          .sweet-page .logo {
-            width: 12.09vw;
-            height: 12.09vw;
-            margin-bottom: 2.24vw;
-          }
-
-          .sweet-page .menu-header h1 {
-            font-size: 2.61vw;
-            letter-spacing: 0.83vw;
-          }
-
-          .sweet-page .small-gold-line {
-            margin: 3.13vw auto 4.03vw;
-          }
-
-          .sweet-page .menu-header h2 {
-            max-width: 67.14vw;
-            font-size: 3.67vw;
-            letter-spacing: 1.18vw;
-          }
-
-          .sweet-page .menu-header p {
-            max-width: 79.62vw;
-            margin-top: 2.69vw;
-            font-size: 1.24vw;
-          }
-
-          .sweet-page .gold-line {
-            margin: 3.13vw 0 4.48vw;
-          }
-
-          .sweet-content {
-            padding-bottom: 18.8vw;
-          }
-
-          .sweet-page .rows {
-            gap: 1.1vw;
-          }
-
-          .sweet-page .wine-row {
-            grid-template-columns: 13.88vw 8.06vw 28.2vw 1fr 4.48vw;
-            column-gap: 2.24vw;
-            font-size: 1.47vw;
-            line-height: 1.08;
-          }
-
-          .tax-note {
-            left: 4.48vw;
-            right: 4.48vw;
-            bottom: 12.09vw;
-          }
-
-          .tax-note p {
-            margin-bottom: 0.9vw;
-            font-size: 1.13vw;
-            letter-spacing: 0.11vw;
-          }
-
-          .tax-note span {
-            font-size: 0.95vw;
-            letter-spacing: 0.04vw;
+          .ornament-diamond {
+            font-size: 1.42vw;
           }
         }
 
@@ -1222,24 +1112,24 @@ export default function CartaVinhosPage() {
             height: auto;
             margin: 0;
             padding: 0;
-            background: ${paper};
+            background: var(--wine-paper);
             overflow: visible;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
           }
 
-          .page-shell {
+          .wine-menu-shell {
             display: block;
             width: 210mm;
             min-height: auto;
             padding: 0;
             margin: 0;
             gap: 0;
-            background: ${paper};
+            background: var(--wine-paper);
             overflow: visible;
           }
 
-          .a4-page {
+          .wine-page {
             width: 210mm;
             height: 297mm;
             min-height: 297mm;
@@ -1252,11 +1142,13 @@ export default function CartaVinhosPage() {
             break-after: page;
             page-break-inside: avoid;
             break-inside: avoid;
-            zoom: 1;
-            transform: none;
           }
 
-          .a4-page:last-child {
+          .image-cover-page {
+            padding: 0;
+          }
+
+          .wine-page:last-child {
             page-break-after: auto;
             break-after: auto;
           }
