@@ -1,6 +1,7 @@
 "use client"
 
 import type { ReactNode } from "react"
+import Link from "next/link"
 import { Cinzel, Cormorant_Garamond } from "next/font/google"
 
 const cinzel = Cinzel({
@@ -449,6 +450,10 @@ function SummaryPage() {
 export default function CartaVinhosPage() {
   return (
     <main className={`wine-menu-shell ${cormorant.className}`}>
+      <Link href="/garrafeira" className="sp-back-link">
+        Voltar
+      </Link>
+
       <CoverPage />
 
       <WineByGlassPage />
@@ -510,6 +515,25 @@ export default function CartaVinhosPage() {
           padding: 40px 20px;
           color: var(--wine-navy);
         }
+          .sp-back-link {
+  align-self: flex-start;
+  margin: 0 auto -28px;
+  width: min(92vw, 210mm);
+  color: #c59a61;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  opacity: 0.85;
+  transition:
+    color 180ms ease,
+    opacity 180ms ease;
+}
+
+.sp-back-link:hover {
+  color: #a97d3f;
+  opacity: 1;
+}
 
         .wine-page {
           width: 210mm;
@@ -912,268 +936,281 @@ export default function CartaVinhosPage() {
         }
 
         @media screen and (max-width: 900px) {
-          html,
-          body {
-            width: 100%;
-            max-width: 100%;
-            overflow-x: hidden;
-            background: var(--wine-paper-edge);
-          }
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    background: var(--wine-paper-edge);
+  }
 
-          .wine-menu-shell {
-            width: 100%;
-            max-width: 100%;
-            padding: 28px 10px 48px;
-            gap: 34px;
-            overflow-x: hidden;
-          }
+  .wine-menu-shell {
+    width: 100%;
+    max-width: 100%;
+    padding: 28px 10px 48px;
+    gap: 34px;
+    overflow-x: hidden;
+  }
 
-          .wine-page {
-            width: 94vw;
-            height: 132.914vw;
-            min-height: 0;
-            max-height: 132.914vw;
-            padding: 8.06vw 4.48vw 6.71vw;
-            box-shadow: 0 10px 34px rgba(0, 0, 0, 0.14);
-          }
+  .sp-back-link {
+    width: min(94vw, 210mm);
+    margin: 0 auto -16px;
+  }
 
-          .image-cover-page {
-            height: 132.914vw;
-            min-height: 0;
-            padding: 0;
-          }
+  .wine-page {
+    width: 94vw;
+    height: 132.914vw;
+    min-height: 0;
+    max-height: 132.914vw;
+    padding: 8.06vw 4.48vw 6.71vw;
+    box-shadow: 0 10px 34px rgba(0, 0, 0, 0.14);
+  }
 
-          .wine-logo {
-            width: 14.77vw;
-            height: 14.77vw;
-            margin-bottom: 3.13vw;
-          }
+  .image-cover-page {
+    height: 132.914vw;
+    min-height: 0;
+    padding: 0;
+  }
 
-          .brand-title {
-            font-size: 2.85vw;
-            letter-spacing: 1.01vw;
-          }
+  .wine-logo {
+    width: 14.77vw;
+    height: 14.77vw;
+    margin-bottom: 3.13vw;
+  }
 
-          .gold-small-line {
-            width: 7.61vw;
-            margin: 3.8vw auto 4.48vw;
-          }
+  .brand-title {
+    font-size: 2.85vw;
+    letter-spacing: 1.01vw;
+  }
 
-          .main-title {
-            font-size: 4.75vw;
-            letter-spacing: 1.66vw;
-          }
+  .gold-small-line {
+    width: 7.61vw;
+    margin: 3.8vw auto 4.48vw;
+  }
 
-          .main-subtitle {
-            margin-top: 3.13vw;
-            font-size: 1.54vw;
-            letter-spacing: 0.12vw;
-          }
+  .main-title {
+    font-size: 4.75vw;
+    letter-spacing: 1.66vw;
+  }
 
-          .by-glass-page .main-title,
-          .bottles-page .main-title {
-            font-size: 4.5vw;
-            letter-spacing: 1.54vw;
-          }
+  .main-subtitle {
+    margin-top: 3.13vw;
+    font-size: 1.54vw;
+    letter-spacing: 0.12vw;
+  }
 
-          .by-glass-page .main-subtitle,
-          .bottles-page .main-subtitle {
-            font-size: 1.47vw;
-            letter-spacing: 0.13vw;
-          }
+  .by-glass-page .main-title,
+  .bottles-page .main-title {
+    font-size: 4.5vw;
+    letter-spacing: 1.54vw;
+  }
 
-          .top-gold-rule {
-            margin: 3.58vw 0 5.37vw;
-          }
+  .by-glass-page .main-subtitle,
+  .bottles-page .main-subtitle {
+    font-size: 1.47vw;
+    letter-spacing: 0.13vw;
+  }
 
-          .wine-section {
-            margin-bottom: 4.03vw;
-          }
+  .top-gold-rule {
+    margin: 3.58vw 0 5.37vw;
+  }
 
-          .by-glass-page .wine-section {
-            margin-bottom: 5.37vw;
-          }
+  .wine-section {
+    margin-bottom: 4.03vw;
+  }
 
-          .section-heading {
-            padding-bottom: 1.39vw;
-            margin-bottom: 1.7vw;
-          }
+  .by-glass-page .wine-section {
+    margin-bottom: 5.37vw;
+  }
 
-          .section-title-wrap {
-            padding: 0 10.3vw;
-          }
+  .section-heading {
+    padding-bottom: 1.39vw;
+    margin-bottom: 1.7vw;
+  }
 
-          .section-title {
-            font-size: 2.85vw;
-            letter-spacing: 0.95vw;
-          }
+  .section-title-wrap {
+    padding: 0 10.3vw;
+  }
 
-          .section-subtitle {
-            margin-top: 0.9vw;
-            font-size: 1.42vw;
-          }
+  .section-title {
+    font-size: 2.85vw;
+    letter-spacing: 0.95vw;
+  }
 
-          .section-volume {
-            right: 0;
-            bottom: 2.33vw;
-            width: 5.37vw;
-            text-align: right;
-            font-size: 1.3vw;
-          }
+  .section-subtitle {
+    margin-top: 0.9vw;
+    font-size: 1.42vw;
+  }
 
-          .wine-rows {
-            gap: 1.34vw;
-          }
+  .section-volume {
+    right: 0;
+    bottom: 2.33vw;
+    width: 5.37vw;
+    text-align: right;
+    font-size: 1.3vw;
+  }
 
-          .wine-rows-compact {
-            gap: 0.94vw;
-          }
+  .wine-rows {
+    gap: 1.34vw;
+  }
 
-          .wine-row {
-            grid-template-columns: 13.88vw 6.71vw 25.95vw 1fr 5.37vw;
-            column-gap: 2.24vw;
-            font-size: 1.47vw;
-            line-height: 1.14;
-          }
+  .wine-rows-compact {
+    gap: 0.94vw;
+  }
 
-          .wine-row-simple {
-            grid-template-columns: 1fr 5.37vw;
-            column-gap: 2.24vw;
-            font-size: 1.57vw;
-            padding: 0 0.45vw;
-          }
+  .wine-row {
+    grid-template-columns: 13.88vw 6.71vw 25.95vw 1fr 5.37vw;
+    column-gap: 2.24vw;
+    font-size: 1.47vw;
+    line-height: 1.14;
+  }
 
-          .wine-rows-compact .wine-row {
-            grid-template-columns: 13.43vw 6.27vw 25.5vw 1fr 4.92vw;
-            column-gap: 2.01vw;
-            font-size: 1.36vw;
-            line-height: 1.12;
-          }
+  .wine-row-simple {
+    grid-template-columns: 1fr 5.37vw;
+    column-gap: 2.24vw;
+    font-size: 1.57vw;
+    padding: 0 0.45vw;
+  }
 
-          .country-label {
-            font-size: 1.42vw;
-            margin: 0.63vw 0 0.18vw;
-          }
+  .wine-rows-compact .wine-row {
+    grid-template-columns: 13.43vw 6.27vw 25.5vw 1fr 4.92vw;
+    column-gap: 2.01vw;
+    font-size: 1.36vw;
+    line-height: 1.12;
+  }
 
-          .wine-rows-compact .country-label {
-            font-size: 1.3vw;
-            margin: 0.45vw 0 0.09vw;
-          }
+  .country-label {
+    font-size: 1.42vw;
+    margin: 0.63vw 0 0.18vw;
+  }
 
-          .summary-content {
-            padding-top: 2.24vw;
-          }
+  .wine-rows-compact .country-label {
+    font-size: 1.3vw;
+    margin: 0.45vw 0 0.09vw;
+  }
 
-          .summary-title {
-            margin-top: 17.46vw;
-            font-size: 3.13vw;
-            letter-spacing: 1.12vw;
-          }
+  .summary-content {
+    padding-top: 2.24vw;
+  }
 
-          .summary-text {
-            max-width: 57.32vw;
-            margin-top: 9.85vw;
-            font-size: 2.07vw;
-          }
+  .summary-title {
+    margin-top: 17.46vw;
+    font-size: 3.13vw;
+    letter-spacing: 1.12vw;
+  }
 
-          .summary-text p {
-            margin-bottom: 7.61vw;
-          }
+  .summary-title-line {
+    margin-top: 5.37vw;
+  }
 
-          .summary-notice {
-            margin-top: 8.06vw;
-            padding: 3.13vw 4.48vw;
-            max-width: 64.94vw;
-          }
+  .summary-text {
+    max-width: 57.32vw;
+    margin-top: 9.85vw;
+    font-size: 2.07vw;
+  }
 
-          .summary-notice p {
-            margin-bottom: 2.69vw;
-            font-size: 1.48vw;
-            letter-spacing: 0.21vw;
-          }
+  .summary-text p {
+    margin-bottom: 7.61vw;
+  }
 
-          .summary-prices {
-            max-width: 70.75vw;
-            margin-top: 3.13vw;
-          }
+  .summary-notice {
+    margin-top: 8.06vw;
+    padding: 3.13vw 4.48vw;
+    max-width: 64.94vw;
+  }
 
-          .summary-prices p {
-            margin-bottom: 1.03vw;
-            font-size: 1.36vw;
-          }
+  .summary-notice p {
+    margin-bottom: 2.69vw;
+    font-size: 1.48vw;
+    letter-spacing: 0.21vw;
+  }
 
-          .summary-prices p:last-child {
-            font-size: 1.2vw;
-          }
+  .summary-prices {
+    max-width: 70.75vw;
+    margin-top: 3.13vw;
+  }
 
-          .footer-ornament {
-            bottom: 4.92vw;
-            gap: 3.58vw;
-          }
+  .summary-prices p {
+    margin-bottom: 1.03vw;
+    font-size: 1.36vw;
+  }
 
-          .ornament-line {
-            width: 15.22vw;
-          }
+  .summary-prices p:last-child {
+    font-size: 1.2vw;
+  }
 
-          .ornament-diamond {
-            font-size: 1.42vw;
-          }
-        }
+  .footer-ornament {
+    bottom: 4.92vw;
+    gap: 3.58vw;
+  }
 
-        @media print {
-          @page {
-            size: A4 portrait;
-            margin: 0;
-          }
+  .ornament-line {
+    width: 15.22vw;
+  }
 
-          html,
-          body {
-            width: 210mm;
-            height: auto;
-            margin: 0;
-            padding: 0;
-            background: var(--wine-paper);
-            overflow: visible;
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-          }
+  .ornament-diamond {
+    font-size: 1.42vw;
+  }
+}
 
-          .wine-menu-shell {
-            display: block;
-            width: 210mm;
-            min-height: auto;
-            padding: 0;
-            margin: 0;
-            gap: 0;
-            background: var(--wine-paper);
-            overflow: visible;
-          }
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
 
-          .wine-page {
-            width: 210mm;
-            height: 297mm;
-            min-height: 297mm;
-            max-height: 297mm;
-            margin: 0;
-            box-sizing: border-box;
-            box-shadow: none;
-            overflow: hidden;
-            page-break-after: always;
-            break-after: page;
-            page-break-inside: avoid;
-            break-inside: avoid;
-          }
+  html,
+  body {
+    width: 210mm;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    background: var(--wine-paper);
+    overflow: visible;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 
-          .image-cover-page {
-            padding: 0;
-          }
+  .wine-menu-shell {
+    display: block;
+    width: 210mm;
+    min-height: auto;
+    padding: 0;
+    margin: 0;
+    gap: 0;
+    background: var(--wine-paper);
+    overflow: visible;
+  }
 
-          .wine-page:last-child {
-            page-break-after: auto;
-            break-after: auto;
-          }
-        }
-      `}</style>
-    </main>
-  )
+  .sp-back-link {
+    display: none;
+  }
+
+  .wine-page {
+    width: 210mm;
+    height: 297mm;
+    min-height: 297mm;
+    max-height: 297mm;
+    margin: 0;
+    box-sizing: border-box;
+    box-shadow: none;
+    overflow: hidden;
+    page-break-after: always;
+    break-after: page;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .image-cover-page {
+    padding: 0;
+  }
+
+  .wine-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+}
+`}</style>
+</main>
+)
 }
