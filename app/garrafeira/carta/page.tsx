@@ -416,6 +416,7 @@ function SummaryPage() {
         <div className="summary-top-line" />
 
         <h2 className={`summary-title ${cinzel.className}`}>A NOSSA GARRAFEIRA</h2>
+        <div className="summary-title-line" />
 
         <div className="summary-text">
           <p>
@@ -816,6 +817,13 @@ export default function CartaVinhosPage() {
           letter-spacing: 10px;
           font-weight: 500;
         }
+          .summary-title-line {
+  width: 100%;
+  max-width: 145mm;
+  height: 1px;
+  background: var(--wine-gold);
+  margin: 12mm auto 0;
+}
 
         .summary-text {
           max-width: 128mm;
