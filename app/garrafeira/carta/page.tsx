@@ -129,7 +129,7 @@ const whitePage2Rows: WineRow[] = [
   { region: "Dão", year: "NV", name: "Quinta dos Carvalhiços Reserva Branco", grapes: "Encruzado", price: "33" },
   { region: "Dão", year: "NV", name: "Dona Sancha Vinha Avarenta Branco", grapes: "Encruzado", price: "36" },
   { region: "Bairrada", year: "NV", name: "Ortigão Branco", grapes: "Bical, Arinto, Maria Gomes", price: "22" },
-  { region: "Portugal — blend Bairrada/Lisboa", year: "NV", name: "Silk & Spice White", grapes: "Bical, Arinto, Chardonnay", price: "21" },
+  { region: "Bairrada", year: "NV", name: "Silk & Spice White", grapes: "Bical, Arinto, Chardonnay", price: "21" },
   { region: "Lisboa", year: "NV", name: "Quinta do Gradil Arinto", grapes: "Arinto", price: "20" },
   { region: "Lisboa", year: "NV", name: "Quinta do Gradil Viosinho", grapes: "Viosinho", price: "20" },
   { region: "Lisboa", year: "NV", name: "Prova Régia Arinto", grapes: "Arinto", price: "21" },
@@ -254,11 +254,23 @@ function Page({ children, className = "" }: { children: ReactNode; className?: s
   return <section className={`wine-page ${className}`}>{children}</section>
 }
 
-function formatWineName(name?: string) {
-  if (!name) return null
+function cleanWineName(name?: string) {
+  if (!name) return ""
 
-  return name.split(/(\d+(?:,\d+)?L)/g).map((part, index) => {
-    if (/^\d+(?:,\d+)?L$/.test(part)) {
+  return name
+    .replace(/\bTinto\b/g, "")
+    .replace(/\bBranco\b/g, "")
+    .replace(/\s{2,}/g, " ")
+    .replace(/\s+·/g, " ·")
+    .trim()
+}
+
+function formatWineName(name?: string) {
+  const cleanedName = cleanWineName(name)
+  if (!cleanedName) return null
+
+  return cleanedName.split(/(\d+(?:-\d+)?(?:,\d+)?L?)/g).map((part, index) => {
+    if (/^\d+(?:-\d+)?(?:,\d+)?L?$/.test(part)) {
       return (
         <span key={`${part}-${index}`} className="wine-unit">
           {part}
@@ -650,6 +662,10 @@ export default function CartaVinhosPage() {
           font-weight: 700;
         }
 
+        .by-glass-page .section-subtitle {
+          color: var(--wine-gold);
+        }
+
         .section-volume {
           position: absolute;
           right: 0;
@@ -777,93 +793,93 @@ export default function CartaVinhosPage() {
         }
 
         .summary-content {
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  position: relative;
-  padding-top: 5mm;
-}
+          width: 100%;
+          height: 100%;
+          text-align: center;
+          position: relative;
+          padding-top: 5mm;
+        }
 
-.summary-top-line {
-  width: 100%;
-  height: 1px;
-  background: var(--wine-gold);
-  margin: 0 auto;
-}
+        .summary-top-line {
+          width: 100%;
+          height: 1px;
+          background: var(--wine-gold);
+          margin: 0 auto;
+        }
 
-.summary-title {
-  margin: 39mm 0 0;
-  color: var(--wine-navy);
-  font-size: 28px;
-  line-height: 1;
-  letter-spacing: 10px;
-  font-weight: 500;
-}
+        .summary-title {
+          margin: 39mm 0 0;
+          color: var(--wine-navy);
+          font-size: 28px;
+          line-height: 1;
+          letter-spacing: 10px;
+          font-weight: 500;
+        }
 
-.summary-text {
-  max-width: 128mm;
-  margin: 22mm auto 0;
-  color: var(--wine-navy);
-  font-size: 18.5px;
-  line-height: 1.55;
-  font-weight: 500;
-}
+        .summary-text {
+          max-width: 128mm;
+          margin: 22mm auto 0;
+          color: var(--wine-navy);
+          font-size: 18.5px;
+          line-height: 1.55;
+          font-weight: 500;
+        }
 
-.summary-text p {
-  margin: 0 0 17mm;
-}
+        .summary-text p {
+          margin: 0 0 17mm;
+        }
 
-.summary-text p:last-child {
-  margin-bottom: 0;
-}
+        .summary-text p:last-child {
+          margin-bottom: 0;
+        }
 
-.summary-notice {
-  margin: 18mm auto 0;
-  padding: 7mm 10mm;
-  border-top: 1px solid var(--wine-gold);
-  border-bottom: 1px solid var(--wine-gold);
-  max-width: 145mm;
-}
+        .summary-notice {
+          margin: 18mm auto 0;
+          padding: 7mm 10mm;
+          border-top: 1px solid var(--wine-gold);
+          border-bottom: 1px solid var(--wine-gold);
+          max-width: 145mm;
+        }
 
-.summary-notice p {
-  margin: 0 0 6mm;
-  color: var(--wine-navy);
-  font-size: 12.5px;
-  line-height: 1.35;
-  letter-spacing: 1.8px;
-  font-weight: 700;
-  text-transform: uppercase;
-}
+        .summary-notice p {
+          margin: 0 0 6mm;
+          color: var(--wine-navy);
+          font-size: 12.5px;
+          line-height: 1.35;
+          letter-spacing: 1.8px;
+          font-weight: 700;
+          text-transform: uppercase;
+        }
 
-.summary-notice p:last-child {
-  margin-bottom: 0;
-}
+        .summary-notice p:last-child {
+          margin-bottom: 0;
+        }
 
-.summary-prices {
-  width: 100%;
-  max-width: 158mm;
-  margin: 7mm auto 0;
-  text-align: center;
-}
+        .summary-prices {
+          width: 100%;
+          max-width: 158mm;
+          margin: 7mm auto 0;
+          text-align: center;
+        }
 
-.summary-prices p {
-  margin: 0 0 2.3mm;
-  color: var(--wine-navy);
-  font-size: 11.5px;
-  line-height: 1.35;
-  letter-spacing: 0.35px;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-variant-numeric: lining-nums tabular-nums;
-  font-feature-settings: "lnum" 1, "tnum" 1;
-}
+        .summary-prices p {
+          margin: 0 0 2.3mm;
+          color: var(--wine-navy);
+          font-size: 11.5px;
+          line-height: 1.35;
+          letter-spacing: 0.35px;
+          font-weight: 700;
+          text-transform: uppercase;
+          font-variant-numeric: lining-nums tabular-nums;
+          font-feature-settings: "lnum" 1, "tnum" 1;
+        }
 
-.summary-prices p:last-child {
-  margin-bottom: 0;
-  color: var(--wine-muted);
-  font-size: 10.2px;
-  line-height: 1.35;
-}
+        .summary-prices p:last-child {
+          margin-bottom: 0;
+          color: var(--wine-muted);
+          font-size: 10.2px;
+          line-height: 1.35;
+        }
 
         .footer-ornament {
           position: absolute;
@@ -1041,50 +1057,50 @@ export default function CartaVinhosPage() {
           }
 
           .summary-content {
-  padding-top: 2.24vw;
-}
+            padding-top: 2.24vw;
+          }
 
-.summary-title {
-  margin-top: 17.46vw;
-  font-size: 3.13vw;
-  letter-spacing: 1.12vw;
-}
+          .summary-title {
+            margin-top: 17.46vw;
+            font-size: 3.13vw;
+            letter-spacing: 1.12vw;
+          }
 
-.summary-text {
-  max-width: 57.32vw;
-  margin-top: 9.85vw;
-  font-size: 2.07vw;
-}
+          .summary-text {
+            max-width: 57.32vw;
+            margin-top: 9.85vw;
+            font-size: 2.07vw;
+          }
 
-.summary-text p {
-  margin-bottom: 7.61vw;
-}
+          .summary-text p {
+            margin-bottom: 7.61vw;
+          }
 
-.summary-notice {
-  margin-top: 8.06vw;
-  padding: 3.13vw 4.48vw;
-  max-width: 64.94vw;
-}
+          .summary-notice {
+            margin-top: 8.06vw;
+            padding: 3.13vw 4.48vw;
+            max-width: 64.94vw;
+          }
 
-.summary-notice p {
-  margin-bottom: 2.69vw;
-  font-size: 1.48vw;
-  letter-spacing: 0.21vw;
-}
+          .summary-notice p {
+            margin-bottom: 2.69vw;
+            font-size: 1.48vw;
+            letter-spacing: 0.21vw;
+          }
 
-.summary-prices {
-  max-width: 70.75vw;
-  margin-top: 3.13vw;
-}
+          .summary-prices {
+            max-width: 70.75vw;
+            margin-top: 3.13vw;
+          }
 
-.summary-prices p {
-  margin-bottom: 1.03vw;
-  font-size: 1.36vw;
-}
+          .summary-prices p {
+            margin-bottom: 1.03vw;
+            font-size: 1.36vw;
+          }
 
-.summary-prices p:last-child {
-  font-size: 1.2vw;
-}
+          .summary-prices p:last-child {
+            font-size: 1.2vw;
+          }
 
           .footer-ornament {
             bottom: 4.92vw;
