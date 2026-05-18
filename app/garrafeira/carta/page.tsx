@@ -662,9 +662,10 @@ export default function CartaVinhosPage() {
           font-weight: 700;
         }
 
-        .by-glass-page .section-subtitle {
-          color: var(--wine-gold);
-        }
+       .by-glass-page .section-subtitle,
+.bottles-page .section-subtitle {
+  color: var(--wine-gold);
+}
 
         .section-volume {
           position: absolute;
