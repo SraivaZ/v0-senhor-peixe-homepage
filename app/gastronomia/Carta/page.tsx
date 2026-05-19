@@ -90,14 +90,14 @@ const especialidadesSections: Section[] = [
   {
     title: "ESPECIALIDADES",
     items: [
+      { name: "AÇORDA DE CAMARÃO", note: "1 PAX", price: "24" },
       {
         name: "AÇORDA DE CAMARÃO",
-        note: "1 PAX",
-        price: "24",
+        note: "2 PAX",
+        price: "46",
         description:
           "AÇORDA CREMOSA DE PÃO ALENTEJANO, AZEITE, ALHO, COENTROS, OVO, CAMARÃO DE MOÇAMBIQUE E LISTADO FRITO",
       },
-      { name: "AÇORDA DE CAMARÃO", note: "2 PAX", price: "46" },
       { name: "ARROZ DE CHERNE E AMÊIJOAS", note: "2 PAX", price: "53" },
       {
         name: "ARROZ DE CHERNE E AMÊIJOAS",
@@ -793,9 +793,9 @@ export default function CartaGastronomiaPage() {
       <MenuPage sections={translateSections(couvertSections, isEnglish)} copy={copy} />
       <MenuPage sections={translateSections(especialidadesSections, isEnglish)} copy={copy} dense />
       <MenuPage sections={translateSections(peixesSections, isEnglish)} copy={copy} fish />
-      <FishSummaryPage />
       <MenuPage sections={translateSections(mariscoSections, isEnglish)} copy={copy} shellfish />
       <MenuPage sections={translateSections(sopasSections, isEnglish)} copy={copy} sides finalNotes />
+      <FishSummaryPage />
 
       <style jsx global>{`
         :root {
@@ -1288,17 +1288,15 @@ export default function CartaGastronomiaPage() {
         .sp-summary-content {
           position: relative;
           z-index: 1;
-          height: 100%;
-          padding: 76px 98px 54px;
+          width: 100%;
+          min-height: 100%;
+          padding: 112px 98px 54px;
           text-align: center;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
         }
 
         .sp-summary-title {
-          margin: 54px 0 0;
-          color: var(--sp-site-blue);
+          margin: 72px 0 0;
+          color: #0e3157;
           font-size: 28px;
           line-height: 1;
           letter-spacing: 0.22em;
@@ -1308,23 +1306,23 @@ export default function CartaGastronomiaPage() {
 
         .sp-summary-title-line {
           width: 100%;
-          max-width: 640px;
+          max-width: none;
           height: 1px;
-          background: rgba(197, 154, 97, 0.9);
-          margin: 44px auto 0;
+          background: #b68b4c;
+          margin: 48px auto 0;
         }
 
         .sp-summary-text {
-          max-width: 520px;
-          margin: 56px auto 0;
-          color: var(--sp-ink);
+          max-width: 660px;
+          margin: 70px auto 0;
+          color: #0e3157;
           font-size: 17px;
           line-height: 1.58;
           font-weight: 500;
         }
 
         .sp-summary-text p {
-          margin: 0 0 34px;
+          margin: 0 0 42px;
         }
 
         .sp-summary-text p:last-child {
@@ -1332,20 +1330,19 @@ export default function CartaGastronomiaPage() {
         }
 
         .sp-summary-notice {
-          width: 100%;
-          max-width: 600px;
-          margin: 46px auto 0;
-          padding: 24px 18px;
-          border-top: 1px solid rgba(197, 154, 97, 0.9);
-          border-bottom: 1px solid rgba(197, 154, 97, 0.9);
+          margin: 64px auto 0;
+          padding: 22px 18px;
+          border-top: 1px solid #b68b4c;
+          border-bottom: 1px solid #b68b4c;
+          max-width: 760px;
         }
 
         .sp-summary-notice p {
-          margin: 0 0 20px;
-          color: var(--sp-site-blue);
+          margin: 0 0 18px;
+          color: #0e3157;
           font-size: 13px;
           line-height: 1.35;
-          letter-spacing: 0.11em;
+          letter-spacing: 1.4px;
           font-weight: 700;
           text-transform: uppercase;
         }
@@ -1356,25 +1353,28 @@ export default function CartaGastronomiaPage() {
 
         .sp-summary-prices {
           width: 100%;
-          max-width: 620px;
-          margin: 34px auto 0;
+          max-width: 780px;
+          margin: 48px auto 0;
           text-align: center;
         }
 
         .sp-summary-prices p {
           margin: 0 0 10px;
-          color: var(--sp-site-blue);
+          color: #0e3157;
           font-size: 11.5px;
           line-height: 1.35;
-          letter-spacing: 0.035em;
+          letter-spacing: 0.35px;
           font-weight: 700;
           text-transform: uppercase;
+          font-variant-numeric: lining-nums tabular-nums;
+          font-feature-settings: "lnum" 1, "tnum" 1;
         }
 
         .sp-summary-prices p:last-child {
           margin-bottom: 0;
-          color: #617287;
-          font-size: 10.2px;
+          color: #5f7188;
+          font-size: 10.4px;
+          line-height: 1.35;
         }
 
         .sp-legal {
@@ -1590,102 +1590,61 @@ export default function CartaGastronomiaPage() {
           }
 
   
-        .sp-fish-summary-page {
-          background: var(--sp-paper);
-          color: var(--sp-ink);
-        }
+          .sp-fish-summary-page {
+            background: var(--sp-paper);
+            color: var(--sp-ink);
+          }
 
-        .sp-summary-content {
-          position: relative;
-          z-index: 1;
-          height: 100%;
-          padding: 76px 98px 54px;
-          text-align: center;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
+          .sp-summary-content {
+            padding: 13.25vw 10.98vw 6.04vw;
+          }
 
-        .sp-summary-title {
-          margin: 54px 0 0;
-          color: var(--sp-site-blue);
-          font-size: 28px;
-          line-height: 1;
-          letter-spacing: 0.22em;
-          font-weight: 500;
-          text-transform: uppercase;
-        }
+          .sp-summary-title {
+            margin-top: 8.06vw;
+            font-size: 3.13vw;
+            letter-spacing: 0.69vw;
+          }
 
-        .sp-summary-title-line {
-          width: 100%;
-          max-width: 640px;
-          height: 1px;
-          background: rgba(197, 154, 97, 0.9);
-          margin: 44px auto 0;
-        }
+          .sp-summary-title-line {
+            margin-top: 5.37vw;
+          }
 
-        .sp-summary-text {
-          max-width: 520px;
-          margin: 56px auto 0;
-          color: var(--sp-ink);
-          font-size: 17px;
-          line-height: 1.58;
-          font-weight: 500;
-        }
+          .sp-summary-text {
+            max-width: 61.63vw;
+            margin-top: 7.83vw;
+            font-size: 1.9vw;
+            line-height: 1.58;
+          }
 
-        .sp-summary-text p {
-          margin: 0 0 34px;
-        }
+          .sp-summary-text p {
+            margin-bottom: 4.7vw;
+          }
 
-        .sp-summary-text p:last-child {
-          margin-bottom: 0;
-        }
+          .sp-summary-notice {
+            margin-top: 7.16vw;
+            padding: 2.69vw 2.01vw;
+            max-width: 71.1vw;
+          }
 
-        .sp-summary-notice {
-          width: 100%;
-          max-width: 600px;
-          margin: 46px auto 0;
-          padding: 24px 18px;
-          border-top: 1px solid rgba(197, 154, 97, 0.9);
-          border-bottom: 1px solid rgba(197, 154, 97, 0.9);
-        }
+          .sp-summary-notice p {
+            margin-bottom: 2.24vw;
+            font-size: 1.45vw;
+            letter-spacing: 0.16vw;
+          }
 
-        .sp-summary-notice p {
-          margin: 0 0 20px;
-          color: var(--sp-site-blue);
-          font-size: 13px;
-          line-height: 1.35;
-          letter-spacing: 0.11em;
-          font-weight: 700;
-          text-transform: uppercase;
-        }
+          .sp-summary-prices {
+            max-width: 73.5vw;
+            margin-top: 5.37vw;
+          }
 
-        .sp-summary-notice p:last-child {
-          margin-bottom: 0;
-        }
+          .sp-summary-prices p {
+            margin-bottom: 1.12vw;
+            font-size: 1.29vw;
+          }
 
-        .sp-summary-prices {
-          width: 100%;
-          max-width: 620px;
-          margin: 34px auto 0;
-          text-align: center;
-        }
-
-        .sp-summary-prices p {
-          margin: 0 0 10px;
-          color: var(--sp-site-blue);
-          font-size: 11.5px;
-          line-height: 1.35;
-          letter-spacing: 0.035em;
-          font-weight: 700;
-          text-transform: uppercase;
-        }
-
-        .sp-summary-prices p:last-child {
-          margin-bottom: 0;
-          color: #617287;
-          font-size: 10.2px;
-        }
+          .sp-summary-prices p:last-child {
+            font-size: 1.14vw;
+          }
 
         .sp-legal {
             font-size: 0.83vw;
