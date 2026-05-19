@@ -727,8 +727,23 @@ export default function CartaBebidasPage() {
           display: block;
           height: 297mm;
           min-height: 297mm;
-          padding: 0;
-          background: #061f35;
+          padding: 0 !important;
+          background: transparent;
+        }
+
+        .cover-page.image-cover-page {
+          padding: 0 !important;
+        }
+
+        .cover-page.image-cover-page .cover-image {
+          position: absolute;
+          inset: 0;
+          display: block;
+          width: 100%;
+          height: 100%;
+          min-width: 100%;
+          min-height: 100%;
+          object-fit: cover;
         }
 
         .cover-image {
@@ -1212,7 +1227,8 @@ export default function CartaBebidasPage() {
           .image-cover-page {
             height: 132.914vw;
             min-height: 0;
-            padding: 0;
+            padding: 0 !important;
+            background: transparent;
           }
 
           .cover-page {
@@ -1220,8 +1236,18 @@ export default function CartaBebidasPage() {
           }
 
           .cover-page.image-cover-page {
-            padding: 0;
-            background: #061f35;
+            padding: 0 !important;
+            background: transparent;
+          }
+
+          .cover-page.image-cover-page .cover-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            min-width: 100%;
+            min-height: 100%;
+            object-fit: cover;
           }
 
           .drink-logo {
