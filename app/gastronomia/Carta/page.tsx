@@ -90,7 +90,6 @@ const especialidadesSections: Section[] = [
   {
     title: "ESPECIALIDADES",
     items: [
-      { name: "AÇORDA DE CAMARÃO", note: "2 PAX", price: "46" },
       {
         name: "AÇORDA DE CAMARÃO",
         note: "1 PAX",
@@ -98,6 +97,7 @@ const especialidadesSections: Section[] = [
         description:
           "AÇORDA CREMOSA DE PÃO ALENTEJANO, AZEITE, ALHO, COENTROS, OVO, CAMARÃO DE MOÇAMBIQUE E LISTADO FRITO",
       },
+      { name: "AÇORDA DE CAMARÃO", note: "2 PAX", price: "46" },
       { name: "ARROZ DE CHERNE E AMÊIJOAS", note: "2 PAX", price: "53" },
       {
         name: "ARROZ DE CHERNE E AMÊIJOAS",
@@ -134,7 +134,6 @@ const especialidadesSections: Section[] = [
         description:
           "REFOGADO DE TOMATE, CEBOLA E PIMENTO, COM MISTO DE PEIXES TÍPICOS DA CALDEIRADA",
       },
-      { name: "PEIXE À PESCADOR", note: "2 PAX", price: "52" },
       {
         name: "PEIXE À PESCADOR",
         note: "1 PAX",
@@ -142,6 +141,7 @@ const especialidadesSections: Section[] = [
         description:
           "CHERNE COZIDO COM BATATAS, CEBOLA E PIMENTOS. PRATO RÚSTICO DE SETÚBAL",
       },
+      { name: "PEIXE À PESCADOR", note: "2 PAX", price: "52" },
       {
         name: "BITOQUE DE CAMARÃO",
         note: "1 PAX",
@@ -382,7 +382,7 @@ const itemNameTranslations: Record<string, string> = {
   "CASCO DE SAPATEIRA COM PÃO TORRADO": "BROWN CRAB SHELL WITH TOASTED BREAD",
   "CARABINEIROS": "SCARLET PRAWNS",
   "CAMARÃO TIGRE": "TIGER PRAWN",
-  "AÇORDA DE CAMARÃO": "PRAWN BREAD STEW",
+  "AÇORDA DE CAMARÃO": "PRAWN AÇORDA",
   "ARROZ DE CHERNE E AMÊIJOAS": "WRECKFISH AND CLAM RICE",
   "ARROZ DO MAR": "SEAFOOD RICE",
   "ARROZ DE LAGOSTA": "SPINY LOBSTER RICE",
@@ -446,10 +446,10 @@ const itemNameTranslations: Record<string, string> = {
   "SOPA DE LEGUMES": "VEGETABLE SOUP",
   "ARROZ DE ALHO": "GARLIC RICE",
   "ARROZ BRANCO": "WHITE RICE",
-  "ARROZ DE FEIJÃO": "BEAN RICE",
+  "ARROZ DE FEIJÃO": "RED BEAN RICE",
   "ARROZ DE GRELOS": "TURNIP GREENS RICE",
   "ARROZ DE TOMATE": "TOMATO RICE",
-  "AÇORDA DE OVAS": "ROE BREAD STEW",
+  "AÇORDA DE OVAS": "FISH ROE AÇORDA",
   "BATATA-DOCE": "SWEET POTATO",
   "BATATA FRITA": "FRENCH FRIES",
   "OVO": "EGG",
@@ -484,7 +484,7 @@ const itemUnitTranslations: Record<string, string> = {
 }
 
 const itemDescriptionTranslations: Record<string, string> = {
-  "AÇORDA CREMOSA DE PÃO ALENTEJANO, AZEITE, ALHO, COENTROS, OVO, CAMARÃO DE MOÇAMBIQUE E LISTADO FRITO": "CREAMY ALENTEJO BREAD STEW WITH OLIVE OIL, GARLIC, CORIANDER, EGG, MOZAMBIQUE PRAWN AND FRIED STRIPED PRAWN",
+  "AÇORDA CREMOSA DE PÃO ALENTEJANO, AZEITE, ALHO, COENTROS, OVO, CAMARÃO DE MOÇAMBIQUE E LISTADO FRITO": "CREAMY ALENTEJO BREAD STEW WITH OLIVE OIL, GARLIC, CORIANDER, EGG, MOZAMBIQUE PRAWNS AND FRIED STRIPED PRAWNS",
   "ARROZ AGULHA COM CHERNE AOS CUBOS E AMÊIJOAS": "LONG-GRAIN RICE WITH DICED WRECKFISH AND CLAMS",
   "MISTO DE MARISCOS: BOCAS DE SAPATEIRA / CARANGUEJO, CAMARÃO, MEXILHÃO, AMÊIJOA, BERBIGÃO": "MIXED SEAFOOD: BROWN CRAB / CRAB CLAWS, PRAWN, MUSSELS, CLAMS AND COCKLES",
   "ARROZ AGULHA COM LAGOSTA / LAVAGANTE": "LONG-GRAIN RICE WITH SPINY LOBSTER / LOBSTER",
@@ -720,6 +720,57 @@ function MenuPage({
   )
 }
 
+
+function FishSummaryPage() {
+  return (
+    <section className="sp-page sp-menu-page sp-fish-summary-page">
+      <PremiumFrame />
+
+      <div className="sp-summary-content">
+        <h2 className={`sp-summary-title ${cinzel.className}`}>O NOSSO PEIXE</h2>
+
+        <div className="sp-summary-title-line" />
+
+        <div className="sp-summary-text">
+          <p>
+            No Senhor Peixe, cada peixe é escolhido diariamente com rigor, de acordo com a sazonalidade e a melhor
+            qualidade disponível na lota.
+          </p>
+
+          <p>
+            Trabalhamos com peixe inteiro, preparado no momento e confecionado de forma simples e cuidada, seja
+            grelhado no carvão ou em receitas tradicionais, para valorizar o sabor natural do mar.
+          </p>
+
+          <p>
+            Para sugestões, pesos disponíveis ou recomendações de confeção, a nossa equipa terá todo o gosto em
+            aconselhar.
+          </p>
+        </div>
+
+        <div className={`sp-summary-notice ${cinzel.className}`}>
+          <p>
+            A NOSSA OFERTA DE PEIXE FRESCO DEPENDE DA DISPONIBILIDADE DO DIA. A CARTA ONLINE PODERÁ NÃO SER A VERSÃO
+            EM VIGOR.
+          </p>
+          <p>
+            OUR FRESH FISH SELECTION DEPENDS ON THE DAY’S AVAILABILITY. THIS ONLINE MENU MIGHT NOT BE THE CURRENT
+            VERSION.
+          </p>
+        </div>
+
+        <div className={`sp-summary-prices ${cinzel.className}`}>
+          <p>PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR</p>
+          <p>
+            PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE | PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE |
+            PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR | PREISE IN € INKLUSIVE MWST. ZUM GELTENDEN SATZ
+          </p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default function CartaGastronomiaPage() {
   const { language } = useLanguage()
   const isEnglish = language === "en"
@@ -742,6 +793,7 @@ export default function CartaGastronomiaPage() {
       <MenuPage sections={translateSections(couvertSections, isEnglish)} copy={copy} />
       <MenuPage sections={translateSections(especialidadesSections, isEnglish)} copy={copy} dense />
       <MenuPage sections={translateSections(peixesSections, isEnglish)} copy={copy} fish />
+      <FishSummaryPage />
       <MenuPage sections={translateSections(mariscoSections, isEnglish)} copy={copy} shellfish />
       <MenuPage sections={translateSections(sopasSections, isEnglish)} copy={copy} sides finalNotes />
 
@@ -1227,6 +1279,104 @@ export default function CartaGastronomiaPage() {
           margin-top: 5px;
         }
 
+
+        .sp-fish-summary-page {
+          background: var(--sp-paper);
+          color: var(--sp-ink);
+        }
+
+        .sp-summary-content {
+          position: relative;
+          z-index: 1;
+          height: 100%;
+          padding: 76px 98px 54px;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .sp-summary-title {
+          margin: 54px 0 0;
+          color: var(--sp-site-blue);
+          font-size: 28px;
+          line-height: 1;
+          letter-spacing: 0.22em;
+          font-weight: 500;
+          text-transform: uppercase;
+        }
+
+        .sp-summary-title-line {
+          width: 100%;
+          max-width: 640px;
+          height: 1px;
+          background: rgba(197, 154, 97, 0.9);
+          margin: 44px auto 0;
+        }
+
+        .sp-summary-text {
+          max-width: 520px;
+          margin: 56px auto 0;
+          color: var(--sp-ink);
+          font-size: 17px;
+          line-height: 1.58;
+          font-weight: 500;
+        }
+
+        .sp-summary-text p {
+          margin: 0 0 34px;
+        }
+
+        .sp-summary-text p:last-child {
+          margin-bottom: 0;
+        }
+
+        .sp-summary-notice {
+          width: 100%;
+          max-width: 600px;
+          margin: 46px auto 0;
+          padding: 24px 18px;
+          border-top: 1px solid rgba(197, 154, 97, 0.9);
+          border-bottom: 1px solid rgba(197, 154, 97, 0.9);
+        }
+
+        .sp-summary-notice p {
+          margin: 0 0 20px;
+          color: var(--sp-site-blue);
+          font-size: 13px;
+          line-height: 1.35;
+          letter-spacing: 0.11em;
+          font-weight: 700;
+          text-transform: uppercase;
+        }
+
+        .sp-summary-notice p:last-child {
+          margin-bottom: 0;
+        }
+
+        .sp-summary-prices {
+          width: 100%;
+          max-width: 620px;
+          margin: 34px auto 0;
+          text-align: center;
+        }
+
+        .sp-summary-prices p {
+          margin: 0 0 10px;
+          color: var(--sp-site-blue);
+          font-size: 11.5px;
+          line-height: 1.35;
+          letter-spacing: 0.035em;
+          font-weight: 700;
+          text-transform: uppercase;
+        }
+
+        .sp-summary-prices p:last-child {
+          margin-bottom: 0;
+          color: #617287;
+          font-size: 10.2px;
+        }
+
         .sp-legal {
           flex: 0 0 auto;
           text-align: center;
@@ -1439,7 +1589,105 @@ export default function CartaGastronomiaPage() {
             margin-top: 0.95vw;
           }
 
-          .sp-legal {
+  
+        .sp-fish-summary-page {
+          background: var(--sp-paper);
+          color: var(--sp-ink);
+        }
+
+        .sp-summary-content {
+          position: relative;
+          z-index: 1;
+          height: 100%;
+          padding: 76px 98px 54px;
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .sp-summary-title {
+          margin: 54px 0 0;
+          color: var(--sp-site-blue);
+          font-size: 28px;
+          line-height: 1;
+          letter-spacing: 0.22em;
+          font-weight: 500;
+          text-transform: uppercase;
+        }
+
+        .sp-summary-title-line {
+          width: 100%;
+          max-width: 640px;
+          height: 1px;
+          background: rgba(197, 154, 97, 0.9);
+          margin: 44px auto 0;
+        }
+
+        .sp-summary-text {
+          max-width: 520px;
+          margin: 56px auto 0;
+          color: var(--sp-ink);
+          font-size: 17px;
+          line-height: 1.58;
+          font-weight: 500;
+        }
+
+        .sp-summary-text p {
+          margin: 0 0 34px;
+        }
+
+        .sp-summary-text p:last-child {
+          margin-bottom: 0;
+        }
+
+        .sp-summary-notice {
+          width: 100%;
+          max-width: 600px;
+          margin: 46px auto 0;
+          padding: 24px 18px;
+          border-top: 1px solid rgba(197, 154, 97, 0.9);
+          border-bottom: 1px solid rgba(197, 154, 97, 0.9);
+        }
+
+        .sp-summary-notice p {
+          margin: 0 0 20px;
+          color: var(--sp-site-blue);
+          font-size: 13px;
+          line-height: 1.35;
+          letter-spacing: 0.11em;
+          font-weight: 700;
+          text-transform: uppercase;
+        }
+
+        .sp-summary-notice p:last-child {
+          margin-bottom: 0;
+        }
+
+        .sp-summary-prices {
+          width: 100%;
+          max-width: 620px;
+          margin: 34px auto 0;
+          text-align: center;
+        }
+
+        .sp-summary-prices p {
+          margin: 0 0 10px;
+          color: var(--sp-site-blue);
+          font-size: 11.5px;
+          line-height: 1.35;
+          letter-spacing: 0.035em;
+          font-weight: 700;
+          text-transform: uppercase;
+        }
+
+        .sp-summary-prices p:last-child {
+          margin-bottom: 0;
+          color: #617287;
+          font-size: 10.2px;
+        }
+
+        .sp-legal {
             font-size: 0.83vw;
           }
 
