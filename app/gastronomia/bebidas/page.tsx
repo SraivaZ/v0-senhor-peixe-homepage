@@ -294,7 +294,8 @@ const indexEntries: IndexEntry[] = [
   { href: "#gins", label: "Gins", detail: "Seleção de gin" },
   { href: "#whisky-escocia", label: "Whisky", detail: "Escócia" },
   { href: "#whisky-internacional", label: "Whiskey", detail: "Irlanda · EUA · Japão" },
-  { href: "#aguardentes", label: "Destilados", detail: "Aguardentes · Cognac · Rum" },
+  { href: "#aguardentes", label: "Destilados", detail: "Aguardentes · Medronho" },
+  { href: "#cognac-rum", label: "Cognac & Rum", detail: "Cognac · Rum · Vodka · Tequila" },
   { href: "#cafetaria", label: "Cafetaria", detail: "Café · Chás · Infusões" },
 ]
 
@@ -376,7 +377,6 @@ function IndexPage() {
         ))}
       </nav>
 
-      <p className="index-note">Seleção de bar, bebidas, destilados e cafetaria.</p>
       <FooterOrnament />
     </Page>
   )
@@ -478,16 +478,15 @@ function SummaryPage() {
         </div>
 
         <div className={`${cinzel.className} summary-notice`}>
-          <p>A NOSSA CARTA DE BEBIDAS É ATUALIZADA REGULARMENTE.</p>
-          <p>PARA CONFIRMAÇÃO DE DISPONIBILIDADE, A NOSSA EQUIPA TERÁ TODO O GOSTO EM ACONSELHAR.</p>
+          <p>A NOSSA CARTA DE BEBIDAS É ATUALIZADA REGULARMENTE, A NOSSA EQUIPA TERÁ TODO O GOSTO EM ACONSELHAR.</p>
         </div>
 
         <div className={`${cinzel.className} summary-prices`}>
+          <p>TODOS OS PRODUTOS “NÃO SOLICITADOS” COLOCADOS NA MESA, SE FOREM CONSUMIDOS SERÃO COBRADOS PELO VALOR QUE ESTÁ NO MENU</p>
           <p>PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR</p>
-          <p>
-            PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE | PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE |
-            PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR | PREISE IN € INKLUSIVE MWST. ZUM GELTENDEN SATZ
-          </p>
+          <p>PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE</p>
+          <p>PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR</p>
+          <p>PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE</p>
         </div>
       </section>
 
@@ -617,10 +616,18 @@ export default function CartaBebidasPage() {
       <DrinkListPage
         pageId="aguardentes"
         mainTitle="DESTILADOS"
-        mainSubtitle="AGUARDENTES · COGNAC · RUM"
+        mainSubtitle="AGUARDENTES · BAGACEIRA · MEDRONHO"
         sections={[
           { title: "AGUARDENTES & BAGACEIRA", subtitle: "Brandies · Aguardientes · Eaux-de-vie", volume: "5cl", rows: aguardenteRows, compact: true, dense: true },
           { title: "MEDRONHO", subtitle: "Medronho · Portuguese fruit spirit", volume: "5cl", rows: medronhoRows, compact: true, dense: true },
+        ]}
+      />
+
+      <DrinkListPage
+        pageId="cognac-rum"
+        mainTitle="DESTILADOS"
+        mainSubtitle="COGNAC · ARMAGNAC · RUM · VODKA"
+        sections={[
           { title: "COGNACS & ARMAGNAC", subtitle: "Cognac · Armagnac", volume: "5cl", rows: cognacRows, compact: true, dense: true },
           { title: "BRANDY & RUM", subtitle: "Brandy · Rum · Ron · Rhum", volume: "5cl", rows: brandyRumRows, compact: true, dense: true },
           { title: "VODKA & TEQUILA", subtitle: "Vodka · Tequila", volume: "5cl", rows: vodkaTequilaRows, compact: true, dense: true },
@@ -1117,7 +1124,7 @@ export default function CartaBebidasPage() {
         .summary-prices p {
           margin: 0 0 2.3mm;
           color: var(--drink-navy);
-          font-size: 11.3px;
+          font-size: 11.1px;
           line-height: 1.35;
           letter-spacing: 0.35px;
           font-weight: 700;
@@ -1126,11 +1133,22 @@ export default function CartaBebidasPage() {
           font-feature-settings: "lnum" 1, "tnum" 1;
         }
 
-        .summary-prices p:last-child {
-          margin-bottom: 0;
+        .summary-prices p:first-child {
+          max-width: 148mm;
+          margin-left: auto;
+          margin-right: auto;
+          margin-bottom: 4.2mm;
+          color: var(--drink-navy);
+        }
+
+        .summary-prices p:nth-child(n + 3) {
           color: var(--drink-muted);
           font-size: 10px;
           line-height: 1.35;
+        }
+
+        .summary-prices p:last-child {
+          margin-bottom: 0;
         }
 
         .footer-ornament {
@@ -1199,6 +1217,11 @@ export default function CartaBebidasPage() {
 
           .cover-page {
             padding: 11.64vw 9.85vw 15.22vw;
+          }
+
+          .cover-page.image-cover-page {
+            padding: 0;
+            background: #061f35;
           }
 
           .drink-logo {
@@ -1408,7 +1431,12 @@ export default function CartaBebidasPage() {
             font-size: 1.34vw;
           }
 
-          .summary-prices p:last-child {
+          .summary-prices p:first-child {
+            max-width: 66.2vw;
+            margin-bottom: 1.88vw;
+          }
+
+          .summary-prices p:nth-child(n + 3) {
             font-size: 1.19vw;
           }
 
