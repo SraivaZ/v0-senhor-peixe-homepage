@@ -23,12 +23,19 @@ type DrinkRow = {
 }
 
 type DrinkSection = {
+  id?: string
   title: string
   subtitle: string
   volume?: string
   rows: DrinkRow[]
   compact?: boolean
   dense?: boolean
+}
+
+type IndexEntry = {
+  href: string
+  label: string
+  detail: string
 }
 
 const authorCocktails: DrinkRow[] = [
@@ -69,27 +76,27 @@ const sangrias: DrinkRow[] = [
 ]
 
 const waters: DrinkRow[] = [
-  { name: "Água Luso", volume: "50cl", price: "3,20" },
+  { name: "Água Luso", volume: "50cl", price: "3,5" },
   { name: "Água c/ Gás", volume: "25cl", description: "Pedras, Castelo", price: "3" },
-  { name: "Água Tónica", volume: "20cl", price: "3,10" },
+  { name: "Água Tónica", volume: "20cl", price: "3,5" },
 ]
 
 const softDrinks: DrinkRow[] = [
-  { name: "Sprite", volume: "33cl", price: "3,3" },
-  { name: "Coca-Cola", volume: "33cl", price: "3,3" },
-  { name: "Coca-Cola Zero", volume: "33cl", price: "3,3" },
-  { name: "Fanta Laranja", volume: "33cl", price: "3,3" },
-  { name: "Ginger Ale", volume: "20cl", price: "3,3" },
-  { name: "Fuze Tea Limão", volume: "33cl", price: "3,3" },
-  { name: "Fuze Tea Manga / Ananás", volume: "33cl", price: "3,3" },
-  { name: "Fuze Tea Pêssego", volume: "33cl", price: "3,3" },
-  { name: "Guaraná Brasil", volume: "33cl", price: "3,8" },
+  { name: "Sprite", volume: "33cl", price: "3,5" },
+  { name: "Coca-Cola", volume: "33cl", price: "3,5" },
+  { name: "Coca-Cola Zero", volume: "33cl", price: "3,5" },
+  { name: "Fanta Laranja", volume: "33cl", price: "3,5" },
+  { name: "Ginger Ale", volume: "20cl", price: "3,5" },
+  { name: "Fuze Tea Limão", volume: "33cl", price: "3,5" },
+  { name: "Fuze Tea Manga / Ananás", volume: "33cl", price: "3,5" },
+  { name: "Fuze Tea Pêssego", volume: "33cl", price: "3,5" },
+  { name: "Guaraná Brasil", volume: "33cl", price: "4" },
 ]
 
 const draftBeers: DrinkRow[] = [
-  { name: "Flute de Cerveja", volume: "18cl", price: "2,6" },
-  { name: "Imperial", volume: "20cl", price: "2,9" },
-  { name: "Panachê", volume: "20cl", price: "2,9" },
+  { name: "Flute de Cerveja", volume: "18cl", price: "3" },
+  { name: "Imperial", volume: "20cl", price: "3" },
+  { name: "Panachê", volume: "20cl", price: "3" },
   { name: "Caneca", volume: "40cl", price: "5,5" },
 ]
 
@@ -97,10 +104,10 @@ const bottledBeers: DrinkRow[] = [
   { name: "Sagres", price: "4" },
   { name: "Super Bock", price: "4" },
   { name: "Heineken", price: "5" },
-  { name: "Preta", price: "4,3" },
-  { name: "S/ Álcool Branca / Preta", price: "4,3" },
-  { name: "Bandida do Pomar", price: "4,3" },
-  { name: "Bohemia", price: "4,3" },
+  { name: "Preta", price: "4,5" },
+  { name: "S/ Álcool Branca / Preta", price: "4,5" },
+  { name: "Bandida do Pomar", price: "4,5" },
+  { name: "Bohemia", price: "4,5" },
 ]
 
 const moscatelRows: DrinkRow[] = [
@@ -276,12 +283,45 @@ const teaRows: DrinkRow[] = [
   { name: "Carioca de Limão", price: "2" },
 ]
 
+const indexEntries: IndexEntry[] = [
+  { href: "#cocktails", label: "Cocktails", detail: "Autor · Clássicos" },
+  { href: "#mocktails-sangrias", label: "Mocktails", detail: "Sumos naturais · Sangrias" },
+  { href: "#aguas-refrigerantes", label: "Águas", detail: "Refrigerantes" },
+  { href: "#cervejas", label: "Cervejas", detail: "Pressão · Garrafas" },
+  { href: "#fortificados", label: "Fortificados", detail: "Moscatel · Madeira · Late Harvest" },
+  { href: "#porto", label: "Porto", detail: "Ruby · Tawny · Branco · Rosé" },
+  { href: "#bar-licores", label: "Bar", detail: "Vermutes · Licores" },
+  { href: "#gins", label: "Gins", detail: "Seleção de gin" },
+  { href: "#whisky-escocia", label: "Whisky", detail: "Escócia" },
+  { href: "#whisky-internacional", label: "Whiskey", detail: "Irlanda · EUA · Japão" },
+  { href: "#aguardentes", label: "Destilados", detail: "Aguardentes · Cognac · Rum" },
+  { href: "#cafetaria", label: "Cafetaria", detail: "Café · Chás · Infusões" },
+]
+
 const HERO_LOGO = "/senhor-peixe-logo.png"
+const COVER_IMAGE = "/CAPA BEBIDAS.png"
 const DRINKS_TITLE = "BEBIDAS"
 const DRINKS_SUBTITLE = "DRINKS · BEBIDAS · BOISSONS · GETRÄNKE"
 
-function Page({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <section className={`drink-page ${className}`}>{children}</section>
+function Page({ children, className = "", id }: { children: ReactNode; className?: string; id?: string }) {
+  return (
+    <section id={id} className={`drink-page ${className}`}>
+      {children}
+    </section>
+  )
+}
+
+function normalizePrice(price?: string) {
+  if (!price) return null
+
+  const normalized = price.trim().replace(".", ",")
+
+  if (!normalized.includes(",")) {
+    return normalized
+  }
+
+  const [euros, cents = ""] = normalized.split(",")
+  return `${euros},${cents.padEnd(2, "0").slice(0, 2)}`
 }
 
 function Header({
@@ -314,23 +354,30 @@ function FooterOrnament() {
 
 function CoverPage() {
   return (
-    <Page className="cover-page">
-      <div className="cover-border outer-border" />
-      <div className="cover-border inner-border" />
+    <Page className="cover-page image-cover-page">
+      <img src={COVER_IMAGE} alt="Carta de Bebidas Senhor Peixe" className="cover-image" />
+    </Page>
+  )
+}
 
-      <div className="corner corner-top-left" />
-      <div className="corner corner-top-right" />
-      <div className="corner corner-bottom-left" />
-      <div className="corner corner-bottom-right" />
+function IndexPage() {
+  return (
+    <Page className="index-page" id="indice">
+      <Header mainTitle="ÍNDICE" mainSubtitle="BEVERAGE LIST · CARTA DE BEBIDAS" />
+      <div className="top-gold-rule" />
 
-      <div className="cover-content">
-        <img src={HERO_LOGO} alt="Senhor Peixe" className="cover-logo" />
-        <p className={`cover-eyebrow ${cinzel.className}`}>SENHOR PEIXE</p>
-        <div className="cover-line" />
-        <h1 className={`cover-title ${cinzel.className}`}>BEBIDAS</h1>
-        <p className={`cover-subtitle ${cinzel.className}`}>COCKTAILS · SPIRITS · ÁGUAS · CAFETARIA</p>
-        <p className="cover-note">Carta de Bar</p>
-      </div>
+      <nav className="index-grid" aria-label="Índice da carta de bebidas">
+        {indexEntries.map((entry, index) => (
+          <a key={entry.href} href={entry.href} className="index-card">
+            <span className="index-number">{String(index + 1).padStart(2, "0")}</span>
+            <span className={`index-label ${cinzel.className}`}>{entry.label}</span>
+            <span className="index-detail">{entry.detail}</span>
+          </a>
+        ))}
+      </nav>
+
+      <p className="index-note">Seleção de bar, bebidas, destilados e cafetaria.</p>
+      <FooterOrnament />
     </Page>
   )
 }
@@ -369,7 +416,7 @@ function DrinkRows({ rows, compact = false, dense = false }: { rows: DrinkRow[];
               </div>
               {row.description ? <p className="drink-description">{row.description}</p> : null}
             </div>
-            <div className="drink-price">{row.price}</div>
+            <div className="drink-price">{normalizePrice(row.price)}</div>
           </div>
         )
       })}
@@ -377,9 +424,9 @@ function DrinkRows({ rows, compact = false, dense = false }: { rows: DrinkRow[];
   )
 }
 
-function DrinkSectionBlock({ title, subtitle, volume, rows, compact, dense }: DrinkSection) {
+function DrinkSectionBlock({ id, title, subtitle, volume, rows, compact, dense }: DrinkSection) {
   return (
-    <section className={`drink-section ${dense ? "drink-section-dense" : ""}`}>
+    <section id={id} className={`drink-section ${dense ? "drink-section-dense" : ""}`}>
       <SectionHeader title={title} subtitle={subtitle} volume={volume} />
       <DrinkRows rows={rows} compact={compact} dense={dense} />
     </section>
@@ -391,14 +438,16 @@ function DrinkListPage({
   className = "",
   mainTitle = DRINKS_TITLE,
   mainSubtitle = DRINKS_SUBTITLE,
+  pageId,
 }: {
   sections: DrinkSection[]
   className?: string
   mainTitle?: string
   mainSubtitle?: string
+  pageId?: string
 }) {
   return (
-    <Page className={`list-page ${className}`}>
+    <Page id={pageId} className={`list-page ${className}`}>
       <Header mainTitle={mainTitle} mainSubtitle={mainSubtitle} />
       <div className="top-gold-rule" />
       <div className="sections-stack">
@@ -413,7 +462,7 @@ function DrinkListPage({
 
 function SummaryPage() {
   return (
-    <Page className="summary-page">
+    <Page className="summary-page" id="resumo">
       <section className="summary-content">
         <h2 className={`summary-title ${cinzel.className}`}>A NOSSA CARTA DE BEBIDAS</h2>
 
@@ -429,8 +478,8 @@ function SummaryPage() {
         </div>
 
         <div className={`${cinzel.className} summary-notice`}>
-          <p>A NOSSA OFERTA DE BEBIDAS É ATUALIZADA COM FREQUÊNCIA. A CARTA ONLINE PODERÁ NÃO SER A VERSÃO EM VIGOR.</p>
-          <p>OUR DRINKS LIST IS OFTEN UPDATED. THIS ONLINE LIST MIGHT NOT BE THE CURRENT VERSION.</p>
+          <p>A NOSSA CARTA DE BEBIDAS É ATUALIZADA REGULARMENTE.</p>
+          <p>PARA CONFIRMAÇÃO DE DISPONIBILIDADE, A NOSSA EQUIPA TERÁ TODO O GOSTO EM ACONSELHAR.</p>
         </div>
 
         <div className={`${cinzel.className} summary-prices`}>
@@ -450,13 +499,15 @@ function SummaryPage() {
 export default function CartaBebidasPage() {
   return (
     <main className={`drinks-menu-shell ${cormorant.className}`}>
-      <Link href="/garrafeira" className="sp-back-link">
+      <Link href="/gastronomia" className="sp-back-link">
         Voltar
       </Link>
 
       <CoverPage />
+      <IndexPage />
 
       <DrinkListPage
+        pageId="cocktails"
         mainTitle="COCKTAILS"
         mainSubtitle="SIGNATURE · CLASSIC · MOCKTAILS"
         sections={[
@@ -474,30 +525,49 @@ export default function CartaBebidasPage() {
       />
 
       <DrinkListPage
+        pageId="mocktails-sangrias"
         sections={[
           { title: "MOCKTAILS", subtitle: "Alcohol-free · Sin alcohol · Sans alcool", volume: "20cl", rows: mocktails },
           { title: "SUMOS NATURAIS", subtitle: "Fresh juices · Zumos naturales · Jus naturels", volume: "20cl", rows: naturalJuices },
           { title: "SANGRIAS", subtitle: "Sangrias · Sangrías · Sangrias", volume: "1L", rows: sangrias },
+        ]}
+      />
+
+      <DrinkListPage
+        pageId="aguas-refrigerantes"
+        sections={[
           { title: "ÁGUAS", subtitle: "Waters · Aguas · Eaux · Wasser", rows: waters, compact: true },
           { title: "REFRIGERANTES", subtitle: "Soft drinks · Refrescos · Boissons fraîches", rows: softDrinks, compact: true },
         ]}
       />
 
       <DrinkListPage
+        pageId="cervejas"
+        mainTitle="CERVEJAS"
+        mainSubtitle="DRAFT · BOTTLED"
         sections={[
-          { title: "CERVEJAS", subtitle: "Draft beer · Cerveza de barril · Bière pression", rows: draftBeers, volume: "Pressão" },
-          { title: "GARRAFAS", subtitle: "Bottled beer · Cerveza botella · Bière bouteille", rows: bottledBeers, volume: "33cl" },
-          { title: "MOSCATEL", subtitle: "Moscatel · Muscat · Moscatel", volume: "5cl", rows: moscatelRows, compact: true },
-          { title: "CARCAVELOS", subtitle: "Carcavelos · Fortified wine", volume: "5cl", rows: carcavelosRows, compact: true },
+          { title: "À PRESSÃO", subtitle: "Draft beer · Cerveza de barril · Bière pression", rows: draftBeers },
+          { title: "GARRAFAS", subtitle: "Bottled beer · Cerveza botella · Bière bouteille", volume: "33cl", rows: bottledBeers },
         ]}
       />
 
       <DrinkListPage
+        pageId="fortificados"
         mainTitle="FORTIFICADOS"
-        mainSubtitle="MADEIRA · LATE HARVEST · PORTO"
+        mainSubtitle="MOSCATEL · CARCAVELOS · MADEIRA"
         sections={[
+          { title: "MOSCATEL", subtitle: "Moscatel · Muscat · Moscatel", volume: "5cl", rows: moscatelRows, compact: true },
+          { title: "CARCAVELOS", subtitle: "Carcavelos · Fortified wine", volume: "5cl", rows: carcavelosRows, compact: true },
           { title: "MADEIRA", subtitle: "Madeira wine · Vino de Madeira · Vin de Madère", volume: "5cl", rows: madeiraRows },
           { title: "LATE HARVEST", subtitle: "Late harvest · Vendimia tardía · Vendange tardive", volume: "5cl", rows: lateHarvestRows },
+        ]}
+      />
+
+      <DrinkListPage
+        pageId="porto"
+        mainTitle="PORTO"
+        mainSubtitle="RUBY · TAWNY · WHITE · ROSÉ"
+        sections={[
           { title: "PORTO RUBY", subtitle: "Ruby Port · Porto Ruby · Porto Ruby", volume: "5cl", rows: portoRubyRows, compact: true },
           { title: "PORTO TAWNY", subtitle: "Tawny Port · Porto Tawny · Porto Tawny", volume: "5cl", rows: portoTawnyRows, compact: true },
           { title: "PORTOS BRANCOS", subtitle: "White Port · Porto blanco · Porto blanc", volume: "5cl", rows: whitePortRows, compact: true },
@@ -506,20 +576,38 @@ export default function CartaBebidasPage() {
       />
 
       <DrinkListPage
+        pageId="bar-licores"
         mainTitle="BAR"
-        mainSubtitle="VERMUTES · LICORES · GIN"
+        mainSubtitle="VERMUTES · LICORES"
         sections={[
           { title: "VERMUTES & BITTERS", subtitle: "Vermouths & bitters · Vermuts y bitters", volume: "5cl", rows: vermouthRows, compact: true },
           { title: "LICORES / CREAMS & PASTIS", subtitle: "Liqueurs · Cremes · Pastis", volume: "5cl", rows: liqueurRows, compact: true },
-          { title: "GIN'S", subtitle: "Gins · Ginebras · Gins", volume: "5cl", rows: ginRows, compact: true },
         ]}
       />
 
       <DrinkListPage
+        pageId="gins"
+        mainTitle="GINS"
+        mainSubtitle="GIN · GINEBRAS · GINS"
+        sections={[
+          { title: "GINS", subtitle: "Gins · Ginebras · Gins", volume: "5cl", rows: ginRows, compact: true },
+        ]}
+      />
+
+      <DrinkListPage
+        pageId="whisky-escocia"
         mainTitle="WHISKY"
-        mainSubtitle="SCOTCH · IRISH · USA · JAPAN"
+        mainSubtitle="SCOTCH · SINGLE MALT · BLENDED"
         sections={[
           { title: "ESCÓCIA", subtitle: "Scotland · Escocia · Écosse", volume: "5cl", rows: scotchRows, compact: true, dense: true },
+        ]}
+      />
+
+      <DrinkListPage
+        pageId="whisky-internacional"
+        mainTitle="WHISKEY"
+        mainSubtitle="IRISH · USA · JAPAN"
+        sections={[
           { title: "IRLANDA", subtitle: "Ireland · Irlanda · Irlande", volume: "5cl", rows: irishWhiskeyRows, compact: true, dense: true },
           { title: "EUA", subtitle: "USA · Estados Unidos · États-Unis", volume: "5cl", rows: usaWhiskeyRows, compact: true, dense: true },
           { title: "JAPÃO", subtitle: "Japan · Japón · Japon", volume: "5cl", rows: japaneseWhiskyRows, compact: true, dense: true },
@@ -527,8 +615,9 @@ export default function CartaBebidasPage() {
       />
 
       <DrinkListPage
+        pageId="aguardentes"
         mainTitle="DESTILADOS"
-        mainSubtitle="AGUARDENTES · COGNAC · RUM · VODKA"
+        mainSubtitle="AGUARDENTES · COGNAC · RUM"
         sections={[
           { title: "AGUARDENTES & BAGACEIRA", subtitle: "Brandies · Aguardientes · Eaux-de-vie", volume: "5cl", rows: aguardenteRows, compact: true, dense: true },
           { title: "MEDRONHO", subtitle: "Medronho · Portuguese fruit spirit", volume: "5cl", rows: medronhoRows, compact: true, dense: true },
@@ -539,6 +628,7 @@ export default function CartaBebidasPage() {
       />
 
       <DrinkListPage
+        pageId="cafetaria"
         mainTitle="CAFETARIA"
         mainSubtitle="COFFEE · TEA · INFUSIONS"
         sections={[
@@ -567,6 +657,7 @@ export default function CartaBebidasPage() {
           margin: 0;
           padding: 0;
           background: var(--drink-paper-edge);
+          scroll-behavior: smooth;
         }
 
         .drinks-menu-shell {
@@ -614,6 +705,7 @@ export default function CartaBebidasPage() {
           position: relative;
           overflow: hidden;
           padding: 18mm 10mm 15mm;
+          scroll-margin-top: 24px;
         }
 
         .cover-page {
@@ -622,120 +714,21 @@ export default function CartaBebidasPage() {
           justify-content: center;
           text-align: center;
           padding: 26mm 22mm 34mm;
-          background:
-            radial-gradient(circle at center, rgba(255, 255, 255, 0.16) 0%, rgba(16, 36, 61, 0.94) 58%, #07192b 100%),
-            linear-gradient(135deg, #09213a 0%, #10243d 52%, #061625 100%);
-          color: var(--drink-paper);
         }
 
-        .cover-border {
-          position: absolute;
-          pointer-events: none;
-          border: 1px solid rgba(184, 138, 69, 0.9);
-        }
-
-        .outer-border {
-          inset: 10mm;
-        }
-
-        .inner-border {
-          inset: 14mm;
-          opacity: 0.55;
-        }
-
-        .corner {
-          position: absolute;
-          width: 17mm;
-          height: 17mm;
-          border-color: var(--drink-gold);
-          opacity: 0.95;
-        }
-
-        .corner-top-left {
-          top: 18mm;
-          left: 18mm;
-          border-top: 1px solid;
-          border-left: 1px solid;
-        }
-
-        .corner-top-right {
-          top: 18mm;
-          right: 18mm;
-          border-top: 1px solid;
-          border-right: 1px solid;
-        }
-
-        .corner-bottom-left {
-          bottom: 18mm;
-          left: 18mm;
-          border-bottom: 1px solid;
-          border-left: 1px solid;
-        }
-
-        .corner-bottom-right {
-          right: 18mm;
-          bottom: 18mm;
-          border-right: 1px solid;
-          border-bottom: 1px solid;
-        }
-
-        .cover-content {
-          width: 100%;
-          max-width: 150mm;
-          position: relative;
-          z-index: 1;
-        }
-
-        .cover-logo {
-          width: 42mm;
-          height: 42mm;
-          object-fit: contain;
+        .image-cover-page {
           display: block;
-          margin: 0 auto 12mm;
-          filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.24));
+          height: 297mm;
+          min-height: 297mm;
+          padding: 0;
+          background: #061f35;
         }
 
-        .cover-eyebrow {
-          margin: 0;
-          color: var(--drink-paper);
-          font-size: 20px;
-          line-height: 1;
-          letter-spacing: 8px;
-          font-weight: 600;
-        }
-
-        .cover-line {
-          width: 27mm;
-          height: 1px;
-          background: var(--drink-gold);
-          margin: 11mm auto 13mm;
-        }
-
-        .cover-title {
-          margin: 0;
-          color: var(--drink-gold);
-          font-size: 48px;
-          line-height: 1;
-          letter-spacing: 16px;
-          font-weight: 500;
-        }
-
-        .cover-subtitle {
-          margin: 8mm 0 0;
-          color: rgba(247, 243, 236, 0.92);
-          font-size: 12px;
-          line-height: 1.3;
-          letter-spacing: 2.3px;
-          font-weight: 600;
-        }
-
-        .cover-note {
-          margin: 25mm 0 0;
-          color: rgba(247, 243, 236, 0.86);
-          font-size: 20px;
-          line-height: 1;
-          font-style: italic;
-          font-weight: 500;
+        .cover-image {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
         }
 
         .drink-header {
@@ -793,6 +786,81 @@ export default function CartaBebidasPage() {
           margin: 7mm 0 10mm;
         }
 
+        .index-page {
+          padding-left: 14mm;
+          padding-right: 14mm;
+        }
+
+        .index-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 4.4mm 6mm;
+          width: 100%;
+          margin-top: 10mm;
+        }
+
+        .index-card {
+          min-height: 25mm;
+          border: 1px solid rgba(184, 138, 69, 0.58);
+          background: rgba(255, 255, 255, 0.34);
+          color: var(--drink-navy);
+          text-decoration: none;
+          display: grid;
+          grid-template-columns: 12mm 1fr;
+          grid-template-rows: auto auto;
+          column-gap: 4mm;
+          align-items: center;
+          padding: 4mm 4.5mm;
+          transition:
+            border-color 180ms ease,
+            transform 180ms ease,
+            background 180ms ease;
+        }
+
+        .index-card:hover {
+          border-color: var(--drink-gold);
+          background: rgba(255, 255, 255, 0.54);
+          transform: translateY(-1px);
+        }
+
+        .index-number {
+          grid-row: 1 / span 2;
+          color: var(--drink-gold);
+          font-size: 13px;
+          line-height: 1;
+          letter-spacing: 0.08em;
+          font-weight: 700;
+          font-variant-numeric: lining-nums tabular-nums;
+          font-feature-settings: "lnum" 1, "tnum" 1;
+        }
+
+        .index-label {
+          color: var(--drink-navy);
+          font-size: 16px;
+          line-height: 1;
+          letter-spacing: 2.6px;
+          font-weight: 600;
+          text-transform: uppercase;
+        }
+
+        .index-detail {
+          margin-top: 1.5mm;
+          color: var(--drink-muted);
+          font-size: 12px;
+          line-height: 1.18;
+          font-weight: 600;
+        }
+
+        .index-note {
+          margin: 18mm auto 0;
+          color: var(--drink-muted);
+          text-align: center;
+          font-size: 17px;
+          line-height: 1.4;
+          font-style: italic;
+          font-weight: 500;
+        }
+
         .sections-stack {
           width: 100%;
         }
@@ -823,7 +891,7 @@ export default function CartaBebidasPage() {
 
         .section-title-wrap {
           text-align: center;
-          padding: 0 26mm;
+          padding: 0 28mm;
         }
 
         .section-title {
@@ -847,7 +915,7 @@ export default function CartaBebidasPage() {
           position: absolute;
           right: 0;
           bottom: 5mm;
-          width: 20mm;
+          width: 24mm;
           text-align: right;
           color: var(--drink-muted);
           font-size: 11px;
@@ -884,7 +952,7 @@ export default function CartaBebidasPage() {
 
         .drink-row {
           display: grid;
-          grid-template-columns: 1fr 13mm;
+          grid-template-columns: minmax(0, 1fr) 18mm;
           column-gap: 5mm;
           align-items: baseline;
           color: var(--drink-navy);
@@ -952,12 +1020,14 @@ export default function CartaBebidasPage() {
         }
 
         .drink-price {
+          width: 18mm;
           text-align: right;
+          justify-self: end;
           font-weight: 700;
           font-size: 1.1em;
           line-height: 1;
           letter-spacing: 0.01em;
-          align-self: baseline;
+          align-self: start;
           font-family: "Cormorant Garamond", Georgia, serif;
           font-variant-numeric: lining-nums tabular-nums;
           font-feature-settings: "lnum" 1, "tnum" 1;
@@ -1118,79 +1188,17 @@ export default function CartaBebidasPage() {
             max-height: 132.914vw;
             padding: 8.06vw 4.48vw 6.71vw;
             box-shadow: 0 10px 34px rgba(0, 0, 0, 0.14);
+            scroll-margin-top: 5vw;
+          }
+
+          .image-cover-page {
+            height: 132.914vw;
+            min-height: 0;
+            padding: 0;
           }
 
           .cover-page {
             padding: 11.64vw 9.85vw 15.22vw;
-          }
-
-          .outer-border {
-            inset: 4.48vw;
-          }
-
-          .inner-border {
-            inset: 6.27vw;
-          }
-
-          .corner {
-            width: 7.61vw;
-            height: 7.61vw;
-          }
-
-          .corner-top-left {
-            top: 8.06vw;
-            left: 8.06vw;
-          }
-
-          .corner-top-right {
-            top: 8.06vw;
-            right: 8.06vw;
-          }
-
-          .corner-bottom-left {
-            bottom: 8.06vw;
-            left: 8.06vw;
-          }
-
-          .corner-bottom-right {
-            right: 8.06vw;
-            bottom: 8.06vw;
-          }
-
-          .cover-content {
-            max-width: 67.14vw;
-          }
-
-          .cover-logo {
-            width: 18.8vw;
-            height: 18.8vw;
-            margin-bottom: 5.37vw;
-          }
-
-          .cover-eyebrow {
-            font-size: 2.38vw;
-            letter-spacing: 0.95vw;
-          }
-
-          .cover-line {
-            width: 12.08vw;
-            margin: 4.92vw auto 5.82vw;
-          }
-
-          .cover-title {
-            font-size: 5.37vw;
-            letter-spacing: 1.79vw;
-          }
-
-          .cover-subtitle {
-            margin-top: 3.58vw;
-            font-size: 1.42vw;
-            letter-spacing: 0.27vw;
-          }
-
-          .cover-note {
-            margin-top: 11.19vw;
-            font-size: 2.24vw;
           }
 
           .drink-logo {
@@ -1224,6 +1232,42 @@ export default function CartaBebidasPage() {
             margin: 3.13vw 0 4.48vw;
           }
 
+          .index-page {
+            padding-left: 5.8vw;
+            padding-right: 5.8vw;
+          }
+
+          .index-grid {
+            gap: 1.95vw 2.68vw;
+            margin-top: 4.48vw;
+          }
+
+          .index-card {
+            min-height: 11.2vw;
+            grid-template-columns: 5.37vw 1fr;
+            column-gap: 1.79vw;
+            padding: 1.79vw 2.01vw;
+          }
+
+          .index-number {
+            font-size: 1.55vw;
+          }
+
+          .index-label {
+            font-size: 1.9vw;
+            letter-spacing: 0.31vw;
+          }
+
+          .index-detail {
+            margin-top: 0.67vw;
+            font-size: 1.42vw;
+          }
+
+          .index-note {
+            margin-top: 8.06vw;
+            font-size: 1.9vw;
+          }
+
           .drink-section {
             margin-bottom: 3.31vw;
           }
@@ -1243,7 +1287,7 @@ export default function CartaBebidasPage() {
           }
 
           .section-title-wrap {
-            padding: 0 11.64vw;
+            padding: 0 12.54vw;
           }
 
           .section-title {
@@ -1259,7 +1303,7 @@ export default function CartaBebidasPage() {
           .section-volume {
             right: 0;
             bottom: 2.24vw;
-            width: 8.95vw;
+            width: 10.75vw;
             font-size: 1.3vw;
           }
 
@@ -1276,7 +1320,7 @@ export default function CartaBebidasPage() {
           }
 
           .drink-row {
-            grid-template-columns: 1fr 5.82vw;
+            grid-template-columns: minmax(0, 1fr) 8.06vw;
             column-gap: 2.24vw;
             font-size: 1.5vw;
             line-height: 1.12;
@@ -1306,6 +1350,10 @@ export default function CartaBebidasPage() {
           .drink-rows-dense .drink-description {
             margin-top: 0.25vw;
             font-size: 1.21vw;
+          }
+
+          .drink-price {
+            width: 8.06vw;
           }
 
           .group-label {
