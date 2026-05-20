@@ -30,19 +30,19 @@ const sobremesasSections: Section[] = [
     title: "SOBREMESAS",
     items: [
       { name: "BABA DE CAMELO", price: "5" },
-      { name: "BOLO FATIA", price: "5" },
+      { name: "BOLO À FATIA", price: "5" },
       { name: "CHEESECAKE", price: "5,50" },
       { name: "DOCE DA CASA", price: "5,50" },
-      { name: "MOUSSE CAFÉ", price: "5" },
-      { name: "MOUSSE CHOCOLATE", price: "5" },
-      { name: "MOUSSE MANGA", price: "5" },
+      { name: "MOUSSE DE CAFÉ", price: "5" },
+      { name: "MOUSSE DE CHOCOLATE", price: "5" },
+      { name: "MOUSSE DE MANGA", price: "5" },
       { name: "PUDIM DE OVOS", price: "5,50" },
     ],
   },
   {
     title: "FRUTAS",
     items: [
-      { name: "PRATO FRUTA TROPICAL", price: "19" },
+      { name: "PRATO DE FRUTA TROPICAL", price: "19" },
       { name: "ABACAXI", price: "5" },
       { name: "MANGA", price: "5" },
       { name: "PAPAIA", price: "5" },
@@ -57,7 +57,7 @@ const sobremesasSections: Section[] = [
       { name: "MAÇÃ ASSADA", price: "6" },
       { name: "PÊRA BÊBADA", price: "5" },
       { name: "MORANGOS", price: "6" },
-      { name: "MORANGOS C/ CHANTILLY", price: "7" },
+      { name: "MORANGOS COM CHANTILLY", price: "7" },
       { name: "CEREJAS", price: "6" },
       { name: "MELÃO", price: "5" },
       { name: "MELOA", price: "5" },
@@ -102,14 +102,14 @@ const sectionTitleTranslations: Record<string, string> = {
 
 const itemNameTranslations: Record<string, string> = {
   "BABA DE CAMELO": "CARAMEL MOUSSE",
-  "BOLO FATIA": "CAKE SLICE",
+  "BOLO À FATIA": "CAKE SLICE",
   "CHEESECAKE": "CHEESECAKE",
   "DOCE DA CASA": "HOUSE DESSERT",
-  "MOUSSE CAFÉ": "COFFEE MOUSSE",
-  "MOUSSE CHOCOLATE": "CHOCOLATE MOUSSE",
-  "MOUSSE MANGA": "MANGO MOUSSE",
+  "MOUSSE DE CAFÉ": "COFFEE MOUSSE",
+  "MOUSSE DE CHOCOLATE": "CHOCOLATE MOUSSE",
+  "MOUSSE DE MANGA": "MANGO MOUSSE",
   "PUDIM DE OVOS": "EGG PUDDING",
-  "PRATO FRUTA TROPICAL": "TROPICAL FRUIT PLATTER",
+  "PRATO DE FRUTA TROPICAL": "TROPICAL FRUIT PLATTER",
   "ABACAXI": "PINEAPPLE",
   "MANGA": "MANGO",
   "PAPAIA": "PAPAYA",
@@ -119,7 +119,7 @@ const itemNameTranslations: Record<string, string> = {
   "MAÇÃ ASSADA": "BAKED APPLE",
   "PÊRA BÊBADA": "POACHED PEAR",
   "MORANGOS": "STRAWBERRIES",
-  "MORANGOS C/ CHANTILLY": "STRAWBERRIES WITH CHANTILLY",
+  "MORANGOS COM CHANTILLY": "STRAWBERRIES WITH CHANTILLY",
   "CEREJAS": "CHERRIES",
   "MELÃO": "MELON",
   "MELOA": "CANTALOUPE",
@@ -383,7 +383,7 @@ export default function CartaSobremesasPage() {
         }
 
         .sp-cover-image-only {
-          background: transparent;
+          background: var(--sp-paper);
           overflow: hidden;
         }
 
@@ -391,7 +391,8 @@ export default function CartaSobremesasPage() {
           display: block;
           width: 100%;
           height: 100%;
-          object-fit: cover;
+          object-fit: contain;
+          object-position: center center;
         }
 
         .sp-menu-frame-image {
