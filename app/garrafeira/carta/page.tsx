@@ -32,6 +32,12 @@ type WineSection = {
   simple?: boolean
 }
 
+type IndexEntry = {
+  href: string
+  label: string
+  detail: string
+}
+
 const wineByGlassSparkling: WineRow[] = [{ year: "NV", price: "6" }]
 const wineByGlassWhite: WineRow[] = [{ year: "NV", price: "5" }]
 const wineByGlassRose: WineRow[] = [{ year: "NV", price: "6" }]
@@ -251,8 +257,24 @@ const COVER_IMAGE = "/CAPA VINHOS.png"
 const BOTTLES_TITLE = "GARRAFAS"
 const BOTTLES_SUBTITLE = "BOTTLES · BOTELLAS · BOUTEILLE · FLASCHE"
 
-function Page({ children, className = "" }: { children: ReactNode; className?: string }) {
-  return <section className={`wine-page ${className}`}>{children}</section>
+const indexEntries: IndexEntry[] = [
+  { href: "#vinho-a-copo", label: "Vinho a Copo", detail: "15cl" },
+  { href: "#champagne-espumante", label: "Champagne", detail: "Champagne · Rosé · Espumante" },
+  { href: "#meias-garrafas", label: "Meias Garrafas", detail: "Rosé · Branco · Tinto" },
+  { href: "#rose", label: "Rosé", detail: "75cl" },
+  { href: "#branco", label: "Branco", detail: "75cl" },
+  { href: "#tinto", label: "Tinto", detail: "75cl" },
+  { href: "#vinhos-excecao", label: "Vinhos de Exceção", detail: "Seleção especial" },
+  { href: "#grandes-formatos", label: "Grandes Formatos", detail: "Magnum · Double Magnum · Jeroboam" },
+  { href: "#garrafeira", label: "A Nossa Garrafeira", detail: "Taxa de rolha · IVA" },
+]
+
+function Page({ children, className = "", id }: { children: ReactNode; className?: string; id?: string }) {
+  return (
+    <section id={id} className={`wine-page ${className}`}>
+      {children}
+    </section>
+  )
 }
 
 function cleanWineName(name?: string) {
@@ -319,6 +341,26 @@ function CoverPage() {
   )
 }
 
+function IndexPage() {
+  return (
+    <Page className="index-page" id="indice">
+      <Header mainTitle="ÍNDICE" mainSubtitle="CARTA DE VINHOS" />
+
+      <nav className="index-grid" aria-label="Índice da carta de vinhos">
+        {indexEntries.map((entry, index) => (
+          <a key={entry.href} href={entry.href} className="index-card">
+            <span className="index-number">{String(index + 1).padStart(2, "0")}</span>
+            <span className={`index-label ${cinzel.className}`}>{entry.label}</span>
+            <span className="index-detail">{entry.detail}</span>
+          </a>
+        ))}
+      </nav>
+
+      <FooterOrnament />
+    </Page>
+  )
+}
+
 function SectionHeader({ title, subtitle, volume }: { title: string; subtitle: string; volume?: string }) {
   return (
     <div className="section-heading">
@@ -376,9 +418,17 @@ function WineSectionBlock({ title, subtitle, volume, rows, compact, simple }: Wi
   )
 }
 
-function WineListPage({ sections, className = "" }: { sections: WineSection[]; className?: string }) {
+function WineListPage({
+  sections,
+  className = "",
+  id,
+}: {
+  sections: WineSection[]
+  className?: string
+  id?: string
+}) {
   return (
-    <Page className={`list-page bottles-page ${className}`}>
+    <Page id={id} className={`list-page bottles-page ${className}`}>
       <Header mainTitle={BOTTLES_TITLE} mainSubtitle={BOTTLES_SUBTITLE} />
       <div className="top-gold-rule" />
       <div className="sections-stack">
@@ -393,7 +443,7 @@ function WineListPage({ sections, className = "" }: { sections: WineSection[]; c
 
 function WineByGlassPage() {
   return (
-    <Page className="list-page by-glass-page">
+    <Page className="list-page by-glass-page" id="vinho-a-copo">
       <Header
         mainTitle="VINHO A COPO"
         mainSubtitle="WINE BY THE GLASS · VINO A COPA · VIN AU VERRE · WEIN IM GLAS"
@@ -412,7 +462,7 @@ function WineByGlassPage() {
 
 function SummaryPage() {
   return (
-    <Page className="summary-page">
+    <Page className="summary-page" id="garrafeira">
       <section className="summary-content">
         <h2 className={`summary-title ${cinzel.className}`}>A NOSSA GARRAFEIRA</h2>
 
@@ -432,6 +482,8 @@ function SummaryPage() {
           <p>A NOSSA OFERTA DE VINHOS É ATUALIZADA COM FREQUÊNCIA. A CARTA ONLINE PODERÁ NÃO SER A VERSÃO EM VIGOR.</p>
           <p>OUR WINE LIST OFFER IS OFTEN UPDATED. THIS ONLINE LIST MIGHT NOT BE THE CURRENT VERSION.</p>
         </div>
+
+        <div className={`${cinzel.className} corkage-fee`}>TAXA DE ROLHA 15</div>
 
         <div className={`${cinzel.className} summary-prices`}>
           <p>PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR</p>
@@ -456,9 +508,12 @@ export default function CartaVinhosPage() {
 
       <CoverPage />
 
+      <IndexPage />
+
       <WineByGlassPage />
 
       <WineListPage
+        id="champagne-espumante"
         sections={[
           { title: "CHAMPAGNE", subtitle: "Champagne · Champaña · Champagne · Champagner", volume: "75cl", rows: champagneRows, compact: true },
           { title: "CHAMPAGNE ROSÉ", subtitle: "Rosé Champagne · Champaña Rosé", volume: "75cl", rows: champagneRoseRows, compact: true },
@@ -467,24 +522,26 @@ export default function CartaVinhosPage() {
       />
 
 <WineListPage
+  id="meias-garrafas"
   sections={[
     { title: "ROSÉ", subtitle: "Rosé · Rosado · Rosé", volume: "37,5cl", rows: halfRoseRows },
     { title: "BRANCO", subtitle: "White · Blancos · Blancs · Weiss", volume: "37,5cl", rows: halfWhiteRows },
     { title: "TINTO", subtitle: "Red · Tintos · Rouges · Rotwein", volume: "37,5cl", rows: halfRedRows },
   ]}
 /><WineListPage
+  id="rose"
   sections={[
     { title: "ROSÉ", subtitle: "Rosé · Rosado · Rosé", volume: "75cl", rows: roseRows },
   ]}
 />
 
-      <WineListPage sections={[{ title: "BRANCO", subtitle: "White · Blancos · Blancs · Weiss", volume: "75cl", rows: whitePage1Rows, compact: true }]} />
+      <WineListPage id="branco" sections={[{ title: "BRANCO", subtitle: "White · Blancos · Blancs · Weiss", volume: "75cl", rows: whitePage1Rows, compact: true }]} />
       <WineListPage sections={[{ title: "BRANCO", subtitle: "White · Blancos · Blancs · Weiss", volume: "75cl", rows: whitePage2Rows, compact: true }]} />
       <WineListPage sections={[{ title: "BRANCO", subtitle: "White · Blancos · Blancs · Weiss", volume: "75cl", rows: whitePage3Rows, compact: true }]} />
-      <WineListPage sections={[{ title: "TINTO", subtitle: "Red · Tintos · Rouges · Rotwein", volume: "75cl", rows: redPage1Rows, compact: true }]} />
+      <WineListPage id="tinto" sections={[{ title: "TINTO", subtitle: "Red · Tintos · Rouges · Rotwein", volume: "75cl", rows: redPage1Rows, compact: true }]} />
       <WineListPage sections={[{ title: "TINTO", subtitle: "Red · Tintos · Rouges · Rotwein", volume: "75cl", rows: redPage2Rows, compact: true }]} />
-      <WineListPage sections={[{ title: "VINHOS DE EXCEÇÃO", subtitle: "Exceptional wines · Vinos de excepción · Vins d’exception", volume: "75cl", rows: exceptionalRows, compact: true }]} />
-      <WineListPage sections={[{ title: "GRANDES FORMATOS", subtitle: "Large formats · Grandes formatos · Grands formats", rows: largeFormatRows, compact: true }]} />
+      <WineListPage id="vinhos-excecao" sections={[{ title: "VINHOS DE EXCEÇÃO", subtitle: "Exceptional wines · Vinos de excepción · Vins d’exception", volume: "75cl", rows: exceptionalRows, compact: true }]} />
+      <WineListPage id="grandes-formatos" sections={[{ title: "GRANDES FORMATOS", subtitle: "Large formats · Grandes formatos · Grands formats", rows: largeFormatRows, compact: true }]} />
 
       <SummaryPage />
 
@@ -642,6 +699,97 @@ export default function CartaVinhosPage() {
           height: 1px;
           background: var(--wine-gold);
           margin: 8mm 0 12mm;
+        }
+
+        .index-page {
+          padding: 12mm 24mm 15mm;
+        }
+
+        .index-page .wine-logo {
+          width: 25mm;
+          height: 25mm;
+          margin-bottom: 5.2mm;
+        }
+
+        .index-page .brand-title {
+          font-size: 22px;
+          letter-spacing: 7.2px;
+        }
+
+        .index-page .gold-small-line {
+          width: 17mm;
+          margin: 6.2mm auto 7.4mm;
+        }
+
+        .index-page .main-title {
+          font-size: 46px;
+          letter-spacing: 12px;
+        }
+
+        .index-page .main-subtitle {
+          margin-top: 4.2mm;
+          font-size: 12px;
+          letter-spacing: 1.35px;
+        }
+
+        .index-grid {
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+          width: 82%;
+          margin: 12mm auto 0;
+        }
+
+        .index-card {
+          min-height: 18.6mm;
+          border: 0;
+          border-bottom: 1px solid rgba(184, 138, 69, 0.52);
+          background: transparent;
+          color: var(--wine-navy);
+          text-decoration: none;
+          display: grid;
+          grid-template-columns: 18mm 1fr;
+          grid-template-rows: auto auto;
+          column-gap: 5mm;
+          align-items: center;
+          padding: 3.4mm 0 4mm;
+          transition:
+            border-color 180ms ease,
+            transform 180ms ease;
+        }
+
+        .index-card:hover {
+          border-color: var(--wine-gold);
+          transform: translateX(1.5mm);
+        }
+
+        .index-number {
+          grid-row: 1 / span 2;
+          align-self: center;
+          color: var(--wine-gold);
+          font-size: 21px;
+          line-height: 1;
+          letter-spacing: 0.08em;
+          font-weight: 500;
+          font-variant-numeric: lining-nums tabular-nums;
+          font-feature-settings: "lnum" 1, "tnum" 1;
+        }
+
+        .index-label {
+          color: var(--wine-navy);
+          font-size: 21px;
+          line-height: 1;
+          letter-spacing: 3.4px;
+          font-weight: 600;
+          text-transform: uppercase;
+        }
+
+        .index-detail {
+          margin-top: 1.1mm;
+          color: #344b67;
+          font-size: 12.4px;
+          line-height: 1.14;
+          font-weight: 600;
         }
 
         .sections-stack {
@@ -864,6 +1012,20 @@ export default function CartaVinhosPage() {
 .summary-text p:last-child {
   margin-bottom: 0;
 }
+
+        .corkage-fee {
+          margin: 8mm auto 0;
+          color: var(--wine-navy);
+          font-size: 16px;
+          line-height: 1;
+          letter-spacing: 2.4px;
+          font-weight: 700;
+          text-align: center;
+          text-transform: uppercase;
+          font-variant-numeric: lining-nums tabular-nums;
+          font-feature-settings: "lnum" 1, "tnum" 1;
+        }
+
         .summary-notice {
           margin: 18mm auto 0;
           padding: 7mm 10mm;
@@ -1018,6 +1180,67 @@ export default function CartaVinhosPage() {
     margin: 3.58vw 0 5.37vw;
   }
 
+  .index-page {
+    padding: 5.37vw 10.75vw 6.71vw;
+  }
+
+  .index-page .wine-logo {
+    width: 11.2vw;
+    height: 11.2vw;
+    margin-bottom: 2.33vw;
+  }
+
+  .index-page .brand-title {
+    font-size: 2.6vw;
+    letter-spacing: 0.86vw;
+  }
+
+  .index-page .gold-small-line {
+    width: 7.61vw;
+    margin: 2.78vw auto 3.31vw;
+  }
+
+  .index-page .main-title {
+    font-size: 5.15vw;
+    letter-spacing: 1.34vw;
+  }
+
+  .index-page .main-subtitle {
+    margin-top: 1.88vw;
+    font-size: 1.43vw;
+    letter-spacing: 0.16vw;
+  }
+
+  .index-grid {
+    width: 84%;
+    margin-top: 5.37vw;
+  }
+
+  .index-card {
+    min-height: 8.33vw;
+    grid-template-columns: 8.06vw 1fr;
+    column-gap: 2.24vw;
+    padding: 1.52vw 0 1.79vw;
+  }
+
+  .index-card:hover {
+    transform: none;
+  }
+
+  .index-number {
+    font-size: 2.35vw;
+  }
+
+  .index-label {
+    font-size: 2.45vw;
+    letter-spacing: 0.4vw;
+  }
+
+  .index-detail {
+    margin-top: 0.49vw;
+    font-size: 1.48vw;
+  }
+
   .wine-section {
     margin-bottom: 4.03vw;
   }
@@ -1126,6 +1349,12 @@ export default function CartaVinhosPage() {
     margin-bottom: 2.69vw;
     font-size: 1.48vw;
     letter-spacing: 0.21vw;
+  }
+
+  .corkage-fee {
+    margin-top: 3.58vw;
+    font-size: 1.9vw;
+    letter-spacing: 0.28vw;
   }
 
   .summary-prices {
