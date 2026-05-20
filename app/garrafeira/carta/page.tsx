@@ -258,15 +258,14 @@ const BOTTLES_TITLE = "GARRAFAS"
 const BOTTLES_SUBTITLE = "BOTTLES · BOTELLAS · BOUTEILLE · FLASCHE"
 
 const indexEntries: IndexEntry[] = [
-  { href: "#vinho-a-copo", label: "Vinho a Copo", detail: "15cl" },
+  { href: "#vinho-a-copo", label: "Vinho a Copo", detail: "" },
   { href: "#champagne-espumante", label: "Champagne", detail: "Champagne · Rosé · Espumante" },
   { href: "#meias-garrafas", label: "Meias Garrafas", detail: "Rosé · Branco · Tinto" },
-  { href: "#rose", label: "Rosé", detail: "75cl" },
-  { href: "#branco", label: "Branco", detail: "75cl" },
-  { href: "#tinto", label: "Tinto", detail: "75cl" },
+  { href: "#rose", label: "Rosé", detail: "" },
+  { href: "#branco", label: "Branco", detail: "" },
+  { href: "#tinto", label: "Tinto", detail: "" },
   { href: "#vinhos-excecao", label: "Vinhos de Exceção", detail: "Seleção especial" },
   { href: "#grandes-formatos", label: "Grandes Formatos", detail: "Magnum · Double Magnum · Jeroboam" },
-  { href: "#garrafeira", label: "A Nossa Garrafeira", detail: "Taxa de rolha · IVA" },
 ]
 
 function Page({ children, className = "", id }: { children: ReactNode; className?: string; id?: string }) {
@@ -1016,9 +1015,9 @@ export default function CartaVinhosPage() {
         .corkage-fee {
           margin: 8mm auto 0;
           color: var(--wine-navy);
-          font-size: 16px;
-          line-height: 1;
-          letter-spacing: 2.4px;
+          font-size: 11.5px;
+          line-height: 1.35;
+          letter-spacing: 0.35px;
           font-weight: 700;
           text-align: center;
           text-transform: uppercase;
