@@ -385,13 +385,19 @@ export default function CartaSobremesasPage() {
         .sp-cover-image-only {
           background: var(--sp-paper);
           overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0;
         }
 
         .sp-cover-full-image {
           display: block;
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
+          width: auto;
+          height: auto;
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain !important;
           object-position: center center;
         }
 
@@ -871,6 +877,20 @@ export default function CartaSobremesasPage() {
             break-after: page;
             -webkit-print-color-adjust: exact;
             print-color-adjust: exact;
+          }
+
+          .sp-cover-image-only {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .sp-cover-full-image {
+            width: auto;
+            height: auto;
+            max-width: 210mm;
+            max-height: 297mm;
+            object-fit: contain !important;
           }
 
           .sp-frame-image {
