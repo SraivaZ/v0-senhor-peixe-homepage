@@ -378,20 +378,24 @@ export default function GastronomiaPage() {
           >
             {isHeaderScrolled && (
               <div className="mb-4 text-center sm:mb-6 md:mb-7">
-                <span className="font-serif text-sm uppercase leading-none tracking-[0.35em] text-white/80 sm:text-2xl md:text-[30px] lg:text-[32px]">
+                <span className="font-serif text-xs uppercase leading-none tracking-[0.28em] text-white/80 sm:text-2xl sm:tracking-[0.35em] md:text-[30px] lg:text-[32px]">
                   Senhor Peixe
                 </span>
               </div>
             )}
 
-            <div className="w-full overflow-x-auto overflow-y-hidden px-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div
+              className={`w-full overflow-x-auto overflow-y-hidden pr-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
+                isHeaderScrolled ? "pl-[170px] sm:px-4" : "pl-4 sm:px-4"
+              }`}
+            >
               <ul className="flex min-w-max items-center justify-start gap-2 sm:justify-center sm:gap-3">
                 {menuCategories.map((category) => (
                   <li key={category.id} className="shrink-0">
                     <button
                       type="button"
                       onClick={() => scrollToSection(category.id)}
-                      className={`whitespace-nowrap rounded-md border px-4 py-2 font-serif text-xs tracking-wide transition-all duration-300 sm:text-sm ${
+                      className={`whitespace-nowrap rounded-md border px-3 py-2 font-serif text-[11px] tracking-[0.02em] transition-all duration-300 sm:px-4 sm:text-sm sm:tracking-wide ${
                         activeSection === category.id
                           ? isHeaderScrolled
                             ? "border-[#e2bd93]/80 bg-white/5 text-white shadow-[0_0_14px_rgba(226,189,147,0.18)]"
@@ -513,24 +517,24 @@ export default function GastronomiaPage() {
               {t.fullMenuDescription}
             </p>
 
-            <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap">
+            <div className="mt-8 flex flex-col items-center justify-center gap-4">
               <Link
                 href="/gastronomia/Carta"
-                className="inline-flex min-w-56 items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-7 py-3 font-serif text-sm uppercase tracking-[0.18em] text-white shadow-sm transition-all duration-300 hover:border-[#e2bd93] hover:bg-[#10243d] hover:shadow-[0_0_22px_rgba(226,189,147,0.24)] focus:outline-none focus:ring-2 focus:ring-[#e2bd93]/50 focus:ring-offset-2 focus:ring-offset-stone-50"
+                className="inline-flex w-full max-w-[280px] items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-7 py-3 font-serif text-sm uppercase tracking-[0.18em] text-white shadow-sm transition-all duration-300 hover:border-[#e2bd93] hover:bg-[#10243d] hover:shadow-[0_0_22px_rgba(226,189,147,0.24)] focus:outline-none focus:ring-2 focus:ring-[#e2bd93]/50 focus:ring-offset-2 focus:ring-offset-stone-50"
               >
                 {t.openCarta}
               </Link>
 
               <Link
                 href="/gastronomia/bebidas"
-                className="inline-flex min-w-56 items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-7 py-3 font-serif text-sm uppercase tracking-[0.18em] text-white shadow-sm transition-all duration-300 hover:border-[#e2bd93] hover:bg-[#10243d] hover:shadow-[0_0_22px_rgba(226,189,147,0.24)] focus:outline-none focus:ring-2 focus:ring-[#e2bd93]/50 focus:ring-offset-2 focus:ring-offset-stone-50"
+                className="inline-flex w-full max-w-[280px] items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-7 py-3 font-serif text-sm uppercase tracking-[0.18em] text-white shadow-sm transition-all duration-300 hover:border-[#e2bd93] hover:bg-[#10243d] hover:shadow-[0_0_22px_rgba(226,189,147,0.24)] focus:outline-none focus:ring-2 focus:ring-[#e2bd93]/50 focus:ring-offset-2 focus:ring-offset-stone-50"
               >
                 {t.openBeveragesCarta}
               </Link>
 
               <Link
                 href="/gastronomia/sobremesas"
-                className="inline-flex min-w-56 items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-7 py-3 font-serif text-sm uppercase tracking-[0.18em] text-white shadow-sm transition-all duration-300 hover:border-[#e2bd93] hover:bg-[#10243d] hover:shadow-[0_0_22px_rgba(226,189,147,0.24)] focus:outline-none focus:ring-2 focus:ring-[#e2bd93]/50 focus:ring-offset-2 focus:ring-offset-stone-50"
+                className="inline-flex w-full max-w-[280px] items-center justify-center rounded-full border border-[#1e3a5f] bg-[#1e3a5f] px-7 py-3 font-serif text-sm uppercase tracking-[0.18em] text-white shadow-sm transition-all duration-300 hover:border-[#e2bd93] hover:bg-[#10243d] hover:shadow-[0_0_22px_rgba(226,189,147,0.24)] focus:outline-none focus:ring-2 focus:ring-[#e2bd93]/50 focus:ring-offset-2 focus:ring-offset-stone-50"
               >
                 {t.openDessertsCarta}
               </Link>
