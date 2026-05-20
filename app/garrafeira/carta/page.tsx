@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react"
 import Link from "next/link"
+import { useLanguage } from "@/components/language-provider"
 import { Cinzel, Cormorant_Garamond } from "next/font/google"
 
 const cinzel = Cinzel({
@@ -254,19 +255,532 @@ const largeFormatRows: WineRow[] = [
 
 const HERO_LOGO = "/senhor-peixe-logo.png"
 const COVER_IMAGE = "/CAPA VINHOS.png"
-const BOTTLES_TITLE = "GARRAFAS"
-const BOTTLES_SUBTITLE = "BOTTLES · BOTELLAS · BOUTEILLE · FLASCHE"
 
-const indexEntries: IndexEntry[] = [
-  { href: "#vinho-a-copo", label: "Vinho a Copo", detail: "" },
-  { href: "#champagne-espumante", label: "Champagne", detail: "Champagne · Rosé · Espumante" },
-  { href: "#meias-garrafas", label: "Meias Garrafas", detail: "Rosé · Branco · Tinto" },
-  { href: "#rose", label: "Rosé", detail: "" },
-  { href: "#branco", label: "Branco", detail: "" },
-  { href: "#tinto", label: "Tinto", detail: "" },
-  { href: "#vinhos-excecao", label: "Vinhos de Exceção", detail: "Seleção especial" },
-  { href: "#grandes-formatos", label: "Grandes Formatos", detail: "Magnum · Double Magnum · Jeroboam" },
-]
+type MenuLanguage = "pt" | "en" | "es" | "fr" | "de" | "it" | "ru" | "zh" | "ar" | "hi"
+
+const supportedLanguages: MenuLanguage[] = ["pt", "en", "es", "fr", "de", "it", "ru", "zh", "ar", "hi"]
+
+function normalizeLanguage(language?: string): MenuLanguage {
+  const code = (language || "pt").toLowerCase().split("-")[0] as MenuLanguage
+  return supportedLanguages.includes(code) ? code : "pt"
+}
+
+const wineCopy: Record<
+  MenuLanguage,
+  {
+    backLabel: string
+    indexTitle: string
+    indexSubtitle: string
+    bottlesTitle: string
+    bottlesSubtitle: string
+    wineByGlassTitle: string
+    wineByGlassSubtitle: string
+    summaryTitle: string
+    summaryParagraphs: string[]
+    summaryNotice: string[]
+    corkageFee: string
+    taxNote: string
+    taxTranslations: string
+    indexEntries: IndexEntry[]
+  }
+> = {
+  pt: {
+    backLabel: "Voltar",
+    indexTitle: "Índice",
+    indexSubtitle: "Carta de Vinhos",
+    bottlesTitle: "GARRAFAS",
+    bottlesSubtitle: "BOTTLES · BOTELLAS · BOUTEILLE · FLASCHE",
+    wineByGlassTitle: "VINHO A COPO",
+    wineByGlassSubtitle: "WINE BY THE GLASS · VINO A COPA · VIN AU VERRE · WEIN IM GLAS",
+    summaryTitle: "A NOSSA GARRAFEIRA",
+    summaryParagraphs: [
+      "A seleção de vinhos do Senhor Peixe foi pensada para acompanhar a cozinha portuguesa, o peixe fresco e o marisco, reunindo referências nacionais e internacionais, vinhos a copo, garrafas especiais e grandes formatos.",
+      "Para harmonizações ou sugestões, a nossa equipa terá todo o gosto em aconselhar.",
+    ],
+    summaryNotice: [
+      "A NOSSA OFERTA DE VINHOS É ATUALIZADA COM FREQUÊNCIA. A CARTA ONLINE PODERÁ NÃO SER A VERSÃO EM VIGOR.",
+      "OUR WINE LIST OFFER IS OFTEN UPDATED. THIS ONLINE LIST MIGHT NOT BE THE CURRENT VERSION.",
+    ],
+    corkageFee: "TAXA DE ROLHA 15",
+    taxNote: "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR",
+    taxTranslations:
+      "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE | PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE | PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR | PREISE IN € INKLUSIVE MWST. ZUM GELTENDEN SATZ",
+    indexEntries: [
+      { href: "#vinho-a-copo", label: "Vinho a Copo", detail: "" },
+      { href: "#champagne-espumante", label: "Champagne", detail: "Champagne · Rosé · Espumante" },
+      { href: "#meias-garrafas", label: "Meias Garrafas", detail: "Rosé · Branco · Tinto" },
+      { href: "#rose", label: "Rosé", detail: "" },
+      { href: "#branco", label: "Branco", detail: "" },
+      { href: "#tinto", label: "Tinto", detail: "" },
+      { href: "#vinhos-excecao", label: "Vinhos de Exceção", detail: "Seleção especial" },
+      { href: "#grandes-formatos", label: "Grandes Formatos", detail: "Magnum · Double Magnum · Jeroboam" },
+    ],
+  },
+  en: {
+    backLabel: "Back",
+    indexTitle: "Index",
+    indexSubtitle: "Wine List",
+    bottlesTitle: "BOTTLES",
+    bottlesSubtitle: "Bottles",
+    wineByGlassTitle: "WINE BY THE GLASS",
+    wineByGlassSubtitle: "Wine by the glass",
+    summaryTitle: "OUR WINE CELLAR",
+    summaryParagraphs: [
+      "Senhor Peixe’s wine selection was designed to accompany Portuguese cuisine, fresh fish and seafood, bringing together national and international references, wines by the glass, special bottles and large formats.",
+      "For pairings or suggestions, our team will be delighted to advise.",
+    ],
+    summaryNotice: [
+      "OUR WINE LIST IS UPDATED FREQUENTLY. THE ONLINE LIST MAY NOT BE THE CURRENT VERSION.",
+      "A NOSSA OFERTA DE VINHOS É ATUALIZADA COM FREQUÊNCIA. A CARTA ONLINE PODERÁ NÃO SER A VERSÃO EM VIGOR.",
+    ],
+    corkageFee: "CORKAGE FEE 15",
+    taxNote: "PRICE IN €, INCLUDES VAT AT THE CURRENT LEGAL RATE",
+    taxTranslations:
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR | PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE | PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR | PREISE IN € INKLUSIVE MWST. ZUM GELTENDEN SATZ",
+    indexEntries: [
+      { href: "#vinho-a-copo", label: "Wine by the Glass", detail: "" },
+      { href: "#champagne-espumante", label: "Champagne", detail: "Champagne · Rosé · Sparkling" },
+      { href: "#meias-garrafas", label: "Half Bottles", detail: "Rosé · White · Red" },
+      { href: "#rose", label: "Rosé", detail: "" },
+      { href: "#branco", label: "White", detail: "" },
+      { href: "#tinto", label: "Red", detail: "" },
+      { href: "#vinhos-excecao", label: "Exceptional Wines", detail: "Special selection" },
+      { href: "#grandes-formatos", label: "Large Formats", detail: "Magnum · Double Magnum · Jeroboam" },
+    ],
+  },
+  es: {
+    backLabel: "Volver",
+    indexTitle: "Índice",
+    indexSubtitle: "Carta de Vinos",
+    bottlesTitle: "BOTELLAS",
+    bottlesSubtitle: "Botellas",
+    wineByGlassTitle: "VINO A COPA",
+    wineByGlassSubtitle: "Vino a copa",
+    summaryTitle: "NUESTRA BODEGA",
+    summaryParagraphs: [
+      "La selección de vinos de Senhor Peixe fue pensada para acompañar la cocina portuguesa, el pescado fresco y el marisco, reuniendo referencias nacionales e internacionales, vinos por copa, botellas especiales y grandes formatos.",
+      "Para maridajes o sugerencias, nuestro equipo estará encantado de aconsejarle.",
+    ],
+    summaryNotice: [
+      "NUESTRA OFERTA DE VINOS SE ACTUALIZA CON FRECUENCIA. LA CARTA ONLINE PUEDE NO SER LA VERSIÓN VIGENTE.",
+      "OUR WINE LIST OFFER IS OFTEN UPDATED. THIS ONLINE LIST MIGHT NOT BE THE CURRENT VERSION.",
+    ],
+    corkageFee: "DESCORCHE 15",
+    taxNote: "PRECIO EN €, INCLUYE IVA AL TIPO LEGAL VIGENTE",
+    taxTranslations:
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR | PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE | PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR | PREISE IN € INKLUSIVE MWST. ZUM GELTENDEN SATZ",
+    indexEntries: [
+      { href: "#vinho-a-copo", label: "Vino a Copa", detail: "" },
+      { href: "#champagne-espumante", label: "Champagne", detail: "Champagne · Rosé · Espumoso" },
+      { href: "#meias-garrafas", label: "Medias Botellas", detail: "Rosé · Blanco · Tinto" },
+      { href: "#rose", label: "Rosé", detail: "" },
+      { href: "#branco", label: "Blanco", detail: "" },
+      { href: "#tinto", label: "Tinto", detail: "" },
+      { href: "#vinhos-excecao", label: "Vinos de Excepción", detail: "Selección especial" },
+      { href: "#grandes-formatos", label: "Grandes Formatos", detail: "Magnum · Double Magnum · Jeroboam" },
+    ],
+  },
+  fr: {
+    backLabel: "Retour",
+    indexTitle: "Index",
+    indexSubtitle: "Carte des Vins",
+    bottlesTitle: "BOUTEILLES",
+    bottlesSubtitle: "Bouteilles",
+    wineByGlassTitle: "VIN AU VERRE",
+    wineByGlassSubtitle: "Vin au verre",
+    summaryTitle: "NOTRE CAVE",
+    summaryParagraphs: [
+      "La sélection de vins du Senhor Peixe a été pensée pour accompagner la cuisine portugaise, le poisson frais et les fruits de mer, en réunissant des références nationales et internationales, des vins au verre, des bouteilles spéciales et de grands formats.",
+      "Pour les accords ou les suggestions, notre équipe se fera un plaisir de vous conseiller.",
+    ],
+    summaryNotice: [
+      "NOTRE SÉLECTION DE VINS EST RÉGULIÈREMENT MISE À JOUR. LA CARTE EN LIGNE PEUT NE PAS ÊTRE LA VERSION EN VIGUEUR.",
+      "OUR WINE LIST OFFER IS OFTEN UPDATED. THIS ONLINE LIST MIGHT NOT BE THE CURRENT VERSION.",
+    ],
+    corkageFee: "DROIT DE BOUCHON 15",
+    taxNote: "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+    taxTranslations:
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR | PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE | PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE | PREISE IN € INKLUSIVE MWST. ZUM GELTENDEN SATZ",
+    indexEntries: [
+      { href: "#vinho-a-copo", label: "Vin au Verre", detail: "" },
+      { href: "#champagne-espumante", label: "Champagne", detail: "Champagne · Rosé · Mousseux" },
+      { href: "#meias-garrafas", label: "Demi-Bouteilles", detail: "Rosé · Blanc · Rouge" },
+      { href: "#rose", label: "Rosé", detail: "" },
+      { href: "#branco", label: "Blanc", detail: "" },
+      { href: "#tinto", label: "Rouge", detail: "" },
+      { href: "#vinhos-excecao", label: "Vins d’Exception", detail: "Sélection spéciale" },
+      { href: "#grandes-formatos", label: "Grands Formats", detail: "Magnum · Double Magnum · Jeroboam" },
+    ],
+  },
+  de: {
+    backLabel: "Zurück",
+    indexTitle: "Index",
+    indexSubtitle: "Weinkarte",
+    bottlesTitle: "FLASCHEN",
+    bottlesSubtitle: "Flaschen",
+    wineByGlassTitle: "WEIN IM GLAS",
+    wineByGlassSubtitle: "Wein im Glas",
+    summaryTitle: "UNSER WEINKELLER",
+    summaryParagraphs: [
+      "Die Weinauswahl des Senhor Peixe wurde zusammengestellt, um die portugiesische Küche, frischen Fisch und Meeresfrüchte zu begleiten, mit nationalen und internationalen Referenzen, Weinen im Glas, besonderen Flaschen und großen Formaten.",
+      "Für Empfehlungen und passende Begleitungen berät Sie unser Team sehr gerne.",
+    ],
+    summaryNotice: [
+      "UNSERE WEINAUSWAHL WIRD REGELMÄSSIG AKTUALISIERT. DIE ONLINE-KARTE IST MÖGLICHERWEISE NICHT DIE AKTUELLE VERSION.",
+      "OUR WINE LIST OFFER IS OFTEN UPDATED. THIS ONLINE LIST MIGHT NOT BE THE CURRENT VERSION.",
+    ],
+    corkageFee: "KORKGELD 15",
+    taxNote: "PREIS IN €, INKLUSIVE MWST. ZUM GELTENDEN SATZ",
+    taxTranslations:
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR | PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE | PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE | PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+    indexEntries: [
+      { href: "#vinho-a-copo", label: "Wein im Glas", detail: "" },
+      { href: "#champagne-espumante", label: "Champagner", detail: "Champagne · Rosé · Sekt" },
+      { href: "#meias-garrafas", label: "Halbe Flaschen", detail: "Rosé · Weiss · Rot" },
+      { href: "#rose", label: "Rosé", detail: "" },
+      { href: "#branco", label: "Weiss", detail: "" },
+      { href: "#tinto", label: "Rot", detail: "" },
+      { href: "#vinhos-excecao", label: "Besondere Weine", detail: "Spezialauswahl" },
+      { href: "#grandes-formatos", label: "Großformate", detail: "Magnum · Double Magnum · Jeroboam" },
+    ],
+  },
+  it: {
+    backLabel: "Indietro",
+    indexTitle: "Indice",
+    indexSubtitle: "Carta dei Vini",
+    bottlesTitle: "BOTTIGLIE",
+    bottlesSubtitle: "Bottiglie",
+    wineByGlassTitle: "VINO AL CALICE",
+    wineByGlassSubtitle: "Vino al calice",
+    summaryTitle: "LA NOSTRA CANTINA",
+    summaryParagraphs: [
+      "La selezione di vini di Senhor Peixe è stata pensata per accompagnare la cucina portoghese, il pesce fresco e i frutti di mare, riunendo etichette nazionali e internazionali, vini al calice, bottiglie speciali e grandi formati.",
+      "Per abbinamenti o suggerimenti, il nostro team sarà lieto di consigliarvi.",
+    ],
+    summaryNotice: [
+      "LA NOSTRA OFFERTA DI VINI VIENE AGGIORNATA FREQUENTEMENTE. LA CARTA ONLINE POTREBBE NON ESSERE LA VERSIONE IN VIGORE.",
+      "OUR WINE LIST OFFER IS OFTEN UPDATED. THIS ONLINE LIST MIGHT NOT BE THE CURRENT VERSION.",
+    ],
+    corkageFee: "DIRITTO DI TAPPO 15",
+    taxNote: "PREZZO IN €, IVA INCLUSA ALL’ALIQUOTA LEGALE IN VIGORE",
+    taxTranslations:
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR | PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE | PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE | PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+    indexEntries: [
+      { href: "#vinho-a-copo", label: "Vino al Calice", detail: "" },
+      { href: "#champagne-espumante", label: "Champagne", detail: "Champagne · Rosé · Spumante" },
+      { href: "#meias-garrafas", label: "Mezze Bottiglie", detail: "Rosé · Bianco · Rosso" },
+      { href: "#rose", label: "Rosé", detail: "" },
+      { href: "#branco", label: "Bianco", detail: "" },
+      { href: "#tinto", label: "Rosso", detail: "" },
+      { href: "#vinhos-excecao", label: "Vini d’Eccezione", detail: "Selezione speciale" },
+      { href: "#grandes-formatos", label: "Grandi Formati", detail: "Magnum · Double Magnum · Jeroboam" },
+    ],
+  },
+  ru: {
+    backLabel: "Назад",
+    indexTitle: "Указатель",
+    indexSubtitle: "Винная карта",
+    bottlesTitle: "БУТЫЛКИ",
+    bottlesSubtitle: "Бутылки",
+    wineByGlassTitle: "ВИНО ПО БОКАЛАМ",
+    wineByGlassSubtitle: "Вино по бокалам",
+    summaryTitle: "НАШ ВИННЫЙ ПОГРЕБ",
+    summaryParagraphs: [
+      "Винная подборка Senhor Peixe создана для сопровождения португальской кухни, свежей рыбы и морепродуктов, объединяя национальные и международные позиции, вина по бокалам, особые бутылки и большие форматы.",
+      "Наша команда с удовольствием поможет с выбором и сочетаниями.",
+    ],
+    summaryNotice: [
+      "НАША ВИННАЯ КАРТА ЧАСТО ОБНОВЛЯЕТСЯ. ОНЛАЙН-ВЕРСИЯ МОЖЕТ НЕ СООТВЕТСТВОВАТЬ АКТУАЛЬНОЙ.",
+      "OUR WINE LIST OFFER IS OFTEN UPDATED. THIS ONLINE LIST MIGHT NOT BE THE CURRENT VERSION.",
+    ],
+    corkageFee: "ПРОБКОВЫЙ СБОР 15",
+    taxNote: "ЦЕНА В €, ВКЛЮЧАЕТ НДС ПО ДЕЙСТВУЮЩЕЙ СТАВКЕ",
+    taxTranslations:
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR | PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE | PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+    indexEntries: [
+      { href: "#vinho-a-copo", label: "Вино по Бокалам", detail: "" },
+      { href: "#champagne-espumante", label: "Шампанское", detail: "Champagne · Rosé · Игристое" },
+      { href: "#meias-garrafas", label: "Полубутылки", detail: "Rosé · Белое · Красное" },
+      { href: "#rose", label: "Rosé", detail: "" },
+      { href: "#branco", label: "Белое", detail: "" },
+      { href: "#tinto", label: "Красное", detail: "" },
+      { href: "#vinhos-excecao", label: "Особые Вина", detail: "Специальная подборка" },
+      { href: "#grandes-formatos", label: "Большие Форматы", detail: "Magnum · Double Magnum · Jeroboam" },
+    ],
+  },
+  zh: {
+    backLabel: "返回",
+    indexTitle: "目录",
+    indexSubtitle: "葡萄酒单",
+    bottlesTitle: "瓶装酒",
+    bottlesSubtitle: "瓶装酒",
+    wineByGlassTitle: "杯装酒",
+    wineByGlassSubtitle: "杯装酒",
+    summaryTitle: "我们的酒窖",
+    summaryParagraphs: [
+      "Senhor Peixe 的葡萄酒精选旨在搭配葡萄牙料理、鲜鱼和海鲜，汇集本国与国际酒款、杯装酒、特别酒瓶以及大瓶装。",
+      "如需配餐建议或推荐，我们的团队将很乐意为您服务。",
+    ],
+    summaryNotice: [
+      "我们的葡萄酒选择会定期更新。线上酒单可能并非当前版本。",
+      "OUR WINE LIST OFFER IS OFTEN UPDATED. THIS ONLINE LIST MIGHT NOT BE THE CURRENT VERSION.",
+    ],
+    corkageFee: "开瓶费 15",
+    taxNote: "价格为欧元，已包含现行法定税率的增值税",
+    taxTranslations:
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR | PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE | PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+    indexEntries: [
+      { href: "#vinho-a-copo", label: "杯装酒", detail: "" },
+      { href: "#champagne-espumante", label: "香槟", detail: "Champagne · Rosé · 起泡酒" },
+      { href: "#meias-garrafas", label: "半瓶装", detail: "Rosé · 白葡萄酒 · 红葡萄酒" },
+      { href: "#rose", label: "Rosé", detail: "" },
+      { href: "#branco", label: "白葡萄酒", detail: "" },
+      { href: "#tinto", label: "红葡萄酒", detail: "" },
+      { href: "#vinhos-excecao", label: "臻选佳酿", detail: "特别精选" },
+      { href: "#grandes-formatos", label: "大瓶装", detail: "Magnum · Double Magnum · Jeroboam" },
+    ],
+  },
+  ar: {
+    backLabel: "رجوع",
+    indexTitle: "الفهرس",
+    indexSubtitle: "قائمة النبيذ",
+    bottlesTitle: "زجاجات",
+    bottlesSubtitle: "زجاجات",
+    wineByGlassTitle: "النبيذ بالكأس",
+    wineByGlassSubtitle: "النبيذ بالكأس",
+    summaryTitle: "قبو النبيذ لدينا",
+    summaryParagraphs: [
+      "تم اختيار قائمة النبيذ في Senhor Peixe لترافق المطبخ البرتغالي والأسماك الطازجة والمأكولات البحرية، مع مراجع وطنية ودولية ونبيذ بالكأس وزجاجات خاصة وأحجام كبيرة.",
+      "يسعد فريقنا بتقديم الاقتراحات المناسبة والمساعدة في الاختيار.",
+    ],
+    summaryNotice: [
+      "يتم تحديث قائمة النبيذ لدينا بشكل متكرر. قد لا تكون القائمة الإلكترونية هي النسخة الحالية.",
+      "OUR WINE LIST OFFER IS OFTEN UPDATED. THIS ONLINE LIST MIGHT NOT BE THE CURRENT VERSION.",
+    ],
+    corkageFee: "رسوم فتح الزجاجة 15",
+    taxNote: "السعر باليورو، شامل ضريبة القيمة المضافة حسب المعدل القانوني الحالي",
+    taxTranslations:
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR | PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE | PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+    indexEntries: [
+      { href: "#vinho-a-copo", label: "النبيذ بالكأس", detail: "" },
+      { href: "#champagne-espumante", label: "شمبانيا", detail: "Champagne · Rosé · نبيذ فوار" },
+      { href: "#meias-garrafas", label: "نصف زجاجة", detail: "Rosé · أبيض · أحمر" },
+      { href: "#rose", label: "Rosé", detail: "" },
+      { href: "#branco", label: "أبيض", detail: "" },
+      { href: "#tinto", label: "أحمر", detail: "" },
+      { href: "#vinhos-excecao", label: "نبيذ استثنائي", detail: "اختيار خاص" },
+      { href: "#grandes-formatos", label: "أحجام كبيرة", detail: "Magnum · Double Magnum · Jeroboam" },
+    ],
+  },
+  hi: {
+    backLabel: "वापस",
+    indexTitle: "सूची",
+    indexSubtitle: "वाइन सूची",
+    bottlesTitle: "बोतलें",
+    bottlesSubtitle: "बोतलें",
+    wineByGlassTitle: "ग्लास वाइन",
+    wineByGlassSubtitle: "ग्लास वाइन",
+    summaryTitle: "हमारा वाइन सेलर",
+    summaryParagraphs: [
+      "Senhor Peixe की वाइन चयन पुर्तगाली भोजन, ताज़ी मछली और समुद्री भोजन के साथ मेल खाने के लिए तैयार की गई है, जिसमें राष्ट्रीय और अंतरराष्ट्रीय संदर्भ, ग्लास वाइन, विशेष बोतलें और बड़े प्रारूप शामिल हैं।",
+      "पेयरिंग या सुझावों के लिए हमारी टीम खुशी से सलाह देगी।",
+    ],
+    summaryNotice: [
+      "हमारी वाइन सूची नियमित रूप से अपडेट की जाती है। ऑनलाइन सूची वर्तमान संस्करण न भी हो सकती है।",
+      "OUR WINE LIST OFFER IS OFTEN UPDATED. THIS ONLINE LIST MIGHT NOT BE THE CURRENT VERSION.",
+    ],
+    corkageFee: "कॉर्केज शुल्क 15",
+    taxNote: "कीमत € में है, मौजूदा कानूनी दर पर VAT शामिल है",
+    taxTranslations:
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR | PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE | PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+    indexEntries: [
+      { href: "#vinho-a-copo", label: "ग्लास वाइन", detail: "" },
+      { href: "#champagne-espumante", label: "शैम्पेन", detail: "Champagne · Rosé · स्पार्कलिंग" },
+      { href: "#meias-garrafas", label: "आधी बोतलें", detail: "Rosé · सफेद · लाल" },
+      { href: "#rose", label: "Rosé", detail: "" },
+      { href: "#branco", label: "सफेद", detail: "" },
+      { href: "#tinto", label: "लाल", detail: "" },
+      { href: "#vinhos-excecao", label: "विशेष वाइन", detail: "विशेष चयन" },
+      { href: "#grandes-formatos", label: "बड़े प्रारूप", detail: "Magnum · Double Magnum · Jeroboam" },
+    ],
+  },
+}
+
+const sectionTitleTranslations: Record<MenuLanguage, Record<string, string>> = {
+  pt: {},
+  en: {
+    "ESPUMANTE": "SPARKLING",
+    "BRANCO": "WHITE",
+    "TINTO": "RED",
+    "VINHOS DE EXCEÇÃO": "EXCEPTIONAL WINES",
+    "GRANDES FORMATOS": "LARGE FORMATS",
+  },
+  es: {
+    "ESPUMANTE": "ESPUMOSO",
+    "BRANCO": "BLANCO",
+    "TINTO": "TINTO",
+    "VINHOS DE EXCEÇÃO": "VINOS DE EXCEPCIÓN",
+    "GRANDES FORMATOS": "GRANDES FORMATOS",
+  },
+  fr: {
+    "ESPUMANTE": "MOUSSEUX",
+    "BRANCO": "BLANC",
+    "TINTO": "ROUGE",
+    "VINHOS DE EXCEÇÃO": "VINS D’EXCEPTION",
+    "GRANDES FORMATOS": "GRANDS FORMATS",
+  },
+  de: {
+    "ESPUMANTE": "SEKT",
+    "BRANCO": "WEISS",
+    "TINTO": "ROT",
+    "VINHOS DE EXCEÇÃO": "BESONDERE WEINE",
+    "GRANDES FORMATOS": "GROSSFORMATE",
+  },
+  it: {
+    "ESPUMANTE": "SPUMANTE",
+    "BRANCO": "BIANCO",
+    "TINTO": "ROSSO",
+    "VINHOS DE EXCEÇÃO": "VINI D’ECCEZIONE",
+    "GRANDES FORMATOS": "GRANDI FORMATI",
+  },
+  ru: {
+    "ESPUMANTE": "ИГРИСТОЕ",
+    "BRANCO": "БЕЛОЕ",
+    "TINTO": "КРАСНОЕ",
+    "VINHOS DE EXCEÇÃO": "ОСОБЫЕ ВИНА",
+    "GRANDES FORMATOS": "БОЛЬШИЕ ФОРМАТЫ",
+  },
+  zh: {
+    "ESPUMANTE": "起泡酒",
+    "BRANCO": "白葡萄酒",
+    "TINTO": "红葡萄酒",
+    "VINHOS DE EXCEÇÃO": "臻选佳酿",
+    "GRANDES FORMATOS": "大瓶装",
+  },
+  ar: {
+    "ESPUMANTE": "نبيذ فوار",
+    "BRANCO": "أبيض",
+    "TINTO": "أحمر",
+    "VINHOS DE EXCEÇÃO": "نبيذ استثنائي",
+    "GRANDES FORMATOS": "أحجام كبيرة",
+  },
+  hi: {
+    "ESPUMANTE": "स्पार्कलिंग",
+    "BRANCO": "सफेद",
+    "TINTO": "लाल",
+    "VINHOS DE EXCEÇÃO": "विशेष वाइन",
+    "GRANDES FORMATOS": "बड़े प्रारूप",
+  },
+}
+
+const sectionSubtitleTranslations: Record<MenuLanguage, Record<string, string>> = {
+  pt: {},
+  en: {
+    "Champagne · Champaña · Champagne · Champagner": "Champagne",
+    "Rosé Champagne · Champaña Rosé": "Rosé Champagne",
+    "Sparkling · Espumoso · Mousseux · Sekt": "Sparkling",
+    "Rosé · Rosado · Rosé": "Rosé",
+    "White · Blancos · Blancs · Weiss": "White",
+    "Red · Tintos · Rouges · Rotwein": "Red",
+    "Exceptional wines · Vinos de excepción · Vins d’exception": "Exceptional wines",
+    "Large formats · Grandes formatos · Grands formats": "Large formats",
+  },
+  es: {
+    "Champagne · Champaña · Champagne · Champagner": "Champaña",
+    "Rosé Champagne · Champaña Rosé": "Champaña Rosé",
+    "Sparkling · Espumoso · Mousseux · Sekt": "Espumoso",
+    "Rosé · Rosado · Rosé": "Rosado",
+    "White · Blancos · Blancs · Weiss": "Blanco",
+    "Red · Tintos · Rouges · Rotwein": "Tinto",
+    "Exceptional wines · Vinos de excepción · Vins d’exception": "Vinos de excepción",
+    "Large formats · Grandes formatos · Grands formats": "Grandes formatos",
+  },
+  fr: {
+    "Champagne · Champaña · Champagne · Champagner": "Champagne",
+    "Rosé Champagne · Champaña Rosé": "Champagne Rosé",
+    "Sparkling · Espumoso · Mousseux · Sekt": "Mousseux",
+    "Rosé · Rosado · Rosé": "Rosé",
+    "White · Blancos · Blancs · Weiss": "Blanc",
+    "Red · Tintos · Rouges · Rotwein": "Rouge",
+    "Exceptional wines · Vinos de excepción · Vins d’exception": "Vins d’exception",
+    "Large formats · Grandes formatos · Grands formats": "Grands formats",
+  },
+  de: {
+    "Champagne · Champaña · Champagne · Champagner": "Champagner",
+    "Rosé Champagne · Champaña Rosé": "Rosé Champagner",
+    "Sparkling · Espumoso · Mousseux · Sekt": "Sekt",
+    "Rosé · Rosado · Rosé": "Rosé",
+    "White · Blancos · Blancs · Weiss": "Weiss",
+    "Red · Tintos · Rouges · Rotwein": "Rot",
+    "Exceptional wines · Vinos de excepción · Vins d’exception": "Besondere Weine",
+    "Large formats · Grandes formatos · Grands formats": "Großformate",
+  },
+  it: {
+    "Champagne · Champaña · Champagne · Champagner": "Champagne",
+    "Rosé Champagne · Champaña Rosé": "Champagne Rosé",
+    "Sparkling · Espumoso · Mousseux · Sekt": "Spumante",
+    "Rosé · Rosado · Rosé": "Rosé",
+    "White · Blancos · Blancs · Weiss": "Bianco",
+    "Red · Tintos · Rouges · Rotwein": "Rosso",
+    "Exceptional wines · Vinos de excepción · Vins d’exception": "Vini d’eccezione",
+    "Large formats · Grandes formatos · Grands formats": "Grandi formati",
+  },
+  ru: {
+    "Champagne · Champaña · Champagne · Champagner": "Шампанское",
+    "Rosé Champagne · Champaña Rosé": "Розе Шампань",
+    "Sparkling · Espumoso · Mousseux · Sekt": "Игристое",
+    "Rosé · Rosado · Rosé": "Розе",
+    "White · Blancos · Blancs · Weiss": "Белое",
+    "Red · Tintos · Rouges · Rotwein": "Красное",
+    "Exceptional wines · Vinos de excepción · Vins d’exception": "Особые вина",
+    "Large formats · Grandes formatos · Grands formats": "Большие форматы",
+  },
+  zh: {
+    "Champagne · Champaña · Champagne · Champagner": "香槟",
+    "Rosé Champagne · Champaña Rosé": "桃红香槟",
+    "Sparkling · Espumoso · Mousseux · Sekt": "起泡酒",
+    "Rosé · Rosado · Rosé": "桃红",
+    "White · Blancos · Blancs · Weiss": "白葡萄酒",
+    "Red · Tintos · Rouges · Rotwein": "红葡萄酒",
+    "Exceptional wines · Vinos de excepción · Vins d’exception": "臻选佳酿",
+    "Large formats · Grandes formatos · Grands formats": "大瓶装",
+  },
+  ar: {
+    "Champagne · Champaña · Champagne · Champagner": "شمبانيا",
+    "Rosé Champagne · Champaña Rosé": "شمبانيا روزيه",
+    "Sparkling · Espumoso · Mousseux · Sekt": "نبيذ فوار",
+    "Rosé · Rosado · Rosé": "روزيه",
+    "White · Blancos · Blancs · Weiss": "أبيض",
+    "Red · Tintos · Rouges · Rotwein": "أحمر",
+    "Exceptional wines · Vinos de excepción · Vins d’exception": "نبيذ استثنائي",
+    "Large formats · Grandes formatos · Grands formats": "أحجام كبيرة",
+  },
+  hi: {
+    "Champagne · Champaña · Champagne · Champagner": "शैम्पेन",
+    "Rosé Champagne · Champaña Rosé": "रोज़े शैम्पेन",
+    "Sparkling · Espumoso · Mousseux · Sekt": "स्पार्कलिंग",
+    "Rosé · Rosado · Rosé": "रोज़े",
+    "White · Blancos · Blancs · Weiss": "सफेद",
+    "Red · Tintos · Rouges · Rotwein": "लाल",
+    "Exceptional wines · Vinos de excepción · Vins d’exception": "विशेष वाइन",
+    "Large formats · Grandes formatos · Grands formats": "बड़े प्रारूप",
+  },
+}
+
+function getWineCopy(language?: string) {
+  return wineCopy[normalizeLanguage(language)]
+}
+
+function translateSectionTitle(title: string, language?: string) {
+  const normalizedLanguage = normalizeLanguage(language)
+  return sectionTitleTranslations[normalizedLanguage][title] ?? title
+}
+
+function translateSectionSubtitle(subtitle: string, language?: string) {
+  const normalizedLanguage = normalizeLanguage(language)
+  return sectionSubtitleTranslations[normalizedLanguage][subtitle] ?? subtitle
+}
+
 
 function Page({ children, className = "", id }: { children: ReactNode; className?: string; id?: string }) {
   return (
@@ -341,12 +855,15 @@ function CoverPage() {
 }
 
 function IndexPage() {
+  const { language } = useLanguage()
+  const copy = getWineCopy(language)
+
   return (
     <Page className="index-page" id="indice">
-      <Header mainTitle="ÍNDICE" mainSubtitle="CARTA DE VINHOS" />
+      <Header mainTitle={copy.indexTitle} mainSubtitle={copy.indexSubtitle} />
 
-      <nav className="index-grid" aria-label="Índice da carta de vinhos">
-        {indexEntries.map((entry, index) => (
+      <nav className="index-grid" aria-label={copy.indexSubtitle}>
+        {copy.indexEntries.map((entry, index) => (
           <a key={entry.href} href={entry.href} className="index-card">
             <span className="index-number">{String(index + 1).padStart(2, "0")}</span>
             <span className={`index-label ${cinzel.className}`}>{entry.label}</span>
@@ -361,11 +878,15 @@ function IndexPage() {
 }
 
 function SectionHeader({ title, subtitle, volume }: { title: string; subtitle: string; volume?: string }) {
+  const { language } = useLanguage()
+  const translatedTitle = translateSectionTitle(title, language)
+  const translatedSubtitle = translateSectionSubtitle(subtitle, language)
+
   return (
     <div className="section-heading">
       <div className="section-title-wrap">
-        <h3 className={`section-title ${cinzel.className}`}>{title}</h3>
-        <p className="section-subtitle">{subtitle}</p>
+        <h3 className={`section-title ${cinzel.className}`}>{translatedTitle}</h3>
+        <p className="section-subtitle">{translatedSubtitle}</p>
       </div>
       {volume ? <span className="section-volume">{volume}</span> : null}
       <span className="section-rule" />
@@ -426,9 +947,12 @@ function WineListPage({
   className?: string
   id?: string
 }) {
+  const { language } = useLanguage()
+  const copy = getWineCopy(language)
+
   return (
     <Page id={id} className={`list-page bottles-page ${className}`}>
-      <Header mainTitle={BOTTLES_TITLE} mainSubtitle={BOTTLES_SUBTITLE} />
+      <Header mainTitle={copy.bottlesTitle} mainSubtitle={copy.bottlesSubtitle} />
       <div className="top-gold-rule" />
       <div className="sections-stack">
         {sections.map((section, index) => (
@@ -441,12 +965,12 @@ function WineListPage({
 }
 
 function WineByGlassPage() {
+  const { language } = useLanguage()
+  const copy = getWineCopy(language)
+
   return (
     <Page className="list-page by-glass-page" id="vinho-a-copo">
-      <Header
-        mainTitle="VINHO A COPO"
-        mainSubtitle="WINE BY THE GLASS · VINO A COPA · VIN AU VERRE · WEIN IM GLAS"
-      />
+      <Header mainTitle={copy.wineByGlassTitle} mainSubtitle={copy.wineByGlassSubtitle} />
       <div className="top-gold-rule" />
       <div className="sections-stack">
         <WineSectionBlock title="ESPUMANTE" subtitle="Sparkling · Espumoso · Mousseux · Sekt" volume="15cl" rows={wineByGlassSparkling} simple />
@@ -460,36 +984,33 @@ function WineByGlassPage() {
 }
 
 function SummaryPage() {
+  const { language } = useLanguage()
+  const copy = getWineCopy(language)
+
   return (
     <Page className="summary-page" id="garrafeira">
       <section className="summary-content">
-        <h2 className={`summary-title ${cinzel.className}`}>A NOSSA GARRAFEIRA</h2>
+        <h2 className={`summary-title ${cinzel.className}`}>{copy.summaryTitle}</h2>
 
         <div className="summary-title-line" />
 
         <div className="summary-text">
-          <p>
-            A seleção de vinhos do Senhor Peixe foi pensada para acompanhar a cozinha portuguesa, o peixe fresco e o
-            marisco, reunindo referências nacionais e internacionais, vinhos a copo, garrafas especiais e grandes
-            formatos.
-          </p>
-
-          <p>Para harmonizações ou sugestões, a nossa equipa terá todo o gosto em aconselhar.</p>
+          {copy.summaryParagraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
         </div>
 
         <div className={`${cinzel.className} summary-notice`}>
-          <p>A NOSSA OFERTA DE VINHOS É ATUALIZADA COM FREQUÊNCIA. A CARTA ONLINE PODERÁ NÃO SER A VERSÃO EM VIGOR.</p>
-          <p>OUR WINE LIST OFFER IS OFTEN UPDATED. THIS ONLINE LIST MIGHT NOT BE THE CURRENT VERSION.</p>
+          {copy.summaryNotice.map((note) => (
+            <p key={note}>{note}</p>
+          ))}
         </div>
 
-        <div className={`${cinzel.className} corkage-fee`}>TAXA DE ROLHA 15</div>
+        <div className={`${cinzel.className} corkage-fee`}>{copy.corkageFee}</div>
 
         <div className={`${cinzel.className} summary-prices`}>
-          <p>PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR</p>
-          <p>
-            PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE | PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE |
-            PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR | PREISE IN € INKLUSIVE MWST. ZUM GELTENDEN SATZ
-          </p>
+          <p>{copy.taxNote}</p>
+          <p>{copy.taxTranslations}</p>
         </div>
       </section>
 
@@ -499,10 +1020,14 @@ function SummaryPage() {
 }
 
 export default function CartaVinhosPage() {
+  const { language } = useLanguage()
+  const normalizedLanguage = normalizeLanguage(language)
+  const copy = getWineCopy(language)
+
   return (
-    <main className={`wine-menu-shell ${cormorant.className}`}>
+    <main lang={normalizedLanguage} className={`wine-menu-shell wine-lang-${normalizedLanguage} ${cormorant.className}`}>
       <Link href="/garrafeira" className="sp-back-link">
-        Voltar
+        {copy.backLabel}
       </Link>
 
       <CoverPage />
