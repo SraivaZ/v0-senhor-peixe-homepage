@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useLanguage } from "@/components/language-provider"
 import { SiteMenu } from "@/components/site-menu"
 
@@ -275,6 +275,7 @@ export default function GastronomiaPage() {
   const { language } = useLanguage()
   const [activeSection, setActiveSection] = useState<MenuCategoryId>("entradas")
   const [isHeaderScrolled, setIsHeaderScrolled] = useState(false)
+  const categoryNavRef = useRef<HTMLDivElement | null>(null)
 
   const t = translations[language]
   const menuCategories = t.menuCategories
@@ -308,6 +309,20 @@ export default function GastronomiaPage() {
 
     return () => window.removeEventListener("scroll", handleScroll)
   }, [menuCategories])
+
+  useEffect(() => {
+    const nav = categoryNavRef.current
+    if (!nav) return
+
+    const resetPosition = () => {
+      nav.scrollTo({ left: 0, behavior: "auto" })
+    }
+
+    resetPosition()
+    const timeoutId = window.setTimeout(resetPosition, 80)
+
+    return () => window.clearTimeout(timeoutId)
+  }, [isHeaderScrolled])
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id)
@@ -385,8 +400,9 @@ export default function GastronomiaPage() {
             )}
 
             <div
+              ref={categoryNavRef}
               className={`w-full overflow-x-auto overflow-y-hidden pr-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
-                isHeaderScrolled ? "pl-[112px] sm:px-4" : "pl-4 sm:px-4"
+                isHeaderScrolled ? "pl-[150px] sm:px-4" : "pl-4 sm:px-4"
               }`}
             >
               <ul className="flex min-w-max items-center justify-start gap-1.5 sm:justify-center sm:gap-3">
