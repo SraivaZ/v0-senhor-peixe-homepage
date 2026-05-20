@@ -291,10 +291,8 @@ const indexEntries: IndexEntry[] = [
   { href: "#fortificados", label: "Fortificados", detail: "Moscatel · Madeira · Late Harvest" },
   { href: "#porto", label: "Porto", detail: "Ruby · Tawny · Branco · Rosé" },
   { href: "#bar-licores", label: "Bar", detail: "Vermutes · Licores · Pastis · Gins" },
-  { href: "#whisky-escocia", label: "Whisky", detail: "Escócia" },
-  { href: "#whisky-internacional", label: "Whisky", detail: "Irlanda · EUA · Japão" },
-  { href: "#aguardentes", label: "Destilados", detail: "Aguardentes · Medronho" },
-  { href: "#cognac-rum", label: "Cognac & Rum", detail: "Cognac · Rum · Vodka · Tequila" },
+  { href: "#whisky-escocia", label: "Whisky", detail: "Escócia · Irlanda · EUA · Japão" },
+  { href: "#aguardentes", label: "Destilados", detail: "Aguardentes · Medronho · Cognac · Rum · Vodka · Tequila" },
   { href: "#cafetaria", label: "Cafetaria", detail: "Café · Chás · Infusões" },
 ]
 
@@ -585,8 +583,8 @@ export default function CartaBebidasPage() {
 
       <DrinkListPage
         pageId="gins"
-        mainTitle="BAR"
-        mainSubtitle="Gins"
+        mainTitle="GINS"
+        mainSubtitle="GIN · GINEBRAS · GINS"
         sections={[
           { title: "GINS", subtitle: "Gins · Ginebras · Gins", volume: "5cl", rows: ginRows, compact: true },
         ]}
@@ -603,7 +601,7 @@ export default function CartaBebidasPage() {
 
       <DrinkListPage
         pageId="whisky-internacional"
-        mainTitle="WHISKY"
+        mainTitle="WHISKEY"
         mainSubtitle="IRISH · USA · JAPAN"
         sections={[
           { title: "IRLANDA", subtitle: "Ireland · Irlanda · Irlande", volume: "5cl", rows: irishWhiskeyRows, compact: true, dense: true },
