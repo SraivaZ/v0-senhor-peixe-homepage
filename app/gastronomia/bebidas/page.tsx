@@ -51,7 +51,7 @@ const classicCocktails: DrinkRow[] = [
   { name: "Caipirinha", description: "Cachaça, citrinos frescos, açúcar amarelo", price: "13" },
   { name: "Margarita", description: "Tequila, triple sec, citrinos frescos", price: "12" },
   { name: "Mojito", description: "Rum, infusão de hortelã, sumo de lima, calda de hortelã", price: "13" },
-  { name: "Old Fashioned", description: "Whiskey, Angostura bitter, calda de açúcar", price: "14" },
+  { name: "Old Fashioned", description: "Whisky, Angostura bitter, calda de açúcar", price: "14" },
   { name: "Aperol Spritz", description: "Prosecco, Aperol, água com gás", price: "14" },
 ]
 
@@ -292,10 +292,8 @@ const indexEntries: IndexEntry[] = [
   { href: "#porto", label: "Porto", detail: "Ruby · Tawny · Branco · Rosé" },
   { href: "#bar-licores", label: "Bar", detail: "Vermutes · Licores" },
   { href: "#gins", label: "Gins", detail: "Seleção de gin" },
-  { href: "#whisky-escocia", label: "Whisky", detail: "Escócia" },
-  { href: "#whisky-internacional", label: "Whiskey", detail: "Irlanda · EUA · Japão" },
-  { href: "#aguardentes", label: "Destilados", detail: "Aguardentes · Medronho" },
-  { href: "#cognac-rum", label: "Cognac & Rum", detail: "Cognac · Rum · Vodka · Tequila" },
+  { href: "#whisky-escocia", label: "Whisky", detail: "Escócia · Irlanda · EUA · Japão" },
+  { href: "#aguardentes", label: "Destilados", detail: "Aguardentes · Medronho · Cognac · Rum · Vodka" },
   { href: "#cafetaria", label: "Cafetaria", detail: "Café · Chás · Infusões" },
 ]
 
@@ -596,17 +594,9 @@ export default function CartaBebidasPage() {
       <DrinkListPage
         pageId="whisky-escocia"
         mainTitle="WHISKY"
-        mainSubtitle="SCOTCH · SINGLE MALT · BLENDED"
+        mainSubtitle="SCOTCH · IRISH · USA · JAPAN"
         sections={[
           { title: "ESCÓCIA", subtitle: "Scotland · Escocia · Écosse", volume: "5cl", rows: scotchRows, compact: true, dense: true },
-        ]}
-      />
-
-      <DrinkListPage
-        pageId="whisky-internacional"
-        mainTitle="WHISKEY"
-        mainSubtitle="IRISH · USA · JAPAN"
-        sections={[
           { title: "IRLANDA", subtitle: "Ireland · Irlanda · Irlande", volume: "5cl", rows: irishWhiskeyRows, compact: true, dense: true },
           { title: "EUA", subtitle: "USA · Estados Unidos · États-Unis", volume: "5cl", rows: usaWhiskeyRows, compact: true, dense: true },
           { title: "JAPÃO", subtitle: "Japan · Japón · Japon", volume: "5cl", rows: japaneseWhiskyRows, compact: true, dense: true },
@@ -616,18 +606,10 @@ export default function CartaBebidasPage() {
       <DrinkListPage
         pageId="aguardentes"
         mainTitle="DESTILADOS"
-        mainSubtitle="AGUARDENTES · BAGACEIRA · MEDRONHO"
+        mainSubtitle="AGUARDENTES · COGNAC · RUM · VODKA"
         sections={[
           { title: "AGUARDENTES & BAGACEIRA", subtitle: "Brandies · Aguardientes · Eaux-de-vie", volume: "5cl", rows: aguardenteRows, compact: true, dense: true },
           { title: "MEDRONHO", subtitle: "Medronho · Portuguese fruit spirit", volume: "5cl", rows: medronhoRows, compact: true, dense: true },
-        ]}
-      />
-
-      <DrinkListPage
-        pageId="cognac-rum"
-        mainTitle="DESTILADOS"
-        mainSubtitle="COGNAC · ARMAGNAC · RUM · VODKA"
-        sections={[
           { title: "COGNACS & ARMAGNAC", subtitle: "Cognac · Armagnac", volume: "5cl", rows: cognacRows, compact: true, dense: true },
           { title: "BRANDY & RUM", subtitle: "Brandy · Rum · Ron · Rhum", volume: "5cl", rows: brandyRumRows, compact: true, dense: true },
           { title: "VODKA & TEQUILA", subtitle: "Vodka · Tequila", volume: "5cl", rows: vodkaTequilaRows, compact: true, dense: true },
