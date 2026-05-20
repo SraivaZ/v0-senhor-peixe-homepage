@@ -656,6 +656,7 @@ function MenuPage({
   shellfish = false,
   sides = false,
   finalNotes = false,
+  showLegal = true,
 }: {
   sections: Section[]
   copy: (typeof pageCopy)["pt"] | (typeof pageCopy)["en"]
@@ -664,6 +665,7 @@ function MenuPage({
   shellfish?: boolean
   sides?: boolean
   finalNotes?: boolean
+  showLegal?: boolean
 }) {
   return (
     <section
@@ -710,11 +712,58 @@ function MenuPage({
               ))}
             </div>
           </footer>
-        ) : (
+        ) : showLegal ? (
           <footer className="sp-legal">
             <EuroText text={copy.legalNote} />
           </footer>
+        ) : (
+          <footer className="sp-legal sp-legal-placeholder" aria-hidden="true">
+            &nbsp;
+          </footer>
         )}
+      </div>
+    </section>
+  )
+}
+
+
+const indexEntries = [
+  { label: "Couvert", detail: "Entradas · Entradas quentes" },
+  { label: "Especialidades", detail: "Mar · Terra" },
+  { label: "Peixe", detail: "Kg · À Lagareiro" },
+  { label: "Marisco", detail: "Carne · Vegan" },
+  { label: "Sopas", detail: "Acompanhamentos · Molhos" },
+]
+
+function MenuIndexPage() {
+  return (
+    <section className="sp-page sp-menu-page sp-index-page">
+      <PremiumFrame />
+
+      <div className="sp-index-content">
+        <MenuHeader />
+
+        <div className="sp-index-title-block">
+          <div className="sp-index-title-line" />
+          <h2 className={playfair.className}>Índice</h2>
+          <p className={cinzel.className}>Carta de Gastronomia</p>
+        </div>
+
+        <div className="sp-index-list">
+          {indexEntries.map((entry, index) => (
+            <div className="sp-index-entry" key={entry.label}>
+              <span className={`sp-index-number ${playfair.className}`}>
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div className="sp-index-entry-copy">
+                <h3 className={cinzel.className}>{entry.label}</h3>
+                <p>{entry.detail}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <Ornament />
       </div>
     </section>
   )
@@ -790,10 +839,12 @@ export default function CartaGastronomiaPage() {
         />
       </section>
 
-      <MenuPage sections={translateSections(couvertSections, isEnglish)} copy={copy} />
-      <MenuPage sections={translateSections(especialidadesSections, isEnglish)} copy={copy} dense />
-      <MenuPage sections={translateSections(peixesSections, isEnglish)} copy={copy} fish />
-      <MenuPage sections={translateSections(mariscoSections, isEnglish)} copy={copy} shellfish />
+      <MenuIndexPage />
+
+      <MenuPage sections={translateSections(couvertSections, isEnglish)} copy={copy} showLegal={false} />
+      <MenuPage sections={translateSections(especialidadesSections, isEnglish)} copy={copy} dense showLegal={false} />
+      <MenuPage sections={translateSections(peixesSections, isEnglish)} copy={copy} fish showLegal={false} />
+      <MenuPage sections={translateSections(mariscoSections, isEnglish)} copy={copy} shellfish showLegal={false} />
       <MenuPage sections={translateSections(sopasSections, isEnglish)} copy={copy} sides finalNotes />
       <FishSummaryPage />
 
@@ -894,6 +945,105 @@ export default function CartaGastronomiaPage() {
         .sp-menu-page {
           background: var(--sp-paper);
           color: var(--sp-ink);
+        }
+
+        .sp-index-page {
+          background:
+            radial-gradient(circle at 50% 10%, rgba(197, 154, 97, 0.08), transparent 34%),
+            var(--sp-paper);
+          color: var(--sp-ink);
+        }
+
+        .sp-index-content {
+          position: relative;
+          z-index: 1;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          padding: 54px 112px 36px;
+        }
+
+        .sp-index-title-block {
+          margin-top: 20px;
+          text-align: center;
+        }
+
+        .sp-index-title-line {
+          width: 58px;
+          height: 1px;
+          margin: 0 auto 22px;
+          background: linear-gradient(to right, transparent, var(--sp-gold-bright), transparent);
+        }
+
+        .sp-index-title-block h2 {
+          margin: 0;
+          color: var(--sp-gold);
+          font-size: 56px;
+          font-weight: 400;
+          line-height: 0.95;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+        }
+
+        .sp-index-title-block p {
+          margin: 20px 0 0;
+          color: var(--sp-ink);
+          font-size: 13px;
+          font-weight: 500;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+        }
+
+        .sp-index-list {
+          width: 100%;
+          margin: 82px auto 0;
+          padding: 0 30px;
+        }
+
+        .sp-index-entry {
+          display: grid;
+          grid-template-columns: 82px 1fr;
+          gap: 18px;
+          align-items: center;
+          min-height: 86px;
+          border-bottom: 1px solid rgba(197, 154, 97, 0.58);
+        }
+
+        .sp-index-entry:first-child {
+          border-top: 1px solid rgba(197, 154, 97, 0.58);
+        }
+
+        .sp-index-number {
+          color: var(--sp-gold);
+          font-size: 27px;
+          font-weight: 400;
+          line-height: 1;
+          letter-spacing: 0.05em;
+          font-variant-numeric: lining-nums tabular-nums;
+          font-feature-settings: "lnum" 1, "tnum" 1;
+        }
+
+        .sp-index-entry-copy h3 {
+          margin: 0;
+          color: var(--sp-ink);
+          font-size: 25px;
+          font-weight: 500;
+          line-height: 1;
+          letter-spacing: 0.22em;
+          text-transform: uppercase;
+        }
+
+        .sp-index-entry-copy p {
+          margin: 9px 0 0;
+          color: #415b78;
+          font-size: 15px;
+          font-weight: 600;
+          line-height: 1.2;
+          letter-spacing: 0.02em;
+        }
+
+        .sp-index-page .sp-ornament {
+          margin-top: auto;
         }
 
         .sp-menu-content {
@@ -1391,6 +1541,10 @@ export default function CartaGastronomiaPage() {
           font-feature-settings: "lnum" 1, "pnum" 1;
         }
 
+        .sp-legal-placeholder {
+          opacity: 0;
+        }
+
         .sp-final-legal {
           max-width: 500px;
           margin: 0 auto;
@@ -1444,6 +1598,54 @@ export default function CartaGastronomiaPage() {
           .sp-sides-page .sp-menu-content {
             padding: 6.4vw 13.3vw 4.3vw;
           }
+
+          .sp-index-content {
+            padding: 6.4vw 13.3vw 4.3vw;
+          }
+
+          .sp-index-title-block {
+            margin-top: 2.4vw;
+          }
+
+          .sp-index-title-line {
+            width: 7vw;
+            margin-bottom: 2.7vw;
+          }
+
+          .sp-index-title-block h2 {
+            font-size: 6.65vw;
+          }
+
+          .sp-index-title-block p {
+            margin-top: 2.4vw;
+            font-size: 1.54vw;
+            letter-spacing: 0.14em;
+          }
+
+          .sp-index-list {
+            margin-top: 9.75vw;
+            padding: 0 3.55vw;
+          }
+
+          .sp-index-entry {
+            grid-template-columns: 9.72vw 1fr;
+            gap: 2.14vw;
+            min-height: 10.2vw;
+          }
+
+          .sp-index-number {
+            font-size: 3.2vw;
+          }
+
+          .sp-index-entry-copy h3 {
+            font-size: 2.96vw;
+          }
+
+          .sp-index-entry-copy p {
+            margin-top: 1.07vw;
+            font-size: 1.78vw;
+          }
+
 
           .sp-menu-logo,
           .sp-fish-page .sp-menu-logo,
