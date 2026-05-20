@@ -808,30 +808,6 @@ export default function CartaBebidasPage() {
           padding: 12mm 24mm 15mm;
         }
 
-        .index-page::before,
-        .index-page::after {
-          content: "";
-          position: absolute;
-          pointer-events: none;
-          border: 1px solid rgba(184, 138, 69, 0.72);
-          z-index: 0;
-        }
-
-        .index-page::before {
-          inset: 6mm;
-          border-width: 1.2px;
-        }
-
-        .index-page::after {
-          inset: 8.2mm;
-          border-color: rgba(184, 138, 69, 0.44);
-        }
-
-        .index-page > * {
-          position: relative;
-          z-index: 1;
-        }
-
         .index-page .drink-logo {
           width: 25mm;
           height: 25mm;
@@ -1319,15 +1295,6 @@ export default function CartaBebidasPage() {
 
           .index-page {
             padding: 5.37vw 10.75vw 6.71vw;
-          }
-
-          .index-page::before {
-            inset: 2.69vw;
-            border-width: 1px;
-          }
-
-          .index-page::after {
-            inset: 3.67vw;
           }
 
           .index-page .drink-logo {
