@@ -361,8 +361,7 @@ function CoverPage() {
 function IndexPage() {
   return (
     <Page className="index-page" id="indice">
-      <Header mainTitle="ÍNDICE" mainSubtitle="BEVERAGE LIST · CARTA DE BEBIDAS" />
-      <div className="top-gold-rule" />
+      <Header mainTitle="ÍNDICE" mainSubtitle="CARTA DE BEBIDAS" />
 
       <nav className="index-grid" aria-label="Índice da carta de bebidas">
         {indexEntries.map((entry, index) => (
@@ -583,8 +582,8 @@ export default function CartaBebidasPage() {
 
       <DrinkListPage
         pageId="gins"
-        mainTitle="GINS"
-        mainSubtitle="GIN · GINEBRAS · GINS"
+        mainTitle="BAR"
+        mainSubtitle="Gins"
         sections={[
           { title: "GINS", subtitle: "Gins · Ginebras · Gins", volume: "5cl", rows: ginRows, compact: true },
         ]}
@@ -601,7 +600,7 @@ export default function CartaBebidasPage() {
 
       <DrinkListPage
         pageId="whisky-internacional"
-        mainTitle="WHISKEY"
+        mainTitle="WHISKY"
         mainSubtitle="IRISH · USA · JAPAN"
         sections={[
           { title: "IRLANDA", subtitle: "Ireland · Irlanda · Irlande", volume: "5cl", rows: irishWhiskeyRows, compact: true, dense: true },
@@ -806,78 +805,118 @@ export default function CartaBebidasPage() {
         }
 
         .index-page {
-          padding-left: 14mm;
-          padding-right: 14mm;
+          padding: 12mm 24mm 15mm;
+        }
+
+        .index-page::before,
+        .index-page::after {
+          content: "";
+          position: absolute;
+          pointer-events: none;
+          border: 1px solid rgba(184, 138, 69, 0.72);
+          z-index: 0;
+        }
+
+        .index-page::before {
+          inset: 6mm;
+          border-width: 1.2px;
+        }
+
+        .index-page::after {
+          inset: 8.2mm;
+          border-color: rgba(184, 138, 69, 0.44);
+        }
+
+        .index-page > * {
+          position: relative;
+          z-index: 1;
+        }
+
+        .index-page .drink-logo {
+          width: 25mm;
+          height: 25mm;
+          margin-bottom: 5.2mm;
+        }
+
+        .index-page .brand-title {
+          font-size: 22px;
+          letter-spacing: 7.2px;
+        }
+
+        .index-page .gold-small-line {
+          width: 17mm;
+          margin: 6.2mm auto 7.4mm;
+        }
+
+        .index-page .main-title {
+          font-size: 46px;
+          letter-spacing: 12px;
+        }
+
+        .index-page .main-subtitle {
+          margin-top: 4.2mm;
+          font-size: 12px;
+          letter-spacing: 1.35px;
         }
 
         .index-grid {
-          display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 4.4mm 6mm;
-          width: 100%;
-          margin-top: 10mm;
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+          width: 82%;
+          margin: 10.6mm auto 0;
         }
 
         .index-card {
-          min-height: 25mm;
-          border: 1px solid rgba(184, 138, 69, 0.58);
-          background: rgba(255, 255, 255, 0.34);
+          min-height: 17.2mm;
+          border: 0;
+          border-bottom: 1px solid rgba(184, 138, 69, 0.52);
+          background: transparent;
           color: var(--drink-navy);
           text-decoration: none;
           display: grid;
-          grid-template-columns: 12mm 1fr;
+          grid-template-columns: 17mm 1fr;
           grid-template-rows: auto auto;
-          column-gap: 4mm;
+          column-gap: 5mm;
           align-items: center;
-          padding: 4mm 4.5mm;
+          padding: 3.1mm 0 3.7mm;
           transition:
             border-color 180ms ease,
-            transform 180ms ease,
-            background 180ms ease;
+            transform 180ms ease;
         }
 
         .index-card:hover {
           border-color: var(--drink-gold);
-          background: rgba(255, 255, 255, 0.54);
-          transform: translateY(-1px);
+          transform: translateX(1.5mm);
         }
 
         .index-number {
           grid-row: 1 / span 2;
+          align-self: center;
           color: var(--drink-gold);
-          font-size: 13px;
+          font-size: 19px;
           line-height: 1;
           letter-spacing: 0.08em;
-          font-weight: 700;
+          font-weight: 500;
           font-variant-numeric: lining-nums tabular-nums;
           font-feature-settings: "lnum" 1, "tnum" 1;
         }
 
         .index-label {
           color: var(--drink-navy);
-          font-size: 16px;
+          font-size: 21px;
           line-height: 1;
-          letter-spacing: 2.6px;
+          letter-spacing: 3.4px;
           font-weight: 600;
           text-transform: uppercase;
         }
 
         .index-detail {
-          margin-top: 1.5mm;
-          color: var(--drink-muted);
-          font-size: 12px;
-          line-height: 1.18;
+          margin-top: 1.1mm;
+          color: #344b67;
+          font-size: 12.4px;
+          line-height: 1.14;
           font-weight: 600;
-        }
-
-        .index-note {
-          margin: 18mm auto 0;
-          color: var(--drink-muted);
-          text-align: center;
-          font-size: 17px;
-          line-height: 1.4;
-          font-style: italic;
-          font-weight: 500;
         }
 
         .sections-stack {
@@ -1279,39 +1318,73 @@ export default function CartaBebidasPage() {
           }
 
           .index-page {
-            padding-left: 5.8vw;
-            padding-right: 5.8vw;
+            padding: 5.37vw 10.75vw 6.71vw;
+          }
+
+          .index-page::before {
+            inset: 2.69vw;
+            border-width: 1px;
+          }
+
+          .index-page::after {
+            inset: 3.67vw;
+          }
+
+          .index-page .drink-logo {
+            width: 11.2vw;
+            height: 11.2vw;
+            margin-bottom: 2.33vw;
+          }
+
+          .index-page .brand-title {
+            font-size: 2.6vw;
+            letter-spacing: 0.86vw;
+          }
+
+          .index-page .gold-small-line {
+            width: 7.61vw;
+            margin: 2.78vw auto 3.31vw;
+          }
+
+          .index-page .main-title {
+            font-size: 5.15vw;
+            letter-spacing: 1.34vw;
+          }
+
+          .index-page .main-subtitle {
+            margin-top: 1.88vw;
+            font-size: 1.43vw;
+            letter-spacing: 0.16vw;
           }
 
           .index-grid {
-            gap: 1.95vw 2.68vw;
-            margin-top: 4.48vw;
+            width: 84%;
+            margin-top: 4.74vw;
           }
 
           .index-card {
-            min-height: 11.2vw;
-            grid-template-columns: 5.37vw 1fr;
-            column-gap: 1.79vw;
-            padding: 1.79vw 2.01vw;
+            min-height: 7.7vw;
+            grid-template-columns: 7.61vw 1fr;
+            column-gap: 2.24vw;
+            padding: 1.39vw 0 1.66vw;
+          }
+
+          .index-card:hover {
+            transform: none;
           }
 
           .index-number {
-            font-size: 1.55vw;
+            font-size: 2.15vw;
           }
 
           .index-label {
-            font-size: 1.9vw;
-            letter-spacing: 0.31vw;
+            font-size: 2.45vw;
+            letter-spacing: 0.4vw;
           }
 
           .index-detail {
-            margin-top: 0.67vw;
-            font-size: 1.42vw;
-          }
-
-          .index-note {
-            margin-top: 8.06vw;
-            font-size: 1.9vw;
+            margin-top: 0.49vw;
+            font-size: 1.48vw;
           }
 
           .drink-section {
