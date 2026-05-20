@@ -373,12 +373,12 @@ export default function GastronomiaPage() {
         <div className="mx-auto max-w-6xl px-0 sm:px-4">
           <div
             className={`transition-all duration-500 ${
-              isHeaderScrolled ? "py-4 sm:py-7 md:py-8" : "py-4"
+              isHeaderScrolled ? "py-7 sm:py-7 md:py-8" : "py-4"
             }`}
           >
             {isHeaderScrolled && (
-              <div className="mb-4 text-center sm:mb-6 md:mb-7">
-                <span className="font-serif text-xs uppercase leading-none tracking-[0.28em] text-white/80 sm:text-2xl sm:tracking-[0.35em] md:text-[30px] lg:text-[32px]">
+              <div className="mb-5 text-center sm:mb-6 md:mb-7">
+                <span className="font-serif text-base uppercase leading-none tracking-[0.32em] text-white/80 sm:text-2xl sm:tracking-[0.35em] md:text-[30px] lg:text-[32px]">
                   Senhor Peixe
                 </span>
               </div>
@@ -386,16 +386,16 @@ export default function GastronomiaPage() {
 
             <div
               className={`w-full overflow-x-auto overflow-y-hidden pr-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
-                isHeaderScrolled ? "pl-[170px] sm:px-4" : "pl-4 sm:px-4"
+                isHeaderScrolled ? "pl-[112px] sm:px-4" : "pl-4 sm:px-4"
               }`}
             >
-              <ul className="flex min-w-max items-center justify-start gap-2 sm:justify-center sm:gap-3">
+              <ul className="flex min-w-max items-center justify-start gap-1.5 sm:justify-center sm:gap-3">
                 {menuCategories.map((category) => (
                   <li key={category.id} className="shrink-0">
                     <button
                       type="button"
                       onClick={() => scrollToSection(category.id)}
-                      className={`whitespace-nowrap rounded-md border px-3 py-2 font-serif text-[11px] tracking-[0.02em] transition-all duration-300 sm:px-4 sm:text-sm sm:tracking-wide ${
+                      className={`whitespace-nowrap rounded-md border px-2.5 py-2 font-serif text-[10px] tracking-[0.01em] transition-all duration-300 sm:px-4 sm:text-sm sm:tracking-wide ${
                         activeSection === category.id
                           ? isHeaderScrolled
                             ? "border-[#e2bd93]/80 bg-white/5 text-white shadow-[0_0_14px_rgba(226,189,147,0.18)]"
