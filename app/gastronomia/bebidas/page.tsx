@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react"
 import Link from "next/link"
+import { useLanguage } from "@/components/language-provider"
 import { Cinzel, Cormorant_Garamond } from "next/font/google"
 
 const cinzel = Cinzel({
@@ -301,6 +302,270 @@ const COVER_IMAGE = "/CAPA BEBIDAS.png"
 const DRINKS_TITLE = "BEBIDAS"
 const DRINKS_SUBTITLE = "DRINKS · BEBIDAS · BOISSONS · GETRÄNKE"
 
+
+type SupportedLanguage = "pt" | "en" | "es" | "fr" | "de" | "it" | "ru" | "zh" | "ar" | "hi"
+
+type TranslationSet = Partial<Record<SupportedLanguage, string>>
+
+const supportedLanguages: SupportedLanguage[] = ["pt", "en", "es", "fr", "de", "it", "ru", "zh", "ar", "hi"]
+
+function normalizeLanguage(language: string | undefined): SupportedLanguage {
+  if (language && supportedLanguages.includes(language as SupportedLanguage)) {
+    return language as SupportedLanguage
+  }
+
+  return "pt"
+}
+
+const phraseTranslations: Record<string, TranslationSet> = {
+  "Voltar": {
+    en: "Back",
+    es: "Volver",
+    fr: "Retour",
+    de: "Zurück",
+    it: "Indietro",
+    ru: "Назад",
+    zh: "返回",
+    ar: "رجوع",
+    hi: "वापस",
+  },
+  "Carta de Bebidas Senhor Peixe": {
+    en: "Senhor Peixe drinks menu",
+    es: "Carta de bebidas Senhor Peixe",
+    fr: "Carte des boissons Senhor Peixe",
+    de: "Getränkekarte Senhor Peixe",
+    it: "Carta delle bevande Senhor Peixe",
+    ru: "Карта напитков Senhor Peixe",
+    zh: "Senhor Peixe 饮品菜单",
+    ar: "قائمة المشروبات Senhor Peixe",
+    hi: "Senhor Peixe पेय मेनू",
+  },
+  "ÍNDICE": {
+    en: "INDEX",
+    es: "ÍNDICE",
+    fr: "INDEX",
+    de: "INHALT",
+    it: "INDICE",
+    ru: "УКАЗАТЕЛЬ",
+    zh: "目录",
+    ar: "الفهرس",
+    hi: "अनुक्रमणिका",
+  },
+  "CARTA DE BEBIDAS": {
+    en: "DRINKS MENU",
+    es: "CARTA DE BEBIDAS",
+    fr: "CARTE DES BOISSONS",
+    de: "GETRÄNKEKARTE",
+    it: "CARTA DELLE BEVANDE",
+    ru: "КАРТА НАПИТКОВ",
+    zh: "饮品菜单",
+    ar: "قائمة المشروبات",
+    hi: "पेय मेनू",
+  },
+  "Índice da carta de bebidas": {
+    en: "Drinks menu index",
+    es: "Índice de la carta de bebidas",
+    fr: "Index de la carte des boissons",
+    de: "Inhaltsverzeichnis der Getränkekarte",
+    it: "Indice della carta delle bevande",
+    ru: "Указатель карты напитков",
+    zh: "饮品菜单目录",
+    ar: "فهرس قائمة المشروبات",
+    hi: "पेय मेनू अनुक्रमणिका",
+  },
+  "BEBIDAS": {
+    en: "DRINKS",
+    es: "BEBIDAS",
+    fr: "BOISSONS",
+    de: "GETRÄNKE",
+    it: "BEVANDE",
+    ru: "НАПИТКИ",
+    zh: "饮品",
+    ar: "المشروبات",
+    hi: "पेय",
+  },
+  "DRINKS · BEBIDAS · BOISSONS · GETRÄNKE": {
+    en: "DRINKS",
+    es: "BEBIDAS",
+    fr: "BOISSONS",
+    de: "GETRÄNKE",
+    it: "BEVANDE",
+    ru: "НАПИТКИ",
+    zh: "饮品",
+    ar: "المشروبات",
+    hi: "पेय",
+  },
+  "Cocktails": { en: "Cocktails", es: "Cócteles", fr: "Cocktails", de: "Cocktails", it: "Cocktail", ru: "Коктейли", zh: "鸡尾酒", ar: "كوكتيلات", hi: "कॉकटेल" },
+  "Autor · Clássicos": { en: "Signature · Classics", es: "De autor · Clásicos", fr: "Signature · Classiques", de: "Signature · Klassiker", it: "D'autore · Classici", ru: "Авторские · Классические", zh: "创意 · 经典", ar: "خاصة · كلاسيكية", hi: "सिग्नेचर · क्लासिक" },
+  "Mocktails": { en: "Mocktails", es: "Mocktails", fr: "Mocktails", de: "Mocktails", it: "Mocktail", ru: "Безалкогольные коктейли", zh: "无酒精鸡尾酒", ar: "موكتيلات", hi: "मॉकटेल" },
+  "Sumos naturais · Sangrias": { en: "Fresh juices · Sangrias", es: "Zumos naturales · Sangrías", fr: "Jus naturels · Sangrias", de: "Frische Säfte · Sangrias", it: "Succhi naturali · Sangrie", ru: "Свежевыжатые соки · Сангрии", zh: "鲜榨果汁 · 桑格利亚", ar: "عصائر طبيعية · سانغريا", hi: "ताज़े जूस · सांग्रिया" },
+  "Águas": { en: "Waters", es: "Aguas", fr: "Eaux", de: "Wasser", it: "Acque", ru: "Вода", zh: "水", ar: "مياه", hi: "पानी" },
+  "Refrigerantes": { en: "Soft drinks", es: "Refrescos", fr: "Boissons fraîches", de: "Erfrischungsgetränke", it: "Bibite", ru: "Безалкогольные напитки", zh: "软饮", ar: "مشروبات غازية", hi: "शीतल पेय" },
+  "Cervejas": { en: "Beers", es: "Cervezas", fr: "Bières", de: "Biere", it: "Birre", ru: "Пиво", zh: "啤酒", ar: "بيرة", hi: "बीयर" },
+  "Pressão · Garrafas": { en: "Draft · Bottled", es: "Barril · Botella", fr: "Pression · Bouteille", de: "Vom Fass · Flasche", it: "Alla spina · Bottiglia", ru: "Разливное · Бутылочное", zh: "生啤 · 瓶装", ar: "من الصنبور · زجاجات", hi: "ड्राफ्ट · बोतल" },
+  "Fortificados": { en: "Fortified", es: "Fortificados", fr: "Fortifiés", de: "Likörweine", it: "Fortificati", ru: "Креплёные", zh: "加强酒", ar: "نبيذ مقوى", hi: "फोर्टिफाइड" },
+
+  "MOSCATEL · CARCAVELOS · MADEIRA": { en: "MOSCATEL · CARCAVELOS · MADEIRA", es: "MOSCATEL · CARCAVELOS · MADEIRA", fr: "MOSCATEL · CARCAVELOS · MADÈRE", de: "MOSCATEL · CARCAVELOS · MADEIRA", it: "MOSCATEL · CARCAVELOS · MADEIRA", ru: "МОСКАТЕЛЬ · КАРКАВЕЛУШ · МАДЕЙРА", zh: "麝香葡萄酒 · 卡尔卡维洛斯 · 马德拉", ar: "موسكاتيل · كاركافيلوس · ماديرا", hi: "मॉस्कटेल · कार्कावेलोस · मदीरा" },
+  "MOSCATEL": { en: "MOSCATEL", es: "MOSCATEL", fr: "MOSCATEL", de: "MOSCATEL", it: "MOSCATEL", ru: "МОСКАТЕЛЬ", zh: "麝香葡萄酒", ar: "موسكاتيل", hi: "मॉस्कटेल" },
+  "Moscatel · Muscat · Moscatel": { en: "Moscatel · Muscat", es: "Moscatel", fr: "Moscatel · Muscat", de: "Moscatel · Muskat", it: "Moscatel · Moscato", ru: "Москатель · Мускат", zh: "麝香葡萄酒", ar: "موسكاتيل", hi: "मॉस्कटेल · मस्कट" },
+  "Moscatel · Madeira · Late Harvest": { en: "Moscatel · Madeira · Late Harvest", es: "Moscatel · Madeira · Vendimia tardía", fr: "Moscatel · Madère · Vendange tardive", de: "Moscatel · Madeira · Spätlese", it: "Moscatel · Madeira · Vendemmia tardiva", ru: "Москатель · Мадейра · Поздний сбор", zh: "麝香葡萄酒 · 马德拉 · 晚收", ar: "موسكاتيل · ماديرا · حصاد متأخر", hi: "मॉस्कटेल · मदीरा · लेट हार्वेस्ट" },
+  "Porto": { en: "Port", es: "Oporto", fr: "Porto", de: "Portwein", it: "Porto", ru: "Портвейн", zh: "波特酒", ar: "بورتو", hi: "पोर्ट" },
+  "Ruby · Tawny · Branco · Rosé": { en: "Ruby · Tawny · White · Rosé", es: "Ruby · Tawny · Blanco · Rosé", fr: "Ruby · Tawny · Blanc · Rosé", de: "Ruby · Tawny · Weiß · Rosé", it: "Ruby · Tawny · Bianco · Rosé", ru: "Руби · Тони · Белый · Розе", zh: "宝石红 · 茶色 · 白 · 桃红", ar: "روبي · تاوني · أبيض · روزيه", hi: "रूबी · टॉनी · व्हाइट · रोज़े" },
+  "Bar": { en: "Bar", es: "Bar", fr: "Bar", de: "Bar", it: "Bar", ru: "Бар", zh: "酒吧", ar: "البار", hi: "बार" },
+  "Vermutes · Licores · Pastis · Gins": { en: "Vermouths · Liqueurs · Pastis · Gins", es: "Vermuts · Licores · Pastis · Ginebras", fr: "Vermouths · Liqueurs · Pastis · Gins", de: "Wermuts · Liköre · Pastis · Gins", it: "Vermouth · Liquori · Pastis · Gin", ru: "Вермуты · Ликёры · Пастис · Джины", zh: "味美思 · 利口酒 · 茴香酒 · 金酒", ar: "فيرموث · ليكيور · باستيس · جِن", hi: "वर्माउथ · लिक्योर · पास्तिस · जिन" },
+  "Whisky": { en: "Whisky", es: "Whisky", fr: "Whisky", de: "Whisky", it: "Whisky", ru: "Виски", zh: "威士忌", ar: "ويسكي", hi: "व्हिस्की" },
+  "Escócia · Irlanda · EUA · Japão": { en: "Scotland · Ireland · USA · Japan", es: "Escocia · Irlanda · EE. UU. · Japón", fr: "Écosse · Irlande · États-Unis · Japon", de: "Schottland · Irland · USA · Japan", it: "Scozia · Irlanda · USA · Giappone", ru: "Шотландия · Ирландия · США · Япония", zh: "苏格兰 · 爱尔兰 · 美国 · 日本", ar: "اسكتلندا · أيرلندا · الولايات المتحدة · اليابان", hi: "स्कॉटलैंड · आयरलैंड · अमेरिका · जापान" },
+  "Destilados": { en: "Spirits", es: "Destilados", fr: "Spiritueux", de: "Spirituosen", it: "Distillati", ru: "Крепкие напитки", zh: "烈酒", ar: "مشروبات مقطرة", hi: "स्पिरिट्स" },
+  "Aguardentes · Medronho · Cognac · Rum · Vodka · Tequila": { en: "Brandies · Medronho · Cognac · Rum · Vodka · Tequila", es: "Aguardientes · Medronho · Cognac · Ron · Vodka · Tequila", fr: "Eaux-de-vie · Medronho · Cognac · Rhum · Vodka · Tequila", de: "Brände · Medronho · Cognac · Rum · Vodka · Tequila", it: "Acquaviti · Medronho · Cognac · Rum · Vodka · Tequila", ru: "Бренди · Медронью · Коньяк · Ром · Водка · Текила", zh: "白兰地 · Medronho · 干邑 · 朗姆 · 伏特加 · 龙舌兰", ar: "براندي · ميدرونيو · كونياك · روم · فودكا · تيكيلا", hi: "ब्रांडी · मेड्रोन्यो · कॉन्यैक · रम · वोडका · टकीला" },
+  "Cafetaria": { en: "Coffee", es: "Cafetería", fr: "Caféterie", de: "Kaffee", it: "Caffetteria", ru: "Кофе", zh: "咖啡", ar: "القهوة", hi: "कैफेटेरिया" },
+  "Café · Chás · Infusões": { en: "Coffee · Teas · Infusions", es: "Café · Tés · Infusiones", fr: "Café · Thés · Infusions", de: "Kaffee · Tees · Aufgüsse", it: "Caffè · Tè · Infusi", ru: "Кофе · Чаи · Настои", zh: "咖啡 · 茶 · 花草茶", ar: "قهوة · شاي · منقوعات", hi: "कॉफी · चाय · इन्फ्यूज़न" },
+  "COCKTAILS": { en: "COCKTAILS", es: "CÓCTELES", fr: "COCKTAILS", de: "COCKTAILS", it: "COCKTAIL", ru: "КОКТЕЙЛИ", zh: "鸡尾酒", ar: "كوكتيلات", hi: "कॉकटेल" },
+  "SIGNATURE · CLASSIC · MOCKTAILS": { en: "SIGNATURE · CLASSIC · MOCKTAILS", es: "DE AUTOR · CLÁSICOS · MOCKTAILS", fr: "SIGNATURE · CLASSIQUES · MOCKTAILS", de: "SIGNATURE · KLASSIKER · MOCKTAILS", it: "D'AUTORE · CLASSICI · MOCKTAIL", ru: "АВТОРСКИЕ · КЛАССИЧЕСКИЕ · БЕЗАЛКОГОЛЬНЫЕ", zh: "创意 · 经典 · 无酒精", ar: "خاصة · كلاسيكية · موكتيلات", hi: "सिग्नेचर · क्लासिक · मॉकटेल" },
+  "COCKTAILS DE AUTOR": { en: "SIGNATURE COCKTAILS", es: "CÓCTELES DE AUTOR", fr: "COCKTAILS SIGNATURE", de: "SIGNATURE-COCKTAILS", it: "COCKTAIL D'AUTORE", ru: "АВТОРСКИЕ КОКТЕЙЛИ", zh: "创意鸡尾酒", ar: "كوكتيلات خاصة", hi: "सिग्नेचर कॉकटेल" },
+  "Signature Cocktails · Cócteles de autor · Cocktails signature": { en: "Signature Cocktails", es: "Cócteles de autor", fr: "Cocktails signature", de: "Signature-Cocktails", it: "Cocktail d'autore", ru: "Авторские коктейли", zh: "创意鸡尾酒", ar: "كوكتيلات خاصة", hi: "सिग्नेचर कॉकटेल" },
+  "COCKTAILS CLÁSSICOS": { en: "CLASSIC COCKTAILS", es: "CÓCTELES CLÁSICOS", fr: "COCKTAILS CLASSIQUES", de: "KLASSISCHE COCKTAILS", it: "COCKTAIL CLASSICI", ru: "КЛАССИЧЕСКИЕ КОКТЕЙЛИ", zh: "经典鸡尾酒", ar: "كوكتيلات كلاسيكية", hi: "क्लासिक कॉकटेल" },
+  "Classic Cocktails · Cócteles clásicos · Cocktails classiques": { en: "Classic Cocktails", es: "Cócteles clásicos", fr: "Cocktails classiques", de: "Klassische Cocktails", it: "Cocktail classici", ru: "Классические коктейли", zh: "经典鸡尾酒", ar: "كوكتيلات كلاسيكية", hi: "क्लासिक कॉकटेल" },
+  "MOCKTAILS": { en: "MOCKTAILS", es: "MOCKTAILS", fr: "MOCKTAILS", de: "MOCKTAILS", it: "MOCKTAIL", ru: "БЕЗАЛКОГОЛЬНЫЕ КОКТЕЙЛИ", zh: "无酒精鸡尾酒", ar: "موكتيلات", hi: "मॉकटेल" },
+  "Alcohol-free · Sin alcohol · Sans alcool": { en: "Alcohol-free", es: "Sin alcohol", fr: "Sans alcool", de: "Alkoholfrei", it: "Analcolico", ru: "Без алкоголя", zh: "无酒精", ar: "بدون كحول", hi: "बिना अल्कोहल" },
+  "SUMOS NATURAIS": { en: "FRESH JUICES", es: "ZUMOS NATURALES", fr: "JUS NATURELS", de: "FRISCHE SÄFTE", it: "SUCCHI NATURALI", ru: "СВЕЖЕВЫЖАТЫЕ СОКИ", zh: "鲜榨果汁", ar: "عصائر طبيعية", hi: "ताज़े जूस" },
+  "Fresh juices · Zumos naturales · Jus naturels": { en: "Fresh juices", es: "Zumos naturales", fr: "Jus naturels", de: "Frische Säfte", it: "Succhi naturali", ru: "Свежевыжатые соки", zh: "鲜榨果汁", ar: "عصائر طبيعية", hi: "ताज़े जूस" },
+  "SANGRIAS": { en: "SANGRIAS", es: "SANGRÍAS", fr: "SANGRIAS", de: "SANGRIAS", it: "SANGRIE", ru: "САНГРИИ", zh: "桑格利亚", ar: "سانغريا", hi: "सांग्रिया" },
+  "Sangrias · Sangrías · Sangrias": { en: "Sangrias", es: "Sangrías", fr: "Sangrias", de: "Sangrias", it: "Sangrie", ru: "Сангрии", zh: "桑格利亚", ar: "سانغريا", hi: "सांग्रिया" },
+  "ÁGUAS": { en: "WATERS", es: "AGUAS", fr: "EAUX", de: "WASSER", it: "ACQUE", ru: "ВОДА", zh: "水", ar: "مياه", hi: "पानी" },
+  "Waters · Aguas · Eaux · Wasser": { en: "Waters", es: "Aguas", fr: "Eaux", de: "Wasser", it: "Acque", ru: "Вода", zh: "水", ar: "مياه", hi: "पानी" },
+  "REFRIGERANTES": { en: "SOFT DRINKS", es: "REFRESCOS", fr: "BOISSONS FRAÎCHES", de: "ERFRISCHUNGSGETRÄNKE", it: "BIBITE", ru: "БЕЗАЛКОГОЛЬНЫЕ НАПИТКИ", zh: "软饮", ar: "مشروبات غازية", hi: "शीतल पेय" },
+  "Soft drinks · Refrescos · Boissons fraîches": { en: "Soft drinks", es: "Refrescos", fr: "Boissons fraîches", de: "Erfrischungsgetränke", it: "Bibite", ru: "Безалкогольные напитки", zh: "软饮", ar: "مشروبات غازية", hi: "शीतल पेय" },
+  "CERVEJAS": { en: "BEERS", es: "CERVEZAS", fr: "BIÈRES", de: "BIERE", it: "BIRRE", ru: "ПИВО", zh: "啤酒", ar: "بيرة", hi: "बीयर" },
+  "DRAFT · BOTTLED": { en: "DRAFT · BOTTLED", es: "BARRIL · BOTELLA", fr: "PRESSION · BOUTEILLE", de: "VOM FASS · FLASCHE", it: "ALLA SPINA · BOTTIGLIA", ru: "РАЗЛИВНОЕ · БУТЫЛОЧНОЕ", zh: "生啤 · 瓶装", ar: "من الصنبور · زجاجات", hi: "ड्राफ्ट · बोतल" },
+  "À PRESSÃO": { en: "DRAFT", es: "DE BARRIL", fr: "PRESSION", de: "VOM FASS", it: "ALLA SPINA", ru: "РАЗЛИВНОЕ", zh: "生啤", ar: "من الصنبور", hi: "ड्राफ्ट" },
+  "Draft beer · Cerveza de barril · Bière pression": { en: "Draft beer", es: "Cerveza de barril", fr: "Bière pression", de: "Bier vom Fass", it: "Birra alla spina", ru: "Разливное пиво", zh: "生啤", ar: "بيرة من الصنبور", hi: "ड्राफ्ट बीयर" },
+  "GARRAFAS": { en: "BOTTLES", es: "BOTELLAS", fr: "BOUTEILLES", de: "FLASCHEN", it: "BOTTIGLIE", ru: "БУТЫЛКИ", zh: "瓶装", ar: "زجاجات", hi: "बोतलें" },
+  "Bottled beer · Cerveza botella · Bière bouteille": { en: "Bottled beer", es: "Cerveza de botella", fr: "Bière en bouteille", de: "Flaschenbier", it: "Birra in bottiglia", ru: "Бутылочное пиво", zh: "瓶装啤酒", ar: "بيرة زجاجة", hi: "बोतलबंद बीयर" },
+  "FORTIFICADOS": { en: "FORTIFIED", es: "FORTIFICADOS", fr: "FORTIFIÉS", de: "LIKÖRWEINE", it: "FORTIFICATI", ru: "КРЕПЛЁНЫЕ", zh: "加强酒", ar: "نبيذ مقوى", hi: "फोर्टिफाइड" },
+  "CARCAVELOS": { en: "CARCAVELOS", es: "CARCAVELOS", fr: "CARCAVELOS", de: "CARCAVELOS", it: "CARCAVELOS", ru: "КАРКАВЕЛУШ", zh: "卡尔卡维洛斯", ar: "كاركافيلوس", hi: "कार्कावेलोस" },
+  "Carcavelos · Fortified wine": { en: "Carcavelos · Fortified wine", es: "Carcavelos · Vino fortificado", fr: "Carcavelos · Vin fortifié", de: "Carcavelos · Likörwein", it: "Carcavelos · Vino fortificato", ru: "Каркавелуш · Креплёное вино", zh: "卡尔卡维洛斯 · 加强酒", ar: "كاركافيلوس · نبيذ مقوى", hi: "कार्कावेलोस · फोर्टिफाइड वाइन" },
+  "MADEIRA": { en: "MADEIRA", es: "MADEIRA", fr: "MADÈRE", de: "MADEIRA", it: "MADEIRA", ru: "МАДЕЙРА", zh: "马德拉", ar: "ماديرا", hi: "मदीरा" },
+  "Madeira wine · Vino de Madeira · Vin de Madère": { en: "Madeira wine", es: "Vino de Madeira", fr: "Vin de Madère", de: "Madeirawein", it: "Vino Madeira", ru: "Вино Мадейра", zh: "马德拉酒", ar: "نبيذ ماديرا", hi: "मदीरा वाइन" },
+  "Late harvest · Vendimia tardía · Vendange tardive": { en: "Late harvest", es: "Vendimia tardía", fr: "Vendange tardive", de: "Spätlese", it: "Vendemmia tardiva", ru: "Поздний сбор", zh: "晚收", ar: "حصاد متأخر", hi: "लेट हार्वेस्ट" },
+  "RUBY · TAWNY · WHITE · ROSÉ": { en: "RUBY · TAWNY · WHITE · ROSÉ", es: "RUBY · TAWNY · BLANCO · ROSÉ", fr: "RUBY · TAWNY · BLANC · ROSÉ", de: "RUBY · TAWNY · WEISS · ROSÉ", it: "RUBY · TAWNY · BIANCO · ROSÉ", ru: "РУБИ · ТОНИ · БЕЛЫЙ · РОЗЕ", zh: "宝石红 · 茶色 · 白 · 桃红", ar: "روبي · تاوني · أبيض · روزيه", hi: "रूबी · टॉनी · व्हाइट · रोज़े" },
+  "PORTO RUBY": { en: "RUBY PORT", es: "PORTO RUBY", fr: "PORTO RUBY", de: "RUBY PORTWEIN", it: "PORTO RUBY", ru: "ПОРТВЕЙН РУБИ", zh: "宝石红波特", ar: "بورتو روبي", hi: "रूबी पोर्ट" },
+  "Ruby Port · Porto Ruby · Porto Ruby": { en: "Ruby Port", es: "Porto Ruby", fr: "Porto Ruby", de: "Ruby Portwein", it: "Porto Ruby", ru: "Портвейн Руби", zh: "宝石红波特", ar: "بورتو روبي", hi: "रूबी पोर्ट" },
+  "PORTO TAWNY": { en: "TAWNY PORT", es: "PORTO TAWNY", fr: "PORTO TAWNY", de: "TAWNY PORTWEIN", it: "PORTO TAWNY", ru: "ПОРТВЕЙН ТОНИ", zh: "茶色波特", ar: "بورتو تاوني", hi: "टॉनी पोर्ट" },
+  "Tawny Port · Porto Tawny · Porto Tawny": { en: "Tawny Port", es: "Porto Tawny", fr: "Porto Tawny", de: "Tawny Portwein", it: "Porto Tawny", ru: "Портвейн Тони", zh: "茶色波特", ar: "بورتو تاوني", hi: "टॉनी पोर्ट" },
+  "PORTOS BRANCOS": { en: "WHITE PORTS", es: "PORTOS BLANCOS", fr: "PORTOS BLANCS", de: "WEISSE PORTWEINE", it: "PORTI BIANCHI", ru: "БЕЛЫЕ ПОРТВЕЙНЫ", zh: "白波特", ar: "بورتو أبيض", hi: "व्हाइट पोर्ट" },
+  "White Port · Porto blanco · Porto blanc": { en: "White Port", es: "Porto blanco", fr: "Porto blanc", de: "Weißer Portwein", it: "Porto bianco", ru: "Белый портвейн", zh: "白波特", ar: "بورتو أبيض", hi: "व्हाइट पोर्ट" },
+  "PORTO ROSÉ": { en: "ROSÉ PORT", es: "PORTO ROSÉ", fr: "PORTO ROSÉ", de: "ROSÉ PORTWEIN", it: "PORTO ROSÉ", ru: "ПОРТВЕЙН РОЗЕ", zh: "桃红波特", ar: "بورتو روزيه", hi: "रोज़े पोर्ट" },
+  "Rosé Port · Porto rosado · Porto rosé": { en: "Rosé Port", es: "Porto rosado", fr: "Porto rosé", de: "Rosé Portwein", it: "Porto rosé", ru: "Портвейн розе", zh: "桃红波特", ar: "بورتو روزيه", hi: "रोज़े पोर्ट" },
+  "VERMUTES · LICORES": { en: "VERMOUTHS · LIQUEURS", es: "VERMUTS · LICORES", fr: "VERMOUTHS · LIQUEURS", de: "WERMUTS · LIKÖRE", it: "VERMOUTH · LIQUORI", ru: "ВЕРМУТЫ · ЛИКЁРЫ", zh: "味美思 · 利口酒", ar: "فيرموث · ليكيور", hi: "वर्माउथ · लिक्योर" },
+  "VERMUTES & BITTERS": { en: "VERMOUTHS & BITTERS", es: "VERMUTS & BITTERS", fr: "VERMOUTHS & BITTERS", de: "WERMUTS & BITTERS", it: "VERMOUTH & BITTER", ru: "ВЕРМУТЫ И БИТТЕРЫ", zh: "味美思与苦酒", ar: "فيرموث وبيترز", hi: "वर्माउथ और बिटर्स" },
+  "Vermouths & bitters · Vermuts y bitters": { en: "Vermouths & bitters", es: "Vermuts y bitters", fr: "Vermouths et bitters", de: "Wermuts und Bitters", it: "Vermouth e bitter", ru: "Вермуты и биттеры", zh: "味美思与苦酒", ar: "فيرموث وبيترز", hi: "वर्माउथ और बिटर्स" },
+  "LICORES / CREAMS & PASTIS": { en: "LIQUEURS / CREAMS & PASTIS", es: "LICORES / CREMAS & PASTIS", fr: "LIQUEURS / CRÈMES & PASTIS", de: "LIKÖRE / CREMES & PASTIS", it: "LIQUORI / CREME & PASTIS", ru: "ЛИКЁРЫ / КРЕМЫ И ПАСТИС", zh: "利口酒 / 奶油酒与茴香酒", ar: "ليكيور / كريم وباستيس", hi: "लिक्योर / क्रीम और पास्तिस" },
+  "Liqueurs · Cremes · Pastis": { en: "Liqueurs · Creams · Pastis", es: "Licores · Cremas · Pastis", fr: "Liqueurs · Crèmes · Pastis", de: "Liköre · Cremes · Pastis", it: "Liquori · Creme · Pastis", ru: "Ликёры · Кремы · Пастис", zh: "利口酒 · 奶油酒 · 茴香酒", ar: "ليكيور · كريم · باستيس", hi: "लिक्योर · क्रीम · पास्तिस" },
+  "Gins": { en: "Gins", es: "Ginebras", fr: "Gins", de: "Gins", it: "Gin", ru: "Джины", zh: "金酒", ar: "جِن", hi: "जिन" },
+  "GINS": { en: "GINS", es: "GINEBRAS", fr: "GINS", de: "GINS", it: "GIN", ru: "ДЖИНЫ", zh: "金酒", ar: "جِن", hi: "जिन" },
+  "Gins · Ginebras · Gins": { en: "Gins", es: "Ginebras", fr: "Gins", de: "Gins", it: "Gin", ru: "Джины", zh: "金酒", ar: "جِن", hi: "जिन" },
+  "SCOTCH · SINGLE MALT · BLENDED": { en: "SCOTCH · SINGLE MALT · BLENDED", es: "ESCOCÉS · SINGLE MALT · BLENDED", fr: "SCOTCH · SINGLE MALT · BLENDED", de: "SCOTCH · SINGLE MALT · BLENDED", it: "SCOZZESE · SINGLE MALT · BLENDED", ru: "ШОТЛАНДСКИЙ · СИНГЛ МОЛТ · КУПАЖ", zh: "苏格兰 · 单一麦芽 · 调和", ar: "سكوتش · سنجل مالت · بليندد", hi: "स्कॉच · सिंगल माल्ट · ब्लेंडेड" },
+  "ESCÓCIA": { en: "SCOTLAND", es: "ESCOCIA", fr: "ÉCOSSE", de: "SCHOTTLAND", it: "SCOZIA", ru: "ШОТЛАНДИЯ", zh: "苏格兰", ar: "اسكتلندا", hi: "स्कॉटलैंड" },
+  "Scotland · Escocia · Écosse": { en: "Scotland", es: "Escocia", fr: "Écosse", de: "Schottland", it: "Scozia", ru: "Шотландия", zh: "苏格兰", ar: "اسكتلندا", hi: "स्कॉटलैंड" },
+  "IRISH · USA · JAPAN": { en: "IRISH · USA · JAPAN", es: "IRLANDÉS · EE. UU. · JAPÓN", fr: "IRLANDE · ÉTATS-UNIS · JAPON", de: "IRISCH · USA · JAPAN", it: "IRLANDESE · USA · GIAPPONE", ru: "ИРЛАНДИЯ · США · ЯПОНИЯ", zh: "爱尔兰 · 美国 · 日本", ar: "أيرلندا · الولايات المتحدة · اليابان", hi: "आयरिश · अमेरिका · जापान" },
+  "IRLANDA": { en: "IRELAND", es: "IRLANDA", fr: "IRLANDE", de: "IRLAND", it: "IRLANDA", ru: "ИРЛАНДИЯ", zh: "爱尔兰", ar: "أيرلندا", hi: "आयरलैंड" },
+  "Ireland · Irlanda · Irlande": { en: "Ireland", es: "Irlanda", fr: "Irlande", de: "Irland", it: "Irlanda", ru: "Ирландия", zh: "爱尔兰", ar: "أيرلندا", hi: "आयरलैंड" },
+  "EUA": { en: "USA", es: "EE. UU.", fr: "ÉTATS-UNIS", de: "USA", it: "USA", ru: "США", zh: "美国", ar: "الولايات المتحدة", hi: "अमेरिका" },
+  "USA · Estados Unidos · États-Unis": { en: "USA", es: "Estados Unidos", fr: "États-Unis", de: "USA", it: "USA", ru: "США", zh: "美国", ar: "الولايات المتحدة", hi: "अमेरिका" },
+  "JAPÃO": { en: "JAPAN", es: "JAPÓN", fr: "JAPON", de: "JAPAN", it: "GIAPPONE", ru: "ЯПОНИЯ", zh: "日本", ar: "اليابان", hi: "जापान" },
+  "Japan · Japón · Japon": { en: "Japan", es: "Japón", fr: "Japon", de: "Japan", it: "Giappone", ru: "Япония", zh: "日本", ar: "اليابان", hi: "जापान" },
+  "DESTILADOS": { en: "SPIRITS", es: "DESTILADOS", fr: "SPIRITUEUX", de: "SPIRITUOSEN", it: "DISTILLATI", ru: "КРЕПКИЕ НАПИТКИ", zh: "烈酒", ar: "مشروبات مقطرة", hi: "स्पिरिट्स" },
+  "AGUARDENTES · BAGACEIRA · MEDRONHO": { en: "BRANDIES · BAGACEIRA · MEDRONHO", es: "AGUARDIENTES · BAGACEIRA · MEDRONHO", fr: "EAUX-DE-VIE · BAGACEIRA · MEDRONHO", de: "BRÄNDE · BAGACEIRA · MEDRONHO", it: "ACQUAVITI · BAGACEIRA · MEDRONHO", ru: "БРЕНДИ · БАГАСЕЙРА · МЕДРОНЬЮ", zh: "白兰地 · Bagaceira · Medronho", ar: "براندي · باجاسيرا · ميدرونيو", hi: "ब्रांडी · बागासेरा · मेड्रोन्यो" },
+  "AGUARDENTES & BAGACEIRA": { en: "BRANDIES & BAGACEIRA", es: "AGUARDIENTES & BAGACEIRA", fr: "EAUX-DE-VIE & BAGACEIRA", de: "BRÄNDE & BAGACEIRA", it: "ACQUAVITI & BAGACEIRA", ru: "БРЕНДИ И БАГАСЕЙРА", zh: "白兰地与 Bagaceira", ar: "براندي وباجاسيرا", hi: "ब्रांडी और बागासेरा" },
+  "Brandies · Aguardientes · Eaux-de-vie": { en: "Brandies · Eaux-de-vie", es: "Aguardientes", fr: "Eaux-de-vie", de: "Brände", it: "Acquaviti", ru: "Бренди", zh: "白兰地", ar: "براندي", hi: "ब्रांडी" },
+  "MEDRONHO": { en: "MEDRONHO", es: "MEDRONHO", fr: "MEDRONHO", de: "MEDRONHO", it: "MEDRONHO", ru: "МЕДРОНЬЮ", zh: "Medronho", ar: "ميدرونيو", hi: "मेड्रोन्यो" },
+  "Medronho · Portuguese fruit spirit": { en: "Medronho · Portuguese fruit spirit", es: "Medronho · Aguardiente de fruta portuguesa", fr: "Medronho · Eau-de-vie de fruit portugaise", de: "Medronho · Portugiesischer Obstbrand", it: "Medronho · Distillato di frutta portoghese", ru: "Медронью · Португальский фруктовый дистиллят", zh: "Medronho · 葡萄牙水果烈酒", ar: "ميدرونيو · مشروب فاكهة برتغالي مقطر", hi: "मेड्रोन्यो · पुर्तगाली फल स्पिरिट" },
+  "COGNAC · ARMAGNAC · RUM · VODKA": { en: "COGNAC · ARMAGNAC · RUM · VODKA", es: "COGNAC · ARMAGNAC · RON · VODKA", fr: "COGNAC · ARMAGNAC · RHUM · VODKA", de: "COGNAC · ARMAGNAC · RUM · WODKA", it: "COGNAC · ARMAGNAC · RUM · VODKA", ru: "КОНЬЯК · АРМАНЬЯК · РОМ · ВОДКА", zh: "干邑 · 雅文邑 · 朗姆 · 伏特加", ar: "كونياك · أرمانياك · روم · فودكا", hi: "कॉन्यैक · आर्मन्याक · रम · वोडका" },
+  "COGNACS & ARMAGNAC": { en: "COGNACS & ARMAGNAC", es: "COGNACS & ARMAGNAC", fr: "COGNACS & ARMAGNAC", de: "COGNACS & ARMAGNAC", it: "COGNAC & ARMAGNAC", ru: "КОНЬЯКИ И АРМАНЬЯК", zh: "干邑与雅文邑", ar: "كونياك وأرمانياك", hi: "कॉन्यैक और आर्मन्याक" },
+  "Cognac · Armagnac": { en: "Cognac · Armagnac", es: "Cognac · Armagnac", fr: "Cognac · Armagnac", de: "Cognac · Armagnac", it: "Cognac · Armagnac", ru: "Коньяк · Арманьяк", zh: "干邑 · 雅文邑", ar: "كونياك · أرمانياك", hi: "कॉन्यैक · आर्मन्याक" },
+  "BRANDY & RUM": { en: "BRANDY & RUM", es: "BRANDY & RON", fr: "BRANDY & RHUM", de: "BRANDY & RUM", it: "BRANDY & RUM", ru: "БРЕНДИ И РОМ", zh: "白兰地与朗姆", ar: "براندي وروم", hi: "ब्रांडी और रम" },
+  "Brandy · Rum · Ron · Rhum": { en: "Brandy · Rum", es: "Brandy · Ron", fr: "Brandy · Rhum", de: "Brandy · Rum", it: "Brandy · Rum", ru: "Бренди · Ром", zh: "白兰地 · 朗姆", ar: "براندي · روم", hi: "ब्रांडी · रम" },
+  "VODKA & TEQUILA": { en: "VODKA & TEQUILA", es: "VODKA & TEQUILA", fr: "VODKA & TEQUILA", de: "WODKA & TEQUILA", it: "VODKA & TEQUILA", ru: "ВОДКА И ТЕКИЛА", zh: "伏特加与龙舌兰", ar: "فودكا وتيكيلا", hi: "वोडका और टकीला" },
+  "Vodka · Tequila": { en: "Vodka · Tequila", es: "Vodka · Tequila", fr: "Vodka · Tequila", de: "Wodka · Tequila", it: "Vodka · Tequila", ru: "Водка · Текила", zh: "伏特加 · 龙舌兰", ar: "فودكا · تيكيلا", hi: "वोडका · टकीला" },
+  "CAFETARIA": { en: "COFFEE", es: "CAFETERÍA", fr: "CAFÉTERIE", de: "KAFFEE", it: "CAFFETTERIA", ru: "КОФЕ", zh: "咖啡", ar: "القهوة", hi: "कैफेटेरिया" },
+  "COFFEE · TEA · INFUSIONS": { en: "COFFEE · TEA · INFUSIONS", es: "CAFÉ · TÉ · INFUSIONES", fr: "CAFÉ · THÉ · INFUSIONS", de: "KAFFEE · TEE · AUFGÜSSE", it: "CAFFÈ · TÈ · INFUSI", ru: "КОФЕ · ЧАЙ · НАСТОИ", zh: "咖啡 · 茶 · 花草茶", ar: "قهوة · شاي · منقوعات", hi: "कॉफी · चाय · इन्फ्यूज़न" },
+  "Coffee · Café · Café · Kaffee": { en: "Coffee", es: "Café", fr: "Café", de: "Kaffee", it: "Caffè", ru: "Кофе", zh: "咖啡", ar: "قهوة", hi: "कॉफी" },
+  "CHÁS & INFUSÕES": { en: "TEAS & INFUSIONS", es: "TÉS & INFUSIONES", fr: "THÉS & INFUSIONS", de: "TEES & AUFGÜSSE", it: "TÈ & INFUSI", ru: "ЧАИ И НАСТОИ", zh: "茶与花草茶", ar: "شاي ومنقوعات", hi: "चाय और इन्फ्यूज़न" },
+  "Teas & infusions · Tés e infusiones · Thés et infusions": { en: "Teas & infusions", es: "Tés e infusiones", fr: "Thés et infusions", de: "Tees und Aufgüsse", it: "Tè e infusi", ru: "Чаи и настои", zh: "茶与花草茶", ar: "شاي ومنقوعات", hi: "चाय और इन्फ्यूज़न" },
+
+  "ÁGUA LUSO": { en: "LUSO WATER", es: "AGUA LUSO", fr: "EAU LUSO", de: "LUSO WASSER", it: "ACQUA LUSO", ru: "ВОДА LUSO", zh: "LUSO 矿泉水", ar: "مياه لوسو", hi: "LUSO पानी" },
+  "ÁGUA C/ GÁS": { en: "SPARKLING WATER", es: "AGUA CON GAS", fr: "EAU GAZEUSE", de: "SPRUDELWASSER", it: "ACQUA FRIZZANTE", ru: "ГАЗИРОВАННАЯ ВОДА", zh: "气泡水", ar: "مياه غازية", hi: "स्पार्कलिंग वॉटर" },
+  "PEDRAS, CASTELO": { en: "Pedras, Castelo", es: "Pedras, Castelo", fr: "Pedras, Castelo", de: "Pedras, Castelo", it: "Pedras, Castelo", ru: "Pedras, Castelo", zh: "Pedras, Castelo", ar: "Pedras، Castelo", hi: "Pedras, Castelo" },
+  "ÁGUA TÓNICA": { en: "TONIC WATER", es: "TÓNICA", fr: "TONIC", de: "TONIC WATER", it: "ACQUA TONICA", ru: "ТОНИК", zh: "汤力水", ar: "مياه تونيك", hi: "टॉनिक वॉटर" },
+  "LARANJA": { en: "ORANGE", es: "NARANJA", fr: "ORANGE", de: "ORANGE", it: "ARANCIA", ru: "АПЕЛЬСИН", zh: "橙汁", ar: "برتقال", hi: "संतरा" },
+  "LIMONADA": { en: "LEMONADE", es: "LIMONADA", fr: "LIMONADE", de: "LIMONADE", it: "LIMONATA", ru: "ЛИМОНАД", zh: "柠檬水", ar: "ليمونادة", hi: "नींबू पानी" },
+  "LIMONADA HORTELÃ AZUL": { en: "BLUE MINT LEMONADE", es: "LIMONADA DE MENTA AZUL", fr: "LIMONADE MENTHE BLEUE", de: "BLAUE MINZ-LIMONADE", it: "LIMONATA MENTA BLU", ru: "ЛИМОНАД С ГОЛУБОЙ МЯТОЙ", zh: "蓝薄荷柠檬水", ar: "ليمونادة بالنعناع الأزرق", hi: "ब्लू मिंट लेमोनेड" },
+  "LIMONADA MORANGO / FLOR HIBISCO": { en: "STRAWBERRY / HIBISCUS FLOWER LEMONADE", es: "LIMONADA DE FRESA / FLOR DE HIBISCO", fr: "LIMONADE FRAISE / FLEUR D'HIBISCUS", de: "ERDBEER-/HIBISKUS-LIMONADE", it: "LIMONATA FRAGOLA / FIORE DI IBISCO", ru: "ЛИМОНАД КЛУБНИКА / ГИБИСКУС", zh: "草莓 / 洛神花柠檬水", ar: "ليمونادة فراولة / زهرة الكركديه", hi: "स्ट्रॉबेरी / हिबिस्कस लेमोनेड" },
+  "LIMONADA MANGA / MARACUJÁ": { en: "MANGO / PASSION FRUIT LEMONADE", es: "LIMONADA DE MANGO / MARACUYÁ", fr: "LIMONADE MANGUE / FRUIT DE LA PASSION", de: "MANGO-/PASSIONSFRUCHT-LIMONADE", it: "LIMONATA MANGO / PASSION FRUIT", ru: "ЛИМОНАД МАНГО / МАРАКУЙЯ", zh: "芒果 / 百香果柠檬水", ar: "ليمونادة مانجو / باشن فروت", hi: "आम / पैशन फ्रूट लेमोनेड" },
+  "VIRGIN MOJITO": { en: "VIRGIN MOJITO", es: "MOJITO SIN ALCOHOL", fr: "MOJITO SANS ALCOOL", de: "VIRGIN MOJITO", it: "VIRGIN MOJITO", ru: "БЕЗАЛКОГОЛЬНЫЙ МОХИТО", zh: "无酒精莫吉托", ar: "موهيتو بدون كحول", hi: "वर्जिन मोजिटो" },
+  "A NOSSA CARTA DE BEBIDAS": { en: "OUR DRINKS MENU", es: "NUESTRA CARTA DE BEBIDAS", fr: "NOTRE CARTE DES BOISSONS", de: "UNSERE GETRÄNKEKARTE", it: "LA NOSTRA CARTA DELLE BEVANDE", ru: "НАША КАРТА НАПИТКОВ", zh: "我们的饮品菜单", ar: "قائمة مشروباتنا", hi: "हमारा पेय मेनू" },
+  "A carta de bar do Senhor Peixe reúne cocktails de autor, clássicos, mocktails, sangrias, destilados, fortificados, cafetaria e uma seleção pensada para acompanhar peixe fresco, marisco e cozinha portuguesa.": { en: "Senhor Peixe’s bar menu brings together signature cocktails, classics, mocktails, sangrias, spirits, fortified wines, coffee service and a selection designed to accompany fresh fish, seafood and Portuguese cuisine.", es: "La carta de bar de Senhor Peixe reúne cócteles de autor, clásicos, mocktails, sangrías, destilados, fortificados, cafetería y una selección pensada para acompañar pescado fresco, marisco y cocina portuguesa.", fr: "La carte du bar de Senhor Peixe réunit cocktails signature, classiques, mocktails, sangrias, spiritueux, vins fortifiés, caféterie et une sélection pensée pour accompagner poissons frais, fruits de mer et cuisine portugaise.", de: "Die Barkarte von Senhor Peixe vereint Signature-Cocktails, Klassiker, Mocktails, Sangrias, Spirituosen, Likörweine, Kaffee und eine Auswahl, die zu frischem Fisch, Meeresfrüchten und portugiesischer Küche passt.", it: "La carta bar di Senhor Peixe riunisce cocktail d'autore, classici, mocktail, sangrie, distillati, vini fortificati, caffetteria e una selezione pensata per accompagnare pesce fresco, frutti di mare e cucina portoghese.", ru: "Барная карта Senhor Peixe объединяет авторские и классические коктейли, моктейли, сангрии, крепкие и креплёные напитки, кофе и подборку, созданную для свежей рыбы, морепродуктов и португальской кухни.", zh: "Senhor Peixe 的酒吧菜单汇集了创意鸡尾酒、经典鸡尾酒、无酒精鸡尾酒、桑格利亚、烈酒、加强酒、咖啡以及适合搭配鲜鱼、海鲜和葡萄牙料理的精选饮品。", ar: "تجمع قائمة بار Senhor Peixe بين الكوكتيلات الخاصة والكلاسيكية والموكتيلات والسانغريا والمشروبات المقطرة والنبيذ المقوى والقهوة واختيارات صُممت لمرافقة السمك الطازج والمأكولات البحرية والمطبخ البرتغالي.", hi: "Senhor Peixe का बार मेनू सिग्नेचर कॉकटेल, क्लासिक, मॉकटेल, सांग्रिया, स्पिरिट्स, फोर्टिफाइड वाइन, कॉफी और ताज़ी मछली, सीफ़ूड और पुर्तगाली भोजन के साथ चुनी गई पेय सूची को एक साथ लाता है।" },
+  "Para sugestões, harmonizações ou serviço especial, a nossa equipa terá todo o gosto em aconselhar.": { en: "For suggestions, pairings or special service, our team will be delighted to advise.", es: "Para sugerencias, maridajes o servicio especial, nuestro equipo estará encantado de aconsejarle.", fr: "Pour des suggestions, accords ou un service spécial, notre équipe sera ravie de vous conseiller.", de: "Für Empfehlungen, Begleitungen oder besonderen Service berät Sie unser Team sehr gern.", it: "Per suggerimenti, abbinamenti o servizio speciale, il nostro team sarà lieto di consigliare.", ru: "По вопросам рекомендаций, сочетаний или специального обслуживания наша команда будет рада помочь.", zh: "如需建议、搭配或特别服务，我们的团队将非常乐意为您提供建议。", ar: "للاقتراحات أو تنسيق المشروبات أو الخدمة الخاصة، يسعد فريقنا بتقديم النصيحة.", hi: "सुझाव, पेयरिंग या विशेष सेवा के लिए हमारी टीम खुशी से सलाह देगी।" },
+  "A NOSSA CARTA DE BEBIDAS É ATUALIZADA REGULARMENTE, A NOSSA EQUIPA TERÁ TODO O GOSTO EM ACONSELHAR.": { en: "OUR DRINKS MENU IS UPDATED REGULARLY, AND OUR TEAM WILL BE DELIGHTED TO ADVISE.", es: "NUESTRA CARTA DE BEBIDAS SE ACTUALIZA REGULARMENTE Y NUESTRO EQUIPO ESTARÁ ENCANTADO DE ACONSEJARLE.", fr: "NOTRE CARTE DES BOISSONS EST RÉGULIÈREMENT MISE À JOUR ET NOTRE ÉQUIPE SERA RAVIE DE VOUS CONSEILLER.", de: "UNSERE GETRÄNKEKARTE WIRD REGELMÄSSIG AKTUALISIERT, UND UNSER TEAM BERÄT SIE SEHR GERN.", it: "LA NOSTRA CARTA DELLE BEVANDE VIENE AGGIORNATA REGOLARMENTE E IL NOSTRO TEAM SARÀ LIETO DI CONSIGLIARE.", ru: "НАША КАРТА НАПИТКОВ РЕГУЛЯРНО ОБНОВЛЯЕТСЯ, И НАША КОМАНДА БУДЕТ РАДА ПОСОВЕТОВАТЬ.", zh: "我们的饮品菜单会定期更新，我们的团队将非常乐意为您提供建议。", ar: "يتم تحديث قائمة مشروباتنا بانتظام، ويسعد فريقنا بتقديم النصيحة.", hi: "हमारा पेय मेनू नियमित रूप से अपडेट किया जाता है, और हमारी टीम खुशी से सलाह देगी।" },
+  "TODOS OS PRODUTOS “NÃO SOLICITADOS” COLOCADOS NA MESA, SE FOREM CONSUMIDOS SERÃO COBRADOS PELO VALOR QUE ESTÁ NO MENU": { en: "ALL UNSOLICITED PRODUCTS PLACED ON THE TABLE, IF CONSUMED, WILL BE CHARGED ACCORDING TO THE MENU PRICE", es: "TODOS LOS PRODUCTOS NO SOLICITADOS COLOCADOS EN LA MESA, SI SE CONSUMEN, SE COBRARÁN SEGÚN EL PRECIO DEL MENÚ", fr: "TOUS LES PRODUITS NON SOLLICITÉS PLACÉS SUR LA TABLE, S'ILS SONT CONSOMMÉS, SERONT FACTURÉS AU PRIX INDIQUÉ AU MENU", de: "ALLE NICHT BESTELLTEN PRODUKTE, DIE AUF DEN TISCH GESTELLT UND VERZEHRT WERDEN, WERDEN ZUM MENÜPREIS BERECHNET", it: "TUTTI I PRODOTTI NON RICHIESTI POSTI SUL TAVOLO, SE CONSUMATI, SARANNO ADDEBITATI AL PREZZO DEL MENÙ", ru: "ВСЕ НЕЗАКАЗАННЫЕ ПРОДУКТЫ, ПОСТАВЛЕННЫЕ НА СТОЛ, ПРИ УПОТРЕБЛЕНИИ БУДУТ ОПЛАЧЕНЫ ПО ЦЕНЕ МЕНЮ", zh: "所有未点选但放置在餐桌上的产品，如被食用，将按菜单价格收费", ar: "سيتم احتساب جميع المنتجات غير المطلوبة الموضوعة على الطاولة، إذا تم استهلاكها، حسب السعر الموجود في القائمة", hi: "टेबल पर रखे गए सभी बिना मांगे उत्पाद, यदि उपभोग किए जाते हैं, तो मेनू मूल्य के अनुसार शुल्क लिए जाएंगे" },
+  "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR": { en: "PRICE IN €, INCLUDES VAT AT THE CURRENT LEGAL RATE", es: "PRECIO EN €, INCLUYE IVA AL TIPO LEGAL VIGENTE", fr: "PRIX EN €, TVA INCLUSE AU TAUX LÉGAL EN VIGUEUR", de: "PREISE IN € INKLUSIVE MWST. ZUM GELTENDEN SATZ", it: "PREZZO IN €, IVA INCLUSA ALL'ALIQUOTA LEGALE IN VIGORE", ru: "ЦЕНА В €, ВКЛЮЧАЕТ НДС ПО ДЕЙСТВУЮЩЕЙ СТАВКЕ", zh: "价格以欧元计，包含现行法定税率的增值税", ar: "السعر باليورو، شامل ضريبة القيمة المضافة حسب المعدل القانوني الساري", hi: "मूल्य € में, मौजूदा कानूनी दर पर वैट शामिल" },
+  "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE": { en: "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE", es: "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE", fr: "PRIX EN €, TVA INCLUSE AU TAUX LÉGAL EN VIGUEUR", de: "PREISE IN € INKLUSIVE MWST. ZUM GELTENDEN SATZ", it: "PREZZI IN €, IVA INCLUSA ALL'ALIQUOTA LEGALE IN VIGORE", ru: "ЦЕНЫ В €, ВКЛЮЧАЮТ НДС ПО ДЕЙСТВУЮЩЕЙ СТАВКЕ", zh: "价格以欧元计，包含现行法定税率的增值税", ar: "الأسعار باليورو، شاملة ضريبة القيمة المضافة حسب المعدل القانوني الساري", hi: "कीमतें € में, मौजूदा कानूनी दर पर वैट शामिल" },
+  "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR": { en: "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE", es: "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE", fr: "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR", de: "PREISE IN € INKLUSIVE MWST. ZUM GELTENDEN SATZ", it: "PREZZI IN €, IVA INCLUSA ALL'ALIQUOTA LEGALE IN VIGORE", ru: "ЦЕНЫ В €, ВКЛЮЧАЮТ НДС ПО ДЕЙСТВУЮЩЕЙ СТАВКЕ", zh: "价格以欧元计，包含现行法定税率的增值税", ar: "الأسعار باليورو، شاملة ضريبة القيمة المضافة حسب المعدل القانوني الساري", hi: "कीमतें € में, मौजूदा कानूनी दर पर वैट शामिल" },
+  "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE": { en: "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE", es: "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE", fr: "PRIX EN €, TVA INCLUSE AU TAUX LÉGAL EN VIGUEUR", de: "PREISE IN € INKLUSIVE MWST. ZUM GELTENDEN SATZ", it: "PREZZI IN €, IVA INCLUSA ALL'ALIQUOTA LEGALE IN VIGORE", ru: "ЦЕНЫ В €, ВКЛЮЧАЮТ НДС ПО ДЕЙСТВУЮЩЕЙ СТАВКЕ", zh: "价格以欧元计，包含现行法定税率的增值税", ar: "الأسعار باليورو، شاملة ضريبة القيمة المضافة حسب المعدل القانوني الساري", hi: "कीमतें € में, मौजूदा कानूनी दर पर वैट शामिल" },
+  "Mocktail · Grenadine, sumo de laranja, xarope de blue curaçao": { en: "Mocktail · Grenadine, orange juice, blue curaçao syrup", es: "Mocktail · Granadina, zumo de naranja, sirope de blue curaçao", fr: "Mocktail · Grenadine, jus d'orange, sirop de blue curaçao", de: "Mocktail · Grenadine, Orangensaft, Blue-Curaçao-Sirup", it: "Mocktail · Granatina, succo d'arancia, sciroppo di blue curaçao", ru: "Моктейл · Гренадин, апельсиновый сок, сироп blue curaçao", zh: "无酒精鸡尾酒 · 石榴糖浆、橙汁、蓝柑糖浆", ar: "موكتيل · غرينادين، عصير برتقال، شراب بلو كوراساو", hi: "मॉकटेल · ग्रेनाडीन, संतरे का रस, ब्लू कुरासाओ सिरप" },
+  "Gin, cordial de lima e limão, vinho Madeira Sercial": { en: "Gin, lime and lemon cordial, Madeira Sercial wine", es: "Gin, cordial de lima y limón, vino Madeira Sercial", fr: "Gin, cordial de citron vert et citron, vin de Madeira Sercial", de: "Gin, Limetten- und Zitronen-Cordial, Madeira Sercial", it: "Gin, cordial di lime e limone, vino Madeira Sercial", ru: "Джин, кордиал лайма и лимона, вино Madeira Sercial", zh: "金酒、青柠与柠檬 cordial、Madeira Sercial 葡萄酒", ar: "جِن، كورديال لايم وليمون، نبيذ ماديرا سيرسيال", hi: "जिन, लाइम और लेमन कॉर्डियल, Madeira Sercial वाइन" },
+  "Rum, maracujá, manga, gengibre": { en: "Rum, passion fruit, mango, ginger", es: "Ron, maracuyá, mango, jengibre", fr: "Rhum, fruit de la passion, mangue, gingembre", de: "Rum, Passionsfrucht, Mango, Ingwer", it: "Rum, frutto della passione, mango, zenzero", ru: "Ром, маракуйя, манго, имбирь", zh: "朗姆、百香果、芒果、姜", ar: "روم، باشن فروت، مانجو، زنجبيل", hi: "रम, पैशन फ्रूट, आम, अदरक" },
+  "Prosecco, morango": { en: "Prosecco, strawberry", es: "Prosecco, fresa", fr: "Prosecco, fraise", de: "Prosecco, Erdbeere", it: "Prosecco, fragola", ru: "Просекко, клубника", zh: "普罗塞克、草莓", ar: "بروسيكو، فراولة", hi: "प्रोसेको, स्ट्रॉबेरी" },
+  "Prosecco, laranja": { en: "Prosecco, orange", es: "Prosecco, naranja", fr: "Prosecco, orange", de: "Prosecco, Orange", it: "Prosecco, arancia", ru: "Просекко, апельсин", zh: "普罗塞克、橙子", ar: "بروسيكو، برتقال", hi: "प्रोसेको, संतरा" },
+  "Gin, Campari, vermute tinto reserva especial": { en: "Gin, Campari, special reserve red vermouth", es: "Gin, Campari, vermut rojo reserva especial", fr: "Gin, Campari, vermouth rouge réserve spéciale", de: "Gin, Campari, roter Wermut Reserva Especial", it: "Gin, Campari, vermouth rosso riserva speciale", ru: "Джин, Campari, красный вермут Reserva Especial", zh: "金酒、Campari、特别珍藏红味美思", ar: "جِن، كامباري، فيرموث أحمر ريزيرفا خاص", hi: "जिन, Campari, स्पेशल रिज़र्व रेड वर्माउथ" },
+  "Cachaça, citrinos frescos, açúcar amarelo": { en: "Cachaça, fresh citrus, brown sugar", es: "Cachaça, cítricos frescos, azúcar moreno", fr: "Cachaça, agrumes frais, sucre roux", de: "Cachaça, frische Zitrusfrüchte, brauner Zucker", it: "Cachaça, agrumi freschi, zucchero di canna", ru: "Кашаса, свежие цитрусовые, коричневый сахар", zh: "卡莎萨、新鲜柑橘、黄糖", ar: "كاشاسا، حمضيات طازجة، سكر بني", hi: "कशासा, ताज़े साइट्रस, ब्राउन शुगर" },
+  "Tequila, triple-sec, citrinos frescos": { en: "Tequila, triple sec, fresh citrus", es: "Tequila, triple sec, cítricos frescos", fr: "Tequila, triple sec, agrumes frais", de: "Tequila, Triple Sec, frische Zitrusfrüchte", it: "Tequila, triple sec, agrumi freschi", ru: "Текила, трипл-сек, свежие цитрусовые", zh: "龙舌兰、橙味利口酒、新鲜柑橘", ar: "تيكيلا، تريبل سيك، حمضيات طازجة", hi: "टकीला, ट्रिपल सेक, ताज़े साइट्रस" },
+  "Rum, infusão de hortelã, sumo lima, calda de hortelã": { en: "Rum, mint infusion, lime juice, mint syrup", es: "Ron, infusión de hierbabuena, zumo de lima, jarabe de hierbabuena", fr: "Rhum, infusion de menthe, jus de citron vert, sirop de menthe", de: "Rum, Minzinfusion, Limettensaft, Minzsirup", it: "Rum, infuso di menta, succo di lime, sciroppo di menta", ru: "Ром, настой мяты, сок лайма, мятный сироп", zh: "朗姆、薄荷浸液、青柠汁、薄荷糖浆", ar: "روم، منقوع نعناع، عصير لايم، شراب نعناع", hi: "रम, पुदीना इन्फ्यूज़न, लाइम जूस, पुदीना सिरप" },
+  "Whiskey, Angostura bitter, calda de açúcar": { en: "Whiskey, Angostura bitters, sugar syrup", es: "Whiskey, bitter Angostura, jarabe de azúcar", fr: "Whiskey, bitter Angostura, sirop de sucre", de: "Whiskey, Angostura Bitter, Zuckersirup", it: "Whiskey, bitter Angostura, sciroppo di zucchero", ru: "Виски, биттер Angostura, сахарный сироп", zh: "威士忌、安哥斯图拉苦精、糖浆", ar: "ويسكي، أنغوستورا بيتر، شراب السكر", hi: "व्हिस्की, Angostura bitters, शुगर सिरप" },
+  "Prosecco, Aperol, água com gás": { en: "Prosecco, Aperol, sparkling water", es: "Prosecco, Aperol, agua con gas", fr: "Prosecco, Aperol, eau gazeuse", de: "Prosecco, Aperol, Sprudelwasser", it: "Prosecco, Aperol, acqua frizzante", ru: "Просекко, Aperol, газированная вода", zh: "普罗塞克、Aperol、气泡水", ar: "بروسيكو، أبيرول، مياه غازية", hi: "प्रोसेको, Aperol, स्पार्कलिंग वॉटर" },
+  "Verde, preto, camomila, cidreira, tília, frutos vermelhos, lúcia lima, menta, hortelã": { en: "Green, black, chamomile, lemon balm, linden, red fruits, lemon verbena, mint, spearmint", es: "Verde, negro, manzanilla, melisa, tila, frutos rojos, hierba luisa, menta, hierbabuena", fr: "Vert, noir, camomille, mélisse, tilleul, fruits rouges, verveine citronnée, menthe, menthe verte", de: "Grün, schwarz, Kamille, Melisse, Linde, rote Früchte, Zitronenverbene, Minze, Pfefferminze", it: "Verde, nero, camomilla, melissa, tiglio, frutti rossi, cedrina, menta, menta piperita", ru: "Зелёный, чёрный, ромашка, мелисса, липа, красные ягоды, лимонная вербена, мята", zh: "绿茶、红茶、洋甘菊、香蜂草、椴树花、红果、柠檬马鞭草、薄荷", ar: "أخضر، أسود، بابونج، مليسة، زيزفون، فواكه حمراء، لويزة ليمونية، نعناع", hi: "ग्रीन, ब्लैक, कैमोमाइल, लेमन बाम, लिंडेन, रेड फ्रूट्स, लेमन वर्बेना, मिंट, पुदीना" },
+}
+
+function t(value: string | undefined, language: SupportedLanguage): string {
+  if (!value) return ""
+  if (language === "pt") return value
+  return phraseTranslations[value]?.[language] ?? value
+}
+
+function translateRow(row: DrinkRow, language: SupportedLanguage): DrinkRow {
+  if (language === "pt") return row
+
+  return {
+    ...row,
+    name: t(row.name, language),
+    description: t(row.description, language),
+    volume: t(row.volume, language),
+    groupLabel: t(row.groupLabel, language),
+  }
+}
+
+function translateSections(sections: DrinkSection[], language: SupportedLanguage): DrinkSection[] {
+  if (language === "pt") return sections
+
+  return sections.map((section) => ({
+    ...section,
+    title: t(section.title, language) ?? section.title,
+    subtitle: t(section.subtitle, language) ?? section.subtitle,
+    volume: t(section.volume, language),
+    rows: section.rows.map((row) => translateRow(row, language)),
+  }))
+}
+
+function translateIndexEntries(entries: IndexEntry[], language: SupportedLanguage): IndexEntry[] {
+  if (language === "pt") return entries
+
+  return entries.map((entry) => ({
+    ...entry,
+    label: t(entry.label, language) ?? entry.label,
+    detail: t(entry.detail, language) ?? entry.detail,
+  }))
+}
+
 function Page({ children, className = "", id }: { children: ReactNode; className?: string; id?: string }) {
   return (
     <section id={id} className={`drink-page ${className}`}>
@@ -350,21 +615,23 @@ function FooterOrnament() {
   )
 }
 
-function CoverPage() {
+function CoverPage({ language }: { language: SupportedLanguage }) {
   return (
     <Page className="cover-page image-cover-page">
-      <img src={COVER_IMAGE} alt="Carta de Bebidas Senhor Peixe" className="cover-image" />
+      <img src={COVER_IMAGE} alt={t("Carta de Bebidas Senhor Peixe", language)} className="cover-image" />
     </Page>
   )
 }
 
-function IndexPage() {
+function IndexPage({ language }: { language: SupportedLanguage }) {
+  const translatedIndexEntries = translateIndexEntries(indexEntries, language)
+
   return (
     <Page className="index-page" id="indice">
-      <Header mainTitle="ÍNDICE" mainSubtitle="CARTA DE BEBIDAS" />
+      <Header mainTitle={t("ÍNDICE", language)} mainSubtitle={t("CARTA DE BEBIDAS", language)} />
 
-      <nav className="index-grid" aria-label="Índice da carta de bebidas">
-        {indexEntries.map((entry, index) => (
+      <nav className="index-grid" aria-label={t("Índice da carta de bebidas", language)}>
+        {translatedIndexEntries.map((entry, index) => (
           <a key={entry.href} href={entry.href} className="index-card">
             <span className="index-number">{String(index + 1).padStart(2, "0")}</span>
             <span className={`index-label ${cinzel.className}`}>{entry.label}</span>
@@ -435,19 +702,23 @@ function DrinkListPage({
   mainTitle = DRINKS_TITLE,
   mainSubtitle = DRINKS_SUBTITLE,
   pageId,
+  language,
 }: {
   sections: DrinkSection[]
   className?: string
   mainTitle?: string
   mainSubtitle?: string
   pageId?: string
+  language: SupportedLanguage
 }) {
+  const translatedSections = translateSections(sections, language)
+
   return (
     <Page id={pageId} className={`list-page ${className}`}>
-      <Header mainTitle={mainTitle} mainSubtitle={mainSubtitle} />
+      <Header mainTitle={t(mainTitle, language)} mainSubtitle={t(mainSubtitle, language)} />
       <div className="top-gold-rule" />
       <div className="sections-stack">
-        {sections.map((section, index) => (
+        {translatedSections.map((section, index) => (
           <DrinkSectionBlock key={`${section.title}-${index}`} {...section} />
         ))}
       </div>
@@ -456,33 +727,32 @@ function DrinkListPage({
   )
 }
 
-function SummaryPage() {
+function SummaryPage({ language }: { language: SupportedLanguage }) {
   return (
     <Page className="summary-page" id="resumo">
       <section className="summary-content">
-        <h2 className={`summary-title ${cinzel.className}`}>A NOSSA CARTA DE BEBIDAS</h2>
+        <h2 className={`summary-title ${cinzel.className}`}>{t("A NOSSA CARTA DE BEBIDAS", language)}</h2>
 
         <div className="summary-title-line" />
 
         <div className="summary-text">
           <p>
-            A carta de bar do Senhor Peixe reúne cocktails de autor, clássicos, mocktails, sangrias, destilados,
-            fortificados, cafetaria e uma seleção pensada para acompanhar peixe fresco, marisco e cozinha portuguesa.
+{t("A carta de bar do Senhor Peixe reúne cocktails de autor, clássicos, mocktails, sangrias, destilados, fortificados, cafetaria e uma seleção pensada para acompanhar peixe fresco, marisco e cozinha portuguesa.", language)}
           </p>
 
-          <p>Para sugestões, harmonizações ou serviço especial, a nossa equipa terá todo o gosto em aconselhar.</p>
+          <p>{t("Para sugestões, harmonizações ou serviço especial, a nossa equipa terá todo o gosto em aconselhar.", language)}</p>
         </div>
 
         <div className={`${cinzel.className} summary-notice`}>
-          <p>A NOSSA CARTA DE BEBIDAS É ATUALIZADA REGULARMENTE, A NOSSA EQUIPA TERÁ TODO O GOSTO EM ACONSELHAR.</p>
+          <p>{t("A NOSSA CARTA DE BEBIDAS É ATUALIZADA REGULARMENTE, A NOSSA EQUIPA TERÁ TODO O GOSTO EM ACONSELHAR.", language)}</p>
         </div>
 
         <div className={`${cinzel.className} summary-prices`}>
-          <p>TODOS OS PRODUTOS “NÃO SOLICITADOS” COLOCADOS NA MESA, SE FOREM CONSUMIDOS SERÃO COBRADOS PELO VALOR QUE ESTÁ NO MENU</p>
-          <p>PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR</p>
-          <p>PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE</p>
-          <p>PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR</p>
-          <p>PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE</p>
+          <p>{t("TODOS OS PRODUTOS “NÃO SOLICITADOS” COLOCADOS NA MESA, SE FOREM CONSUMIDOS SERÃO COBRADOS PELO VALOR QUE ESTÁ NO MENU", language)}</p>
+          <p>{t("PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR", language)}</p>
+          <p>{t("PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE", language)}</p>
+          <p>{t("PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR", language)}</p>
+          <p>{t("PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE", language)}</p>
         </div>
       </section>
 
@@ -492,16 +762,20 @@ function SummaryPage() {
 }
 
 export default function CartaBebidasPage() {
+  const { language: selectedLanguage } = useLanguage()
+  const language = normalizeLanguage(selectedLanguage)
+
   return (
     <main className={`drinks-menu-shell ${cormorant.className}`}>
       <Link href="/gastronomia" className="sp-back-link">
-        Voltar
+        {t("Voltar", language)}
       </Link>
 
-      <CoverPage />
-      <IndexPage />
+      <CoverPage language={language} />
+      <IndexPage language={language} />
 
       <DrinkListPage
+        language={language}
         pageId="cocktails"
         mainTitle="COCKTAILS"
         mainSubtitle="SIGNATURE · CLASSIC · MOCKTAILS"
@@ -520,6 +794,7 @@ export default function CartaBebidasPage() {
       />
 
       <DrinkListPage
+        language={language}
         pageId="mocktails-sangrias"
         sections={[
           { title: "MOCKTAILS", subtitle: "Alcohol-free · Sin alcohol · Sans alcool", volume: "20cl", rows: mocktails },
@@ -529,6 +804,7 @@ export default function CartaBebidasPage() {
       />
 
       <DrinkListPage
+        language={language}
         pageId="aguas-refrigerantes"
         sections={[
           { title: "ÁGUAS", subtitle: "Waters · Aguas · Eaux · Wasser", rows: waters, compact: true },
@@ -537,6 +813,7 @@ export default function CartaBebidasPage() {
       />
 
       <DrinkListPage
+        language={language}
         pageId="cervejas"
         mainTitle="CERVEJAS"
         mainSubtitle="DRAFT · BOTTLED"
@@ -547,6 +824,7 @@ export default function CartaBebidasPage() {
       />
 
       <DrinkListPage
+        language={language}
         pageId="fortificados"
         mainTitle="FORTIFICADOS"
         mainSubtitle="MOSCATEL · CARCAVELOS · MADEIRA"
@@ -559,6 +837,7 @@ export default function CartaBebidasPage() {
       />
 
       <DrinkListPage
+        language={language}
         pageId="porto"
         mainTitle="PORTO"
         mainSubtitle="RUBY · TAWNY · WHITE · ROSÉ"
@@ -571,6 +850,7 @@ export default function CartaBebidasPage() {
       />
 
       <DrinkListPage
+        language={language}
         pageId="bar-licores"
         mainTitle="BAR"
         mainSubtitle="VERMUTES · LICORES"
@@ -581,6 +861,7 @@ export default function CartaBebidasPage() {
       />
 
       <DrinkListPage
+        language={language}
         pageId="gins"
         mainTitle="BAR"
         mainSubtitle="Gins"
@@ -590,6 +871,7 @@ export default function CartaBebidasPage() {
       />
 
       <DrinkListPage
+        language={language}
         pageId="whisky-escocia"
         mainTitle="WHISKY"
         mainSubtitle="SCOTCH · SINGLE MALT · BLENDED"
@@ -599,6 +881,7 @@ export default function CartaBebidasPage() {
       />
 
       <DrinkListPage
+        language={language}
         pageId="whisky-internacional"
         mainTitle="WHISKY"
         mainSubtitle="IRISH · USA · JAPAN"
@@ -610,6 +893,7 @@ export default function CartaBebidasPage() {
       />
 
       <DrinkListPage
+        language={language}
         pageId="aguardentes"
         mainTitle="DESTILADOS"
         mainSubtitle="AGUARDENTES · BAGACEIRA · MEDRONHO"
@@ -620,6 +904,7 @@ export default function CartaBebidasPage() {
       />
 
       <DrinkListPage
+        language={language}
         pageId="cognac-rum"
         mainTitle="DESTILADOS"
         mainSubtitle="COGNAC · ARMAGNAC · RUM · VODKA"
@@ -631,6 +916,7 @@ export default function CartaBebidasPage() {
       />
 
       <DrinkListPage
+        language={language}
         pageId="cafetaria"
         mainTitle="CAFETARIA"
         mainSubtitle="COFFEE · TEA · INFUSIONS"
@@ -640,7 +926,7 @@ export default function CartaBebidasPage() {
         ]}
       />
 
-      <SummaryPage />
+      <SummaryPage language={language} />
 
       <style jsx global>{`
         :root {

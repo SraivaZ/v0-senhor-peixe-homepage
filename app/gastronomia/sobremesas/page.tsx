@@ -65,7 +65,18 @@ const sobremesasSections: Section[] = [
   },
 ]
 
-const pageCopy = {
+type LanguageCode = "pt" | "en" | "es" | "fr" | "de" | "it" | "ru" | "zh" | "ar" | "hi"
+
+type PageCopy = {
+  backLabel: string
+  coverAlt: string
+  legalNote: string
+  finalConsumptionLine1: string
+  finalConsumptionLine2: string
+  finalTaxNotes: string[]
+}
+
+const pageCopy: Record<LanguageCode, PageCopy> = {
   pt: {
     backLabel: "Voltar",
     coverAlt: "Capa Carta de Sobremesas Senhor Peixe",
@@ -92,53 +103,401 @@ const pageCopy = {
       "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE",
     ],
   },
-} as const
-
-const sectionTitleTranslations: Record<string, string> = {
-  "SOBREMESAS": "DESSERTS",
-  "FRUTAS": "FRUIT",
-  "NA ÉPOCA": "SEASONAL",
+  es: {
+    backLabel: "Volver",
+    coverAlt: "Portada de la carta de postres de Senhor Peixe",
+    legalNote: "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE",
+    finalConsumptionLine1: "TODOS LOS PRODUCTOS “NO SOLICITADOS” COLOCADOS EN LA MESA, SI SON CONSUMIDOS, SERÁN",
+    finalConsumptionLine2: "COBRADOS SEGÚN EL PRECIO DEL MENÚ",
+    finalTaxNotes: [
+      "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE",
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR",
+      "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE",
+      "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+    ],
+  },
+  fr: {
+    backLabel: "Retour",
+    coverAlt: "Couverture de la carte des desserts Senhor Peixe",
+    legalNote: "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+    finalConsumptionLine1: "TOUS LES PRODUITS “NON COMMANDÉS” PLACÉS SUR LA TABLE, S’ILS SONT CONSOMMÉS, SERONT",
+    finalConsumptionLine2: "FACTURÉS AU PRIX INDIQUÉ SUR LE MENU",
+    finalTaxNotes: [
+      "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR",
+      "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE",
+      "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE",
+    ],
+  },
+  de: {
+    backLabel: "Zurück",
+    coverAlt: "Titelseite der Dessertkarte Senhor Peixe",
+    legalNote: "PREISE IN € INKLUSIVE MWST. ZUM GELTENDEN SATZ",
+    finalConsumptionLine1: "ALLE NICHT BESTELLTEN PRODUKTE, DIE AUF DEN TISCH GESTELLT WERDEN, WERDEN BEI VERZEHR",
+    finalConsumptionLine2: "ZUM IM MENÜ ANGEGEBENEN PREIS BERECHNET",
+    finalTaxNotes: [
+      "PREISE IN € INKLUSIVE MWST. ZUM GELTENDEN SATZ",
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR",
+      "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE",
+      "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+    ],
+  },
+  it: {
+    backLabel: "Indietro",
+    coverAlt: "Copertina della carta dei dessert Senhor Peixe",
+    legalNote: "PREZZI IN €, IVA INCLUSA AL TASSO LEGALE IN VIGORE",
+    finalConsumptionLine1: "TUTTI I PRODOTTI “NON RICHIESTI” SERVITI AL TAVOLO, SE CONSUMATI, SARANNO",
+    finalConsumptionLine2: "ADDEBITATI AL PREZZO INDICATO NEL MENÙ",
+    finalTaxNotes: [
+      "PREZZI IN €, IVA INCLUSA AL TASSO LEGALE IN VIGORE",
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR",
+      "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE",
+      "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+    ],
+  },
+  ru: {
+    backLabel: "Назад",
+    coverAlt: "Обложка меню десертов Senhor Peixe",
+    legalNote: "ЦЕНЫ В €, ВКЛЮЧАЮТ НДС ПО ДЕЙСТВУЮЩЕЙ СТАВКЕ",
+    finalConsumptionLine1: "ВСЕ НЕЗАКАЗАННЫЕ ПРОДУКТЫ, ПОСТАВЛЕННЫЕ НА СТОЛ, ПРИ УПОТРЕБЛЕНИИ БУДУТ",
+    finalConsumptionLine2: "ОПЛАЧЕНЫ ПО ЦЕНЕ, УКАЗАННОЙ В МЕНЮ",
+    finalTaxNotes: [
+      "ЦЕНЫ В €, ВКЛЮЧАЮТ НДС ПО ДЕЙСТВУЮЩЕЙ СТАВКЕ",
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR",
+      "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE",
+      "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+    ],
+  },
+  zh: {
+    backLabel: "返回",
+    coverAlt: "Senhor Peixe 甜品菜单封面",
+    legalNote: "价格以欧元计，已包含现行法定税率的增值税",
+    finalConsumptionLine1: "所有未点选而放置在餐桌上的产品，如被食用，均将",
+    finalConsumptionLine2: "按菜单所列价格收费",
+    finalTaxNotes: [
+      "价格以欧元计，已包含现行法定税率的增值税",
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR",
+      "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE",
+      "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+    ],
+  },
+  ar: {
+    backLabel: "رجوع",
+    coverAlt: "غلاف قائمة الحلويات Senhor Peixe",
+    legalNote: "الأسعار باليورو وتشمل ضريبة القيمة المضافة حسب النسبة القانونية المعمول بها",
+    finalConsumptionLine1: "جميع المنتجات غير المطلوبة التي توضع على الطاولة، إذا تم استهلاكها، سيتم",
+    finalConsumptionLine2: "احتسابها حسب السعر المذكور في القائمة",
+    finalTaxNotes: [
+      "الأسعار باليورو وتشمل ضريبة القيمة المضافة حسب النسبة القانونية المعمول بها",
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR",
+      "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE",
+      "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+    ],
+  },
+  hi: {
+    backLabel: "वापस",
+    coverAlt: "Senhor Peixe मिठाई मेनू कवर",
+    legalNote: "कीमतें € में हैं और लागू कानूनी दर पर वैट शामिल है",
+    finalConsumptionLine1: "मेज़ पर रखे गए सभी “बिना अनुरोध” उत्पाद, यदि उपभोग किए जाते हैं, तो",
+    finalConsumptionLine2: "मेनू में दिए गए मूल्य के अनुसार शुल्क लिया जाएगा",
+    finalTaxNotes: [
+      "कीमतें € में हैं और लागू कानूनी दर पर वैट शामिल है",
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR",
+      "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE",
+      "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+    ],
+  },
 }
 
-const itemNameTranslations: Record<string, string> = {
-  "BABA DE CAMELO": "CARAMEL MOUSSE",
-  "BOLO À FATIA": "CAKE SLICE",
-  "CHEESECAKE": "CHEESECAKE",
-  "DOCE DA CASA": "HOUSE DESSERT",
-  "MOUSSE DE CAFÉ": "COFFEE MOUSSE",
-  "MOUSSE DE CHOCOLATE": "CHOCOLATE MOUSSE",
-  "MOUSSE DE MANGA": "MANGO MOUSSE",
-  "PUDIM DE OVOS": "EGG PUDDING",
-  "PRATO DE FRUTA TROPICAL": "TROPICAL FRUIT PLATTER",
-  "ABACAXI": "PINEAPPLE",
-  "MANGA": "MANGO",
-  "PAPAIA": "PAPAYA",
-  "SALADA DE FRUTAS": "FRUIT SALAD",
-  "LARANJA": "ORANGE",
-  "KIWI": "KIWI",
-  "MAÇÃ ASSADA": "BAKED APPLE",
-  "PÊRA BÊBADA": "POACHED PEAR",
-  "MORANGOS": "STRAWBERRIES",
-  "MORANGOS COM CHANTILLY": "STRAWBERRIES WITH CHANTILLY",
-  "CEREJAS": "CHERRIES",
-  "MELÃO": "MELON",
-  "MELOA": "CANTALOUPE",
+const sectionTitleTranslations: Record<Exclude<LanguageCode, "pt">, Record<string, string>> = {
+  en: {
+    "SOBREMESAS": "DESSERTS",
+    "FRUTAS": "FRUIT",
+    "NA ÉPOCA": "SEASONAL",
+  },
+  es: {
+    "SOBREMESAS": "POSTRES",
+    "FRUTAS": "FRUTAS",
+    "NA ÉPOCA": "DE TEMPORADA",
+  },
+  fr: {
+    "SOBREMESAS": "DESSERTS",
+    "FRUTAS": "FRUITS",
+    "NA ÉPOCA": "DE SAISON",
+  },
+  de: {
+    "SOBREMESAS": "DESSERTS",
+    "FRUTAS": "FRÜCHTE",
+    "NA ÉPOCA": "SAISONAL",
+  },
+  it: {
+    "SOBREMESAS": "DESSERT",
+    "FRUTAS": "FRUTTA",
+    "NA ÉPOCA": "DI STAGIONE",
+  },
+  ru: {
+    "SOBREMESAS": "ДЕСЕРТЫ",
+    "FRUTAS": "ФРУКТЫ",
+    "NA ÉPOCA": "СЕЗОННОЕ",
+  },
+  zh: {
+    "SOBREMESAS": "甜品",
+    "FRUTAS": "水果",
+    "NA ÉPOCA": "时令",
+  },
+  ar: {
+    "SOBREMESAS": "حلويات",
+    "FRUTAS": "فواكه",
+    "NA ÉPOCA": "موسمي",
+  },
+  hi: {
+    "SOBREMESAS": "मिठाइयाँ",
+    "FRUTAS": "फल",
+    "NA ÉPOCA": "मौसमी",
+  },
 }
 
-function translateText(value: string | undefined, dictionary: Record<string, string>, shouldTranslate: boolean) {
-  if (!value || !shouldTranslate) return value
-  return dictionary[value] ?? value
+const itemNameTranslations: Record<Exclude<LanguageCode, "pt">, Record<string, string>> = {
+  en: {
+    "BABA DE CAMELO": "CARAMEL MOUSSE",
+    "BOLO À FATIA": "CAKE SLICE",
+    "CHEESECAKE": "CHEESECAKE",
+    "DOCE DA CASA": "HOUSE DESSERT",
+    "MOUSSE DE CAFÉ": "COFFEE MOUSSE",
+    "MOUSSE DE CHOCOLATE": "CHOCOLATE MOUSSE",
+    "MOUSSE DE MANGA": "MANGO MOUSSE",
+    "PUDIM DE OVOS": "EGG PUDDING",
+    "PRATO DE FRUTA TROPICAL": "TROPICAL FRUIT PLATTER",
+    "ABACAXI": "PINEAPPLE",
+    "MANGA": "MANGO",
+    "PAPAIA": "PAPAYA",
+    "SALADA DE FRUTAS": "FRUIT SALAD",
+    "LARANJA": "ORANGE",
+    "KIWI": "KIWI",
+    "MAÇÃ ASSADA": "BAKED APPLE",
+    "PÊRA BÊBADA": "POACHED PEAR",
+    "MORANGOS": "STRAWBERRIES",
+    "MORANGOS COM CHANTILLY": "STRAWBERRIES WITH CHANTILLY",
+    "CEREJAS": "CHERRIES",
+    "MELÃO": "MELON",
+    "MELOA": "CANTALOUPE",
+  },
+  es: {
+    "BABA DE CAMELO": "MOUSSE DE CARAMELO",
+    "BOLO À FATIA": "PORCIÓN DE TARTA",
+    "CHEESECAKE": "CHEESECAKE",
+    "DOCE DA CASA": "POSTRE DE LA CASA",
+    "MOUSSE DE CAFÉ": "MOUSSE DE CAFÉ",
+    "MOUSSE DE CHOCOLATE": "MOUSSE DE CHOCOLATE",
+    "MOUSSE DE MANGA": "MOUSSE DE MANGO",
+    "PUDIM DE OVOS": "FLAN DE HUEVO",
+    "PRATO DE FRUTA TROPICAL": "PLATO DE FRUTA TROPICAL",
+    "ABACAXI": "PIÑA",
+    "MANGA": "MANGO",
+    "PAPAIA": "PAPAYA",
+    "SALADA DE FRUTAS": "ENSALADA DE FRUTAS",
+    "LARANJA": "NARANJA",
+    "KIWI": "KIWI",
+    "MAÇÃ ASSADA": "MANZANA ASADA",
+    "PÊRA BÊBADA": "PERA AL VINO",
+    "MORANGOS": "FRESAS",
+    "MORANGOS COM CHANTILLY": "FRESAS CON CHANTILLY",
+    "CEREJAS": "CEREZAS",
+    "MELÃO": "MELÓN",
+    "MELOA": "MELOA",
+  },
+  fr: {
+    "BABA DE CAMELO": "MOUSSE AU CARAMEL",
+    "BOLO À FATIA": "PART DE GÂTEAU",
+    "CHEESECAKE": "CHEESECAKE",
+    "DOCE DA CASA": "DESSERT MAISON",
+    "MOUSSE DE CAFÉ": "MOUSSE AU CAFÉ",
+    "MOUSSE DE CHOCOLATE": "MOUSSE AU CHOCOLAT",
+    "MOUSSE DE MANGA": "MOUSSE À LA MANGUE",
+    "PUDIM DE OVOS": "FLAN AUX ŒUFS",
+    "PRATO DE FRUTA TROPICAL": "ASSIETTE DE FRUITS TROPICAUX",
+    "ABACAXI": "ANANAS",
+    "MANGA": "MANGUE",
+    "PAPAIA": "PAPAYE",
+    "SALADA DE FRUTAS": "SALADE DE FRUITS",
+    "LARANJA": "ORANGE",
+    "KIWI": "KIWI",
+    "MAÇÃ ASSADA": "POMME AU FOUR",
+    "PÊRA BÊBADA": "POIRE AU VIN",
+    "MORANGOS": "FRAISES",
+    "MORANGOS COM CHANTILLY": "FRAISES À LA CHANTILLY",
+    "CEREJAS": "CERISES",
+    "MELÃO": "MELON",
+    "MELOA": "MELON",
+  },
+  de: {
+    "BABA DE CAMELO": "KARAMELLMOUSSE",
+    "BOLO À FATIA": "KUCHENSTÜCK",
+    "CHEESECAKE": "CHEESECAKE",
+    "DOCE DA CASA": "DESSERT DES HAUSES",
+    "MOUSSE DE CAFÉ": "KAFFEEMOUSSE",
+    "MOUSSE DE CHOCOLATE": "SCHOKOLADENMOUSSE",
+    "MOUSSE DE MANGA": "MANGOMOUSSE",
+    "PUDIM DE OVOS": "EIERPUDDING",
+    "PRATO DE FRUTA TROPICAL": "TROPISCHER FRUCHTTELLER",
+    "ABACAXI": "ANANAS",
+    "MANGA": "MANGO",
+    "PAPAIA": "PAPAYA",
+    "SALADA DE FRUTAS": "OBSTSALAT",
+    "LARANJA": "ORANGE",
+    "KIWI": "KIWI",
+    "MAÇÃ ASSADA": "BRATAPFEL",
+    "PÊRA BÊBADA": "BIRNE IN WEIN",
+    "MORANGOS": "ERDBEEREN",
+    "MORANGOS COM CHANTILLY": "ERDBEEREN MIT CHANTILLY-SAHNE",
+    "CEREJAS": "KIRSCHEN",
+    "MELÃO": "MELONE",
+    "MELOA": "MELONE",
+  },
+  it: {
+    "BABA DE CAMELO": "MOUSSE AL CARAMELLO",
+    "BOLO À FATIA": "FETTA DI TORTA",
+    "CHEESECAKE": "CHEESECAKE",
+    "DOCE DA CASA": "DESSERT DELLA CASA",
+    "MOUSSE DE CAFÉ": "MOUSSE AL CAFFÈ",
+    "MOUSSE DE CHOCOLATE": "MOUSSE AL CIOCCOLATO",
+    "MOUSSE DE MANGA": "MOUSSE AL MANGO",
+    "PUDIM DE OVOS": "BUDINO ALL'UOVO",
+    "PRATO DE FRUTA TROPICAL": "PIATTO DI FRUTTA TROPICALE",
+    "ABACAXI": "ANANAS",
+    "MANGA": "MANGO",
+    "PAPAIA": "PAPAYA",
+    "SALADA DE FRUTAS": "MACEDONIA",
+    "LARANJA": "ARANCIA",
+    "KIWI": "KIWI",
+    "MAÇÃ ASSADA": "MELA AL FORNO",
+    "PÊRA BÊBADA": "PERA AL VINO",
+    "MORANGOS": "FRAGOLE",
+    "MORANGOS COM CHANTILLY": "FRAGOLE CON CHANTILLY",
+    "CEREJAS": "CILIEGIE",
+    "MELÃO": "MELONE",
+    "MELOA": "MELONE",
+  },
+  ru: {
+    "BABA DE CAMELO": "КАРАМЕЛЬНЫЙ МУСС",
+    "BOLO À FATIA": "КУСОК ТОРТА",
+    "CHEESECAKE": "ЧИЗКЕЙК",
+    "DOCE DA CASA": "ФИРМЕННЫЙ ДЕСЕРТ",
+    "MOUSSE DE CAFÉ": "КОФЕЙНЫЙ МУСС",
+    "MOUSSE DE CHOCOLATE": "ШОКОЛАДНЫЙ МУСС",
+    "MOUSSE DE MANGA": "МАНГОВЫЙ МУСС",
+    "PUDIM DE OVOS": "ЯИЧНЫЙ ПУДИНГ",
+    "PRATO DE FRUTA TROPICAL": "ТАРЕЛКА ТРОПИЧЕСКИХ ФРУКТОВ",
+    "ABACAXI": "АНАНАС",
+    "MANGA": "МАНГО",
+    "PAPAIA": "ПАПАЙЯ",
+    "SALADA DE FRUTAS": "ФРУКТОВЫЙ САЛАТ",
+    "LARANJA": "АПЕЛЬСИН",
+    "KIWI": "КИВИ",
+    "MAÇÃ ASSADA": "ПЕЧЁНОЕ ЯБЛОКО",
+    "PÊRA BÊBADA": "ГРУША В ВИНЕ",
+    "MORANGOS": "КЛУБНИКА",
+    "MORANGOS COM CHANTILLY": "КЛУБНИКА СО ВЗБИТЫМИ СЛИВКАМИ",
+    "CEREJAS": "ВИШНЯ",
+    "MELÃO": "ДЫНЯ",
+    "MELOA": "ДЫНЯ",
+  },
+  zh: {
+    "BABA DE CAMELO": "焦糖慕斯",
+    "BOLO À FATIA": "蛋糕切片",
+    "CHEESECAKE": "芝士蛋糕",
+    "DOCE DA CASA": "本店甜品",
+    "MOUSSE DE CAFÉ": "咖啡慕斯",
+    "MOUSSE DE CHOCOLATE": "巧克力慕斯",
+    "MOUSSE DE MANGA": "芒果慕斯",
+    "PUDIM DE OVOS": "鸡蛋布丁",
+    "PRATO DE FRUTA TROPICAL": "热带水果拼盘",
+    "ABACAXI": "菠萝",
+    "MANGA": "芒果",
+    "PAPAIA": "木瓜",
+    "SALADA DE FRUTAS": "水果沙拉",
+    "LARANJA": "橙子",
+    "KIWI": "猕猴桃",
+    "MAÇÃ ASSADA": "烤苹果",
+    "PÊRA BÊBADA": "酒煮梨",
+    "MORANGOS": "草莓",
+    "MORANGOS COM CHANTILLY": "草莓配尚蒂伊奶油",
+    "CEREJAS": "樱桃",
+    "MELÃO": "甜瓜",
+    "MELOA": "蜜瓜",
+  },
+  ar: {
+    "BABA DE CAMELO": "موس الكراميل",
+    "BOLO À FATIA": "شريحة كعك",
+    "CHEESECAKE": "تشيز كيك",
+    "DOCE DA CASA": "حلوى البيت",
+    "MOUSSE DE CAFÉ": "موس القهوة",
+    "MOUSSE DE CHOCOLATE": "موس الشوكولاتة",
+    "MOUSSE DE MANGA": "موس المانجو",
+    "PUDIM DE OVOS": "بودينغ البيض",
+    "PRATO DE FRUTA TROPICAL": "طبق فواكه استوائية",
+    "ABACAXI": "أناناس",
+    "MANGA": "مانجو",
+    "PAPAIA": "بابايا",
+    "SALADA DE FRUTAS": "سلطة فواكه",
+    "LARANJA": "برتقال",
+    "KIWI": "كيوي",
+    "MAÇÃ ASSADA": "تفاح مخبوز",
+    "PÊRA BÊBADA": "كمثرى مطهوة بالنبيذ",
+    "MORANGOS": "فراولة",
+    "MORANGOS COM CHANTILLY": "فراولة مع كريمة شانتيلي",
+    "CEREJAS": "كرز",
+    "MELÃO": "شمام",
+    "MELOA": "شمام",
+  },
+  hi: {
+    "BABA DE CAMELO": "कैरेमल मूस",
+    "BOLO À FATIA": "केक स्लाइस",
+    "CHEESECAKE": "चीज़केक",
+    "DOCE DA CASA": "हाउस डेज़र्ट",
+    "MOUSSE DE CAFÉ": "कॉफी मूस",
+    "MOUSSE DE CHOCOLATE": "चॉकलेट मूस",
+    "MOUSSE DE MANGA": "मैंगो मूस",
+    "PUDIM DE OVOS": "अंडा पुडिंग",
+    "PRATO DE FRUTA TROPICAL": "ट्रॉपिकल फ्रूट प्लेटर",
+    "ABACAXI": "अनानास",
+    "MANGA": "आम",
+    "PAPAIA": "पपीता",
+    "SALADA DE FRUTAS": "फ्रूट सलाद",
+    "LARANJA": "संतरा",
+    "KIWI": "कीवी",
+    "MAÇÃ ASSADA": "बेक्ड एप्पल",
+    "PÊRA BÊBADA": "वाइन में पकी नाशपाती",
+    "MORANGOS": "स्ट्रॉबेरी",
+    "MORANGOS COM CHANTILLY": "स्ट्रॉबेरी विद चैंटिली",
+    "CEREJAS": "चेरी",
+    "MELÃO": "खरबूजा",
+    "MELOA": "खरबूजा",
+  },
 }
 
-function translateSections(sections: Section[], shouldTranslate: boolean): Section[] {
-  if (!shouldTranslate) return sections
+function isSupportedLanguage(language: string): language is LanguageCode {
+  return language in pageCopy
+}
+
+function translateText(
+  value: string | undefined,
+  dictionary: Record<Exclude<LanguageCode, "pt">, Record<string, string>>,
+  language: LanguageCode,
+) {
+  if (!value || language === "pt") return value
+  return dictionary[language]?.[value] ?? value
+}
+
+function translateSections(sections: Section[], language: LanguageCode): Section[] {
+  if (language === "pt") return sections
 
   return sections.map((section) => ({
     ...section,
-    title: translateText(section.title, sectionTitleTranslations, true) ?? section.title,
+    title: translateText(section.title, sectionTitleTranslations, language) ?? section.title,
     items: section.items.map((item) => ({
       ...item,
-      name: translateText(item.name, itemNameTranslations, true) ?? item.name,
+      name: translateText(item.name, itemNameTranslations, language) ?? item.name,
     })),
   }))
 }
@@ -243,7 +602,7 @@ function ItemRow({ name, note, unit, price, description, compact, notice }: Item
   )
 }
 
-function MenuPage({ sections, copy, finalNotes = true }: { sections: Section[]; copy: (typeof pageCopy)["pt"] | (typeof pageCopy)["en"]; finalNotes?: boolean }) {
+function MenuPage({ sections, copy, finalNotes = true }: { sections: Section[]; copy: PageCopy; finalNotes?: boolean }) {
   return (
     <section className="sp-page sp-menu-page sp-desserts-page">
       <PremiumFrame />
@@ -293,11 +652,11 @@ function MenuPage({ sections, copy, finalNotes = true }: { sections: Section[]; 
 
 export default function CartaSobremesasPage() {
   const { language } = useLanguage()
-  const isEnglish = language === "en"
-  const copy = isEnglish ? pageCopy.en : pageCopy.pt
+  const activeLanguage: LanguageCode = isSupportedLanguage(language) ? language : "pt"
+  const copy = pageCopy[activeLanguage]
 
   return (
-    <main className={`sp-shell ${cormorant.className}`}>
+    <main className={`sp-shell ${cormorant.className}`} dir={activeLanguage === "ar" ? "rtl" : "ltr"}>
       <Link href="/gastronomia" className="sp-back-link">
         {copy.backLabel}
       </Link>
@@ -306,7 +665,7 @@ export default function CartaSobremesasPage() {
         <img src="/CAPA SOBREMESAS.png" alt={copy.coverAlt} className="sp-cover-full-image" />
       </section>
 
-      <MenuPage sections={translateSections(sobremesasSections, isEnglish)} copy={copy} />
+      <MenuPage sections={translateSections(sobremesasSections, activeLanguage)} copy={copy} />
 
       <style jsx global>{`
         :root {
