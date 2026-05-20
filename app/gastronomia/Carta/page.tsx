@@ -337,6 +337,110 @@ const pageCopy = {
       "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE",
     ],
   },
+  zh: {
+    backLabel: "返回",
+    coverAlt: "Senhor Peixe 封面",
+    legalNote: "价格以 € 标示，已含现行法定增值税",
+    finalConsumptionLine1: "所有未点选而放置在餐桌上的产品，如被食用，将会",
+    finalConsumptionLine2: "按菜单价格收费",
+    finalTaxNotes: [
+      "价格以 € 标示，已含现行法定增值税",
+      "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE",
+      "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+      "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE",
+    ],
+  },
+  ru: {
+    backLabel: "Назад",
+    coverAlt: "Обложка Senhor Peixe",
+    legalNote: "ЦЕНЫ В €, ВКЛЮЧАЮТ НДС ПО ДЕЙСТВУЮЩЕЙ СТАВКЕ",
+    finalConsumptionLine1: "ВСЕ ПРОДУКТЫ, ПОСТАВЛЕННЫЕ НА СТОЛ БЕЗ ЗАКАЗА, ЕСЛИ ОНИ БУДУТ УПОТРЕБЛЕНЫ,",
+    finalConsumptionLine2: "БУДУТ ОПЛАЧЕНЫ ПО ЦЕНЕ, УКАЗАННОЙ В МЕНЮ",
+    finalTaxNotes: [
+      "ЦЕНЫ В €, ВКЛЮЧАЮТ НДС ПО ДЕЙСТВУЮЩЕЙ СТАВКЕ",
+      "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE",
+      "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+      "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE",
+    ],
+  },
+  fr: {
+    backLabel: "Retour",
+    coverAlt: "Couverture Senhor Peixe",
+    legalNote: "PRIX EN €, AVEC LA TVA AU TAUX LÉGAL EN VIGUEUR",
+    finalConsumptionLine1: "TOUS LES PRODUITS NON DEMANDÉS PLACÉS SUR LA TABLE, S’ILS SONT CONSOMMÉS, SERONT",
+    finalConsumptionLine2: "FACTURÉS AU PRIX INDIQUÉ SUR LE MENU",
+    finalTaxNotes: [
+      "PRIX EN €, AVEC LA TVA AU TAUX LÉGAL EN VIGUEUR",
+      "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE",
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR",
+      "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE",
+    ],
+  },
+  es: {
+    backLabel: "Volver",
+    coverAlt: "Portada Senhor Peixe",
+    legalNote: "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE",
+    finalConsumptionLine1: "TODOS LOS PRODUCTOS NO SOLICITADOS COLOCADOS EN LA MESA, SI SON CONSUMIDOS, SERÁN",
+    finalConsumptionLine2: "COBRADOS SEGÚN EL PRECIO DEL MENÚ",
+    finalTaxNotes: [
+      "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE",
+      "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE",
+      "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR",
+    ],
+  },
+  it: {
+    backLabel: "Indietro",
+    coverAlt: "Copertina Senhor Peixe",
+    legalNote: "PREZZI IN €, IVA INCLUSA ALL’ALIQUOTA LEGALE VIGENTE",
+    finalConsumptionLine1: "TUTTI I PRODOTTI NON RICHIESTI PORTATI AL TAVOLO, SE CONSUMATI, SARANNO",
+    finalConsumptionLine2: "ADDEBITATI AL PREZZO INDICATO NEL MENÙ",
+    finalTaxNotes: [
+      "PREZZI IN €, IVA INCLUSA ALL’ALIQUOTA LEGALE VIGENTE",
+      "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE",
+      "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+      "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE",
+    ],
+  },
+  ar: {
+    backLabel: "رجوع",
+    coverAlt: "غلاف Senhor Peixe",
+    legalNote: "الأسعار باليورو € وتشمل ضريبة القيمة المضافة حسب السعر القانوني الحالي",
+    finalConsumptionLine1: "جميع المنتجات غير المطلوبة التي توضع على الطاولة، إذا تم استهلاكها،",
+    finalConsumptionLine2: "سيتم احتسابها حسب السعر الموجود في القائمة",
+    finalTaxNotes: [
+      "الأسعار باليورو € وتشمل ضريبة القيمة المضافة حسب السعر القانوني الحالي",
+      "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE",
+      "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+      "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE",
+    ],
+  },
+  de: {
+    backLabel: "Zurück",
+    coverAlt: "Senhor Peixe Titelbild",
+    legalNote: "PREISE IN €, INKLUSIVE MWST. ZUM GELTENDEN GESETZLICHEN SATZ",
+    finalConsumptionLine1: "ALLE NICHT BESTELLTEN PRODUKTE, DIE AUF DEN TISCH GESTELLT UND KONSUMIERT WERDEN,",
+    finalConsumptionLine2: "WERDEN ZUM IM MENÜ ANGEGEBENEN PREIS BERECHNET",
+    finalTaxNotes: [
+      "PREISE IN €, INKLUSIVE MWST. ZUM GELTENDEN GESETZLICHEN SATZ",
+      "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE",
+      "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+      "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE",
+    ],
+  },
+  hi: {
+    backLabel: "वापस",
+    coverAlt: "Senhor Peixe कवर",
+    legalNote: "कीमतें € में हैं, वर्तमान कानूनी दर पर वैट शामिल है",
+    finalConsumptionLine1: "मेज पर रखे गए सभी बिना ऑर्डर किए उत्पाद, यदि उपभोग किए जाते हैं,",
+    finalConsumptionLine2: "मेनू में दिए गए मूल्य के अनुसार शुल्क लिए जाएंगे",
+    finalTaxNotes: [
+      "कीमतें € में हैं, वर्तमान कानूनी दर पर वैट शामिल है",
+      "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE",
+      "PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR",
+      "PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE",
+    ],
+  },
 } as const
 
 const sectionTitleTranslations: Record<string, string> = {
@@ -499,25 +603,522 @@ const itemDescriptionTranslations: Record<string, string> = {
   "COM BATATA COZIDA E SALADA": "WITH BOILED POTATOES AND SALAD",
 }
 
-function translateText(value: string | undefined, dictionary: Record<string, string>, shouldTranslate: boolean) {
-  if (!value || !shouldTranslate) return value
+type LanguageKey = keyof typeof pageCopy
+
+type TranslationDictionaries = {
+  sectionTitles: Record<string, string>
+  itemNames: Record<string, string>
+  itemNotes: Record<string, string>
+  itemUnits: Record<string, string>
+  itemDescriptions: Record<string, string>
+}
+
+const translationDictionaries: Record<Exclude<LanguageKey, "pt">, TranslationDictionaries> = {
+  en: {
+    sectionTitles: sectionTitleTranslations,
+    itemNames: itemNameTranslations,
+    itemNotes: itemNoteTranslations,
+    itemUnits: itemUnitTranslations,
+    itemDescriptions: itemDescriptionTranslations,
+  },
+  zh: {
+    sectionTitles: {
+      "COUVERT": "餐前小食",
+      "ENTRADAS": "前菜",
+      "ENTRADAS QUENTES": "热前菜",
+      "ESPECIALIDADES": "特色菜",
+      "PEIXE": "鱼类",
+      "À LAGAREIRO": "橄榄油烤制",
+      "MARISCO": "海鲜",
+      "CARNE": "肉类",
+      "VEGAN": "素食",
+      "SOPAS": "汤品",
+      "ACOMPANHAMENTOS": "配菜",
+      "MOLHOS": "酱汁",
+    },
+    itemNames: {
+      "AZEITONAS": "橄榄",
+      "MANTEIGA": "黄油",
+      "PÃO": "面包",
+      "PÃO TORRADO COM MANTEIGA": "黄油烤面包",
+      "PATÉ": "肉酱",
+      "QUEIJO AZEITÃO / ALENTEJANO": "阿泽唐 / 阿连特茹奶酪",
+      "TÁBUA DE QUEIJOS": "奶酪拼盘",
+      "BIQUEIRÃO": "白鳀鱼",
+      "PEIXINHOS FRITOS": "炸小鱼",
+      "PRATO DE PRESUNTO": "火腿盘",
+      "SALADA DE CENOURA": "胡萝卜沙拉",
+      "SALADA DE POLVO": "章鱼沙拉",
+      "COCKTAIL DE CAMARÃO": "虾鸡尾酒",
+      "AMÊIJOAS": "蛤蜊",
+      "AMÊIJOLA": "大蛤蜊",
+      "BERBIGÃO": "鸟蛤",
+      "LONGUEIRÃO": "蛏子",
+      "LAPAS": "帽贝",
+      "CAMARÃO AO ALHO": "蒜香虾",
+      "TIRAS DE CHOCO": "墨鱼条",
+      "GAMBA DO ALGARVE": "阿尔加维虾",
+      "MEXILHÃO": "贻贝",
+      "VIEIRA": "扇贝",
+      "ZAMBURINAS": "小扇贝",
+      "CASCO DE SAPATEIRA COM PÃO TORRADO": "蟹壳配烤面包",
+      "CARABINEIROS": "红虾",
+      "CAMARÃO TIGRE": "虎虾",
+      "AÇORDA DE CAMARÃO": "葡式面包虾羹",
+      "ARROZ DE CHERNE E AMÊIJOAS": "石斑鱼蛤蜊饭",
+      "ARROZ DO MAR": "海鲜饭",
+      "ARROZ DE LAGOSTA": "龙虾饭",
+      "ARROZ DE LAVAGANTE": "龙虾饭",
+      "MASSA DE CHERNE": "石斑鱼意面",
+      "CALDEIRADA": "葡式鱼锅",
+      "PEIXE À PESCADOR": "渔夫风味鱼",
+      "BITOQUE DE CAMARÃO": "虾配饭薯条和煎蛋",
+      "CHOCO FRITO": "炸墨鱼",
+      "MISTA DE MARISCO": "海鲜拼盘",
+      "BESUGO": "海鲷",
+      "CABEÇA DE CHERNE / GAROUPA": "石斑鱼 / 龙趸鱼头",
+      "CANTARIL": "鲉鱼",
+      "CHERNE": "石斑鱼",
+      "CHOCOS": "墨鱼",
+      "DOURADA": "金头鲷",
+      "GAROUPA": "龙趸",
+      "GORAZ": "红鲷",
+      "IMPERADOR": "帝王鱼",
+      "LINGUADO": "鳎鱼",
+      "LULAS": "鱿鱼",
+      "OVAS": "鱼籽",
+      "PARGO": "红鲷",
+      "PEIXE GALO": "圣彼得鱼",
+      "PREGADO": "多宝鱼",
+      "ROBALO": "海鲈鱼",
+      "RASCASSO": "鲉鱼",
+      "RODOVALHO": "比目鱼",
+      "SALMONETES": "红鲻鱼",
+      "SALONGO": "萨隆戈鱼",
+      "SARGO": "白鲷",
+      "SARDINHA": "沙丁鱼",
+      "TODOS OS PEIXES SÃO ACOMPANHADOS DE BATATA COZIDA": "所有鱼类均配煮土豆",
+      "BACALHAU": "鳕鱼",
+      "POLVO": "章鱼",
+      "BURRIÉ": "海螺",
+      "CANILHA": "海螺",
+      "BÚZIOS": "海螺",
+      "CAMARÃO ESPINHO": "刺虾",
+      "CAMARÃO DE MOÇAMBIQUE": "莫桑比克虾",
+      "CAMARÃO RABO AZUL": "蓝尾虾",
+      "CAMARÃO LISTADO": "条纹虾",
+      "GAMBA BRANCA DO ALGARVE": "阿尔加维白虾",
+      "BRUXAS": "琵琶虾",
+      "LAGOSTA": "龙虾",
+      "LAVAGANTE": "龙虾",
+      "LAGOSTIM": "小龙虾",
+      "OSTRAS": "牡蛎",
+      "PERCEBES": "鹅颈藤壶",
+      "SAPATEIRA": "面包蟹",
+      "SANTOLA": "蜘蛛蟹",
+      "PATAS DE CARANGUEJO DO ALASCA": "阿拉斯加帝王蟹脚",
+      "BIFE DO LOMBO": "牛柳",
+      "BIFE DA VAZIA": "西冷牛排",
+      "ENTRECÔTE": "肋眼牛排",
+      "TODOS OS BIFES SÃO ACOMPANHADOS DE BATATA FRITA E SALADA": "所有牛排均配薯条和沙拉",
+      "CARNE DE PORCO IBÉRICO": "伊比利亚猪肉",
+      "HAMBÚRGUER DE SOJA": "大豆汉堡",
+      "CREME DE MARISCO": "海鲜奶油汤",
+      "SOPA DE PEIXE": "鱼汤",
+      "SOPA DE LEGUMES": "蔬菜汤",
+      "ARROZ DE ALHO": "蒜香饭",
+      "ARROZ BRANCO": "白米饭",
+      "ARROZ DE FEIJÃO": "豆饭",
+      "ARROZ DE GRELOS": "芜菁叶饭",
+      "ARROZ DE TOMATE": "番茄饭",
+      "AÇORDA DE OVAS": "鱼籽面包羹",
+      "BATATA-DOCE": "红薯",
+      "BATATA FRITA": "薯条",
+      "OVO": "鸡蛋",
+      "LEGUMES": "蔬菜",
+      "LEGUMES SALTEADOS": "炒蔬菜",
+      "SALADA": "沙拉",
+      "SALADA DE PIMENTOS": "甜椒沙拉",
+      "AZEITE E ALHO": "橄榄油和蒜",
+      "ESCABECHE": "腌汁",
+      "FÍGADOS": "鱼肝",
+      "VERDE": "绿色酱汁",
+    },
+    itemNotes: {
+      "SARDINHA / ATUM": "沙丁鱼 / 金枪鱼",
+      "3 QUEIJOS, DOCE, MARMELADA, NOZES, UVAS, TOSTAS": "3 种奶酪、果酱、榅桲酱、核桃、葡萄、吐司",
+      "2 PAX": "2 位",
+      "1 PAX": "1 位",
+      "3 PAX": "3 位",
+      "PREÇO SOB CONSULTA": "价格请咨询",
+      "+0,6KG": "+0.6KG",
+      "6 UN": "6 件",
+      "HALAL": "清真",
+      "MATURADO 60 DIAS": "熟成 60 天",
+      "FRITO, COZIDO": "煎、煮",
+    },
+    itemUnits: { "UN": "件", "/KG": "/KG", "KG": "KG" },
+    itemDescriptions: itemDescriptionTranslations,
+  },
+  ru: {
+    sectionTitles: {
+      "COUVERT": "КУВЕРТ",
+      "ENTRADAS": "ЗАКУСКИ",
+      "ENTRADAS QUENTES": "ГОРЯЧИЕ ЗАКУСКИ",
+      "ESPECIALIDADES": "ФИРМЕННЫЕ БЛЮДА",
+      "PEIXE": "РЫБА",
+      "À LAGAREIRO": "В СТИЛЕ ЛАГАРЕЙРУ",
+      "MARISCO": "МОРЕПРОДУКТЫ",
+      "CARNE": "МЯСО",
+      "VEGAN": "ВЕГАНСКОЕ",
+      "SOPAS": "СУПЫ",
+      "ACOMPANHAMENTOS": "ГАРНИРЫ",
+      "MOLHOS": "СОУСЫ",
+    },
+    itemNames: itemNameTranslations,
+    itemNotes: itemNoteTranslations,
+    itemUnits: itemUnitTranslations,
+    itemDescriptions: itemDescriptionTranslations,
+  },
+  fr: {
+    sectionTitles: {
+      "COUVERT": "COUVERT",
+      "ENTRADAS": "ENTRÉES",
+      "ENTRADAS QUENTES": "ENTRÉES CHAUDES",
+      "ESPECIALIDADES": "SPÉCIALITÉS",
+      "PEIXE": "POISSON",
+      "À LAGAREIRO": "FAÇON LAGAREIRO",
+      "MARISCO": "FRUITS DE MER",
+      "CARNE": "VIANDES",
+      "VEGAN": "VÉGAN",
+      "SOPAS": "SOUPES",
+      "ACOMPANHAMENTOS": "ACCOMPAGNEMENTS",
+      "MOLHOS": "SAUCES",
+    },
+    itemNames: {
+      ...itemNameTranslations,
+      "AZEITONAS": "OLIVES",
+      "MANTEIGA": "BEURRE",
+      "PÃO": "PAIN",
+      "PÃO TORRADO COM MANTEIGA": "PAIN GRILLÉ AU BEURRE",
+      "PATÉ": "PÂTÉ",
+      "TÁBUA DE QUEIJOS": "PLATEAU DE FROMAGES",
+      "SALADA": "SALADE",
+      "BATATA FRITA": "FRITES",
+      "LEGUMES": "LÉGUMES",
+      "MOLHOS": "SAUCES",
+    },
+    itemNotes: {
+      ...itemNoteTranslations,
+      "PREÇO SOB CONSULTA": "PRIX SUR DEMANDE",
+      "FRITO, COZIDO": "FRIT, CUIT",
+    },
+    itemUnits: itemUnitTranslations,
+    itemDescriptions: itemDescriptionTranslations,
+  },
+  es: {
+    sectionTitles: {
+      "COUVERT": "COUVERT",
+      "ENTRADAS": "ENTRANTES",
+      "ENTRADAS QUENTES": "ENTRANTES CALIENTES",
+      "ESPECIALIDADES": "ESPECIALIDADES",
+      "PEIXE": "PESCADO",
+      "À LAGAREIRO": "AL ESTILO LAGAREIRO",
+      "MARISCO": "MARISCO",
+      "CARNE": "CARNE",
+      "VEGAN": "VEGANO",
+      "SOPAS": "SOPAS",
+      "ACOMPANHAMENTOS": "GUARNICIONES",
+      "MOLHOS": "SALSAS",
+    },
+    itemNames: {
+      ...itemNameTranslations,
+      "AZEITONAS": "ACEITUNAS",
+      "MANTEIGA": "MANTEQUILLA",
+      "PÃO": "PAN",
+      "PÃO TORRADO COM MANTEIGA": "PAN TOSTADO CON MANTEQUILLA",
+      "PATÉ": "PATÉ",
+      "TÁBUA DE QUEIJOS": "TABLA DE QUESOS",
+      "SALADA": "ENSALADA",
+      "BATATA FRITA": "PATATAS FRITAS",
+      "LEGUMES": "VERDURAS",
+    },
+    itemNotes: {
+      ...itemNoteTranslations,
+      "PREÇO SOB CONSULTA": "PRECIO BAJO CONSULTA",
+      "FRITO, COZIDO": "FRITO, COCIDO",
+    },
+    itemUnits: itemUnitTranslations,
+    itemDescriptions: itemDescriptionTranslations,
+  },
+  it: {
+    sectionTitles: {
+      "COUVERT": "COPERTO",
+      "ENTRADAS": "ANTIPASTI",
+      "ENTRADAS QUENTES": "ANTIPASTI CALDI",
+      "ESPECIALIDADES": "SPECIALITÀ",
+      "PEIXE": "PESCE",
+      "À LAGAREIRO": "ALLA LAGAREIRO",
+      "MARISCO": "FRUTTI DI MARE",
+      "CARNE": "CARNE",
+      "VEGAN": "VEGANO",
+      "SOPAS": "ZUPPE",
+      "ACOMPANHAMENTOS": "CONTORNI",
+      "MOLHOS": "SALSE",
+    },
+    itemNames: itemNameTranslations,
+    itemNotes: {
+      ...itemNoteTranslations,
+      "PREÇO SOB CONSULTA": "PREZZO SU RICHIESTA",
+    },
+    itemUnits: itemUnitTranslations,
+    itemDescriptions: itemDescriptionTranslations,
+  },
+  ar: {
+    sectionTitles: {
+      "COUVERT": "مقبلات المائدة",
+      "ENTRADAS": "المقبلات",
+      "ENTRADAS QUENTES": "المقبلات الساخنة",
+      "ESPECIALIDADES": "الأطباق الخاصة",
+      "PEIXE": "الأسماك",
+      "À LAGAREIRO": "على طريقة لاغاريرو",
+      "MARISCO": "المأكولات البحرية",
+      "CARNE": "اللحوم",
+      "VEGAN": "نباتي",
+      "SOPAS": "الشوربات",
+      "ACOMPANHAMENTOS": "الأطباق الجانبية",
+      "MOLHOS": "الصلصات",
+    },
+    itemNames: itemNameTranslations,
+    itemNotes: itemNoteTranslations,
+    itemUnits: itemUnitTranslations,
+    itemDescriptions: itemDescriptionTranslations,
+  },
+  de: {
+    sectionTitles: {
+      "COUVERT": "COUVERT",
+      "ENTRADAS": "VORSPEISEN",
+      "ENTRADAS QUENTES": "WARME VORSPEISEN",
+      "ESPECIALIDADES": "SPEZIALITÄTEN",
+      "PEIXE": "FISCH",
+      "À LAGAREIRO": "NACH LAGAREIRO-ART",
+      "MARISCO": "MEERESFRÜCHTE",
+      "CARNE": "FLEISCH",
+      "VEGAN": "VEGAN",
+      "SOPAS": "SUPPEN",
+      "ACOMPANHAMENTOS": "BEILAGEN",
+      "MOLHOS": "SAUCEN",
+    },
+    itemNames: itemNameTranslations,
+    itemNotes: {
+      ...itemNoteTranslations,
+      "PREÇO SOB CONSULTA": "PREIS AUF ANFRAGE",
+    },
+    itemUnits: itemUnitTranslations,
+    itemDescriptions: itemDescriptionTranslations,
+  },
+  hi: {
+    sectionTitles: {
+      "COUVERT": "कूवर्ट",
+      "ENTRADAS": "स्टार्टर",
+      "ENTRADAS QUENTES": "गरम स्टार्टर",
+      "ESPECIALIDADES": "विशेष व्यंजन",
+      "PEIXE": "मछली",
+      "À LAGAREIRO": "लागारेइरो शैली",
+      "MARISCO": "समुद्री भोजन",
+      "CARNE": "मांस",
+      "VEGAN": "वीगन",
+      "SOPAS": "सूप",
+      "ACOMPANHAMENTOS": "साइड डिश",
+      "MOLHOS": "सॉस",
+    },
+    itemNames: itemNameTranslations,
+    itemNotes: itemNoteTranslations,
+    itemUnits: itemUnitTranslations,
+    itemDescriptions: itemDescriptionTranslations,
+  },
+}
+
+
+const fishSummaryCopy: Record<LanguageKey, {
+  title: string
+  paragraphs: string[]
+  notice: string[]
+  priceNotes: string[]
+}> = {
+  pt: {
+    title: "O NOSSO PEIXE",
+    paragraphs: [
+      "No Senhor Peixe, cada peixe é escolhido diariamente com rigor, de acordo com a sazonalidade e a melhor qualidade disponível na lota.",
+      "Trabalhamos com peixe inteiro, preparado no momento e confecionado de forma simples e cuidada, seja grelhado no carvão ou em receitas tradicionais, para valorizar o sabor natural do mar.",
+      "Para sugestões, pesos disponíveis ou recomendações de confeção, a nossa equipa terá todo o gosto em aconselhar.",
+    ],
+    notice: [
+      "A NOSSA OFERTA DE PEIXE FRESCO DEPENDE DA DISPONIBILIDADE DO DIA. A CARTA ONLINE PODERÁ NÃO SER A VERSÃO EM VIGOR.",
+      "OUR FRESH FISH SELECTION DEPENDS ON THE DAY’S AVAILABILITY. THIS ONLINE MENU MIGHT NOT BE THE CURRENT VERSION.",
+    ],
+    priceNotes: [
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR",
+      "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE | PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE | PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR | PREISE IN € INKLUSIVE MWST. ZUM GELTENDEN SATZ",
+    ],
+  },
+  en: {
+    title: "OUR FISH",
+    paragraphs: [
+      "At Senhor Peixe, each fish is carefully selected every day, according to seasonality and the best quality available at the fish market.",
+      "We work with whole fish, prepared to order and cooked simply and carefully, whether charcoal-grilled or in traditional recipes, to highlight the natural flavour of the sea.",
+      "For suggestions, available weights or preparation recommendations, our team will be delighted to advise you.",
+    ],
+    notice: [
+      "OUR FRESH FISH SELECTION DEPENDS ON THE DAY’S AVAILABILITY. THIS ONLINE MENU MIGHT NOT BE THE CURRENT VERSION.",
+      "A NOSSA OFERTA DE PEIXE FRESCO DEPENDE DA DISPONIBILIDADE DO DIA. A CARTA ONLINE PODERÁ NÃO SER A VERSÃO EM VIGOR.",
+    ],
+    priceNotes: [
+      "PRICE IN €, INCLUDES VAT AT THE CURRENT LEGAL RATE",
+      "PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR | PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE | PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR | PREISE IN € INKLUSIVE MWST. ZUM GELTENDEN SATZ",
+    ],
+  },
+  zh: {
+    title: "我们的鲜鱼",
+    paragraphs: [
+      "在 Senhor Peixe，每一条鱼都根据季节和当天鱼市供应的最佳品质严格挑选。",
+      "我们使用整鱼，现点现制，以炭火烧烤或传统做法简单细致地烹调，突出海洋本味。",
+      "如需建议、了解当日重量或烹调方式，我们的团队很乐意为您提供帮助。",
+    ],
+    notice: [
+      "我们的鲜鱼供应取决于当天可获得的食材。线上菜单可能不是当前使用版本。",
+      "OUR FRESH FISH SELECTION DEPENDS ON THE DAY’S AVAILABILITY. THIS ONLINE MENU MIGHT NOT BE THE CURRENT VERSION.",
+    ],
+    priceNotes: ["价格以 € 标示，已含现行法定增值税", "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE"],
+  },
+  ru: {
+    title: "НАША РЫБА",
+    paragraphs: [
+      "В Senhor Peixe каждая рыба ежедневно тщательно отбирается с учетом сезонности и лучшего качества, доступного на рыбном рынке.",
+      "Мы работаем с целой рыбой, готовим ее на заказ просто и аккуратно — на углях или по традиционным рецептам, чтобы подчеркнуть натуральный вкус моря.",
+      "Наша команда с удовольствием поможет с рекомендациями, доступным весом и способом приготовления.",
+    ],
+    notice: [
+      "НАШ ВЫБОР СВЕЖЕЙ РЫБЫ ЗАВИСИТ ОТ НАЛИЧИЯ В КОНКРЕТНЫЙ ДЕНЬ. ОНЛАЙН-МЕНЮ МОЖЕТ НЕ БЫТЬ АКТУАЛЬНОЙ ВЕРСИЕЙ.",
+      "OUR FRESH FISH SELECTION DEPENDS ON THE DAY’S AVAILABILITY. THIS ONLINE MENU MIGHT NOT BE THE CURRENT VERSION.",
+    ],
+    priceNotes: ["ЦЕНЫ В €, ВКЛЮЧАЮТ НДС ПО ДЕЙСТВУЮЩЕЙ СТАВКЕ", "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE"],
+  },
+  fr: {
+    title: "NOTRE POISSON",
+    paragraphs: [
+      "Au Senhor Peixe, chaque poisson est sélectionné chaque jour avec rigueur, selon la saisonnalité et la meilleure qualité disponible à la criée.",
+      "Nous travaillons le poisson entier, préparé au moment et cuisiné avec simplicité et soin, au charbon ou selon des recettes traditionnelles, afin de valoriser le goût naturel de la mer.",
+      "Pour les suggestions, les poids disponibles ou les conseils de cuisson, notre équipe se fera un plaisir de vous conseiller.",
+    ],
+    notice: [
+      "NOTRE SÉLECTION DE POISSON FRAIS DÉPEND DE LA DISPONIBILITÉ DU JOUR. LA CARTE EN LIGNE PEUT NE PAS ÊTRE LA VERSION EN VIGUEUR.",
+      "OUR FRESH FISH SELECTION DEPENDS ON THE DAY’S AVAILABILITY. THIS ONLINE MENU MIGHT NOT BE THE CURRENT VERSION.",
+    ],
+    priceNotes: ["PRIX EN €, AVEC LA TVA AU TAUX LÉGAL EN VIGUEUR", "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE"],
+  },
+  es: {
+    title: "NUESTRO PESCADO",
+    paragraphs: [
+      "En Senhor Peixe, cada pescado se selecciona diariamente con rigor, según la temporada y la mejor calidad disponible en la lonja.",
+      "Trabajamos con pescado entero, preparado al momento y cocinado de forma sencilla y cuidada, a la brasa o en recetas tradicionales, para realzar el sabor natural del mar.",
+      "Para sugerencias, pesos disponibles o recomendaciones de preparación, nuestro equipo estará encantado de aconsejarle.",
+    ],
+    notice: [
+      "NUESTRA OFERTA DE PESCADO FRESCO DEPENDE DE LA DISPONIBILIDAD DEL DÍA. LA CARTA ONLINE PUEDE NO SER LA VERSIÓN VIGENTE.",
+      "OUR FRESH FISH SELECTION DEPENDS ON THE DAY’S AVAILABILITY. THIS ONLINE MENU MIGHT NOT BE THE CURRENT VERSION.",
+    ],
+    priceNotes: ["PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE", "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE"],
+  },
+  it: {
+    title: "IL NOSTRO PESCE",
+    paragraphs: [
+      "Da Senhor Peixe, ogni pesce viene scelto quotidianamente con rigore, secondo la stagionalità e la migliore qualità disponibile al mercato del pesce.",
+      "Lavoriamo con pesce intero, preparato al momento e cucinato in modo semplice e curato, alla brace o con ricette tradizionali, per valorizzare il sapore naturale del mare.",
+      "Per suggerimenti, pesi disponibili o consigli di preparazione, il nostro team sarà lieto di assistervi.",
+    ],
+    notice: [
+      "LA NOSTRA OFFERTA DI PESCE FRESCO DIPENDE DALLA DISPONIBILITÀ DEL GIORNO. IL MENÙ ONLINE POTREBBE NON ESSERE LA VERSIONE IN VIGORE.",
+      "OUR FRESH FISH SELECTION DEPENDS ON THE DAY’S AVAILABILITY. THIS ONLINE MENU MIGHT NOT BE THE CURRENT VERSION.",
+    ],
+    priceNotes: ["PREZZI IN €, IVA INCLUSA ALL’ALIQUOTA LEGALE VIGENTE", "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE"],
+  },
+  ar: {
+    title: "أسماكنا",
+    paragraphs: [
+      "في Senhor Peixe، يتم اختيار كل سمكة يوميًا بعناية، وفقًا للموسمية وأفضل جودة متوفرة في سوق السمك.",
+      "نعمل بالسمك الكامل، يُحضّر عند الطلب ويُطهى ببساطة وعناية، سواء على الفحم أو بوصفات تقليدية، لإبراز النكهة الطبيعية للبحر.",
+      "للاقتراحات أو الأوزان المتوفرة أو توصيات الطهي، سيكون فريقنا سعيدًا بتقديم المشورة.",
+    ],
+    notice: [
+      "يعتمد توفر الأسماك الطازجة لدينا على المتاح في اليوم. قد لا تكون القائمة عبر الإنترنت هي النسخة المعمول بها.",
+      "OUR FRESH FISH SELECTION DEPENDS ON THE DAY’S AVAILABILITY. THIS ONLINE MENU MIGHT NOT BE THE CURRENT VERSION.",
+    ],
+    priceNotes: ["الأسعار باليورو € وتشمل ضريبة القيمة المضافة حسب السعر القانوني الحالي", "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE"],
+  },
+  de: {
+    title: "UNSER FISCH",
+    paragraphs: [
+      "Im Senhor Peixe wird jeder Fisch täglich sorgfältig ausgewählt, je nach Saison und der besten auf dem Fischmarkt verfügbaren Qualität.",
+      "Wir arbeiten mit ganzem Fisch, der im Moment vorbereitet und schlicht sowie sorgfältig zubereitet wird — auf Holzkohle gegrillt oder nach traditionellen Rezepten, um den natürlichen Geschmack des Meeres hervorzuheben.",
+      "Für Empfehlungen, verfügbare Gewichte oder Hinweise zur Zubereitung berät Sie unser Team sehr gerne.",
+    ],
+    notice: [
+      "UNSER ANGEBOT AN FRISCHEM FISCH HÄNGT VON DER TAGESVERFÜGBARKEIT AB. DIE ONLINE-KARTE IST MÖGLICHERWEISE NICHT DIE AKTUELLE VERSION.",
+      "OUR FRESH FISH SELECTION DEPENDS ON THE DAY’S AVAILABILITY. THIS ONLINE MENU MIGHT NOT BE THE CURRENT VERSION.",
+    ],
+    priceNotes: ["PREISE IN €, INKLUSIVE MWST. ZUM GELTENDEN GESETZLICHEN SATZ", "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE"],
+  },
+  hi: {
+    title: "हमारी मछली",
+    paragraphs: [
+      "Senhor Peixe में हर मछली रोज़ सावधानी से चुनी जाती है, मौसम और मछली बाज़ार में उपलब्ध सर्वोत्तम गुणवत्ता के अनुसार।",
+      "हम पूरी मछली के साथ काम करते हैं, जिसे ऑर्डर के समय तैयार किया जाता है और सरल, सावधानीपूर्ण तरीके से पकाया जाता है — चाहे कोयले पर ग्रिल हो या पारंपरिक व्यंजन, ताकि समुद्र का प्राकृतिक स्वाद निखरे।",
+      "सुझाव, उपलब्ध वजन या पकाने की सलाह के लिए हमारी टीम खुशी से मार्गदर्शन करेगी।",
+    ],
+    notice: [
+      "हमारी ताज़ी मछली की उपलब्धता दिन की आपूर्ति पर निर्भर करती है। ऑनलाइन मेनू वर्तमान संस्करण नहीं भी हो सकता है।",
+      "OUR FRESH FISH SELECTION DEPENDS ON THE DAY’S AVAILABILITY. THIS ONLINE MENU MIGHT NOT BE THE CURRENT VERSION.",
+    ],
+    priceNotes: ["कीमतें € में हैं, वर्तमान कानूनी दर पर वैट शामिल है", "PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE"],
+  },
+}
+
+function normalizeLanguage(language: string): LanguageKey {
+  if (language === "zh-CN" || language === "zh_TW" || language === "zh-TW" || language === "mandarin") return "zh"
+  if (language === "es-ES" || language === "es") return "es"
+  if (language === "fr-FR" || language === "fr") return "fr"
+  if (language === "de-DE" || language === "de") return "de"
+  if (language === "it-IT" || language === "it") return "it"
+  if (language === "ru-RU" || language === "ru") return "ru"
+  if (language === "ar-SA" || language === "ar") return "ar"
+  if (language === "hi-IN" || language === "hi") return "hi"
+  if (language === "en-US" || language === "en-GB" || language === "en") return "en"
+  return "pt"
+}
+
+
+function translateText(value: string | undefined, dictionary?: Record<string, string>) {
+  if (!value || !dictionary) return value
   return dictionary[value] ?? value
 }
 
-function translateSections(sections: Section[], shouldTranslate: boolean): Section[] {
-  if (!shouldTranslate) return sections
+function translateSections(sections: Section[], languageKey: LanguageKey): Section[] {
+  if (languageKey === "pt") return sections
+
+  const dictionaries = translationDictionaries[languageKey] ?? translationDictionaries.en
 
   return sections.map((section) => ({
     ...section,
-    title: translateText(section.title, sectionTitleTranslations, true) ?? section.title,
-    subtitle: translateText(section.subtitle, sectionTitleTranslations, true),
-    unitLabel: translateText(section.unitLabel, itemUnitTranslations, true),
+    title: translateText(section.title, dictionaries.sectionTitles) ?? section.title,
+    subtitle: translateText(section.subtitle, dictionaries.sectionTitles),
+    unitLabel: translateText(section.unitLabel, dictionaries.itemUnits),
     items: section.items.map((item) => ({
       ...item,
-      name: translateText(item.name, itemNameTranslations, true) ?? item.name,
-      note: translateText(item.note, itemNoteTranslations, true),
-      unit: translateText(item.unit, itemUnitTranslations, true),
-      description: translateText(item.description, itemDescriptionTranslations, true),
+      name: translateText(item.name, dictionaries.itemNames) ?? item.name,
+      note: translateText(item.note, dictionaries.itemNotes),
+      unit: translateText(item.unit, dictionaries.itemUnits),
+      description: translateText(item.description, dictionaries.itemDescriptions),
     })),
   }))
 }
@@ -659,7 +1260,7 @@ function MenuPage({
   showLegal = true,
 }: {
   sections: Section[]
-  copy: (typeof pageCopy)["pt"] | (typeof pageCopy)["en"]
+  copy: (typeof pageCopy)[LanguageKey]
   dense?: boolean
   fish?: boolean
   shellfish?: boolean
@@ -770,50 +1371,36 @@ function MenuIndexPage() {
 }
 
 
-function FishSummaryPage() {
+function FishSummaryPage({ languageKey }: { languageKey: LanguageKey }) {
+  const summary = fishSummaryCopy[languageKey] ?? fishSummaryCopy.pt
+
   return (
     <section className="sp-page sp-menu-page sp-fish-summary-page">
       <PremiumFrame />
 
       <div className="sp-summary-content">
-        <h2 className={`sp-summary-title ${cinzel.className}`}>O NOSSO PEIXE</h2>
+        <h2 className={`sp-summary-title ${cinzel.className}`}>{summary.title}</h2>
 
         <div className="sp-summary-title-line" />
 
         <div className="sp-summary-text">
-          <p>
-            No Senhor Peixe, cada peixe é escolhido diariamente com rigor, de acordo com a sazonalidade e a melhor
-            qualidade disponível na lota.
-          </p>
-
-          <p>
-            Trabalhamos com peixe inteiro, preparado no momento e confecionado de forma simples e cuidada, seja
-            grelhado no carvão ou em receitas tradicionais, para valorizar o sabor natural do mar.
-          </p>
-
-          <p>
-            Para sugestões, pesos disponíveis ou recomendações de confeção, a nossa equipa terá todo o gosto em
-            aconselhar.
-          </p>
+          {summary.paragraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
         </div>
 
         <div className={`sp-summary-notice ${cinzel.className}`}>
-          <p>
-            A NOSSA OFERTA DE PEIXE FRESCO DEPENDE DA DISPONIBILIDADE DO DIA. A CARTA ONLINE PODERÁ NÃO SER A VERSÃO
-            EM VIGOR.
-          </p>
-          <p>
-            OUR FRESH FISH SELECTION DEPENDS ON THE DAY’S AVAILABILITY. THIS ONLINE MENU MIGHT NOT BE THE CURRENT
-            VERSION.
-          </p>
+          {summary.notice.map((note) => (
+            <p key={note}>{note}</p>
+          ))}
         </div>
 
         <div className={`sp-summary-prices ${cinzel.className}`}>
-          <p>PREÇO EM €, INCLUI IVA À TAXA LEGAL EM VIGOR</p>
-          <p>
-            PRICES IN €, INCLUDE VAT AT THE CURRENT LEGAL RATE | PRECIOS EN €, INCLUYEN IVA AL TIPO LEGAL VIGENTE |
-            PRIX EN €, AVEC LA TVA AU TAUX EN VIGUEUR | PREISE IN € INKLUSIVE MWST. ZUM GELTENDEN SATZ
-          </p>
+          {summary.priceNotes.map((note) => (
+            <p key={note}>
+              <EuroText text={note} />
+            </p>
+          ))}
         </div>
       </div>
     </section>
@@ -822,11 +1409,11 @@ function FishSummaryPage() {
 
 export default function CartaGastronomiaPage() {
   const { language } = useLanguage()
-  const isEnglish = language === "en"
-  const copy = isEnglish ? pageCopy.en : pageCopy.pt
+  const languageKey = normalizeLanguage(language)
+  const copy = pageCopy[languageKey]
 
   return (
-    <main className={`sp-shell ${cormorant.className}`}>
+    <main className={`sp-shell ${cormorant.className}`} dir={languageKey === "ar" ? "rtl" : "ltr"}>
       <Link href="/gastronomia" className="sp-back-link">
         {copy.backLabel}
       </Link>
@@ -840,12 +1427,12 @@ export default function CartaGastronomiaPage() {
       </section>
 
 
-      <MenuPage sections={translateSections(couvertSections, isEnglish)} copy={copy} showLegal={false} />
-      <MenuPage sections={translateSections(especialidadesSections, isEnglish)} copy={copy} dense showLegal={false} />
-      <MenuPage sections={translateSections(peixesSections, isEnglish)} copy={copy} fish showLegal={false} />
-      <MenuPage sections={translateSections(mariscoSections, isEnglish)} copy={copy} shellfish showLegal={false} />
-      <MenuPage sections={translateSections(sopasSections, isEnglish)} copy={copy} sides finalNotes />
-      <FishSummaryPage />
+      <MenuPage sections={translateSections(couvertSections, languageKey)} copy={copy} showLegal={false} />
+      <MenuPage sections={translateSections(especialidadesSections, languageKey)} copy={copy} dense showLegal={false} />
+      <MenuPage sections={translateSections(peixesSections, languageKey)} copy={copy} fish showLegal={false} />
+      <MenuPage sections={translateSections(mariscoSections, languageKey)} copy={copy} shellfish showLegal={false} />
+      <MenuPage sections={translateSections(sopasSections, languageKey)} copy={copy} sides finalNotes />
+      <FishSummaryPage languageKey={languageKey} />
 
       <style jsx global>{`
         :root {
