@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react"
 import { useLanguage } from "@/components/language-provider"
 import { SiteMenu } from "@/components/site-menu"
 
-const translations = {
+const baseTranslations = {
   pt: {
     pageTitle: "Menu",
     fullCarta: "Carta completa",
@@ -269,6 +269,162 @@ const translations = {
   },
 } as const
 
+const translations = {
+  ...baseTranslations,
+  es: {
+    ...baseTranslations.en,
+    pageTitle: "Menú",
+    fullCarta: "Carta completa",
+    fullMenu: "Menú completo",
+    fullMenuDescription:
+      "Aquí puede consultar nuestra carta completa, con todos los productos disponibles y su respectiva selección gastronómica.",
+    openCarta: "Abrir carta",
+    openBeveragesCarta: "Carta de bebidas",
+    openDessertsCarta: "Carta de postres",
+    footer: "Senhor Peixe — Desde 1999",
+    menuCategories: [
+      { id: "entradas", label: "Entrantes" },
+      { id: "especialidades-mar", label: "Especialidades del Mar" },
+      { id: "especialidades-terra", label: "Especialidades de la Tierra" },
+      { id: "acompanhamentos", label: "Guarniciones" },
+      { id: "sobremesas", label: "Postres" },
+    ],
+  },
+  fr: {
+    ...baseTranslations.en,
+    pageTitle: "Menu",
+    fullCarta: "Carte complète",
+    fullMenu: "Menu complet",
+    fullMenuDescription:
+      "Ici, vous pouvez consulter notre carte complète, avec tous les produits disponibles et leur sélection gastronomique.",
+    openCarta: "Ouvrir la carte",
+    openBeveragesCarta: "Carte des boissons",
+    openDessertsCarta: "Carte des desserts",
+    footer: "Senhor Peixe — Depuis 1999",
+    menuCategories: [
+      { id: "entradas", label: "Entrées" },
+      { id: "especialidades-mar", label: "Spécialités de la Mer" },
+      { id: "especialidades-terra", label: "Spécialités de la Terre" },
+      { id: "acompanhamentos", label: "Accompagnements" },
+      { id: "sobremesas", label: "Desserts" },
+    ],
+  },
+  de: {
+    ...baseTranslations.en,
+    pageTitle: "Speisekarte",
+    fullCarta: "Vollständige Karte",
+    fullMenu: "Komplettes Menü",
+    fullMenuDescription:
+      "Hier können Sie unsere vollständige Karte mit allen verfügbaren Produkten und der gastronomischen Auswahl einsehen.",
+    openCarta: "Karte öffnen",
+    openBeveragesCarta: "Getränkekarte",
+    openDessertsCarta: "Dessertkarte",
+    footer: "Senhor Peixe — Seit 1999",
+    menuCategories: [
+      { id: "entradas", label: "Vorspeisen" },
+      { id: "especialidades-mar", label: "Meeresspezialitäten" },
+      { id: "especialidades-terra", label: "Fleischspezialitäten" },
+      { id: "acompanhamentos", label: "Beilagen" },
+      { id: "sobremesas", label: "Desserts" },
+    ],
+  },
+  it: {
+    ...baseTranslations.en,
+    pageTitle: "Menu",
+    fullCarta: "Carta completa",
+    fullMenu: "Menu completo",
+    fullMenuDescription:
+      "Qui può consultare la nostra carta completa, con tutti i prodotti disponibili e la rispettiva selezione gastronomica.",
+    openCarta: "Apri la carta",
+    openBeveragesCarta: "Carta delle bevande",
+    openDessertsCarta: "Carta dei dessert",
+    footer: "Senhor Peixe — Dal 1999",
+    menuCategories: [
+      { id: "entradas", label: "Antipasti" },
+      { id: "especialidades-mar", label: "Specialità di Mare" },
+      { id: "especialidades-terra", label: "Specialità di Terra" },
+      { id: "acompanhamentos", label: "Contorni" },
+      { id: "sobremesas", label: "Dessert" },
+    ],
+  },
+  ru: {
+    ...baseTranslations.en,
+    pageTitle: "Меню",
+    fullCarta: "Полное меню",
+    fullMenu: "Полное меню",
+    fullMenuDescription:
+      "Здесь вы можете посмотреть наше полное меню со всеми доступными блюдами и гастрономической подборкой.",
+    openCarta: "Открыть меню",
+    openBeveragesCarta: "Карта напитков",
+    openDessertsCarta: "Карта десертов",
+    footer: "Senhor Peixe — С 1999 года",
+    menuCategories: [
+      { id: "entradas", label: "Закуски" },
+      { id: "especialidades-mar", label: "Морские специалитеты" },
+      { id: "especialidades-terra", label: "Мясные специалитеты" },
+      { id: "acompanhamentos", label: "Гарниры" },
+      { id: "sobremesas", label: "Десерты" },
+    ],
+  },
+  zh: {
+    ...baseTranslations.en,
+    pageTitle: "菜单",
+    fullCarta: "完整菜单",
+    fullMenu: "完整菜单",
+    fullMenuDescription:
+      "在这里您可以查看我们的完整菜单，包括所有供应产品及相应的美食选择。",
+    openCarta: "打开菜单",
+    openBeveragesCarta: "饮品菜单",
+    openDessertsCarta: "甜品菜单",
+    footer: "Senhor Peixe — 始于 1999",
+    menuCategories: [
+      { id: "entradas", label: "前菜" },
+      { id: "especialidades-mar", label: "海鲜特色" },
+      { id: "especialidades-terra", label: "肉类特色" },
+      { id: "acompanhamentos", label: "配菜" },
+      { id: "sobremesas", label: "甜品" },
+    ],
+  },
+  ar: {
+    ...baseTranslations.en,
+    pageTitle: "القائمة",
+    fullCarta: "القائمة الكاملة",
+    fullMenu: "القائمة الكاملة",
+    fullMenuDescription:
+      "يمكنكم هنا الاطلاع على قائمتنا الكاملة، مع جميع المنتجات المتوفرة والاختيارات المناسبة.",
+    openCarta: "فتح القائمة",
+    openBeveragesCarta: "قائمة المشروبات",
+    openDessertsCarta: "قائمة الحلويات",
+    footer: "Senhor Peixe — منذ 1999",
+    menuCategories: [
+      { id: "entradas", label: "المقبلات" },
+      { id: "especialidades-mar", label: "تخصصات البحر" },
+      { id: "especialidades-terra", label: "تخصصات اللحوم" },
+      { id: "acompanhamentos", label: "الأطباق الجانبية" },
+      { id: "sobremesas", label: "الحلويات" },
+    ],
+  },
+  hi: {
+    ...baseTranslations.en,
+    pageTitle: "मेनू",
+    fullCarta: "पूरी सूची",
+    fullMenu: "पूरा मेनू",
+    fullMenuDescription:
+      "यहाँ आप हमारा पूरा मेनू देख सकते हैं, जिसमें उपलब्ध सभी उत्पाद और संबंधित गैस्ट्रोनॉमिक चयन शामिल हैं।",
+    openCarta: "मेनू खोलें",
+    openBeveragesCarta: "पेय मेनू",
+    openDessertsCarta: "डेज़र्ट मेनू",
+    footer: "Senhor Peixe — 1999 से",
+    menuCategories: [
+      { id: "entradas", label: "स्टार्टर्स" },
+      { id: "especialidades-mar", label: "समुद्री विशेषताएँ" },
+      { id: "especialidades-terra", label: "मांस विशेषताएँ" },
+      { id: "acompanhamentos", label: "साइड डिश" },
+      { id: "sobremesas", label: "डेज़र्ट" },
+    ],
+  },
+} as const
+
 type MenuCategoryId = keyof typeof translations.pt.menuItems
 
 export default function GastronomiaPage() {
@@ -277,7 +433,7 @@ export default function GastronomiaPage() {
   const [isHeaderScrolled, setIsHeaderScrolled] = useState(false)
   const categoryNavRef = useRef<HTMLDivElement | null>(null)
 
-  const t = translations[language]
+  const t = translations[language as keyof typeof translations] ?? translations.pt
   const menuCategories = t.menuCategories
   const menuItems = t.menuItems
 
