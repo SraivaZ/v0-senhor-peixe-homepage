@@ -117,7 +117,6 @@ export default function MenuLanguageGate() {
 
         .sp-language-gate-panel {
           width: min(760px, 100%);
-          min-height: min-content;
           margin: auto 0;
           border-left: 24px solid #10243d;
           border-right: 24px solid #10243d;
@@ -155,6 +154,7 @@ export default function MenuLanguageGate() {
           color: #506785;
           font-family: Georgia, "Times New Roman", serif;
           font-size: 25px;
+          font-weight: 400;
           line-height: 1.28;
         }
 
@@ -169,13 +169,16 @@ export default function MenuLanguageGate() {
           align-items: center;
           width: 100%;
           min-height: 84px;
-          border: 1px solid rgba(197, 154, 97, 0.36);
+          border: 1px solid rgba(197, 154, 97, 0.38);
           background: rgba(255, 253, 248, 0.96);
           color: #10243d;
           cursor: pointer;
           font-family: Georgia, "Times New Roman", serif;
           text-align: left;
-          transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+          transition:
+            border-color 180ms ease,
+            background 180ms ease,
+            transform 180ms ease;
         }
 
         .sp-language-gate-option:hover,
@@ -191,7 +194,7 @@ export default function MenuLanguageGate() {
         .sp-language-gate-short {
           color: #c59a61;
           font-size: 19px;
-          font-weight: 700;
+          font-weight: 600;
           letter-spacing: 0.12em;
           text-align: center;
           text-transform: uppercase;
@@ -206,55 +209,62 @@ export default function MenuLanguageGate() {
         .sp-language-gate-label {
           padding: 0 28px;
           font-size: 27px;
-          font-weight: 700;
+          font-weight: 500;
           line-height: 1.1;
         }
 
         @media (max-width: 640px) {
           .sp-language-gate {
             align-items: flex-start;
-            padding: max(10px, env(safe-area-inset-top)) 10px max(96px, env(safe-area-inset-bottom));
+            padding: max(10px, env(safe-area-inset-top)) 10px max(118px, env(safe-area-inset-bottom));
           }
 
           .sp-language-gate-panel {
             width: min(94vw, 430px);
+            max-height: calc(100dvh - 20px);
             margin: 0 auto;
+            overflow-y: auto;
             border-left-width: 14px;
             border-right-width: 14px;
+            -webkit-overflow-scrolling: touch;
           }
 
           .sp-language-gate-inner {
-            padding: 22px 22px 24px;
+            padding: 24px 24px max(120px, env(safe-area-inset-bottom));
           }
 
           .sp-language-gate-brand {
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             font-size: 13px;
-            letter-spacing: 0.28em;
+            letter-spacing: 0.29em;
           }
 
           .sp-language-gate h2 {
-            font-size: 42px;
-            line-height: 0.98;
+            font-size: clamp(36px, 10.2vw, 44px);
+            line-height: 1;
+            white-space: nowrap;
           }
 
           .sp-language-gate-text {
-            margin: 18px auto 22px;
+            max-width: 330px;
+            margin: 18px auto 24px;
             font-size: 18px;
-            line-height: 1.32;
+            font-weight: 400;
+            line-height: 1.34;
           }
 
           .sp-language-gate-list {
-            gap: 9px;
+            gap: 10px;
           }
 
           .sp-language-gate-option {
             grid-template-columns: 58px 1px 1fr;
-            min-height: 60px;
+            min-height: 61px;
           }
 
           .sp-language-gate-short {
             font-size: 14px;
+            font-weight: 600;
           }
 
           .sp-language-gate-separator {
@@ -264,24 +274,37 @@ export default function MenuLanguageGate() {
           .sp-language-gate-label {
             padding: 0 16px;
             font-size: 20px;
+            font-weight: 500;
           }
         }
 
         @media (max-width: 380px) {
+          .sp-language-gate-panel {
+            width: 94vw;
+            border-left-width: 12px;
+            border-right-width: 12px;
+          }
+
           .sp-language-gate-inner {
-            padding: 18px 18px 22px;
+            padding: 20px 18px max(118px, env(safe-area-inset-bottom));
+          }
+
+          .sp-language-gate-brand {
+            margin-bottom: 12px;
+            font-size: 12px;
           }
 
           .sp-language-gate h2 {
-            font-size: 37px;
+            font-size: 35px;
           }
 
           .sp-language-gate-text {
+            margin: 16px auto 20px;
             font-size: 16px;
-            margin-bottom: 18px;
           }
 
           .sp-language-gate-option {
+            grid-template-columns: 54px 1px 1fr;
             min-height: 56px;
           }
 
