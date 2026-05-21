@@ -5,58 +5,70 @@ import { languages, type Language, useLanguage } from "@/components/language-pro
 
 const STORAGE_KEY = "senhor-peixe-menu-language-selected"
 
-const introCopy: Record<Language, { title: string; text: string }> = {
+const introCopy: Record<Language, { title: string; text: string; confirm: string }> = {
   pt: {
     title: "Escolha o idioma",
     text: "Selecione o idioma em que pretende consultar a carta.",
+    confirm: "Confirmar idioma",
   },
   en: {
     title: "Choose your language",
     text: "Select the language in which you would like to view the menu.",
+    confirm: "Confirm language",
   },
   es: {
     title: "Elija el idioma",
     text: "Seleccione el idioma en el que desea consultar la carta.",
+    confirm: "Confirmar idioma",
   },
   fr: {
     title: "Choisissez la langue",
     text: "Sélectionnez la langue dans laquelle vous souhaitez consulter la carte.",
+    confirm: "Confirmer la langue",
   },
   de: {
     title: "Sprache auswählen",
     text: "Wählen Sie die Sprache, in der Sie die Speisekarte ansehen möchten.",
+    confirm: "Sprache bestätigen",
   },
   it: {
     title: "Scegli la lingua",
     text: "Selezioni la lingua in cui desidera consultare il menu.",
+    confirm: "Conferma lingua",
   },
   ru: {
     title: "Выберите язык",
     text: "Выберите язык, на котором вы хотите просмотреть меню.",
+    confirm: "Подтвердить язык",
   },
   zh: {
     title: "选择语言",
     text: "请选择您想查看菜单的语言。",
+    confirm: "确认语言",
   },
   ar: {
     title: "اختر اللغة",
     text: "اختر اللغة التي ترغب في تصفح القائمة بها.",
+    confirm: "تأكيد اللغة",
   },
   hi: {
     title: "भाषा चुनें",
     text: "कृपया वह भाषा चुनें जिसमें आप मेनू देखना चाहते हैं।",
+    confirm: "भाषा की पुष्टि करें",
   },
 }
 
 export default function MenuLanguageGate() {
   const { language, setLanguage } = useLanguage()
   const [isOpen, setIsOpen] = useState(false)
-  const copy = introCopy[language] ?? introCopy.pt
+  const [selectedLanguage, setSelectedLanguage] = useState<Language>(language)
+  const copy = introCopy[selectedLanguage] ?? introCopy.pt
 
   useEffect(() => {
     const alreadySelected = localStorage.getItem(STORAGE_KEY)
 
     if (!alreadySelected) {
+      setSelectedLanguage(language)
       setIsOpen(true)
       document.body.style.overflow = "hidden"
     }
@@ -64,9 +76,9 @@ export default function MenuLanguageGate() {
     return () => {
       document.body.style.overflow = ""
     }
-  }, [])
+  }, [language])
 
-  function chooseLanguage(selectedLanguage: Language) {
+  function confirmLanguage() {
     setLanguage(selectedLanguage)
     localStorage.setItem(STORAGE_KEY, "true")
     setIsOpen(false)
@@ -89,8 +101,8 @@ export default function MenuLanguageGate() {
               <button
                 key={item.code}
                 type="button"
-                className={`sp-language-gate-option ${language === item.code ? "is-active" : ""}`}
-                onClick={() => chooseLanguage(item.code)}
+                className={`sp-language-gate-option ${selectedLanguage === item.code ? "is-active" : ""}`}
+                onClick={() => setSelectedLanguage(item.code)}
               >
                 <span className="sp-language-gate-short">{item.short}</span>
                 <span className="sp-language-gate-separator" aria-hidden="true" />
@@ -98,6 +110,10 @@ export default function MenuLanguageGate() {
               </button>
             ))}
           </div>
+
+          <button type="button" className="sp-language-gate-confirm" onClick={confirmLanguage}>
+            {copy.confirm}
+          </button>
         </div>
       </div>
 
@@ -213,44 +229,72 @@ export default function MenuLanguageGate() {
           line-height: 1.1;
         }
 
+        .sp-language-gate-confirm {
+          width: 100%;
+          min-height: 58px;
+          margin-top: 18px;
+          border: 1px solid #10243d;
+          background: #10243d;
+          color: #fffdf8;
+          cursor: pointer;
+          font-family: Georgia, "Times New Roman", serif;
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          transition:
+            background 180ms ease,
+            border-color 180ms ease,
+            transform 180ms ease;
+        }
+
+        .sp-language-gate-confirm:hover {
+          background: #0d2c4a;
+          border-color: #0d2c4a;
+        }
+
+        .sp-language-gate-confirm:active {
+          transform: scale(0.99);
+        }
+
         @media (max-width: 640px) {
           .sp-language-gate {
             align-items: flex-start;
-            padding: max(10px, env(safe-area-inset-top)) 10px max(118px, env(safe-area-inset-bottom));
+            padding: 0;
+            background: #10243d;
           }
 
           .sp-language-gate-panel {
-            width: min(94vw, 430px);
-            max-height: calc(100dvh - 20px);
+            width: min(92vw, 410px);
+            min-height: 100dvh;
+            max-height: none;
             margin: 0 auto;
-            overflow-y: auto;
-            border-left-width: 14px;
-            border-right-width: 14px;
-            -webkit-overflow-scrolling: touch;
+            overflow-y: visible;
+            border-left-width: 12px;
+            border-right-width: 12px;
+            box-shadow: none;
           }
 
           .sp-language-gate-inner {
-            padding: 24px 24px max(120px, env(safe-area-inset-bottom));
+            padding: max(22px, env(safe-area-inset-top)) 24px max(96px, env(safe-area-inset-bottom));
           }
 
           .sp-language-gate-brand {
-            margin-bottom: 14px;
+            margin-bottom: 16px;
             font-size: 13px;
             letter-spacing: 0.29em;
           }
 
           .sp-language-gate h2 {
-            font-size: clamp(36px, 10.2vw, 44px);
-            line-height: 1;
-            white-space: nowrap;
+            font-size: 42px;
+            line-height: 0.98;
           }
 
           .sp-language-gate-text {
-            max-width: 330px;
-            margin: 18px auto 24px;
-            font-size: 18px;
-            font-weight: 400;
-            line-height: 1.34;
+            max-width: 320px;
+            margin: 18px auto 26px;
+            font-size: 20px;
+            line-height: 1.25;
           }
 
           .sp-language-gate-list {
@@ -258,58 +302,61 @@ export default function MenuLanguageGate() {
           }
 
           .sp-language-gate-option {
-            grid-template-columns: 58px 1px 1fr;
-            min-height: 61px;
+            grid-template-columns: 62px 1px 1fr;
+            min-height: 62px;
           }
 
           .sp-language-gate-short {
             font-size: 14px;
-            font-weight: 600;
           }
 
           .sp-language-gate-separator {
-            height: 34px;
+            height: 36px;
           }
 
           .sp-language-gate-label {
-            padding: 0 16px;
-            font-size: 20px;
-            font-weight: 500;
+            padding: 0 18px;
+            font-size: 21px;
+          }
+
+          .sp-language-gate-confirm {
+            position: sticky;
+            bottom: max(16px, env(safe-area-inset-bottom));
+            min-height: 50px;
+            margin-top: 14px;
+            box-shadow: 0 14px 28px rgba(16, 36, 61, 0.24);
+            font-size: 11px;
+            letter-spacing: 0.16em;
           }
         }
 
         @media (max-width: 380px) {
           .sp-language-gate-panel {
-            width: 94vw;
-            border-left-width: 12px;
-            border-right-width: 12px;
+            width: min(94vw, 390px);
+            border-left-width: 10px;
+            border-right-width: 10px;
           }
 
           .sp-language-gate-inner {
-            padding: 20px 18px max(118px, env(safe-area-inset-bottom));
-          }
-
-          .sp-language-gate-brand {
-            margin-bottom: 12px;
-            font-size: 12px;
+            padding-left: 20px;
+            padding-right: 20px;
           }
 
           .sp-language-gate h2 {
-            font-size: 35px;
+            font-size: 38px;
           }
 
           .sp-language-gate-text {
-            margin: 16px auto 20px;
-            font-size: 16px;
+            font-size: 18px;
           }
 
           .sp-language-gate-option {
-            grid-template-columns: 54px 1px 1fr;
-            min-height: 56px;
+            min-height: 58px;
+            grid-template-columns: 56px 1px 1fr;
           }
 
           .sp-language-gate-label {
-            font-size: 18px;
+            font-size: 19px;
           }
         }
       `}</style>
