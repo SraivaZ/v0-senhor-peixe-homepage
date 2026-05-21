@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/opengraph-image.png",
+        url: "/opengraph-whatsapp-v2.png",
         width: 1200,
         height: 630,
         alt: "Senhor Peixe - Cozinha Portuguesa, Peixe e Marisco",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     title: "Senhor Peixe | Cozinha Portuguesa - Peixe e Marisco",
     description:
       "Restaurante de peixe e marisco em Lisboa, Portugal. Cozinha portuguesa tradicional desde 1999.",
-    images: ["/opengraph-image.png"],
+    images: ["/opengraph-whatsapp-v2.png"],
   },
 }
 
