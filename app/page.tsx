@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useEffect, useState } from "react"
-import { useLanguage } from "@/components/language-provider"
+import { languages, useLanguage } from "@/components/language-provider"
 
 const BACKGROUND_IMAGE =
   "https://i.ibb.co/qL7pTchy/Chat-GPT-Image-13-05-2026-23-04-15.png"
@@ -31,8 +31,7 @@ const translations = {
     discover: "Descubra Mais",
     choosePhone: "Escolha o número para ligar",
     emailCopied: "Email copiado",
-    language: "English",
-    languageLabel: "Mudar para inglês",
+    languageLabel: "Escolher idioma",
     phoneLabel: "Ligar",
     emailLabel: "Copiar email",
     instagramLabel: "Instagram",
@@ -52,21 +51,182 @@ const translations = {
     discover: "Discover More",
     choosePhone: "Choose a number to call",
     emailCopied: "Email copied",
-    language: "Português",
-    languageLabel: "Switch to Portuguese",
+    languageLabel: "Choose language",
     phoneLabel: "Call",
     emailLabel: "Copy email",
     instagramLabel: "Instagram",
   },
-}
+  es: {
+    reserve: "Reservar",
+    menu: "Menú",
+    close: "Cerrar",
+    gastronomy: "Gastronomía",
+    wine: "Bodega",
+    space: "El Espacio",
+    reservations: "Reservas",
+    about: "Sobre Nosotros",
+    contacts: "Contactos",
+    subtitle: "Cocina Portuguesa · Pescado y Marisco",
+    since: "Desde 1999",
+    discover: "Descubrir Más",
+    choosePhone: "Elija el número para llamar",
+    emailCopied: "Email copiado",
+    languageLabel: "Elegir idioma",
+    phoneLabel: "Llamar",
+    emailLabel: "Copiar email",
+    instagramLabel: "Instagram",
+  },
+  fr: {
+    reserve: "Réserver",
+    menu: "Menu",
+    close: "Fermer",
+    gastronomy: "Gastronomie",
+    wine: "Cave à Vins",
+    space: "L’Espace",
+    reservations: "Réservations",
+    about: "À Propos",
+    contacts: "Contacts",
+    subtitle: "Cuisine Portugaise · Poisson et Fruits de Mer",
+    since: "Depuis 1999",
+    discover: "Découvrir",
+    choosePhone: "Choisissez le numéro à appeler",
+    emailCopied: "Email copié",
+    languageLabel: "Choisir la langue",
+    phoneLabel: "Appeler",
+    emailLabel: "Copier l’email",
+    instagramLabel: "Instagram",
+  },
+  de: {
+    reserve: "Reservieren",
+    menu: "Menü",
+    close: "Schließen",
+    gastronomy: "Gastronomie",
+    wine: "Weinkeller",
+    space: "Der Raum",
+    reservations: "Reservierungen",
+    about: "Über Uns",
+    contacts: "Kontakt",
+    subtitle: "Portugiesische Küche · Fisch und Meeresfrüchte",
+    since: "Seit 1999",
+    discover: "Mehr Entdecken",
+    choosePhone: "Wählen Sie die Nummer zum Anrufen",
+    emailCopied: "E-Mail kopiert",
+    languageLabel: "Sprache wählen",
+    phoneLabel: "Anrufen",
+    emailLabel: "E-Mail kopieren",
+    instagramLabel: "Instagram",
+  },
+  it: {
+    reserve: "Prenotare",
+    menu: "Menu",
+    close: "Chiudere",
+    gastronomy: "Gastronomia",
+    wine: "Cantina",
+    space: "Lo Spazio",
+    reservations: "Prenotazioni",
+    about: "Chi Siamo",
+    contacts: "Contatti",
+    subtitle: "Cucina Portoghese · Pesce e Frutti di Mare",
+    since: "Dal 1999",
+    discover: "Scopri di Più",
+    choosePhone: "Scegli il numero da chiamare",
+    emailCopied: "Email copiata",
+    languageLabel: "Scegli lingua",
+    phoneLabel: "Chiama",
+    emailLabel: "Copia email",
+    instagramLabel: "Instagram",
+  },
+  ru: {
+    reserve: "Забронировать",
+    menu: "Меню",
+    close: "Закрыть",
+    gastronomy: "Гастрономия",
+    wine: "Винная Карта",
+    space: "Пространство",
+    reservations: "Бронирование",
+    about: "О Нас",
+    contacts: "Контакты",
+    subtitle: "Португальская Кухня · Рыба и Морепродукты",
+    since: "С 1999 года",
+    discover: "Узнать Больше",
+    choosePhone: "Выберите номер для звонка",
+    emailCopied: "Email скопирован",
+    languageLabel: "Выбрать язык",
+    phoneLabel: "Позвонить",
+    emailLabel: "Скопировать email",
+    instagramLabel: "Instagram",
+  },
+  zh: {
+    reserve: "预订",
+    menu: "菜单",
+    close: "关闭",
+    gastronomy: "美食",
+    wine: "酒窖",
+    space: "空间",
+    reservations: "预订",
+    about: "关于我们",
+    contacts: "联系方式",
+    subtitle: "葡萄牙料理 · 鱼类与海鲜",
+    since: "始于 1999",
+    discover: "了解更多",
+    choosePhone: "请选择要拨打的号码",
+    emailCopied: "邮箱已复制",
+    languageLabel: "选择语言",
+    phoneLabel: "致电",
+    emailLabel: "复制邮箱",
+    instagramLabel: "Instagram",
+  },
+  ar: {
+    reserve: "احجز",
+    menu: "القائمة",
+    close: "إغلاق",
+    gastronomy: "فن الطهي",
+    wine: "قبو النبيذ",
+    space: "المكان",
+    reservations: "الحجوزات",
+    about: "من نحن",
+    contacts: "اتصل بنا",
+    subtitle: "مطبخ برتغالي · أسماك ومأكولات بحرية",
+    since: "منذ 1999",
+    discover: "اكتشف المزيد",
+    choosePhone: "اختر الرقم للاتصال",
+    emailCopied: "تم نسخ البريد الإلكتروني",
+    languageLabel: "اختر اللغة",
+    phoneLabel: "اتصال",
+    emailLabel: "نسخ البريد الإلكتروني",
+    instagramLabel: "Instagram",
+  },
+  hi: {
+    reserve: "आरक्षित करें",
+    menu: "मेनू",
+    close: "बंद करें",
+    gastronomy: "भोजन",
+    wine: "वाइन सेलर",
+    space: "स्थान",
+    reservations: "आरक्षण",
+    about: "हमारे बारे में",
+    contacts: "संपर्क",
+    subtitle: "पुर्तगाली व्यंजन · मछली और समुद्री भोजन",
+    since: "1999 से",
+    discover: "और जानें",
+    choosePhone: "कॉल करने के लिए नंबर चुनें",
+    emailCopied: "ईमेल कॉपी किया गया",
+    languageLabel: "भाषा चुनें",
+    phoneLabel: "कॉल करें",
+    emailLabel: "ईमेल कॉपी करें",
+    instagramLabel: "Instagram",
+  },
+} as const
 
 export default function HomePage() {
-  const { language, toggleLanguage } = useLanguage()
+  const { language, setLanguage } = useLanguage()
   const [menuOpen, setMenuOpen] = useState(false)
   const [phoneOpen, setPhoneOpen] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [languageOpen, setLanguageOpen] = useState(false)
 
-  const t = translations[language]
+  const t = translations[language] ?? translations.pt
+  const currentLanguage = languages.find((item) => item.code === language) ?? languages[0]
 
   const navLinks = [
     { href: "/gastronomia", label: t.gastronomy },
@@ -110,9 +270,9 @@ export default function HomePage() {
     }
   }
 
-  function handleToggleLanguage() {
-    toggleLanguage()
-    setMenuOpen(false)
+  function handleSelectLanguage(newLanguage: typeof language) {
+    setLanguage(newLanguage)
+    setLanguageOpen(false)
   }
 
   return (
@@ -143,7 +303,10 @@ export default function HomePage() {
 
           <button
             type="button"
-            onClick={() => setMenuOpen(true)}
+            onClick={() => {
+              setMenuOpen(true)
+              setLanguageOpen(false)
+            }}
             className="group flex h-12 w-12 items-center justify-center rounded-full text-[#d8b77b] transition hover:bg-white/5 sm:h-14 sm:w-14"
             aria-label={t.menu}
           >
@@ -294,14 +457,37 @@ export default function HomePage() {
             </nav>
 
             <div className="mt-auto border-t border-[#c9a46a]/25 pt-8">
-              <button
-                type="button"
-                onClick={handleToggleLanguage}
-                aria-label={t.languageLabel}
-                className="text-sm uppercase tracking-[0.28em] text-[#d8b77b] transition hover:text-[#f1d7a0]"
-              >
-                {t.language}
-              </button>
+              <div className="w-full">
+                <button
+                  type="button"
+                  onClick={() => setLanguageOpen((open) => !open)}
+                  aria-label={t.languageLabel}
+                  aria-expanded={languageOpen}
+                  className="flex w-full items-center justify-between border border-[#c9a46a]/25 px-5 py-4 text-left text-sm uppercase tracking-[0.24em] text-[#d8b77b] transition hover:border-[#c9a46a]/45 hover:bg-white/[0.03] hover:text-[#f1d7a0]"
+                >
+                  <span>{currentLanguage?.label}</span>
+                  <span className="text-lg leading-none text-[#c9a46a]">
+                    {languageOpen ? "−" : "+"}
+                  </span>
+                </button>
+
+                {languageOpen && (
+                  <div className="mt-3 grid max-h-72 gap-2 overflow-y-auto pr-1">
+                    {languages
+                      .filter((option) => option.code !== language)
+                      .map((option) => (
+                        <button
+                          type="button"
+                          key={option.code}
+                          onClick={() => handleSelectLanguage(option.code)}
+                          className="border border-[#c9a46a]/10 bg-white/[0.025] px-5 py-3 text-left text-xs uppercase tracking-[0.2em] text-white/72 transition hover:border-[#c9a46a]/35 hover:bg-[#c9a46a]/10 hover:text-[#f1d7a0]"
+                        >
+                          {option.label}
+                        </button>
+                      ))}
+                  </div>
+                )}
+              </div>
 
               <div className="mt-8 flex items-center gap-6 text-[#d8b77b]">
                 <button
