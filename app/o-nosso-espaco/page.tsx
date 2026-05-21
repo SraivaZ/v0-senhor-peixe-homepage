@@ -1,12 +1,35 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { useLanguage } from "@/components/language-provider"
-import { SiteMenu } from "@/components/site-menu"
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useLanguage } from "@/components/language-provider";
+import { SiteMenu } from "@/components/site-menu";
 
-const translations = {
+type SpaceImage = {
+  src: string;
+  alt: string;
+};
+
+type SpaceTranslation = {
+  close: string;
+  pageTitle: string;
+  pageSubtitle: string;
+  interior: string;
+  exterior: string;
+  privateRoom: string;
+  upperDeck: string;
+  exclusiveExperience: string;
+  exclusiveDescription: string;
+  reservePrivateRoom: string;
+  footer: string;
+  interiorImages: SpaceImage[];
+  exteriorImages: SpaceImage[];
+  upperDeckImages: SpaceImage[];
+  upperDeckHeroAlt: string;
+};
+
+const translations: Record<string, SpaceTranslation> = {
   pt: {
     close: "Fechar",
     pageTitle: "O Nosso Espaço",
@@ -32,7 +55,10 @@ const translations = {
       { src: "/images/space/exterior-3.jpg", alt: "Jardim exterior" },
     ],
     upperDeckImages: [
-      { src: "/images/space/upper-deck-1.jpg", alt: "Sala privada vista geral" },
+      {
+        src: "/images/space/upper-deck-1.jpg",
+        alt: "Sala privada vista geral",
+      },
       { src: "/images/space/upper-deck-2.jpg", alt: "Detalhes mesa privada" },
     ],
     upperDeckHeroAlt: "The Upper Deck - Vista panorâmica",
@@ -67,48 +93,331 @@ const translations = {
     ],
     upperDeckHeroAlt: "The Upper Deck - Panoramic view",
   },
-} as const
+  es: {
+    close: "Cerrar",
+    pageTitle: "Nuestro Espacio",
+    pageSubtitle:
+      "Ambientes pensados para recibir con elegancia, confort y una vista privilegiada.",
+    interior: "Interior",
+    exterior: "Exterior",
+    privateRoom: "Sala privada",
+    upperDeck: "The Upper Deck",
+    exclusiveExperience: "Una Experiencia Exclusiva",
+    exclusiveDescription:
+      "Nuestro espacio privado ofrece una vista impresionante y un ambiente íntimo para ocasiones especiales. Con capacidad para hasta 50 personas, es el lugar perfecto para cenas de negocios, celebraciones familiares o eventos privados.",
+    reservePrivateRoom: "Reservar sala privada",
+    footer: "Senhor Peixe — Desde 1999",
+    interiorImages: [
+      { src: "/images/space/interior-1.jpg", alt: "Comedor principal" },
+      { src: "/images/space/interior-2.jpg", alt: "Bar y zona de vinos" },
+      { src: "/images/space/interior-3.jpg", alt: "Detalles de la decoración" },
+    ],
+    exteriorImages: [
+      { src: "/images/space/exterior-1.jpg", alt: "Terraza con vista al río" },
+      { src: "/images/space/exterior-2.jpg", alt: "Terraza al atardecer" },
+      { src: "/images/space/exterior-3.jpg", alt: "Jardín exterior" },
+    ],
+    upperDeckImages: [
+      {
+        src: "/images/space/upper-deck-1.jpg",
+        alt: "Vista general de la sala privada",
+      },
+      {
+        src: "/images/space/upper-deck-2.jpg",
+        alt: "Detalles de la mesa privada",
+      },
+    ],
+    upperDeckHeroAlt: "The Upper Deck - Vista panorámica",
+  },
+  fr: {
+    close: "Fermer",
+    pageTitle: "Notre Espace",
+    pageSubtitle:
+      "Des ambiances conçues pour accueillir avec élégance, confort et une vue privilégiée.",
+    interior: "Intérieur",
+    exterior: "Extérieur",
+    privateRoom: "Salle privée",
+    upperDeck: "The Upper Deck",
+    exclusiveExperience: "Une Expérience Exclusive",
+    exclusiveDescription:
+      "Notre espace privé offre une vue magnifique et une atmosphère intime pour les occasions spéciales. Avec une capacité allant jusqu’à 50 personnes, c’est le lieu idéal pour des dîners d’affaires, des célébrations familiales ou des événements privés.",
+    reservePrivateRoom: "Réserver la salle privée",
+    footer: "Senhor Peixe — Depuis 1999",
+    interiorImages: [
+      { src: "/images/space/interior-1.jpg", alt: "Salle à manger principale" },
+      { src: "/images/space/interior-2.jpg", alt: "Bar et espace vins" },
+      { src: "/images/space/interior-3.jpg", alt: "Détails de la décoration" },
+    ],
+    exteriorImages: [
+      {
+        src: "/images/space/exterior-1.jpg",
+        alt: "Terrasse avec vue sur le fleuve",
+      },
+      {
+        src: "/images/space/exterior-2.jpg",
+        alt: "Terrasse au coucher du soleil",
+      },
+      { src: "/images/space/exterior-3.jpg", alt: "Jardin extérieur" },
+    ],
+    upperDeckImages: [
+      {
+        src: "/images/space/upper-deck-1.jpg",
+        alt: "Vue générale de la salle privée",
+      },
+      {
+        src: "/images/space/upper-deck-2.jpg",
+        alt: "Détails de la table privée",
+      },
+    ],
+    upperDeckHeroAlt: "The Upper Deck - Vue panoramique",
+  },
+  de: {
+    close: "Schließen",
+    pageTitle: "Unser Raum",
+    pageSubtitle:
+      "Räume, die mit Eleganz, Komfort und privilegierter Aussicht zum Empfang einladen.",
+    interior: "Innenbereich",
+    exterior: "Außenbereich",
+    privateRoom: "Privater Raum",
+    upperDeck: "The Upper Deck",
+    exclusiveExperience: "Ein Exklusives Erlebnis",
+    exclusiveDescription:
+      "Unser privater Bereich bietet eine beeindruckende Aussicht und eine intime Atmosphäre für besondere Anlässe. Mit Platz für bis zu 50 Personen ist er ideal für Geschäftsessen, Familienfeiern oder private Veranstaltungen.",
+    reservePrivateRoom: "Privaten Raum reservieren",
+    footer: "Senhor Peixe — Seit 1999",
+    interiorImages: [
+      { src: "/images/space/interior-1.jpg", alt: "Hauptspeisesaal" },
+      { src: "/images/space/interior-2.jpg", alt: "Bar und Weinbereich" },
+      { src: "/images/space/interior-3.jpg", alt: "Dekorationsdetails" },
+    ],
+    exteriorImages: [
+      { src: "/images/space/exterior-1.jpg", alt: "Terrasse mit Flussblick" },
+      {
+        src: "/images/space/exterior-2.jpg",
+        alt: "Terrasse bei Sonnenuntergang",
+      },
+      { src: "/images/space/exterior-3.jpg", alt: "Außengarten" },
+    ],
+    upperDeckImages: [
+      {
+        src: "/images/space/upper-deck-1.jpg",
+        alt: "Privater Raum im Überblick",
+      },
+      {
+        src: "/images/space/upper-deck-2.jpg",
+        alt: "Details des privaten Tisches",
+      },
+    ],
+    upperDeckHeroAlt: "The Upper Deck - Panoramablick",
+  },
+  it: {
+    close: "Chiudere",
+    pageTitle: "Il Nostro Spazio",
+    pageSubtitle:
+      "Ambienti pensati per accogliere con eleganza, comfort e una vista privilegiata.",
+    interior: "Interno",
+    exterior: "Esterno",
+    privateRoom: "Sala privata",
+    upperDeck: "The Upper Deck",
+    exclusiveExperience: "Un’Esperienza Esclusiva",
+    exclusiveDescription:
+      "Il nostro spazio privato offre una vista splendida e un’atmosfera intima per occasioni speciali. Con una capacità fino a 50 persone, è il luogo perfetto per cene di lavoro, celebrazioni familiari o eventi privati.",
+    reservePrivateRoom: "Prenotare la sala privata",
+    footer: "Senhor Peixe — Dal 1999",
+    interiorImages: [
+      { src: "/images/space/interior-1.jpg", alt: "Sala da pranzo principale" },
+      { src: "/images/space/interior-2.jpg", alt: "Bar e zona vini" },
+      { src: "/images/space/interior-3.jpg", alt: "Dettagli dell’arredamento" },
+    ],
+    exteriorImages: [
+      {
+        src: "/images/space/exterior-1.jpg",
+        alt: "Terrazza con vista sul fiume",
+      },
+      { src: "/images/space/exterior-2.jpg", alt: "Terrazza al tramonto" },
+      { src: "/images/space/exterior-3.jpg", alt: "Giardino esterno" },
+    ],
+    upperDeckImages: [
+      {
+        src: "/images/space/upper-deck-1.jpg",
+        alt: "Vista generale della sala privata",
+      },
+      {
+        src: "/images/space/upper-deck-2.jpg",
+        alt: "Dettagli del tavolo privato",
+      },
+    ],
+    upperDeckHeroAlt: "The Upper Deck - Vista panoramica",
+  },
+  ru: {
+    close: "Закрыть",
+    pageTitle: "Наше Пространство",
+    pageSubtitle:
+      "Атмосфера, созданная для приема гостей с элегантностью, комфортом и прекрасным видом.",
+    interior: "Интерьер",
+    exterior: "Экстерьер",
+    privateRoom: "Приватный зал",
+    upperDeck: "The Upper Deck",
+    exclusiveExperience: "Эксклюзивный Опыт",
+    exclusiveDescription:
+      "Наше приватное пространство предлагает великолепный вид и уютную атмосферу для особых случаев. Вместимостью до 50 человек, оно идеально подходит для деловых ужинов, семейных торжеств или частных мероприятий.",
+    reservePrivateRoom: "Забронировать приватный зал",
+    footer: "Senhor Peixe — С 1999 года",
+    interiorImages: [
+      { src: "/images/space/interior-1.jpg", alt: "Главный обеденный зал" },
+      { src: "/images/space/interior-2.jpg", alt: "Бар и винная зона" },
+      { src: "/images/space/interior-3.jpg", alt: "Детали интерьера" },
+    ],
+    exteriorImages: [
+      { src: "/images/space/exterior-1.jpg", alt: "Терраса с видом на реку" },
+      { src: "/images/space/exterior-2.jpg", alt: "Терраса на закате" },
+      { src: "/images/space/exterior-3.jpg", alt: "Открытый сад" },
+    ],
+    upperDeckImages: [
+      {
+        src: "/images/space/upper-deck-1.jpg",
+        alt: "Общий вид приватного зала",
+      },
+      { src: "/images/space/upper-deck-2.jpg", alt: "Детали приватного стола" },
+    ],
+    upperDeckHeroAlt: "The Upper Deck - Панорамный вид",
+  },
+  zh: {
+    close: "关闭",
+    pageTitle: "我们的空间",
+    pageSubtitle: "以优雅、舒适和开阔景致迎接宾客的用餐空间。",
+    interior: "室内",
+    exterior: "户外",
+    privateRoom: "私人包间",
+    upperDeck: "The Upper Deck",
+    exclusiveExperience: "专属体验",
+    exclusiveDescription:
+      "我们的私人空间拥有迷人的景观和私密的氛围，非常适合特别场合。最多可容纳50位宾客，是商务晚宴、家庭庆祝或私人活动的理想选择。",
+    reservePrivateRoom: "预订私人包间",
+    footer: "Senhor Peixe — 始于1999年",
+    interiorImages: [
+      { src: "/images/space/interior-1.jpg", alt: "主餐厅" },
+      { src: "/images/space/interior-2.jpg", alt: "酒吧与葡萄酒区" },
+      { src: "/images/space/interior-3.jpg", alt: "装饰细节" },
+    ],
+    exteriorImages: [
+      { src: "/images/space/exterior-1.jpg", alt: "河景露台" },
+      { src: "/images/space/exterior-2.jpg", alt: "日落露台" },
+      { src: "/images/space/exterior-3.jpg", alt: "户外花园" },
+    ],
+    upperDeckImages: [
+      { src: "/images/space/upper-deck-1.jpg", alt: "私人包间全景" },
+      { src: "/images/space/upper-deck-2.jpg", alt: "私人餐桌细节" },
+    ],
+    upperDeckHeroAlt: "The Upper Deck - 全景视野",
+  },
+  ar: {
+    close: "إغلاق",
+    pageTitle: "مساحتنا",
+    pageSubtitle: "مساحات مصممة لاستقبال الضيوف بأناقة وراحة وإطلالة مميزة.",
+    interior: "الداخل",
+    exterior: "الخارج",
+    privateRoom: "قاعة خاصة",
+    upperDeck: "The Upper Deck",
+    exclusiveExperience: "تجربة حصرية",
+    exclusiveDescription:
+      "توفر مساحتنا الخاصة إطلالة رائعة وأجواء حميمة للمناسبات الخاصة. بسعة تصل إلى 50 شخصًا، فهي المكان المثالي لعشاء العمل أو الاحتفالات العائلية أو الفعاليات الخاصة.",
+    reservePrivateRoom: "حجز القاعة الخاصة",
+    footer: "Senhor Peixe — منذ 1999",
+    interiorImages: [
+      { src: "/images/space/interior-1.jpg", alt: "قاعة الطعام الرئيسية" },
+      { src: "/images/space/interior-2.jpg", alt: "البار ومنطقة النبيذ" },
+      { src: "/images/space/interior-3.jpg", alt: "تفاصيل الديكور" },
+    ],
+    exteriorImages: [
+      { src: "/images/space/exterior-1.jpg", alt: "شرفة بإطلالة على النهر" },
+      { src: "/images/space/exterior-2.jpg", alt: "الشرفة وقت الغروب" },
+      { src: "/images/space/exterior-3.jpg", alt: "الحديقة الخارجية" },
+    ],
+    upperDeckImages: [
+      {
+        src: "/images/space/upper-deck-1.jpg",
+        alt: "نظرة عامة على القاعة الخاصة",
+      },
+      { src: "/images/space/upper-deck-2.jpg", alt: "تفاصيل الطاولة الخاصة" },
+    ],
+    upperDeckHeroAlt: "The Upper Deck - إطلالة بانورامية",
+  },
+  hi: {
+    close: "बंद करें",
+    pageTitle: "हमारा स्थान",
+    pageSubtitle:
+      "मेहमानों का स्वागत सुंदरता, आराम और विशेष दृश्य के साथ करने के लिए बनाए गए वातावरण।",
+    interior: "आंतरिक भाग",
+    exterior: "बाहरी भाग",
+    privateRoom: "निजी कक्ष",
+    upperDeck: "The Upper Deck",
+    exclusiveExperience: "एक विशेष अनुभव",
+    exclusiveDescription:
+      "हमारा निजी स्थान विशेष अवसरों के लिए सुंदर दृश्य और आत्मीय वातावरण प्रदान करता है। 50 मेहमानों तक की क्षमता के साथ, यह व्यावसायिक रात्रिभोज, पारिवारिक समारोह या निजी कार्यक्रमों के लिए एक आदर्श स्थान है।",
+    reservePrivateRoom: "निजी कक्ष आरक्षित करें",
+    footer: "Senhor Peixe — 1999 से",
+    interiorImages: [
+      { src: "/images/space/interior-1.jpg", alt: "मुख्य भोजन कक्ष" },
+      { src: "/images/space/interior-2.jpg", alt: "बार और वाइन क्षेत्र" },
+      { src: "/images/space/interior-3.jpg", alt: "सजावट के विवरण" },
+    ],
+    exteriorImages: [
+      { src: "/images/space/exterior-1.jpg", alt: "नदी के दृश्य वाली छत" },
+      { src: "/images/space/exterior-2.jpg", alt: "सूर्यास्त के समय छत" },
+      { src: "/images/space/exterior-3.jpg", alt: "बाहरी उद्यान" },
+    ],
+    upperDeckImages: [
+      {
+        src: "/images/space/upper-deck-1.jpg",
+        alt: "निजी कक्ष का सामान्य दृश्य",
+      },
+      { src: "/images/space/upper-deck-2.jpg", alt: "निजी मेज के विवरण" },
+    ],
+    upperDeckHeroAlt: "The Upper Deck - पैनोरमिक दृश्य",
+  },
+} as const;
 
 export default function ONossoEspacoPage() {
-  const { language } = useLanguage()
-  const [lightboxOpen, setLightboxOpen] = useState(false)
-  const [currentImage, setCurrentImage] = useState({ src: "", alt: "" })
+  const { language } = useLanguage();
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentImage, setCurrentImage] = useState({ src: "", alt: "" });
 
-  const t = translations[language]
-  const interiorImages = t.interiorImages
-  const exteriorImages = t.exteriorImages
-  const upperDeckImages = t.upperDeckImages
+  const t = translations[language] ?? translations.pt;
+  const interiorImages = t.interiorImages;
+  const exteriorImages = t.exteriorImages;
+  const upperDeckImages = t.upperDeckImages;
 
   const openLightbox = (image: { src: string; alt: string }) => {
-    setCurrentImage(image)
-    setLightboxOpen(true)
-    document.body.style.overflow = "hidden"
-  }
+    setCurrentImage(image);
+    setLightboxOpen(true);
+    document.body.style.overflow = "hidden";
+  };
 
   const closeLightbox = () => {
-    setLightboxOpen(false)
-    document.body.style.overflow = "auto"
-  }
+    setLightboxOpen(false);
+    document.body.style.overflow = "auto";
+  };
 
   useEffect(() => {
-    if (!lightboxOpen) return
+    if (!lightboxOpen) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        closeLightbox()
+        closeLightbox();
       }
-    }
+    };
 
-    window.addEventListener("keydown", handleKeyDown)
+    window.addEventListener("keydown", handleKeyDown);
 
-    return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [lightboxOpen])
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxOpen]);
 
   useEffect(() => {
     return () => {
-      document.body.style.overflow = "auto"
-    }
-  }, [])
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   return (
     <main className="min-h-screen bg-stone-50">
@@ -409,5 +718,5 @@ export default function ONossoEspacoPage() {
         </div>
       )}
     </main>
-  )
+  );
 }
