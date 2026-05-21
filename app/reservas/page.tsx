@@ -175,6 +175,390 @@ const translations = {
 
     footer: "Senhor Peixe — Since 1999",
   },
+  es: {
+    close: "Cerrar",
+    pageTitle: "Reservas",
+    pageSubtitle:
+      "Reserve su mesa y permítanos preparar una experiencia a su medida.",
+    requestLabel: "Solicitud de reserva",
+    yourTable: "Su mesa",
+
+    name: "Nombre",
+    namePlaceholder: "Su nombre completo",
+    date: "Fecha",
+    time: "Hora",
+    select: "Seleccione",
+    lunch: "Almuerzo",
+    dinner: "Cena",
+    contact: "Contacto",
+    phonePlaceholder: "Su número de teléfono",
+    peopleNumber: "Número de personas",
+    onePerson: "1 persona",
+    people: "Personas",
+    moreThanTen: "10+ personas",
+    notes: "Notas adicionales",
+    notesPlaceholder:
+      "Indíquenos, por favor, posibles alergias, ocasiones especiales, preferencias de mesa o necesidades específicas de accesibilidad.",
+    requestReservation: "Solicitar reserva",
+    sending: "Enviando...",
+
+    mondayClosed: "Estamos cerrados los lunes.",
+    sundayLunchOnly: "Los domingos solo aceptamos reservas para el almuerzo.",
+    sundayLunchPrompt: "Por favor, elija un horario de almuerzo.",
+    submitError:
+      "No ha sido posible enviar la solicitud. Inténtelo de nuevo o contáctenos por teléfono.",
+    subject: "Nueva solicitud de reserva - Senhor Peixe",
+
+    successTitle: "Solicitud de reserva enviada",
+    successLine1: "Gracias por su solicitud de reserva.",
+    successLine2:
+      "Nuestro equipo se pondrá en contacto con usted en breve para confirmar la disponibilidad.",
+
+    largeGroupsLine1:
+      "Para reservas de más de 10 personas o solicitudes de eventos privados,",
+    largeGroupsLine2: "recomendamos contactar directamente por teléfono,",
+    largeGroupsLine3: "para poder atenderle mejor.",
+    choosePhone: "Elija el número para llamar",
+    call: "Llamar",
+
+    footer: "Senhor Peixe — Desde 1999",
+  },
+  fr: {
+    close: "Fermer",
+    pageTitle: "Réservations",
+    pageSubtitle:
+      "Réservez votre table et laissez-nous préparer une expérience sur mesure.",
+    requestLabel: "Demande de réservation",
+    yourTable: "Votre table",
+
+    name: "Nom",
+    namePlaceholder: "Votre nom complet",
+    date: "Date",
+    time: "Heure",
+    select: "Sélectionner",
+    lunch: "Déjeuner",
+    dinner: "Dîner",
+    contact: "Contact",
+    phonePlaceholder: "Votre numéro de téléphone",
+    peopleNumber: "Nombre de personnes",
+    onePerson: "1 personne",
+    people: "Personnes",
+    moreThanTen: "10+ personnes",
+    notes: "Notes supplémentaires",
+    notesPlaceholder:
+      "Veuillez nous indiquer d'éventuelles allergies, occasions spéciales, préférences de table ou besoins spécifiques d'accessibilité.",
+    requestReservation: "Demander une réservation",
+    sending: "Envoi...",
+
+    mondayClosed: "Nous sommes fermés le lundi.",
+    sundayLunchOnly: "Le dimanche, nous acceptons uniquement les réservations pour le déjeuner.",
+    sundayLunchPrompt: "Veuillez choisir un horaire de déjeuner.",
+    submitError:
+      "Il n'a pas été possible d'envoyer votre demande. Veuillez réessayer ou nous contacter par téléphone.",
+    subject: "Nouvelle demande de réservation - Senhor Peixe",
+
+    successTitle: "Demande de réservation envoyée",
+    successLine1: "Merci pour votre demande de réservation.",
+    successLine2:
+      "Notre équipe vous contactera prochainement pour confirmer la disponibilité.",
+
+    largeGroupsLine1:
+      "Pour les réservations de plus de 10 personnes ou les demandes d'événements privés,",
+    largeGroupsLine2: "nous recommandons de nous contacter directement par téléphone,",
+    largeGroupsLine3: "afin de mieux vous accompagner.",
+    choosePhone: "Choisissez le numéro à appeler",
+    call: "Appeler",
+
+    footer: "Senhor Peixe — Depuis 1999",
+  },
+  de: {
+    close: "Schließen",
+    pageTitle: "Reservierungen",
+    pageSubtitle:
+      "Reservieren Sie Ihren Tisch und lassen Sie uns ein Erlebnis nach Ihren Wünschen vorbereiten.",
+    requestLabel: "Reservierungsanfrage",
+    yourTable: "Ihr Tisch",
+
+    name: "Name",
+    namePlaceholder: "Ihr vollständiger Name",
+    date: "Datum",
+    time: "Uhrzeit",
+    select: "Auswählen",
+    lunch: "Mittagessen",
+    dinner: "Abendessen",
+    contact: "Kontakt",
+    phonePlaceholder: "Ihre Telefonnummer",
+    peopleNumber: "Anzahl der Personen",
+    onePerson: "1 Person",
+    people: "Personen",
+    moreThanTen: "10+ Personen",
+    notes: "Zusätzliche Hinweise",
+    notesPlaceholder:
+      "Bitte informieren Sie uns über Allergien, besondere Anlässe, Tischwünsche oder besondere Anforderungen an die Barrierefreiheit.",
+    requestReservation: "Reservierung anfragen",
+    sending: "Wird gesendet...",
+
+    mondayClosed: "Montags haben wir geschlossen.",
+    sundayLunchOnly: "Sonntags nehmen wir nur Reservierungen zum Mittagessen an.",
+    sundayLunchPrompt: "Bitte wählen Sie eine Uhrzeit für das Mittagessen.",
+    submitError:
+      "Ihre Anfrage konnte nicht gesendet werden. Bitte versuchen Sie es erneut oder kontaktieren Sie uns telefonisch.",
+    subject: "Neue Reservierungsanfrage - Senhor Peixe",
+
+    successTitle: "Reservierungsanfrage gesendet",
+    successLine1: "Vielen Dank für Ihre Reservierungsanfrage.",
+    successLine2:
+      "Unser Team wird sich in Kürze mit Ihnen in Verbindung setzen, um die Verfügbarkeit zu bestätigen.",
+
+    largeGroupsLine1:
+      "Für Reservierungen mit mehr als 10 Personen oder private Veranstaltungen,",
+    largeGroupsLine2: "empfehlen wir Ihnen, uns direkt telefonisch zu kontaktieren,",
+    largeGroupsLine3: "damit wir Sie bestmöglich betreuen können.",
+    choosePhone: "Wählen Sie die Telefonnummer",
+    call: "Anrufen",
+
+    footer: "Senhor Peixe — Seit 1999",
+  },
+  it: {
+    close: "Chiudi",
+    pageTitle: "Prenotazioni",
+    pageSubtitle:
+      "Prenoti il suo tavolo e ci lasci preparare un'esperienza su misura.",
+    requestLabel: "Richiesta di prenotazione",
+    yourTable: "Il suo tavolo",
+
+    name: "Nome",
+    namePlaceholder: "Il suo nome completo",
+    date: "Data",
+    time: "Ora",
+    select: "Seleziona",
+    lunch: "Pranzo",
+    dinner: "Cena",
+    contact: "Contatto",
+    phonePlaceholder: "Il suo numero di telefono",
+    peopleNumber: "Numero di persone",
+    onePerson: "1 persona",
+    people: "Persone",
+    moreThanTen: "10+ persone",
+    notes: "Note aggiuntive",
+    notesPlaceholder:
+      "La preghiamo di indicarci eventuali allergie, occasioni speciali, preferenze per il tavolo o esigenze specifiche di accessibilità.",
+    requestReservation: "Richiedi prenotazione",
+    sending: "Invio...",
+
+    mondayClosed: "Siamo chiusi il lunedì.",
+    sundayLunchOnly: "La domenica accettiamo prenotazioni solo a pranzo.",
+    sundayLunchPrompt: "La preghiamo di scegliere un orario per il pranzo.",
+    submitError:
+      "Non è stato possibile inviare la richiesta. La preghiamo di riprovare o di contattarci telefonicamente.",
+    subject: "Nuova richiesta di prenotazione - Senhor Peixe",
+
+    successTitle: "Richiesta di prenotazione inviata",
+    successLine1: "Grazie per la sua richiesta di prenotazione.",
+    successLine2:
+      "Il nostro team la contatterà a breve per confermare la disponibilità.",
+
+    largeGroupsLine1:
+      "Per prenotazioni superiori a 10 persone o richieste di eventi privati,",
+    largeGroupsLine2: "consigliamo il contatto diretto telefonico,",
+    largeGroupsLine3: "per poter seguire al meglio la richiesta.",
+    choosePhone: "Scelga il numero da chiamare",
+    call: "Chiama",
+
+    footer: "Senhor Peixe — Dal 1999",
+  },
+  ru: {
+    close: "Закрыть",
+    pageTitle: "Бронирование",
+    pageSubtitle:
+      "Забронируйте столик, и мы подготовим для вас индивидуальный опыт.",
+    requestLabel: "Запрос на бронирование",
+    yourTable: "Ваш стол",
+
+    name: "Имя",
+    namePlaceholder: "Ваше полное имя",
+    date: "Дата",
+    time: "Время",
+    select: "Выберите",
+    lunch: "Обед",
+    dinner: "Ужин",
+    contact: "Контакт",
+    phonePlaceholder: "Ваш номер телефона",
+    peopleNumber: "Количество гостей",
+    onePerson: "1 гость",
+    people: "Гости",
+    moreThanTen: "10+ гостей",
+    notes: "Дополнительные примечания",
+    notesPlaceholder:
+      "Пожалуйста, сообщите нам о возможных аллергиях, особых случаях, предпочтениях по столу или специальных требованиях доступности.",
+    requestReservation: "Запросить бронирование",
+    sending: "Отправка...",
+
+    mondayClosed: "По понедельникам мы закрыты.",
+    sundayLunchOnly: "По воскресеньям мы принимаем бронирования только на обед.",
+    sundayLunchPrompt: "Пожалуйста, выберите время обеда.",
+    submitError:
+      "Не удалось отправить запрос. Пожалуйста, попробуйте снова или свяжитесь с нами по телефону.",
+    subject: "Новый запрос на бронирование - Senhor Peixe",
+
+    successTitle: "Запрос на бронирование отправлен",
+    successLine1: "Спасибо за ваш запрос на бронирование.",
+    successLine2:
+      "Наша команда свяжется с вами в ближайшее время, чтобы подтвердить наличие мест.",
+
+    largeGroupsLine1:
+      "Для бронирований более чем на 10 человек или частных мероприятий,",
+    largeGroupsLine2: "рекомендуем связаться с нами напрямую по телефону,",
+    largeGroupsLine3: "чтобы мы могли лучше обработать ваш запрос.",
+    choosePhone: "Выберите номер для звонка",
+    call: "Позвонить",
+
+    footer: "Senhor Peixe — С 1999 года",
+  },
+  zh: {
+    close: "关闭",
+    pageTitle: "预订",
+    pageSubtitle:
+      "预订您的餐桌，让我们为您准备专属体验。",
+    requestLabel: "预订申请",
+    yourTable: "您的餐桌",
+
+    name: "姓名",
+    namePlaceholder: "您的全名",
+    date: "日期",
+    time: "时间",
+    select: "请选择",
+    lunch: "午餐",
+    dinner: "晚餐",
+    contact: "联系方式",
+    phonePlaceholder: "您的电话号码",
+    peopleNumber: "用餐人数",
+    onePerson: "1 位",
+    people: "位",
+    moreThanTen: "10+ 位",
+    notes: "附加说明",
+    notesPlaceholder:
+      "请告知我们是否有过敏情况、特殊场合、座位偏好或无障碍需求。",
+    requestReservation: "提交预订申请",
+    sending: "正在发送...",
+
+    mondayClosed: "我们每周一休息。",
+    sundayLunchOnly: "周日仅接受午餐预订。",
+    sundayLunchPrompt: "请选择午餐时间。",
+    submitError:
+      "无法发送您的申请。请重试或通过电话联系我们。",
+    subject: "新的预订申请 - Senhor Peixe",
+
+    successTitle: "预订申请已发送",
+    successLine1: "感谢您的预订申请。",
+    successLine2:
+      "我们的团队将很快与您联系，以确认是否有空位。",
+
+    largeGroupsLine1:
+      "如需预订超过 10 位或私人活动，",
+    largeGroupsLine2: "我们建议您直接通过电话联系我们，",
+    largeGroupsLine3: "以便我们更好地协助您。",
+    choosePhone: "选择要拨打的号码",
+    call: "拨打",
+
+    footer: "Senhor Peixe — 始于 1999",
+  },
+  ar: {
+    close: "إغلاق",
+    pageTitle: "الحجوزات",
+    pageSubtitle:
+      "احجز طاولتك ودعنا نُحضّر لك تجربة تناسبك.",
+    requestLabel: "طلب حجز",
+    yourTable: "طاولتك",
+
+    name: "الاسم",
+    namePlaceholder: "اسمك الكامل",
+    date: "التاريخ",
+    time: "الوقت",
+    select: "اختر",
+    lunch: "الغداء",
+    dinner: "العشاء",
+    contact: "رقم التواصل",
+    phonePlaceholder: "رقم هاتفك",
+    peopleNumber: "عدد الأشخاص",
+    onePerson: "شخص واحد",
+    people: "أشخاص",
+    moreThanTen: "أكثر من 10 أشخاص",
+    notes: "ملاحظات إضافية",
+    notesPlaceholder:
+      "يرجى إبلاغنا بأي حساسية، مناسبة خاصة، تفضيلات للطاولة أو احتياجات خاصة للوصول.",
+    requestReservation: "طلب الحجز",
+    sending: "جارٍ الإرسال...",
+
+    mondayClosed: "نحن مغلقون يوم الاثنين.",
+    sundayLunchOnly: "في يوم الأحد نقبل الحجوزات للغداء فقط.",
+    sundayLunchPrompt: "يرجى اختيار وقت الغداء.",
+    submitError:
+      "تعذر إرسال الطلب. يرجى المحاولة مرة أخرى أو التواصل معنا عبر الهاتف.",
+    subject: "طلب حجز جديد - Senhor Peixe",
+
+    successTitle: "تم إرسال طلب الحجز",
+    successLine1: "شكرًا لطلب الحجز.",
+    successLine2:
+      "سيتواصل معك فريقنا قريبًا لتأكيد التوفر.",
+
+    largeGroupsLine1:
+      "للحجوزات التي تزيد عن 10 أشخاص أو طلبات المناسبات الخاصة،",
+    largeGroupsLine2: "نوصي بالتواصل معنا مباشرة عبر الهاتف،",
+    largeGroupsLine3: "حتى نتمكن من مساعدتك بشكل أفضل.",
+    choosePhone: "اختر الرقم للاتصال",
+    call: "اتصال",
+
+    footer: "Senhor Peixe — منذ 1999",
+  },
+  hi: {
+    close: "बंद करें",
+    pageTitle: "आरक्षण",
+    pageSubtitle:
+      "अपनी टेबल आरक्षित करें और हमें आपके लिए विशेष अनुभव तैयार करने दें।",
+    requestLabel: "आरक्षण अनुरोध",
+    yourTable: "आपकी टेबल",
+
+    name: "नाम",
+    namePlaceholder: "आपका पूरा नाम",
+    date: "तारीख",
+    time: "समय",
+    select: "चुनें",
+    lunch: "दोपहर का भोजन",
+    dinner: "रात्रि भोजन",
+    contact: "संपर्क",
+    phonePlaceholder: "आपका फोन नंबर",
+    peopleNumber: "लोगों की संख्या",
+    onePerson: "1 व्यक्ति",
+    people: "व्यक्ति",
+    moreThanTen: "10+ व्यक्ति",
+    notes: "अतिरिक्त नोट्स",
+    notesPlaceholder:
+      "कृपया हमें किसी एलर्जी, विशेष अवसर, टेबल पसंद या पहुँच संबंधी विशेष आवश्यकता के बारे में बताएं।",
+    requestReservation: "आरक्षण अनुरोध भेजें",
+    sending: "भेजा जा रहा है...",
+
+    mondayClosed: "हम सोमवार को बंद रहते हैं।",
+    sundayLunchOnly: "रविवार को हम केवल दोपहर के भोजन के लिए आरक्षण स्वीकार करते हैं।",
+    sundayLunchPrompt: "कृपया दोपहर के भोजन का समय चुनें।",
+    submitError:
+      "आपका अनुरोध भेजा नहीं जा सका। कृपया फिर से प्रयास करें या फोन द्वारा संपर्क करें।",
+    subject: "नया आरक्षण अनुरोध - Senhor Peixe",
+
+    successTitle: "आरक्षण अनुरोध भेज दिया गया",
+    successLine1: "आपके आरक्षण अनुरोध के लिए धन्यवाद।",
+    successLine2:
+      "उपलब्धता की पुष्टि करने के लिए हमारी टीम शीघ्र ही आपसे संपर्क करेगी।",
+
+    largeGroupsLine1:
+      "10 से अधिक लोगों के आरक्षण या निजी कार्यक्रमों के लिए,",
+    largeGroupsLine2: "हम सीधे फोन द्वारा संपर्क करने की सलाह देते हैं,",
+    largeGroupsLine3: "ताकि हम आपके अनुरोध में बेहतर सहायता कर सकें।",
+    choosePhone: "कॉल करने के लिए नंबर चुनें",
+    call: "कॉल करें",
+
+    footer: "Senhor Peixe — 1999 से",
+  },
 } as const
 
 function getDayFromDateString(dateString: string): number | null {
