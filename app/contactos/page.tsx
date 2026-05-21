@@ -97,7 +97,40 @@ const FACEBOOK_URL = "https://facebook.com"
 const TRIPADVISOR_URL =
   "https://www.tripadvisor.pt/Restaurant_Review-g189158-d1163802-Reviews-Sr_Peixe-Lisbon_Lisbon_District_Central_Portugal.html"
 
-const translations = {
+type ContactCopy = {
+  pageTitle: string
+  pageSubtitle: string
+  information: string
+  howToReachUs: string
+  address: string
+  locationName: string
+  schedule: string
+  openStatus: string
+  tuesdayToSaturday: string
+  sunday: string
+  phone: string
+  email: string
+  location: string
+  findUsOnMap: string
+  mapTitle: string
+  message: string
+  sendUsMessage: string
+  nameLabel: string
+  namePlaceholder: string
+  emailPlaceholder: string
+  messageLabel: string
+  messagePlaceholder: string
+  nameErrorPrefix: string
+  emailErrorPrefix: string
+  messageErrorPrefix: string
+  sendError: string
+  sendMessage: string
+  sending: string
+  sentSuccess: string
+  footer: string
+}
+
+const translations: Record<string, ContactCopy> = {
   pt: {
     pageTitle: "Contactos",
     pageSubtitle: "Fale connosco, encontre-nos ou envie-nos a sua mensagem.",
@@ -166,11 +199,283 @@ const translations = {
 
     footer: "Senhor Peixe — Since 1999",
   },
-} as const
+  es: {
+    pageTitle: "Contactos",
+    pageSubtitle: "Contáctenos, encuéntrenos o envíenos su mensaje.",
+    information: "Información",
+    howToReachUs: "Cómo llegar hasta nosotros",
+    address: "Dirección",
+    locationName: "Parque das Nações",
+    schedule: "Horario",
+    openStatus: "Estamos abiertos",
+    tuesdayToSaturday: "Martes a sábado",
+    sunday: "Domingo",
+    phone: "Teléfono",
+    email: "Email",
+    location: "Ubicación",
+    findUsOnMap: "Encuéntrenos en el mapa",
+    mapTitle: "Ubicación de Senhor Peixe",
+    message: "Mensaje",
+    sendUsMessage: "Envíenos un mensaje",
+
+    nameLabel: "Nombre",
+    namePlaceholder: "Su nombre",
+    emailPlaceholder: "su.email@ejemplo.com",
+    messageLabel: "Mensaje",
+    messagePlaceholder: "Su mensaje...",
+    nameErrorPrefix: "Nombre",
+    emailErrorPrefix: "Email",
+    messageErrorPrefix: "Mensaje",
+    sendError: "No se pudo enviar el mensaje. Revise los datos e inténtelo de nuevo.",
+    sendMessage: "Enviar mensaje",
+    sending: "Enviando...",
+    sentSuccess: "Mensaje enviado correctamente. Nos pondremos en contacto con usted en breve.",
+
+    footer: "Senhor Peixe — Desde 1999",
+  },
+  fr: {
+    pageTitle: "Contacts",
+    pageSubtitle: "Contactez-nous, trouvez-nous ou envoyez-nous votre message.",
+    information: "Information",
+    howToReachUs: "Comment nous rejoindre",
+    address: "Adresse",
+    locationName: "Parque das Nações",
+    schedule: "Horaires",
+    openStatus: "Nous sommes ouverts",
+    tuesdayToSaturday: "Du mardi au samedi",
+    sunday: "Dimanche",
+    phone: "Téléphone",
+    email: "Email",
+    location: "Localisation",
+    findUsOnMap: "Nous trouver sur la carte",
+    mapTitle: "Localisation du Senhor Peixe",
+    message: "Message",
+    sendUsMessage: "Envoyez-nous un message",
+
+    nameLabel: "Nom",
+    namePlaceholder: "Votre nom",
+    emailPlaceholder: "votre.email@exemple.com",
+    messageLabel: "Message",
+    messagePlaceholder: "Votre message...",
+    nameErrorPrefix: "Nom",
+    emailErrorPrefix: "Email",
+    messageErrorPrefix: "Message",
+    sendError: "L’envoi a échoué. Veuillez vérifier vos informations et réessayer.",
+    sendMessage: "Envoyer le message",
+    sending: "Envoi...",
+    sentSuccess: "Message envoyé avec succès. Nous vous contacterons prochainement.",
+
+    footer: "Senhor Peixe — Depuis 1999",
+  },
+  de: {
+    pageTitle: "Kontakt",
+    pageSubtitle: "Kontaktieren Sie uns, finden Sie uns oder senden Sie uns Ihre Nachricht.",
+    information: "Information",
+    howToReachUs: "So erreichen Sie uns",
+    address: "Adresse",
+    locationName: "Parque das Nações",
+    schedule: "Öffnungszeiten",
+    openStatus: "Wir haben geöffnet",
+    tuesdayToSaturday: "Dienstag bis Samstag",
+    sunday: "Sonntag",
+    phone: "Telefon",
+    email: "E-Mail",
+    location: "Standort",
+    findUsOnMap: "Finden Sie uns auf der Karte",
+    mapTitle: "Standort von Senhor Peixe",
+    message: "Nachricht",
+    sendUsMessage: "Senden Sie uns eine Nachricht",
+
+    nameLabel: "Name",
+    namePlaceholder: "Ihr Name",
+    emailPlaceholder: "ihre.email@beispiel.com",
+    messageLabel: "Nachricht",
+    messagePlaceholder: "Ihre Nachricht...",
+    nameErrorPrefix: "Name",
+    emailErrorPrefix: "E-Mail",
+    messageErrorPrefix: "Nachricht",
+    sendError: "Die Nachricht konnte nicht gesendet werden. Bitte prüfen Sie Ihre Angaben und versuchen Sie es erneut.",
+    sendMessage: "Nachricht senden",
+    sending: "Wird gesendet...",
+    sentSuccess: "Nachricht erfolgreich gesendet. Wir werden uns in Kürze bei Ihnen melden.",
+
+    footer: "Senhor Peixe — Seit 1999",
+  },
+  it: {
+    pageTitle: "Contatti",
+    pageSubtitle: "Contattateci, trovateci o inviateci il vostro messaggio.",
+    information: "Informazioni",
+    howToReachUs: "Come raggiungerci",
+    address: "Indirizzo",
+    locationName: "Parque das Nações",
+    schedule: "Orario",
+    openStatus: "Siamo aperti",
+    tuesdayToSaturday: "Da martedì a sabato",
+    sunday: "Domenica",
+    phone: "Telefono",
+    email: "Email",
+    location: "Posizione",
+    findUsOnMap: "Trovateci sulla mappa",
+    mapTitle: "Posizione di Senhor Peixe",
+    message: "Messaggio",
+    sendUsMessage: "Inviateci un messaggio",
+
+    nameLabel: "Nome",
+    namePlaceholder: "Il vostro nome",
+    emailPlaceholder: "la.vostra.email@esempio.com",
+    messageLabel: "Messaggio",
+    messagePlaceholder: "Il vostro messaggio...",
+    nameErrorPrefix: "Nome",
+    emailErrorPrefix: "Email",
+    messageErrorPrefix: "Messaggio",
+    sendError: "Invio non riuscito. Verificate i dati e riprovate.",
+    sendMessage: "Invia messaggio",
+    sending: "Invio...",
+    sentSuccess: "Messaggio inviato con successo. Vi contatteremo a breve.",
+
+    footer: "Senhor Peixe — Dal 1999",
+  },
+  ru: {
+    pageTitle: "Контакты",
+    pageSubtitle: "Свяжитесь с нами, найдите нас или отправьте нам сообщение.",
+    information: "Информация",
+    howToReachUs: "Как нас найти",
+    address: "Адрес",
+    locationName: "Parque das Nações",
+    schedule: "Часы работы",
+    openStatus: "Мы открыты",
+    tuesdayToSaturday: "Со вторника по субботу",
+    sunday: "Воскресенье",
+    phone: "Телефон",
+    email: "Email",
+    location: "Местоположение",
+    findUsOnMap: "Найдите нас на карте",
+    mapTitle: "Местоположение Senhor Peixe",
+    message: "Сообщение",
+    sendUsMessage: "Отправьте нам сообщение",
+
+    nameLabel: "Имя",
+    namePlaceholder: "Ваше имя",
+    emailPlaceholder: "your.email@example.com",
+    messageLabel: "Сообщение",
+    messagePlaceholder: "Ваше сообщение...",
+    nameErrorPrefix: "Имя",
+    emailErrorPrefix: "Email",
+    messageErrorPrefix: "Сообщение",
+    sendError: "Не удалось отправить сообщение. Проверьте данные и попробуйте снова.",
+    sendMessage: "Отправить сообщение",
+    sending: "Отправка...",
+    sentSuccess: "Сообщение успешно отправлено. Мы свяжемся с вами в ближайшее время.",
+
+    footer: "Senhor Peixe — С 1999 года",
+  },
+  zh: {
+    pageTitle: "联系方式",
+    pageSubtitle: "欢迎联系我们、查找我们的位置或发送您的留言。",
+    information: "信息",
+    howToReachUs: "如何找到我们",
+    address: "地址",
+    locationName: "Parque das Nações",
+    schedule: "营业时间",
+    openStatus: "我们正在营业",
+    tuesdayToSaturday: "星期二至星期六",
+    sunday: "星期日",
+    phone: "电话",
+    email: "电子邮件",
+    location: "位置",
+    findUsOnMap: "在地图上找到我们",
+    mapTitle: "Senhor Peixe 位置",
+    message: "留言",
+    sendUsMessage: "给我们留言",
+
+    nameLabel: "姓名",
+    namePlaceholder: "您的姓名",
+    emailPlaceholder: "your.email@example.com",
+    messageLabel: "留言",
+    messagePlaceholder: "您的留言...",
+    nameErrorPrefix: "姓名",
+    emailErrorPrefix: "电子邮件",
+    messageErrorPrefix: "留言",
+    sendError: "留言发送失败。请检查资料后重试。",
+    sendMessage: "发送留言",
+    sending: "正在发送...",
+    sentSuccess: "留言已成功发送。我们会尽快与您联系。",
+
+    footer: "Senhor Peixe — 始于 1999 年",
+  },
+  ar: {
+    pageTitle: "اتصل بنا",
+    pageSubtitle: "تواصل معنا، اعثر علينا أو أرسل لنا رسالتك.",
+    information: "معلومات",
+    howToReachUs: "كيف تصل إلينا",
+    address: "العنوان",
+    locationName: "Parque das Nações",
+    schedule: "ساعات العمل",
+    openStatus: "نحن مفتوحون",
+    tuesdayToSaturday: "من الثلاثاء إلى السبت",
+    sunday: "الأحد",
+    phone: "الهاتف",
+    email: "البريد الإلكتروني",
+    location: "الموقع",
+    findUsOnMap: "اعثر علينا على الخريطة",
+    mapTitle: "موقع Senhor Peixe",
+    message: "رسالة",
+    sendUsMessage: "أرسل لنا رسالة",
+
+    nameLabel: "الاسم",
+    namePlaceholder: "اسمك",
+    emailPlaceholder: "your.email@example.com",
+    messageLabel: "الرسالة",
+    messagePlaceholder: "رسالتك...",
+    nameErrorPrefix: "الاسم",
+    emailErrorPrefix: "البريد الإلكتروني",
+    messageErrorPrefix: "الرسالة",
+    sendError: "تعذر إرسال الرسالة. يرجى التحقق من البيانات والمحاولة مرة أخرى.",
+    sendMessage: "إرسال الرسالة",
+    sending: "جارٍ الإرسال...",
+    sentSuccess: "تم إرسال الرسالة بنجاح. سنتواصل معك قريباً.",
+
+    footer: "Senhor Peixe — منذ 1999",
+  },
+  hi: {
+    pageTitle: "संपर्क",
+    pageSubtitle: "हमसे संपर्क करें, हमें खोजें या अपना संदेश भेजें।",
+    information: "जानकारी",
+    howToReachUs: "हम तक कैसे पहुँचें",
+    address: "पता",
+    locationName: "Parque das Nações",
+    schedule: "समय",
+    openStatus: "हम खुले हैं",
+    tuesdayToSaturday: "मंगलवार से शनिवार",
+    sunday: "रविवार",
+    phone: "फ़ोन",
+    email: "ईमेल",
+    location: "स्थान",
+    findUsOnMap: "मानचित्र पर हमें खोजें",
+    mapTitle: "Senhor Peixe का स्थान",
+    message: "संदेश",
+    sendUsMessage: "हमें संदेश भेजें",
+
+    nameLabel: "नाम",
+    namePlaceholder: "आपका नाम",
+    emailPlaceholder: "your.email@example.com",
+    messageLabel: "संदेश",
+    messagePlaceholder: "आपका संदेश...",
+    nameErrorPrefix: "नाम",
+    emailErrorPrefix: "ईमेल",
+    messageErrorPrefix: "संदेश",
+    sendError: "संदेश भेजा नहीं जा सका। कृपया विवरण जाँचें और फिर से प्रयास करें।",
+    sendMessage: "संदेश भेजें",
+    sending: "भेजा जा रहा है...",
+    sentSuccess: "संदेश सफलतापूर्वक भेजा गया। हम शीघ्र ही आपसे संपर्क करेंगे।",
+
+    footer: "Senhor Peixe — 1999 से",
+  },
+}
 
 export default function ContactosPage() {
   const { language } = useLanguage()
-  const t = translations[language]
+  const t = translations[language] ?? translations.pt
 
   const [formData, setFormData] = useState({
     ...INITIAL_FORM_DATA,

@@ -104,11 +104,275 @@ const translations = {
     imageAltSeafood: "Fresh seafood",
     imageAltExterior: "Exterior of Senhor Peixe restaurant",
   },
+  es: {
+    pageTitle: "Sobre Nosotros",
+    pageSubtitle:
+      "Una historia ligada al mar, a la frescura y a la tradición portuguesa.",
+
+    introSmallTitle: "Nuestra esencia",
+    introTitle: "Del mar, a su plato",
+    introText:
+      "Senhor Peixe Restaurante Marisqueira abrió sus puertas al público el 11 de marzo de 1999 en Lisboa, junto al río Tajo. Situado en el Parque das Nações, nuestro restaurante tiene como misión ofrecerle lo mejor que el mar nos brinda. Pescado fresco, marisco y una selección de vinos que confiamos le dejarán muy satisfecho.",
+    introQuote: "Setúbal en Lisboa... y el mar en su plato.",
+
+    secondSmallTitle: "Tradición y frescura",
+    secondTitle: "Setúbal aquí tan cerca",
+    secondText:
+      "Setúbal en Lisboa, con todo lo que el mar ofrece. Pescados vivos, asados a la parrilla con carbón de encina, y mariscos. Tampoco faltan la ensalada de pulpo, el choco frito, el escabeche, los moscateles, los vinos, los quesos de Azeitão y la repostería tradicional... o incluso un filete de vacuno para quien busque algo diferente.",
+
+    whereWeAre: "Dónde estamos",
+    addressTitle: "Dirección",
+    address:
+      "Rua da Pimenta 35, Parque das Nações, Zona Ribeirinha Norte, 1990-254 Lisboa",
+    viewLocation: "Ver ubicación",
+
+    visitTitle: "Cuándo visitarnos",
+    scheduleTitle: "Horario",
+    tuesdayToSaturday: "Martes a sábado",
+    sunday: "Domingo",
+
+    footer: "Senhor Peixe — Desde 1999",
+
+    imageAltTejo: "Vista del río Tajo en el Parque das Nações",
+    imageAltSeafood: "Marisco fresco",
+    imageAltExterior: "Exterior del restaurante Senhor Peixe",
+  },
+  fr: {
+    pageTitle: "À Propos",
+    pageSubtitle:
+      "Une histoire liée à la mer, à la fraîcheur et à la tradition portugaise.",
+
+    introSmallTitle: "Notre essence",
+    introTitle: "De la mer, à votre assiette",
+    introText:
+      "Senhor Peixe Restaurante Marisqueira a ouvert ses portes au public le 11 mars 1999 à Lisbonne, tout près du Tage. Situé au Parque das Nações, notre restaurant a pour mission de vous proposer le meilleur de ce que la mer nous offre. Poisson frais, fruits de mer et une sélection de vins qui, nous en sommes convaincus, vous laisseront pleinement satisfait.",
+    introQuote: "Setúbal à Lisbonne... et la mer dans votre assiette.",
+
+    secondSmallTitle: "Tradition et fraîcheur",
+    secondTitle: "Setúbal si proche",
+    secondText:
+      "Setúbal à Lisbonne, avec tout ce que la mer offre. Poissons vivants, grillés au charbon de chêne vert, et fruits de mer. Sans oublier la salade de poulpe, la seiche frite, l’escabèche, les moscatels, les vins, les fromages d’Azeitão et les douceurs traditionnelles... ou même une pièce de bœuf pour varier les plaisirs.",
+
+    whereWeAre: "Où nous sommes",
+    addressTitle: "Adresse",
+    address:
+      "Rua da Pimenta 35, Parque das Nações, Zona Ribeirinha Norte, 1990-254 Lisbonne",
+    viewLocation: "Voir l’emplacement",
+
+    visitTitle: "Quand nous rendre visite",
+    scheduleTitle: "Horaires",
+    tuesdayToSaturday: "Mardi à samedi",
+    sunday: "Dimanche",
+
+    footer: "Senhor Peixe — Depuis 1999",
+
+    imageAltTejo: "Vue du Tage au Parque das Nações",
+    imageAltSeafood: "Fruits de mer frais",
+    imageAltExterior: "Extérieur du restaurant Senhor Peixe",
+  },
+  de: {
+    pageTitle: "Über Uns",
+    pageSubtitle:
+      "Eine Geschichte verbunden mit dem Meer, Frische und portugiesischer Tradition.",
+
+    introSmallTitle: "Unsere Essenz",
+    introTitle: "Aus dem Meer, auf Ihren Teller",
+    introText:
+      "Das Senhor Peixe Restaurante Marisqueira öffnete am 11. März 1999 in Lissabon seine Türen, ganz in der Nähe des Tejo. Im Parque das Nações gelegen, ist es unsere Mission, Ihnen das Beste zu bieten, was das Meer zu geben hat: frischen Fisch, Meeresfrüchte und eine Weinauswahl, von der wir überzeugt sind, dass sie Sie sehr zufriedenstellen wird.",
+    introQuote: "Setúbal in Lissabon... und das Meer auf Ihrem Teller.",
+
+    secondSmallTitle: "Tradition und Frische",
+    secondTitle: "Setúbal ganz nah",
+    secondText:
+      "Setúbal in Lissabon, mit allem, was das Meer schenkt. Lebender Fisch, über Steineichenkohle gegrillt, und Meeresfrüchte. Dazu gehören auch Oktopussalat, frittierter Tintenfisch, Escabeche, Moscatel-Weine, Weine, Käse aus Azeitão und traditionelle Süßspeisen... oder auch ein Rumpsteak für alle, die etwas anderes möchten.",
+
+    whereWeAre: "Wo wir sind",
+    addressTitle: "Adresse",
+    address:
+      "Rua da Pimenta 35, Parque das Nações, Zona Ribeirinha Norte, 1990-254 Lissabon",
+    viewLocation: "Standort ansehen",
+
+    visitTitle: "Wann Sie uns besuchen",
+    scheduleTitle: "Öffnungszeiten",
+    tuesdayToSaturday: "Dienstag bis Samstag",
+    sunday: "Sonntag",
+
+    footer: "Senhor Peixe — Seit 1999",
+
+    imageAltTejo: "Blick auf den Tejo im Parque das Nações",
+    imageAltSeafood: "Frische Meeresfrüchte",
+    imageAltExterior: "Außenansicht des Restaurants Senhor Peixe",
+  },
+  it: {
+    pageTitle: "Chi Siamo",
+    pageSubtitle:
+      "Una storia legata al mare, alla freschezza e alla tradizione portoghese.",
+
+    introSmallTitle: "La nostra essenza",
+    introTitle: "Dal mare, al vostro piatto",
+    introText:
+      "Senhor Peixe Restaurante Marisqueira ha aperto le sue porte al pubblico l’11 marzo 1999 a Lisbona, a pochi passi dal fiume Tago. Situato nel Parque das Nações, il nostro ristorante ha come missione portarvi il meglio che il mare offre: pesce fresco, frutti di mare e una selezione di vini che siamo certi vi lascerà molto soddisfatti.",
+    introQuote: "Setúbal a Lisbona... e il mare nel vostro piatto.",
+
+    secondSmallTitle: "Tradizione e freschezza",
+    secondTitle: "Setúbal così vicina",
+    secondText:
+      "Setúbal a Lisbona, con tutto ciò che il mare offre. Pesci vivi, grigliati su carbone di leccio, e frutti di mare. Non mancano l’insalata di polpo, la seppia fritta, l’escabeche, i moscatel, i vini, i formaggi di Azeitão e i dolci tradizionali... o anche una bistecca di controfiletto per chi desidera qualcosa di diverso.",
+
+    whereWeAre: "Dove siamo",
+    addressTitle: "Indirizzo",
+    address:
+      "Rua da Pimenta 35, Parque das Nações, Zona Ribeirinha Norte, 1990-254 Lisbona",
+    viewLocation: "Vedi posizione",
+
+    visitTitle: "Quando visitarci",
+    scheduleTitle: "Orario",
+    tuesdayToSaturday: "Da martedì a sabato",
+    sunday: "Domenica",
+
+    footer: "Senhor Peixe — Dal 1999",
+
+    imageAltTejo: "Vista del fiume Tago nel Parque das Nações",
+    imageAltSeafood: "Frutti di mare freschi",
+    imageAltExterior: "Esterno del ristorante Senhor Peixe",
+  },
+  ru: {
+    pageTitle: "О Нас",
+    pageSubtitle:
+      "История, связанная с морем, свежестью и португальскими традициями.",
+
+    introSmallTitle: "Наша сущность",
+    introTitle: "Из моря — на вашу тарелку",
+    introText:
+      "Senhor Peixe Restaurante Marisqueira открыл свои двери для гостей 11 марта 1999 года в Лиссабоне, рядом с рекой Тежу. Расположенный в Parque das Nações, наш ресторан стремится предложить вам лучшее, что дарит море: свежую рыбу, морепродукты и подборку вин, которая, мы уверены, оставит у вас прекрасные впечатления.",
+    introQuote: "Сетубал в Лиссабоне... и море на вашей тарелке.",
+
+    secondSmallTitle: "Традиция и свежесть",
+    secondTitle: "Сетубал совсем рядом",
+    secondText:
+      "Сетубал в Лиссабоне — со всем, что дарит море. Живая рыба, приготовленная на углях из каменного дуба, и морепродукты. Также вас ждут салат из осьминога, жареная каракатица, эскабече, мускатные вина, вина, сыры Azeitão и традиционные сладости... или даже стейк из вырезки для тех, кто хочет чего-то другого.",
+
+    whereWeAre: "Где мы находимся",
+    addressTitle: "Адрес",
+    address:
+      "Rua da Pimenta 35, Parque das Nações, Zona Ribeirinha Norte, 1990-254 Лиссабон",
+    viewLocation: "Посмотреть местоположение",
+
+    visitTitle: "Когда нас посетить",
+    scheduleTitle: "Часы работы",
+    tuesdayToSaturday: "Со вторника по субботу",
+    sunday: "Воскресенье",
+
+    footer: "Senhor Peixe — C 1999 года",
+
+    imageAltTejo: "Вид на реку Тежу в Parque das Nações",
+    imageAltSeafood: "Свежие морепродукты",
+    imageAltExterior: "Фасад ресторана Senhor Peixe",
+  },
+  zh: {
+    pageTitle: "关于我们",
+    pageSubtitle:
+      "一段与大海、鲜味和葡萄牙传统相连的故事。",
+
+    introSmallTitle: "我们的本质",
+    introTitle: "从大海，到您的餐桌",
+    introText:
+      "Senhor Peixe Restaurante Marisqueira 于 1999 年 3 月 11 日在里斯本开业，毗邻特茹河。餐厅位于 Parque das Nações，我们的使命是为您呈现大海所馈赠的精华：新鲜鱼类、海鲜，以及我们深信会令您满意的精选葡萄酒。",
+    introQuote: "里斯本的塞图巴尔风味……让大海来到您的餐盘。",
+
+    secondSmallTitle: "传统与鲜味",
+    secondTitle: "近在咫尺的塞图巴尔",
+    secondText:
+      "在里斯本感受塞图巴尔，享受大海带来的一切。活鱼以栎木炭火烧烤，搭配丰富海鲜。同时还有章鱼沙拉、炸墨鱼、醋渍菜式、Moscatel 酒、葡萄酒、Azeitão 奶酪和传统甜点……也有牛排可供想尝试不同风味的客人选择。",
+
+    whereWeAre: "我们的位置",
+    addressTitle: "地址",
+    address:
+      "Rua da Pimenta 35, Parque das Nações, Zona Ribeirinha Norte, 1990-254 里斯本",
+    viewLocation: "查看位置",
+
+    visitTitle: "欢迎光临",
+    scheduleTitle: "营业时间",
+    tuesdayToSaturday: "星期二至星期六",
+    sunday: "星期日",
+
+    footer: "Senhor Peixe — 始于 1999 年",
+
+    imageAltTejo: "Parque das Nações 的特茹河景色",
+    imageAltSeafood: "新鲜海鲜",
+    imageAltExterior: "Senhor Peixe 餐厅外观",
+  },
+  ar: {
+    pageTitle: "من نحن",
+    pageSubtitle:
+      "قصة مرتبطة بالبحر والنضارة والتقاليد البرتغالية.",
+
+    introSmallTitle: "جوهرنا",
+    introTitle: "من البحر إلى طبقكم",
+    introText:
+      "فتح مطعم Senhor Peixe Restaurante Marisqueira أبوابه للجمهور في 11 مارس 1999 في لشبونة، بالقرب من نهر تيجو. يقع مطعمنا في Parque das Nações، ومهمتنا هي أن نقدم لكم أفضل ما يجود به البحر: سمكًا طازجًا، مأكولات بحرية، وتشكيلة من النبيذ نثق بأنها ستمنحكم تجربة مرضية للغاية.",
+    introQuote: "سيتوبال في لشبونة... والبحر في طبقكم.",
+
+    secondSmallTitle: "التقاليد والنضارة",
+    secondTitle: "سيتوبال قريبة جدًا",
+    secondText:
+      "سيتوبال في لشبونة، بكل ما يقدمه البحر. أسماك حية تُشوى على فحم البلوط الأخضر، ومأكولات بحرية. ولا تغيب سلطة الأخطبوط، والحبار المقلي، والإسكابيش، ونبيذ Moscatel، والنبيذ، وأجبان Azeitão والحلويات التقليدية... أو حتى شريحة لحم لمن يرغب في خيار مختلف.",
+
+    whereWeAre: "أين نحن",
+    addressTitle: "العنوان",
+    address:
+      "Rua da Pimenta 35, Parque das Nações, Zona Ribeirinha Norte, 1990-254 لشبونة",
+    viewLocation: "عرض الموقع",
+
+    visitTitle: "متى تزوروننا",
+    scheduleTitle: "ساعات العمل",
+    tuesdayToSaturday: "من الثلاثاء إلى السبت",
+    sunday: "الأحد",
+
+    footer: "Senhor Peixe — منذ 1999",
+
+    imageAltTejo: "إطلالة على نهر تيجو في Parque das Nações",
+    imageAltSeafood: "مأكولات بحرية طازجة",
+    imageAltExterior: "الواجهة الخارجية لمطعم Senhor Peixe",
+  },
+  hi: {
+    pageTitle: "हमारे बारे में",
+    pageSubtitle:
+      "समुद्र, ताज़गी और पुर्तगाली परंपरा से जुड़ी एक कहानी।",
+
+    introSmallTitle: "हमारी पहचान",
+    introTitle: "समुद्र से, आपकी थाली तक",
+    introText:
+      "Senhor Peixe Restaurante Marisqueira ने 11 मार्च 1999 को लिस्बन में, टैगस नदी के पास, अपने दरवाज़े खोले। Parque das Nações में स्थित हमारा रेस्टोरेंट आपको समुद्र की सबसे अच्छी पेशकश देने के लिए समर्पित है: ताज़ी मछली, समुद्री भोजन और वाइन का ऐसा चयन जिसके बारे में हमें विश्वास है कि वह आपको बहुत संतुष्ट करेगा।",
+    introQuote: "लिस्बन में सेतुबल... और आपकी थाली में समुद्र।",
+
+    secondSmallTitle: "परंपरा और ताज़गी",
+    secondTitle: "सेतुबल इतना पास",
+    secondText:
+      "लिस्बन में सेतुबल का स्वाद, समुद्र की हर देन के साथ। ज़िंदा मछलियाँ, होल्म ओक चारकोल पर ग्रिल की हुई, और समुद्री भोजन। इसके साथ ऑक्टोपस सलाद, फ्राइड कटलफिश, एस्काबेचे, Moscatel वाइन, वाइन, Azeitão चीज़ और पारंपरिक मिठाइयाँ भी उपलब्ध हैं... या कुछ अलग चाहने वालों के लिए सिरलॉइन स्टेक भी।",
+
+    whereWeAre: "हम कहाँ हैं",
+    addressTitle: "पता",
+    address:
+      "Rua da Pimenta 35, Parque das Nações, Zona Ribeirinha Norte, 1990-254 Lisbon",
+    viewLocation: "स्थान देखें",
+
+    visitTitle: "कब आएँ",
+    scheduleTitle: "खुलने का समय",
+    tuesdayToSaturday: "मंगलवार से शनिवार",
+    sunday: "रविवार",
+
+    footer: "Senhor Peixe — 1999 से",
+
+    imageAltTejo: "Parque das Nações में टैगस नदी का दृश्य",
+    imageAltSeafood: "ताज़ा समुद्री भोजन",
+    imageAltExterior: "Senhor Peixe रेस्टोरेंट का बाहरी भाग",
+  },
 } as const
 
 export default function SobreNosPage() {
   const { language } = useLanguage()
-  const t = translations[language]
+  const t = translations[language] ?? translations.pt
 
   return (
     <main className="min-h-screen bg-stone-50">
