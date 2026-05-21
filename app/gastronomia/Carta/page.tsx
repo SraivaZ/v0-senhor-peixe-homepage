@@ -2312,6 +2312,12 @@ function FishSummaryPage({ languageKey }: { languageKey: LanguageKey }) {
           ))}
         </div>
 
+        {summary.translationNote ? (
+          <div className={`sp-summary-translation-note ${cinzel.className}`}>
+            <p>{summary.translationNote}</p>
+          </div>
+        ) : null}
+
         <div className={`sp-summary-prices ${cinzel.className}`}>
           {summary.priceNotes.map((note) => (
             <p key={note}>
@@ -3006,10 +3012,26 @@ export default function CartaGastronomiaPage() {
           margin-bottom: 0;
         }
 
+        .sp-summary-translation-note {
+          max-width: 650px;
+          margin: 38px auto 0;
+          color: #0e3157;
+          text-align: center;
+        }
+
+        .sp-summary-translation-note p {
+          margin: 0;
+          font-size: 11.4px;
+          line-height: 1.55;
+          letter-spacing: 0.08em;
+          font-weight: 600;
+          text-transform: uppercase;
+        }
+
         .sp-summary-prices {
           width: 100%;
           max-width: 780px;
-          margin: 48px auto 0;
+          margin: 30px auto 0;
           text-align: center;
         }
 
@@ -3339,9 +3361,20 @@ export default function CartaGastronomiaPage() {
             letter-spacing: 0.16vw;
           }
 
+          .sp-summary-translation-note {
+            max-width: 64vw;
+            margin-top: 4.25vw;
+          }
+
+          .sp-summary-translation-note p {
+            font-size: 1.18vw;
+            line-height: 1.5;
+            letter-spacing: 0.08em;
+          }
+
           .sp-summary-prices {
             max-width: 73.5vw;
-            margin-top: 5.37vw;
+            margin-top: 3.35vw;
           }
 
           .sp-summary-prices p {
