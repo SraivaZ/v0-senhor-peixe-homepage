@@ -2002,7 +2002,7 @@ const fishSummaryCopy: Record<LanguageKey, {
 }
 
 function normalizeLanguage(language: string): LanguageKey {
-  if (language === "zh-CN" || language === "zh_TW" || language === "zh-TW" || language === "mandarin") return "zh"
+  if (language === "zh" || language === "zh-CN" || language === "zh_TW" || language === "zh-TW" || language === "mandarin") return "zh"
   if (language === "es-ES" || language === "es") return "es"
   if (language === "fr-FR" || language === "fr") return "fr"
   if (language === "de-DE" || language === "de") return "de"
