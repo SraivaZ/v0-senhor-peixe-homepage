@@ -266,67 +266,76 @@ export default function MenuLanguageGate() {
 
           .sp-language-gate-panel {
             width: min(92vw, 410px);
-            min-height: 100dvh;
+            min-height: auto;
             max-height: none;
             margin: 0 auto;
-            overflow-y: visible;
+            overflow: visible;
             border-left-width: 12px;
             border-right-width: 12px;
             box-shadow: none;
           }
 
           .sp-language-gate-inner {
-            padding: max(22px, env(safe-area-inset-top)) 24px max(96px, env(safe-area-inset-bottom));
+            padding: max(18px, env(safe-area-inset-top)) 23px max(92px, env(safe-area-inset-bottom));
           }
 
           .sp-language-gate-brand {
-            margin-bottom: 16px;
-            font-size: 13px;
+            margin-bottom: 13px;
+            font-size: 12px;
+            font-weight: 400;
             letter-spacing: 0.29em;
           }
 
           .sp-language-gate h2 {
-            font-size: 42px;
+            font-size: 36px;
+            font-weight: 400;
             line-height: 0.98;
+            white-space: nowrap;
           }
 
           .sp-language-gate-text {
-            max-width: 320px;
-            margin: 18px auto 26px;
-            font-size: 20px;
-            line-height: 1.25;
+            max-width: 310px;
+            margin: 17px auto 24px;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.32;
           }
 
           .sp-language-gate-list {
-            gap: 10px;
+            gap: 8px;
           }
 
           .sp-language-gate-option {
-            grid-template-columns: 62px 1px 1fr;
-            min-height: 62px;
+            grid-template-columns: 57px 1px 1fr;
+            min-height: 50px;
           }
 
           .sp-language-gate-short {
-            font-size: 14px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
           }
 
           .sp-language-gate-separator {
-            height: 36px;
+            height: 30px;
           }
 
           .sp-language-gate-label {
-            padding: 0 18px;
-            font-size: 21px;
+            padding: 0 16px;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.08;
           }
 
           .sp-language-gate-confirm {
-            position: sticky;
-            bottom: max(16px, env(safe-area-inset-bottom));
-            min-height: 50px;
-            margin-top: 14px;
-            box-shadow: 0 14px 28px rgba(16, 36, 61, 0.24);
-            font-size: 11px;
-            letter-spacing: 0.16em;
+            position: relative;
+            bottom: auto;
+            min-height: 46px;
+            margin-top: 12px;
+            box-shadow: 0 12px 26px rgba(16, 36, 61, 0.18);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.17em;
           }
         }
 
@@ -343,20 +352,20 @@ export default function MenuLanguageGate() {
           }
 
           .sp-language-gate h2 {
-            font-size: 38px;
+            font-size: 33px;
           }
 
           .sp-language-gate-text {
-            font-size: 18px;
+            font-size: 15px;
           }
 
           .sp-language-gate-option {
-            min-height: 58px;
-            grid-template-columns: 56px 1px 1fr;
+            min-height: 48px;
+            grid-template-columns: 52px 1px 1fr;
           }
 
           .sp-language-gate-label {
-            font-size: 19px;
+            font-size: 15px;
           }
         }
       `}</style>
