@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
-import { useLanguage } from "@/components/language-provider"
+import { languages, type Language, useLanguage } from "@/components/language-provider"
 
 type ActivePage =
   | "home"
@@ -18,7 +18,23 @@ type SiteMenuProps = {
   activePage?: ActivePage
 }
 
-const translations = {
+type MenuTranslation = {
+  closeMenu: string
+  openMenu: string
+  mainMenu: string
+  brand: string
+  home: string
+  gastronomy: string
+  wine: string
+  space: string
+  reservations: string
+  about: string
+  contacts: string
+  language: string
+  languageLabel: string
+}
+
+const translations: Record<Language, MenuTranslation> = {
   pt: {
     closeMenu: "Fechar menu",
     openMenu: "Abrir menu",
@@ -31,8 +47,8 @@ const translations = {
     reservations: "Reservas",
     about: "Sobre Nós",
     contacts: "Contactos",
-    language: "English",
-    languageLabel: "Mudar para inglês",
+    language: "Português",
+    languageLabel: "Escolher idioma",
   },
   en: {
     closeMenu: "Close menu",
@@ -46,10 +62,130 @@ const translations = {
     reservations: "Reservations",
     about: "About Us",
     contacts: "Contacts",
-    language: "Português",
-    languageLabel: "Switch to Portuguese",
+    language: "English",
+    languageLabel: "Choose language",
   },
-} as const
+  es: {
+    closeMenu: "Cerrar menú",
+    openMenu: "Abrir menú",
+    mainMenu: "Menú principal",
+    brand: "Senhor Peixe",
+    home: "Inicio",
+    gastronomy: "Gastronomía",
+    wine: "Bodega",
+    space: "Nuestro Espacio",
+    reservations: "Reservas",
+    about: "Sobre Nosotros",
+    contacts: "Contactos",
+    language: "Español",
+    languageLabel: "Elegir idioma",
+  },
+  fr: {
+    closeMenu: "Fermer le menu",
+    openMenu: "Ouvrir le menu",
+    mainMenu: "Menu principal",
+    brand: "Senhor Peixe",
+    home: "Accueil",
+    gastronomy: "Gastronomie",
+    wine: "Cave à Vin",
+    space: "Notre Espace",
+    reservations: "Réservations",
+    about: "À Propos",
+    contacts: "Contacts",
+    language: "Français",
+    languageLabel: "Choisir la langue",
+  },
+  de: {
+    closeMenu: "Menü schließen",
+    openMenu: "Menü öffnen",
+    mainMenu: "Hauptmenü",
+    brand: "Senhor Peixe",
+    home: "Startseite",
+    gastronomy: "Gastronomie",
+    wine: "Weinkeller",
+    space: "Unser Raum",
+    reservations: "Reservierungen",
+    about: "Über Uns",
+    contacts: "Kontakt",
+    language: "Deutsch",
+    languageLabel: "Sprache wählen",
+  },
+  it: {
+    closeMenu: "Chiudi menu",
+    openMenu: "Apri menu",
+    mainMenu: "Menu principale",
+    brand: "Senhor Peixe",
+    home: "Home",
+    gastronomy: "Gastronomia",
+    wine: "Cantina",
+    space: "Il Nostro Spazio",
+    reservations: "Prenotazioni",
+    about: "Chi Siamo",
+    contacts: "Contatti",
+    language: "Italiano",
+    languageLabel: "Scegli lingua",
+  },
+  ru: {
+    closeMenu: "Закрыть меню",
+    openMenu: "Открыть меню",
+    mainMenu: "Главное меню",
+    brand: "Senhor Peixe",
+    home: "Главная",
+    gastronomy: "Гастрономия",
+    wine: "Винный погреб",
+    space: "Наше пространство",
+    reservations: "Бронирование",
+    about: "О нас",
+    contacts: "Контакты",
+    language: "Русский",
+    languageLabel: "Выбрать язык",
+  },
+  zh: {
+    closeMenu: "关闭菜单",
+    openMenu: "打开菜单",
+    mainMenu: "主菜单",
+    brand: "Senhor Peixe",
+    home: "首页",
+    gastronomy: "美食",
+    wine: "酒窖",
+    space: "我们的空间",
+    reservations: "预订",
+    about: "关于我们",
+    contacts: "联系方式",
+    language: "中文",
+    languageLabel: "选择语言",
+  },
+  ar: {
+    closeMenu: "إغلاق القائمة",
+    openMenu: "فتح القائمة",
+    mainMenu: "القائمة الرئيسية",
+    brand: "Senhor Peixe",
+    home: "الرئيسية",
+    gastronomy: "فن الطهي",
+    wine: "قبو النبيذ",
+    space: "مساحتنا",
+    reservations: "الحجوزات",
+    about: "من نحن",
+    contacts: "جهات الاتصال",
+    language: "العربية",
+    languageLabel: "اختيار اللغة",
+  },
+  hi: {
+    closeMenu: "मेनू बंद करें",
+    openMenu: "मेनू खोलें",
+    mainMenu: "मुख्य मेनू",
+    brand: "Senhor Peixe",
+    home: "होम",
+    gastronomy: "गैस्ट्रोनॉमी",
+    wine: "वाइन सेलर",
+    space: "हमारा स्थान",
+    reservations: "आरक्षण",
+    about: "हमारे बारे में",
+    contacts: "संपर्क",
+    language: "हिन्दी",
+    languageLabel: "भाषा चुनें",
+  },
+}
 
 function normalizePath(pathname: string) {
   if (pathname.length > 1 && pathname.endsWith("/")) {
@@ -75,10 +211,12 @@ function getActivePageFromPath(pathname: string): ActivePage {
 
 export function SiteMenu({ activePage }: SiteMenuProps) {
   const pathname = usePathname()
-  const { language, toggleLanguage } = useLanguage()
+  const { language, setLanguage } = useLanguage()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isLanguageOpen, setIsLanguageOpen] = useState(false)
 
-  const t = translations[language]
+  const t = translations[language] ?? translations.pt
+  const currentLanguage = languages.find((item) => item.code === language) ?? languages[0]
   const currentActivePage = activePage ?? getActivePageFromPath(pathname)
 
   const navLinks: {
@@ -101,6 +239,7 @@ export function SiteMenu({ activePage }: SiteMenuProps) {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setIsMenuOpen(false)
+        setIsLanguageOpen(false)
       }
     }
 
@@ -117,8 +256,9 @@ export function SiteMenu({ activePage }: SiteMenuProps) {
     }
   }, [isMenuOpen])
 
-  function handleToggleLanguage() {
-    toggleLanguage()
+  function handleChooseLanguage(newLanguage: Language) {
+    setLanguage(newLanguage)
+    setIsLanguageOpen(false)
     setIsMenuOpen(false)
   }
 
@@ -129,7 +269,10 @@ export function SiteMenu({ activePage }: SiteMenuProps) {
           type="button"
           className="fixed inset-0 z-[70] cursor-default"
           aria-label={t.closeMenu}
-          onClick={() => setIsMenuOpen(false)}
+          onClick={() => {
+            setIsMenuOpen(false)
+            setIsLanguageOpen(false)
+          }}
         />
       )}
 
@@ -195,7 +338,10 @@ export function SiteMenu({ activePage }: SiteMenuProps) {
 
                       <Link
                         href={link.href}
-                        onClick={() => setIsMenuOpen(false)}
+                        onClick={() => {
+                          setIsMenuOpen(false)
+                          setIsLanguageOpen(false)
+                        }}
                         aria-current={isActive ? "page" : undefined}
                         className={`block rounded-xl px-4 py-3 font-serif text-sm tracking-wide transition-all duration-300 ${
                           isActive
@@ -212,14 +358,35 @@ export function SiteMenu({ activePage }: SiteMenuProps) {
 
               <div className="my-2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
-              <button
-                type="button"
-                onClick={handleToggleLanguage}
-                aria-label={t.languageLabel}
-                className="block w-full rounded-xl px-4 py-3 text-left font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300 hover:bg-white/10 hover:text-white"
-              >
-                {t.language}
-              </button>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setIsLanguageOpen((open) => !open)}
+                  aria-label={t.languageLabel}
+                  aria-expanded={isLanguageOpen}
+                  className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left font-serif text-sm tracking-wide text-[#c8a96a] transition-all duration-300 hover:bg-white/10 hover:text-white"
+                >
+                  <span>{currentLanguage?.label ?? t.language}</span>
+                  <span className="text-xs text-[#c8a96a]/80">{isLanguageOpen ? "−" : "+"}</span>
+                </button>
+
+                {isLanguageOpen && (
+                  <div className="mt-1 space-y-1 rounded-xl bg-white/[0.03] p-1">
+                    {languages
+                      .filter((option) => option.code !== language)
+                      .map((option) => (
+                        <button
+                          type="button"
+                          key={option.code}
+                          onClick={() => handleChooseLanguage(option.code)}
+                          className="block w-full rounded-lg px-3 py-2 text-left font-serif text-[13px] tracking-wide text-white/72 transition-all duration-300 hover:bg-white/10 hover:text-[#c8a96a]"
+                        >
+                          {option.label}
+                        </button>
+                      ))}
+                  </div>
+                )}
+              </div>
             </nav>
           </div>
         )}
