@@ -1415,6 +1415,8 @@ export default function CartaGastronomiaPage() {
 
   return (
     <main className={`sp-shell ${cormorant.className}`} dir={languageKey === "ar" ? "rtl" : "ltr"}>
+      <MenuLanguageGate />
+
       <Link href="/gastronomia" className="sp-back-link">
         {copy.backLabel}
       </Link>
