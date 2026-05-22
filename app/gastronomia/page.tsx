@@ -49,24 +49,24 @@ const baseTranslations = {
       ],
       "especialidades-mar": [
         {
-          name: "Robalo Grelhado",
-          description: "Robalo fresco grelhado com azeite e limão, servido com legumes",
-          image: "/images/dishes/robalo-grelhado.jpg",
+          name: "BITOQUE DE CAMARÃO",
+          description: "Camarão frito, batata frita às rodelas, arroz branco e ovo estrelado",
+          image: "/images/dishes/ESPMAR1.png",
         },
         {
-          name: "Cataplana de Marisco",
-          description: "Tradicional cataplana com camarão, amêijoas, mexilhão e peixe",
-          image: "/images/dishes/cataplana.jpg",
+          name: "ARROZ DE LAGOSTA",
+          description: "Arroz agulha com lagosta",
+          image: "/images/dishes/ESPMAR2.png",
         },
         {
-          name: "Bacalhau à Brás",
-          description: "Bacalhau desfiado com batata palha, ovos e azeitonas",
-          image: "/images/dishes/robalo-grelhado.jpg",
+          name: "PATAS DE CARANGUEJO DO ALASCA",
+          description: "Patas de caranguejo do Alasca",
+          image: "/images/dishes/ESPMAR3.png",
         },
         {
-          name: "Arroz de Tamboril",
-          description: "Arroz cremoso de tamboril com gambas e coentros",
-          image: "/images/dishes/cataplana.jpg",
+          name: "RASCASSO",
+          description: "Rascasso fresco preparado para realçar o sabor do mar",
+          image: "/images/dishes/ESPMAR4.png",
         },
       ],
       "especialidades-terra": [
@@ -179,24 +179,24 @@ const baseTranslations = {
       ],
       "especialidades-mar": [
         {
-          name: "Grilled Sea Bass",
-          description: "Fresh sea bass grilled with olive oil and lemon, served with vegetables",
-          image: "/images/dishes/robalo-grelhado.jpg",
+          name: "PRAWN BITOQUE",
+          description: "Fried prawns, sliced fried potatoes, white rice and fried egg",
+          image: "/images/dishes/ESPMAR1.png",
         },
         {
-          name: "Seafood Cataplana",
-          description: "Traditional cataplana with prawns, clams, mussels and fish",
-          image: "/images/dishes/cataplana.jpg",
+          name: "LOBSTER RICE",
+          description: "Agulha rice with lobster",
+          image: "/images/dishes/ESPMAR2.png",
         },
         {
-          name: "Bacalhau à Brás",
-          description: "Shredded cod with thin fried potatoes, eggs and olives",
-          image: "/images/dishes/robalo-grelhado.jpg",
+          name: "ALASKAN KING CRAB LEGS",
+          description: "Alaskan king crab legs",
+          image: "/images/dishes/ESPMAR3.png",
         },
         {
-          name: "Monkfish Rice",
-          description: "Creamy monkfish rice with prawns and coriander",
-          image: "/images/dishes/cataplana.jpg",
+          name: "SCORPIONFISH",
+          description: "Fresh scorpionfish prepared to enhance the taste of the sea",
+          image: "/images/dishes/ESPMAR4.png",
         },
       ],
       "especialidades-terra": [
@@ -291,6 +291,28 @@ const translations = {
     ],
     menuItems: {
       ...baseTranslations.en.menuItems,
+      "especialidades-mar": [
+        {
+          name: "BITOQUE DE GAMBAS",
+          description: "Gambas fritas, patatas fritas en rodajas, arroz blanco y huevo frito",
+          image: "/images/dishes/ESPMAR1.png",
+        },
+        {
+          name: "ARROZ DE LANGOSTA",
+          description: "Arroz agulha con langosta",
+          image: "/images/dishes/ESPMAR2.png",
+        },
+        {
+          name: "PATAS DE CANGREJO DE ALASKA",
+          description: "Patas de cangrejo de Alaska",
+          image: "/images/dishes/ESPMAR3.png",
+        },
+        {
+          name: "CABRACHO",
+          description: "Cabracho fresco preparado para realzar el sabor del mar",
+          image: "/images/dishes/ESPMAR4.png",
+        },
+      ],
       entradas: [
         {
           name: "Gambas al Ajillo",
@@ -336,6 +358,28 @@ const translations = {
     ],
     menuItems: {
       ...baseTranslations.en.menuItems,
+      "especialidades-mar": [
+        {
+          name: "BITOQUE DE CREVETTES",
+          description: "Crevettes frites, pommes de terre frites en rondelles, riz blanc et œuf au plat",
+          image: "/images/dishes/ESPMAR1.png",
+        },
+        {
+          name: "RIZ AU HOMARD",
+          description: "Riz agulha avec homard",
+          image: "/images/dishes/ESPMAR2.png",
+        },
+        {
+          name: "PATTES DE CRABE D’ALASKA",
+          description: "Pattes de crabe d’Alaska",
+          image: "/images/dishes/ESPMAR3.png",
+        },
+        {
+          name: "RASCAÇO",
+          description: "Rascasse fraîche préparée pour révéler le goût de la mer",
+          image: "/images/dishes/ESPMAR4.png",
+        },
+      ],
       entradas: [
         {
           name: "Crevettes à l’Ail",
@@ -381,6 +425,28 @@ const translations = {
     ],
     menuItems: {
       ...baseTranslations.en.menuItems,
+      "especialidades-mar": [
+        {
+          name: "GARNELEN-BITOQUE",
+          description: "Frittierte Garnelen, frittierte Kartoffelscheiben, weißer Reis und Spiegelei",
+          image: "/images/dishes/ESPMAR1.png",
+        },
+        {
+          name: "HUMMERREIS",
+          description: "Agulha-Reis mit Hummer",
+          image: "/images/dishes/ESPMAR2.png",
+        },
+        {
+          name: "ALASKA-KÖNIGSKRABBENBEINE",
+          description: "Alaska-Königskrabbenbeine",
+          image: "/images/dishes/ESPMAR3.png",
+        },
+        {
+          name: "DRACHENKOPF",
+          description: "Frischer Drachenkopf, zubereitet, um den Geschmack des Meeres hervorzuheben",
+          image: "/images/dishes/ESPMAR4.png",
+        },
+      ],
       entradas: [
         {
           name: "Garnelen mit Knoblauch",
@@ -426,6 +492,28 @@ const translations = {
     ],
     menuItems: {
       ...baseTranslations.en.menuItems,
+      "especialidades-mar": [
+        {
+          name: "BITOQUE DI GAMBERI",
+          description: "Gamberi fritti, patate fritte a rondelle, riso bianco e uovo al tegamino",
+          image: "/images/dishes/ESPMAR1.png",
+        },
+        {
+          name: "RISO ALL’ARAGOSTA",
+          description: "Riso agulha con aragosta",
+          image: "/images/dishes/ESPMAR2.png",
+        },
+        {
+          name: "ZAMPE DI GRANCHIO DELL’ALASKA",
+          description: "Zampe di granchio dell’Alaska",
+          image: "/images/dishes/ESPMAR3.png",
+        },
+        {
+          name: "SCORFANO",
+          description: "Scorfano fresco preparato per esaltare il sapore del mare",
+          image: "/images/dishes/ESPMAR4.png",
+        },
+      ],
       entradas: [
         {
           name: "Gamberi all’Aglio",
@@ -471,6 +559,28 @@ const translations = {
     ],
     menuItems: {
       ...baseTranslations.en.menuItems,
+      "especialidades-mar": [
+        {
+          name: "БИТОКЕ С КРЕВЕТКАМИ",
+          description: "Жареные креветки, жареный картофель кружочками, белый рис и яичница",
+          image: "/images/dishes/ESPMAR1.png",
+        },
+        {
+          name: "РИС С ЛОБСТЕРОМ",
+          description: "Рис агулья с лобстером",
+          image: "/images/dishes/ESPMAR2.png",
+        },
+        {
+          name: "НОЖКИ АЛЯСКИНСКОГО КРАБА",
+          description: "Ножки аляскинского краба",
+          image: "/images/dishes/ESPMAR3.png",
+        },
+        {
+          name: "МОРСКОЙ ЁРШ",
+          description: "Свежий морской ёрш, приготовленный так, чтобы подчеркнуть вкус моря",
+          image: "/images/dishes/ESPMAR4.png",
+        },
+      ],
       entradas: [
         {
           name: "Креветки с чесноком",
@@ -516,6 +626,28 @@ const translations = {
     ],
     menuItems: {
       ...baseTranslations.en.menuItems,
+      "especialidades-mar": [
+        {
+          name: "虾仁 BITOQUE",
+          description: "炸虾、圆片炸薯、白米饭和煎蛋",
+          image: "/images/dishes/ESPMAR1.png",
+        },
+        {
+          name: "龙虾饭",
+          description: "Agulha 米配龙虾",
+          image: "/images/dishes/ESPMAR2.png",
+        },
+        {
+          name: "阿拉斯加帝王蟹腿",
+          description: "阿拉斯加帝王蟹腿",
+          image: "/images/dishes/ESPMAR3.png",
+        },
+        {
+          name: "蝎子鱼",
+          description: "新鲜蝎子鱼，突出海洋风味",
+          image: "/images/dishes/ESPMAR4.png",
+        },
+      ],
       entradas: [
         {
           name: "蒜香虾",
@@ -561,6 +693,28 @@ const translations = {
     ],
     menuItems: {
       ...baseTranslations.en.menuItems,
+      "especialidades-mar": [
+        {
+          name: "بيتوكي روبيان",
+          description: "روبيان مقلي، بطاطس مقلية شرائح، أرز أبيض وبيض مقلي",
+          image: "/images/dishes/ESPMAR1.png",
+        },
+        {
+          name: "أرز باللوبستر",
+          description: "أرز أغوليا مع لوبستر",
+          image: "/images/dishes/ESPMAR2.png",
+        },
+        {
+          name: "أرجل سلطعون ألاسكا",
+          description: "أرجل سلطعون ألاسكا",
+          image: "/images/dishes/ESPMAR3.png",
+        },
+        {
+          name: "سمك العقرب",
+          description: "سمك عقرب طازج محضر لإبراز نكهة البحر",
+          image: "/images/dishes/ESPMAR4.png",
+        },
+      ],
       entradas: [
         {
           name: "روبيان بالثوم",
@@ -606,6 +760,28 @@ const translations = {
     ],
     menuItems: {
       ...baseTranslations.en.menuItems,
+      "especialidades-mar": [
+        {
+          name: "झींगा बिटोक",
+          description: "तले हुए झींगे, गोल कटे तले आलू, सफेद चावल और तला हुआ अंडा",
+          image: "/images/dishes/ESPMAR1.png",
+        },
+        {
+          name: "लॉबस्टर राइस",
+          description: "लॉबस्टर के साथ अगुल्हा चावल",
+          image: "/images/dishes/ESPMAR2.png",
+        },
+        {
+          name: "अलास्का किंग क्रैब लेग्स",
+          description: "अलास्का किंग क्रैब लेग्स",
+          image: "/images/dishes/ESPMAR3.png",
+        },
+        {
+          name: "स्कॉर्पियनफिश",
+          description: "समुद्री स्वाद को उभारने के लिए तैयार की गई ताज़ी स्कॉर्पियनफिश",
+          image: "/images/dishes/ESPMAR4.png",
+        },
+      ],
       entradas: [
         {
           name: "लहसुन झींगे",
