@@ -29,22 +29,22 @@ const baseTranslations = {
         {
           name: "Camarão ao Alho",
           description: "Camarões salteados com alho, azeite e ervas aromáticas",
-          image: "/images/dishes/camarao-alho.jpg",
+          image: "/images/dishes/Entrada1.png",
         },
         {
-          name: "Percebes",
-          description: "Percebes frescos cozidos ao natural com sal marinho",
-          image: "/images/dishes/percebes.jpg",
+          name: "Ameijoas",
+          description: "Ameijoas salteadas com alho e coentros",
+          image: "/images/dishes/Entrada2.png",
         },
         {
-          name: "Ameijoas à Bulhão Pato",
-          description: "Ameijoas salteadas com alho, coentros e vinho branco",
-          image: "/images/dishes/camarao-alho.jpg",
+          name: "CASCO DE SAPATEIRA COM PÃO TORRADO",
+          description: "Casco de sapateira servido com pão torrado",
+          image: "/images/dishes/Entrada3.png",
         },
         {
-          name: "Peixinhos da Horta",
-          description: "Feijão verde empanado servido com molho tártaro caseiro",
-          image: "/images/dishes/percebes.jpg",
+          name: "Carabineiros",
+          description: "Carabineiros selecionados, preparados para realçar o sabor do mar",
+          image: "/images/dishes/Entrada4.png",
         },
       ],
       "especialidades-mar": [
@@ -159,22 +159,22 @@ const baseTranslations = {
         {
           name: "Garlic Prawns",
           description: "Prawns sautéed with garlic, olive oil and aromatic herbs",
-          image: "/images/dishes/camarao-alho.jpg",
+          image: "/images/dishes/Entrada1.png",
         },
         {
-          name: "Goose Barnacles",
-          description: "Fresh goose barnacles cooked naturally with sea salt",
-          image: "/images/dishes/percebes.jpg",
+          name: "Clams",
+          description: "Clams sautéed with garlic and coriander",
+          image: "/images/dishes/Entrada2.png",
         },
         {
-          name: "Clams Bulhão Pato Style",
-          description: "Clams sautéed with garlic, coriander and white wine",
-          image: "/images/dishes/camarao-alho.jpg",
+          name: "STUFFED BROWN CRAB SHELL WITH TOASTED BREAD",
+          description: "Brown crab shell served with toasted bread",
+          image: "/images/dishes/Entrada3.png",
         },
         {
-          name: "Peixinhos da Horta",
-          description: "Green beans in a light batter, served with homemade tartar sauce",
-          image: "/images/dishes/percebes.jpg",
+          name: "Scarlet Prawns",
+          description: "Selected scarlet prawns prepared to enhance the taste of the sea",
+          image: "/images/dishes/Entrada4.png",
         },
       ],
       "especialidades-mar": [
@@ -289,6 +289,32 @@ const translations = {
       { id: "acompanhamentos", label: "Guarniciones" },
       { id: "sobremesas", label: "Postres" },
     ],
+    menuItems: {
+      ...baseTranslations.en.menuItems,
+      entradas: [
+        {
+          name: "Gambas al Ajillo",
+          description: "Gambas salteadas con ajo, aceite de oliva y hierbas aromáticas",
+          image: "/images/dishes/Entrada1.png",
+        },
+        {
+          name: "Almejas",
+          description: "Almejas salteadas con ajo y cilantro",
+          image: "/images/dishes/Entrada2.png",
+        },
+        {
+          name: "CAPARAZÓN DE BUEY DE MAR CON PAN TOSTADO",
+          description: "Caparazón de buey de mar servido con pan tostado",
+          image: "/images/dishes/Entrada3.png",
+        },
+        {
+          name: "Carabineros",
+          description: "Carabineros seleccionados, preparados para realzar el sabor del mar",
+          image: "/images/dishes/Entrada4.png",
+        },
+      ],
+    },
+
   },
   fr: {
     ...baseTranslations.en,
@@ -308,6 +334,32 @@ const translations = {
       { id: "acompanhamentos", label: "Accompagnements" },
       { id: "sobremesas", label: "Desserts" },
     ],
+    menuItems: {
+      ...baseTranslations.en.menuItems,
+      entradas: [
+        {
+          name: "Crevettes à l’Ail",
+          description: "Crevettes sautées à l’ail, à l’huile d’olive et aux herbes aromatiques",
+          image: "/images/dishes/Entrada1.png",
+        },
+        {
+          name: "Palourdes",
+          description: "Palourdes sautées à l’ail et à la coriandre",
+          image: "/images/dishes/Entrada2.png",
+        },
+        {
+          name: "CARAPACE DE TOURTEAU AVEC PAIN GRILLÉ",
+          description: "Carapace de tourteau servie avec du pain grillé",
+          image: "/images/dishes/Entrada3.png",
+        },
+        {
+          name: "Carabineros",
+          description: "Carabineros sélectionnés, préparés pour révéler le goût de la mer",
+          image: "/images/dishes/Entrada4.png",
+        },
+      ],
+    },
+
   },
   de: {
     ...baseTranslations.en,
@@ -327,6 +379,32 @@ const translations = {
       { id: "acompanhamentos", label: "Beilagen" },
       { id: "sobremesas", label: "Desserts" },
     ],
+    menuItems: {
+      ...baseTranslations.en.menuItems,
+      entradas: [
+        {
+          name: "Garnelen mit Knoblauch",
+          description: "Garnelen mit Knoblauch, Olivenöl und aromatischen Kräutern sautiert",
+          image: "/images/dishes/Entrada1.png",
+        },
+        {
+          name: "Venusmuscheln",
+          description: "Venusmuscheln mit Knoblauch und Koriander sautiert",
+          image: "/images/dishes/Entrada2.png",
+        },
+        {
+          name: "TASCHENKREBS-SCHALE MIT GERÖSTETEM BROT",
+          description: "Taschenkrebs-Schale mit geröstetem Brot serviert",
+          image: "/images/dishes/Entrada3.png",
+        },
+        {
+          name: "Carabineros",
+          description: "Ausgewählte Carabineros, zubereitet, um den Geschmack des Meeres hervorzuheben",
+          image: "/images/dishes/Entrada4.png",
+        },
+      ],
+    },
+
   },
   it: {
     ...baseTranslations.en,
@@ -346,6 +424,32 @@ const translations = {
       { id: "acompanhamentos", label: "Contorni" },
       { id: "sobremesas", label: "Dessert" },
     ],
+    menuItems: {
+      ...baseTranslations.en.menuItems,
+      entradas: [
+        {
+          name: "Gamberi all’Aglio",
+          description: "Gamberi saltati con aglio, olio d’oliva ed erbe aromatiche",
+          image: "/images/dishes/Entrada1.png",
+        },
+        {
+          name: "Vongole",
+          description: "Vongole saltate con aglio e coriandolo",
+          image: "/images/dishes/Entrada2.png",
+        },
+        {
+          name: "GUSCIO DI GRANCIPORRO CON PANE TOSTATO",
+          description: "Guscio di granciporro servito con pane tostato",
+          image: "/images/dishes/Entrada3.png",
+        },
+        {
+          name: "Carabineros",
+          description: "Carabineros selezionati, preparati per esaltare il sapore del mare",
+          image: "/images/dishes/Entrada4.png",
+        },
+      ],
+    },
+
   },
   ru: {
     ...baseTranslations.en,
@@ -365,6 +469,32 @@ const translations = {
       { id: "acompanhamentos", label: "Гарниры" },
       { id: "sobremesas", label: "Десерты" },
     ],
+    menuItems: {
+      ...baseTranslations.en.menuItems,
+      entradas: [
+        {
+          name: "Креветки с чесноком",
+          description: "Креветки, обжаренные с чесноком, оливковым маслом и ароматными травами",
+          image: "/images/dishes/Entrada1.png",
+        },
+        {
+          name: "Моллюски",
+          description: "Моллюски, обжаренные с чесноком и кориандром",
+          image: "/images/dishes/Entrada2.png",
+        },
+        {
+          name: "ПАНЦИРЬ КРАБА С ПОДЖАРЕННЫМ ХЛЕБОМ",
+          description: "Панцирь краба, подается с поджаренным хлебом",
+          image: "/images/dishes/Entrada3.png",
+        },
+        {
+          name: "Карабинерос",
+          description: "Отборные карабинерос, приготовленные так, чтобы подчеркнуть вкус моря",
+          image: "/images/dishes/Entrada4.png",
+        },
+      ],
+    },
+
   },
   zh: {
     ...baseTranslations.en,
@@ -384,6 +514,32 @@ const translations = {
       { id: "acompanhamentos", label: "配菜" },
       { id: "sobremesas", label: "甜品" },
     ],
+    menuItems: {
+      ...baseTranslations.en.menuItems,
+      entradas: [
+        {
+          name: "蒜香虾",
+          description: "虾仁以蒜、橄榄油和香草炒制",
+          image: "/images/dishes/Entrada1.png",
+        },
+        {
+          name: "蛤蜊",
+          description: "蛤蜊以蒜和香菜炒制",
+          image: "/images/dishes/Entrada2.png",
+        },
+        {
+          name: "黄道蟹蟹壳配烤面包",
+          description: "黄道蟹蟹壳配烤面包供应",
+          image: "/images/dishes/Entrada3.png",
+        },
+        {
+          name: "深红大虾",
+          description: "精选深红大虾，突出海洋鲜味",
+          image: "/images/dishes/Entrada4.png",
+        },
+      ],
+    },
+
   },
   ar: {
     ...baseTranslations.en,
@@ -403,6 +559,32 @@ const translations = {
       { id: "acompanhamentos", label: "الأطباق الجانبية" },
       { id: "sobremesas", label: "الحلويات" },
     ],
+    menuItems: {
+      ...baseTranslations.en.menuItems,
+      entradas: [
+        {
+          name: "روبيان بالثوم",
+          description: "روبيان مطهو بالثوم وزيت الزيتون والأعشاب العطرية",
+          image: "/images/dishes/Entrada1.png",
+        },
+        {
+          name: "محار",
+          description: "محار مطهو بالثوم والكزبرة",
+          image: "/images/dishes/Entrada2.png",
+        },
+        {
+          name: "قشرة سلطعون مع خبز محمص",
+          description: "قشرة سلطعون تقدم مع خبز محمص",
+          image: "/images/dishes/Entrada3.png",
+        },
+        {
+          name: "كارابينيروس",
+          description: "كارابينيروس مختارة ومحضرة لإبراز نكهة البحر",
+          image: "/images/dishes/Entrada4.png",
+        },
+      ],
+    },
+
   },
   hi: {
     ...baseTranslations.en,
@@ -422,6 +604,32 @@ const translations = {
       { id: "acompanhamentos", label: "साइड डिश" },
       { id: "sobremesas", label: "डेज़र्ट" },
     ],
+    menuItems: {
+      ...baseTranslations.en.menuItems,
+      entradas: [
+        {
+          name: "लहसुन झींगे",
+          description: "लहसुन, जैतून के तेल और सुगंधित जड़ी-बूटियों के साथ सॉटे किए हुए झींगे",
+          image: "/images/dishes/Entrada1.png",
+        },
+        {
+          name: "क्लैम्स",
+          description: "लहसुन और धनिये के साथ सॉटे किए हुए क्लैम्स",
+          image: "/images/dishes/Entrada2.png",
+        },
+        {
+          name: "टोस्टेड ब्रेड के साथ ब्राउन क्रैब शेल",
+          description: "टोस्टेड ब्रेड के साथ परोसा गया ब्राउन क्रैब शेल",
+          image: "/images/dishes/Entrada3.png",
+        },
+        {
+          name: "स्कारलेट प्रॉन्स",
+          description: "समुद्री स्वाद को उभारने के लिए तैयार किए गए चुने हुए स्कारलेट प्रॉन्स",
+          image: "/images/dishes/Entrada4.png",
+        },
+      ],
+    },
+
   },
 } as const
 
