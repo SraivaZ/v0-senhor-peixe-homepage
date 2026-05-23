@@ -941,9 +941,7 @@ export default function GastronomiaPage() {
 
             <div
               ref={categoryNavRef}
-              className={`w-full overflow-x-auto overflow-y-hidden pr-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${
-                isHeaderScrolled ? "pl-[150px] sm:px-4" : "pl-4 sm:px-4"
-              }`}
+              className="w-full overflow-x-auto overflow-y-hidden px-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-4"
             >
               <ul className="flex min-w-max items-center justify-start gap-1.5 sm:justify-center sm:gap-3">
                 {menuCategories.map((category) => (
