@@ -71,24 +71,24 @@ const baseTranslations = {
       ],
       "especialidades-terra": [
         {
-          name: "Bife à Café de Paris",
-          description: "Bife da vazia grelhado com manteiga aromatizada especial",
-          image: "/images/dishes/bife-cafe.jpg",
+          name: "Carne de Porco Ibérico",
+          description: "CARNE DE PORCO FRITA EM MASSA DE PIMENTÃO COM AMÊIJOAS E BATATA FRITA",
+          image: "/images/dishes/ESPTER1.png",
         },
         {
-          name: "Secretos de Porco Preto",
-          description: "Secretos de porco ibérico grelhados na perfeição",
-          image: "/images/dishes/bife-cafe.jpg",
+          name: "ENTRECÔTE",
+          description: "ACOMPANHADO DE BATATA FRITA E SALADA",
+          image: "/images/dishes/ESPTER2.png",
         },
         {
-          name: "Picanha na Brasa",
-          description: "Picanha grelhada no ponto, servida com arroz e farofa",
-          image: "/images/dishes/bife-cafe.jpg",
+          name: "Bife do Lombo",
+          description: "ACOMPANHADO DE BATATA FRITA E SALADA",
+          image: "/images/dishes/ESPTER3.png",
         },
         {
-          name: "Lombinho de Vitela",
-          description: "Lombinho de vitela grelhado com molho de cogumelos",
-          image: "/images/dishes/bife-cafe.jpg",
+          name: "HAMBÚRGUER DE SOJA",
+          description: "ACOMPANHADO DE BATATA COZIDA E SALADA",
+          image: "/images/dishes/ESPTER4.png",
         },
       ],
       acompanhamentos: [
@@ -201,24 +201,24 @@ const baseTranslations = {
       ],
       "especialidades-terra": [
         {
-          name: "Café de Paris Steak",
-          description: "Grilled sirloin steak with our special aromatic butter",
-          image: "/images/dishes/bife-cafe.jpg",
+          name: "Iberian Pork",
+          description: "FRIED PORK IN RED PEPPER PASTE WITH CLAMS AND FRENCH FRIES",
+          image: "/images/dishes/ESPTER1.png",
         },
         {
-          name: "Iberian Pork Secretos",
-          description: "Perfectly grilled Iberian pork secretos",
-          image: "/images/dishes/bife-cafe.jpg",
+          name: "ENTRECÔTE",
+          description: "SERVED WITH FRENCH FRIES AND SALAD",
+          image: "/images/dishes/ESPTER2.png",
         },
         {
-          name: "Grilled Picanha",
-          description: "Grilled picanha served with rice and farofa",
-          image: "/images/dishes/bife-cafe.jpg",
+          name: "Beef Tenderloin",
+          description: "SERVED WITH FRENCH FRIES AND SALAD",
+          image: "/images/dishes/ESPTER3.png",
         },
         {
-          name: "Veal Tenderloin",
-          description: "Grilled veal tenderloin with mushroom sauce",
-          image: "/images/dishes/bife-cafe.jpg",
+          name: "SOY BURGER",
+          description: "SERVED WITH BOILED POTATOES AND SALAD",
+          image: "/images/dishes/ESPTER4.png",
         },
       ],
       acompanhamentos: [
@@ -313,6 +313,28 @@ const translations = {
           image: "/images/dishes/ESPMAR4.png",
         },
       ],
+      "especialidades-terra": [
+        {
+          name: "Cerdo Ibérico",
+          description: "CARNE DE CERDO FRITA EN PASTA DE PIMIENTO ROJO CON ALMEJAS Y PATATAS FRITAS",
+          image: "/images/dishes/ESPTER1.png",
+        },
+        {
+          name: "ENTRECOT",
+          description: "ACOMPAÑADO DE PATATAS FRITAS Y ENSALADA",
+          image: "/images/dishes/ESPTER2.png",
+        },
+        {
+          name: "Solomillo de Ternera",
+          description: "ACOMPAÑADO DE PATATAS FRITAS Y ENSALADA",
+          image: "/images/dishes/ESPTER3.png",
+        },
+        {
+          name: "HAMBURGUESA DE SOJA",
+          description: "ACOMPAÑADA DE PATATA COCIDA Y ENSALADA",
+          image: "/images/dishes/ESPTER4.png",
+        },
+      ],
       entradas: [
         {
           name: "Gambas al Ajillo",
@@ -378,6 +400,28 @@ const translations = {
           name: "RASCAÇO",
           description: "Rascasse fraîche préparée pour révéler le goût de la mer",
           image: "/images/dishes/ESPMAR4.png",
+        },
+      ],
+      "especialidades-terra": [
+        {
+          name: "Porc Ibérique",
+          description: "PORC FRIT À LA PÂTE DE POIVRON ROUGE AVEC PALOURDES ET FRITES",
+          image: "/images/dishes/ESPTER1.png",
+        },
+        {
+          name: "ENTRECÔTE",
+          description: "ACCOMPAGNÉE DE FRITES ET SALADE",
+          image: "/images/dishes/ESPTER2.png",
+        },
+        {
+          name: "Filet de Bœuf",
+          description: "ACCOMPAGNÉ DE FRITES ET SALADE",
+          image: "/images/dishes/ESPTER3.png",
+        },
+        {
+          name: "BURGER DE SOJA",
+          description: "ACCOMPAGNÉ DE POMMES DE TERRE CUITES ET SALADE",
+          image: "/images/dishes/ESPTER4.png",
         },
       ],
       entradas: [
@@ -447,6 +491,28 @@ const translations = {
           image: "/images/dishes/ESPMAR4.png",
         },
       ],
+      "especialidades-terra": [
+        {
+          name: "Iberisches Schweinefleisch",
+          description: "GEBRATENES SCHWEINEFLEISCH IN PAPRIKAPASTE MIT VENUSMUSCHELN UND POMMES FRITES",
+          image: "/images/dishes/ESPTER1.png",
+        },
+        {
+          name: "ENTRECÔTE",
+          description: "SERVIERT MIT POMMES FRITES UND SALAT",
+          image: "/images/dishes/ESPTER2.png",
+        },
+        {
+          name: "Rinderfilet",
+          description: "SERVIERT MIT POMMES FRITES UND SALAT",
+          image: "/images/dishes/ESPTER3.png",
+        },
+        {
+          name: "SOJA-BURGER",
+          description: "SERVIERT MIT GEKOCHTEN KARTOFFELN UND SALAT",
+          image: "/images/dishes/ESPTER4.png",
+        },
+      ],
       entradas: [
         {
           name: "Garnelen mit Knoblauch",
@@ -512,6 +578,28 @@ const translations = {
           name: "SCORFANO",
           description: "Scorfano fresco preparato per esaltare il sapore del mare",
           image: "/images/dishes/ESPMAR4.png",
+        },
+      ],
+      "especialidades-terra": [
+        {
+          name: "Maiale Iberico",
+          description: "CARNE DI MAIALE FRITTA IN PASTA DI PEPERONE ROSSO CON VONGOLE E PATATE FRITTE",
+          image: "/images/dishes/ESPTER1.png",
+        },
+        {
+          name: "ENTRECÔTE",
+          description: "ACCOMPAGNATA DA PATATE FRITTE E INSALATA",
+          image: "/images/dishes/ESPTER2.png",
+        },
+        {
+          name: "Filetto di Manzo",
+          description: "ACCOMPAGNATO DA PATATE FRITTE E INSALATA",
+          image: "/images/dishes/ESPTER3.png",
+        },
+        {
+          name: "HAMBURGER DI SOIA",
+          description: "ACCOMPAGNATO DA PATATE BOLLITE E INSALATA",
+          image: "/images/dishes/ESPTER4.png",
         },
       ],
       entradas: [
@@ -581,6 +669,28 @@ const translations = {
           image: "/images/dishes/ESPMAR4.png",
         },
       ],
+      "especialidades-terra": [
+        {
+          name: "Иберийская свинина",
+          description: "ЖАРЕНАЯ СВИНИНА В ПАСТЕ ИЗ КРАСНОГО ПЕРЦА С МОЛЛЮСКАМИ И КАРТОФЕЛЕМ ФРИ",
+          image: "/images/dishes/ESPTER1.png",
+        },
+        {
+          name: "АНТРЕКОТ",
+          description: "ПОДАЁТСЯ С КАРТОФЕЛЕМ ФРИ И САЛАТОМ",
+          image: "/images/dishes/ESPTER2.png",
+        },
+        {
+          name: "Говяжья вырезка",
+          description: "ПОДАЁТСЯ С КАРТОФЕЛЕМ ФРИ И САЛАТОМ",
+          image: "/images/dishes/ESPTER3.png",
+        },
+        {
+          name: "СОЕВЫЙ БУРГЕР",
+          description: "ПОДАЁТСЯ С ОТВАРНЫМ КАРТОФЕЛЕМ И САЛАТОМ",
+          image: "/images/dishes/ESPTER4.png",
+        },
+      ],
       entradas: [
         {
           name: "Креветки с чесноком",
@@ -646,6 +756,28 @@ const translations = {
           name: "蝎子鱼",
           description: "新鲜蝎子鱼，突出海洋风味",
           image: "/images/dishes/ESPMAR4.png",
+        },
+      ],
+      "especialidades-terra": [
+        {
+          name: "伊比利亚猪肉",
+          description: "红椒酱炸猪肉，配蛤蜊和薯条",
+          image: "/images/dishes/ESPTER1.png",
+        },
+        {
+          name: "肋眼牛排",
+          description: "配薯条和沙拉",
+          image: "/images/dishes/ESPTER2.png",
+        },
+        {
+          name: "牛柳",
+          description: "配薯条和沙拉",
+          image: "/images/dishes/ESPTER3.png",
+        },
+        {
+          name: "大豆汉堡",
+          description: "配煮土豆和沙拉",
+          image: "/images/dishes/ESPTER4.png",
         },
       ],
       entradas: [
@@ -715,6 +847,28 @@ const translations = {
           image: "/images/dishes/ESPMAR4.png",
         },
       ],
+      "especialidades-terra": [
+        {
+          name: "لحم خنزير إيبيري",
+          description: "لحم خنزير مقلي بمعجون الفلفل الأحمر مع محار وبطاطس مقلية",
+          image: "/images/dishes/ESPTER1.png",
+        },
+        {
+          name: "إنتريكوت",
+          description: "يقدم مع بطاطس مقلية وسلطة",
+          image: "/images/dishes/ESPTER2.png",
+        },
+        {
+          name: "فيليه لحم بقري",
+          description: "يقدم مع بطاطس مقلية وسلطة",
+          image: "/images/dishes/ESPTER3.png",
+        },
+        {
+          name: "برغر الصويا",
+          description: "يقدم مع بطاطس مسلوقة وسلطة",
+          image: "/images/dishes/ESPTER4.png",
+        },
+      ],
       entradas: [
         {
           name: "روبيان بالثوم",
@@ -780,6 +934,28 @@ const translations = {
           name: "स्कॉर्पियनफिश",
           description: "समुद्री स्वाद को उभारने के लिए तैयार की गई ताज़ी स्कॉर्पियनफिश",
           image: "/images/dishes/ESPMAR4.png",
+        },
+      ],
+      "especialidades-terra": [
+        {
+          name: "इबेरियन पोर्क",
+          description: "लाल मिर्च पेस्ट में तला हुआ पोर्क, क्लैम्स और फ्रेंच फ्राइज के साथ",
+          image: "/images/dishes/ESPTER1.png",
+        },
+        {
+          name: "एंत्रेकोट",
+          description: "फ्रेंच फ्राइज और सलाद के साथ",
+          image: "/images/dishes/ESPTER2.png",
+        },
+        {
+          name: "बीफ टेंडरलॉइन",
+          description: "फ्रेंच फ्राइज और सलाद के साथ",
+          image: "/images/dishes/ESPTER3.png",
+        },
+        {
+          name: "सोया बर्गर",
+          description: "उबले आलू और सलाद के साथ",
+          image: "/images/dishes/ESPTER4.png",
         },
       ],
       entradas: [
