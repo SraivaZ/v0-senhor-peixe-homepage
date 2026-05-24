@@ -45,21 +45,21 @@ const translations: Record<string, SpaceTranslation> = {
     reservePrivateRoom: "Reservar sala privada",
     footer: "Senhor Peixe — Desde 1999",
     interiorImages: [
-      { src: "/images/space/interior-1.jpg", alt: "Sala de jantar principal" },
-      { src: "/images/space/interior-2.jpg", alt: "Bar e zona de vinhos" },
-      { src: "/images/space/interior-3.jpg", alt: "Detalhes da decoração" },
+      { src: "/images/space/interior-1-1.png", alt: "Sala de jantar principal" },
+      { src: "/images/space/interior-1-2.png", alt: "Bar e zona de vinhos" },
+      { src: "/images/space/interior-1-3.png", alt: "Detalhes da decoração" },
     ],
     exteriorImages: [
-      { src: "/images/space/exterior-1.jpg", alt: "Esplanada com vista rio" },
-      { src: "/images/space/exterior-2.jpg", alt: "Terraço ao entardecer" },
-      { src: "/images/space/exterior-3.jpg", alt: "Jardim exterior" },
+      { src: "/images/space/Exterior-1-1.png", alt: "Esplanada com vista rio" },
+      { src: "/images/space/Exterior-1-2.png", alt: "Terraço ao entardecer" },
+      { src: "/images/space/Exterior-1-3.png", alt: "Jardim exterior" },
     ],
     upperDeckImages: [
       {
-        src: "/images/space/upper-deck-1.jpg",
+        src: "/images/space/UPD1.png",
         alt: "Sala privada vista geral",
       },
-      { src: "/images/space/upper-deck-2.jpg", alt: "Detalhes mesa privada" },
+      { src: "/images/space/UPD2.png", alt: "Detalhes mesa privada" },
     ],
     upperDeckHeroAlt: "The Upper Deck - Vista panorâmica",
   },
@@ -78,18 +78,18 @@ const translations: Record<string, SpaceTranslation> = {
     reservePrivateRoom: "Book private room",
     footer: "Senhor Peixe — Since 1999",
     interiorImages: [
-      { src: "/images/space/interior-1.jpg", alt: "Main dining room" },
-      { src: "/images/space/interior-2.jpg", alt: "Bar and wine area" },
-      { src: "/images/space/interior-3.jpg", alt: "Decor details" },
+      { src: "/images/space/interior-1-1.png", alt: "Main dining room" },
+      { src: "/images/space/interior-1-2.png", alt: "Bar and wine area" },
+      { src: "/images/space/interior-1-3.png", alt: "Decor details" },
     ],
     exteriorImages: [
-      { src: "/images/space/exterior-1.jpg", alt: "Terrace with river view" },
-      { src: "/images/space/exterior-2.jpg", alt: "Terrace at sunset" },
-      { src: "/images/space/exterior-3.jpg", alt: "Outdoor garden" },
+      { src: "/images/space/Exterior-1-1.png", alt: "Terrace with river view" },
+      { src: "/images/space/Exterior-1-2.png", alt: "Terrace at sunset" },
+      { src: "/images/space/Exterior-1-3.png", alt: "Outdoor garden" },
     ],
     upperDeckImages: [
-      { src: "/images/space/upper-deck-1.jpg", alt: "Private room overview" },
-      { src: "/images/space/upper-deck-2.jpg", alt: "Private table details" },
+      { src: "/images/space/UPD1.png", alt: "Private room overview" },
+      { src: "/images/space/UPD2.png", alt: "Private table details" },
     ],
     upperDeckHeroAlt: "The Upper Deck - Panoramic view",
   },
@@ -108,22 +108,22 @@ const translations: Record<string, SpaceTranslation> = {
     reservePrivateRoom: "Reservar sala privada",
     footer: "Senhor Peixe — Desde 1999",
     interiorImages: [
-      { src: "/images/space/interior-1.jpg", alt: "Comedor principal" },
-      { src: "/images/space/interior-2.jpg", alt: "Bar y zona de vinos" },
-      { src: "/images/space/interior-3.jpg", alt: "Detalles de la decoración" },
+      { src: "/images/space/interior-1-1.png", alt: "Comedor principal" },
+      { src: "/images/space/interior-1-2.png", alt: "Bar y zona de vinos" },
+      { src: "/images/space/interior-1-3.png", alt: "Detalles de la decoración" },
     ],
     exteriorImages: [
-      { src: "/images/space/exterior-1.jpg", alt: "Terraza con vista al río" },
-      { src: "/images/space/exterior-2.jpg", alt: "Terraza al atardecer" },
-      { src: "/images/space/exterior-3.jpg", alt: "Jardín exterior" },
+      { src: "/images/space/Exterior-1-1.png", alt: "Terraza con vista al río" },
+      { src: "/images/space/Exterior-1-2.png", alt: "Terraza al atardecer" },
+      { src: "/images/space/Exterior-1-3.png", alt: "Jardín exterior" },
     ],
     upperDeckImages: [
       {
-        src: "/images/space/upper-deck-1.jpg",
+        src: "/images/space/UPD1.png",
         alt: "Vista general de la sala privada",
       },
       {
-        src: "/images/space/upper-deck-2.jpg",
+        src: "/images/space/UPD2.png",
         alt: "Detalles de la mesa privada",
       },
     ],
@@ -144,28 +144,28 @@ const translations: Record<string, SpaceTranslation> = {
     reservePrivateRoom: "Réserver la salle privée",
     footer: "Senhor Peixe — Depuis 1999",
     interiorImages: [
-      { src: "/images/space/interior-1.jpg", alt: "Salle à manger principale" },
-      { src: "/images/space/interior-2.jpg", alt: "Bar et espace vins" },
-      { src: "/images/space/interior-3.jpg", alt: "Détails de la décoration" },
+      { src: "/images/space/interior-1-1.png", alt: "Salle à manger principale" },
+      { src: "/images/space/interior-1-2.png", alt: "Bar et espace vins" },
+      { src: "/images/space/interior-1-3.png", alt: "Détails de la décoration" },
     ],
     exteriorImages: [
       {
-        src: "/images/space/exterior-1.jpg",
+        src: "/images/space/Exterior-1-1.png",
         alt: "Terrasse avec vue sur le fleuve",
       },
       {
-        src: "/images/space/exterior-2.jpg",
+        src: "/images/space/Exterior-1-2.png",
         alt: "Terrasse au coucher du soleil",
       },
-      { src: "/images/space/exterior-3.jpg", alt: "Jardin extérieur" },
+      { src: "/images/space/Exterior-1-3.png", alt: "Jardin extérieur" },
     ],
     upperDeckImages: [
       {
-        src: "/images/space/upper-deck-1.jpg",
+        src: "/images/space/UPD1.png",
         alt: "Vue générale de la salle privée",
       },
       {
-        src: "/images/space/upper-deck-2.jpg",
+        src: "/images/space/UPD2.png",
         alt: "Détails de la table privée",
       },
     ],
@@ -186,25 +186,25 @@ const translations: Record<string, SpaceTranslation> = {
     reservePrivateRoom: "Privaten Raum reservieren",
     footer: "Senhor Peixe — Seit 1999",
     interiorImages: [
-      { src: "/images/space/interior-1.jpg", alt: "Hauptspeisesaal" },
-      { src: "/images/space/interior-2.jpg", alt: "Bar und Weinbereich" },
-      { src: "/images/space/interior-3.jpg", alt: "Dekorationsdetails" },
+      { src: "/images/space/interior-1-1.png", alt: "Hauptspeisesaal" },
+      { src: "/images/space/interior-1-2.png", alt: "Bar und Weinbereich" },
+      { src: "/images/space/interior-1-3.png", alt: "Dekorationsdetails" },
     ],
     exteriorImages: [
-      { src: "/images/space/exterior-1.jpg", alt: "Terrasse mit Flussblick" },
+      { src: "/images/space/Exterior-1-1.png", alt: "Terrasse mit Flussblick" },
       {
-        src: "/images/space/exterior-2.jpg",
+        src: "/images/space/Exterior-1-2.png",
         alt: "Terrasse bei Sonnenuntergang",
       },
-      { src: "/images/space/exterior-3.jpg", alt: "Außengarten" },
+      { src: "/images/space/Exterior-1-3.png", alt: "Außengarten" },
     ],
     upperDeckImages: [
       {
-        src: "/images/space/upper-deck-1.jpg",
+        src: "/images/space/UPD1.png",
         alt: "Privater Raum im Überblick",
       },
       {
-        src: "/images/space/upper-deck-2.jpg",
+        src: "/images/space/UPD2.png",
         alt: "Details des privaten Tisches",
       },
     ],
@@ -225,25 +225,25 @@ const translations: Record<string, SpaceTranslation> = {
     reservePrivateRoom: "Prenotare la sala privata",
     footer: "Senhor Peixe — Dal 1999",
     interiorImages: [
-      { src: "/images/space/interior-1.jpg", alt: "Sala da pranzo principale" },
-      { src: "/images/space/interior-2.jpg", alt: "Bar e zona vini" },
-      { src: "/images/space/interior-3.jpg", alt: "Dettagli dell’arredamento" },
+      { src: "/images/space/interior-1-1.png", alt: "Sala da pranzo principale" },
+      { src: "/images/space/interior-1-2.png", alt: "Bar e zona vini" },
+      { src: "/images/space/interior-1-3.png", alt: "Dettagli dell’arredamento" },
     ],
     exteriorImages: [
       {
-        src: "/images/space/exterior-1.jpg",
+        src: "/images/space/Exterior-1-1.png",
         alt: "Terrazza con vista sul fiume",
       },
-      { src: "/images/space/exterior-2.jpg", alt: "Terrazza al tramonto" },
-      { src: "/images/space/exterior-3.jpg", alt: "Giardino esterno" },
+      { src: "/images/space/Exterior-1-2.png", alt: "Terrazza al tramonto" },
+      { src: "/images/space/Exterior-1-3.png", alt: "Giardino esterno" },
     ],
     upperDeckImages: [
       {
-        src: "/images/space/upper-deck-1.jpg",
+        src: "/images/space/UPD1.png",
         alt: "Vista generale della sala privata",
       },
       {
-        src: "/images/space/upper-deck-2.jpg",
+        src: "/images/space/UPD2.png",
         alt: "Dettagli del tavolo privato",
       },
     ],
@@ -264,21 +264,21 @@ const translations: Record<string, SpaceTranslation> = {
     reservePrivateRoom: "Забронировать приватный зал",
     footer: "Senhor Peixe — С 1999 года",
     interiorImages: [
-      { src: "/images/space/interior-1.jpg", alt: "Главный обеденный зал" },
-      { src: "/images/space/interior-2.jpg", alt: "Бар и винная зона" },
-      { src: "/images/space/interior-3.jpg", alt: "Детали интерьера" },
+      { src: "/images/space/interior-1-1.png", alt: "Главный обеденный зал" },
+      { src: "/images/space/interior-1-2.png", alt: "Бар и винная зона" },
+      { src: "/images/space/interior-1-3.png", alt: "Детали интерьера" },
     ],
     exteriorImages: [
-      { src: "/images/space/exterior-1.jpg", alt: "Терраса с видом на реку" },
-      { src: "/images/space/exterior-2.jpg", alt: "Терраса на закате" },
-      { src: "/images/space/exterior-3.jpg", alt: "Открытый сад" },
+      { src: "/images/space/Exterior-1-1.png", alt: "Терраса с видом на реку" },
+      { src: "/images/space/Exterior-1-2.png", alt: "Терраса на закате" },
+      { src: "/images/space/Exterior-1-3.png", alt: "Открытый сад" },
     ],
     upperDeckImages: [
       {
-        src: "/images/space/upper-deck-1.jpg",
+        src: "/images/space/UPD1.png",
         alt: "Общий вид приватного зала",
       },
-      { src: "/images/space/upper-deck-2.jpg", alt: "Детали приватного стола" },
+      { src: "/images/space/UPD2.png", alt: "Детали приватного стола" },
     ],
     upperDeckHeroAlt: "The Upper Deck - Панорамный вид",
   },
@@ -296,18 +296,18 @@ const translations: Record<string, SpaceTranslation> = {
     reservePrivateRoom: "预订私人包间",
     footer: "Senhor Peixe — 始于1999年",
     interiorImages: [
-      { src: "/images/space/interior-1.jpg", alt: "主餐厅" },
-      { src: "/images/space/interior-2.jpg", alt: "酒吧与葡萄酒区" },
-      { src: "/images/space/interior-3.jpg", alt: "装饰细节" },
+      { src: "/images/space/interior-1-1.png", alt: "主餐厅" },
+      { src: "/images/space/interior-1-2.png", alt: "酒吧与葡萄酒区" },
+      { src: "/images/space/interior-1-3.png", alt: "装饰细节" },
     ],
     exteriorImages: [
-      { src: "/images/space/exterior-1.jpg", alt: "河景露台" },
-      { src: "/images/space/exterior-2.jpg", alt: "日落露台" },
-      { src: "/images/space/exterior-3.jpg", alt: "户外花园" },
+      { src: "/images/space/Exterior-1-1.png", alt: "河景露台" },
+      { src: "/images/space/Exterior-1-2.png", alt: "日落露台" },
+      { src: "/images/space/Exterior-1-3.png", alt: "户外花园" },
     ],
     upperDeckImages: [
-      { src: "/images/space/upper-deck-1.jpg", alt: "私人包间全景" },
-      { src: "/images/space/upper-deck-2.jpg", alt: "私人餐桌细节" },
+      { src: "/images/space/UPD1.png", alt: "私人包间全景" },
+      { src: "/images/space/UPD2.png", alt: "私人餐桌细节" },
     ],
     upperDeckHeroAlt: "The Upper Deck - 全景视野",
   },
@@ -325,21 +325,21 @@ const translations: Record<string, SpaceTranslation> = {
     reservePrivateRoom: "حجز القاعة الخاصة",
     footer: "Senhor Peixe — منذ 1999",
     interiorImages: [
-      { src: "/images/space/interior-1.jpg", alt: "قاعة الطعام الرئيسية" },
-      { src: "/images/space/interior-2.jpg", alt: "البار ومنطقة النبيذ" },
-      { src: "/images/space/interior-3.jpg", alt: "تفاصيل الديكور" },
+      { src: "/images/space/interior-1-1.png", alt: "قاعة الطعام الرئيسية" },
+      { src: "/images/space/interior-1-2.png", alt: "البار ومنطقة النبيذ" },
+      { src: "/images/space/interior-1-3.png", alt: "تفاصيل الديكور" },
     ],
     exteriorImages: [
-      { src: "/images/space/exterior-1.jpg", alt: "شرفة بإطلالة على النهر" },
-      { src: "/images/space/exterior-2.jpg", alt: "الشرفة وقت الغروب" },
-      { src: "/images/space/exterior-3.jpg", alt: "الحديقة الخارجية" },
+      { src: "/images/space/Exterior-1-1.png", alt: "شرفة بإطلالة على النهر" },
+      { src: "/images/space/Exterior-1-2.png", alt: "الشرفة وقت الغروب" },
+      { src: "/images/space/Exterior-1-3.png", alt: "الحديقة الخارجية" },
     ],
     upperDeckImages: [
       {
-        src: "/images/space/upper-deck-1.jpg",
+        src: "/images/space/UPD1.png",
         alt: "نظرة عامة على القاعة الخاصة",
       },
-      { src: "/images/space/upper-deck-2.jpg", alt: "تفاصيل الطاولة الخاصة" },
+      { src: "/images/space/UPD2.png", alt: "تفاصيل الطاولة الخاصة" },
     ],
     upperDeckHeroAlt: "The Upper Deck - إطلالة بانورامية",
   },
@@ -358,21 +358,21 @@ const translations: Record<string, SpaceTranslation> = {
     reservePrivateRoom: "निजी कक्ष आरक्षित करें",
     footer: "Senhor Peixe — 1999 से",
     interiorImages: [
-      { src: "/images/space/interior-1.jpg", alt: "मुख्य भोजन कक्ष" },
-      { src: "/images/space/interior-2.jpg", alt: "बार और वाइन क्षेत्र" },
-      { src: "/images/space/interior-3.jpg", alt: "सजावट के विवरण" },
+      { src: "/images/space/interior-1-1.png", alt: "मुख्य भोजन कक्ष" },
+      { src: "/images/space/interior-1-2.png", alt: "बार और वाइन क्षेत्र" },
+      { src: "/images/space/interior-1-3.png", alt: "सजावट के विवरण" },
     ],
     exteriorImages: [
-      { src: "/images/space/exterior-1.jpg", alt: "नदी के दृश्य वाली छत" },
-      { src: "/images/space/exterior-2.jpg", alt: "सूर्यास्त के समय छत" },
-      { src: "/images/space/exterior-3.jpg", alt: "बाहरी उद्यान" },
+      { src: "/images/space/Exterior-1-1.png", alt: "नदी के दृश्य वाली छत" },
+      { src: "/images/space/Exterior-1-2.png", alt: "सूर्यास्त के समय छत" },
+      { src: "/images/space/Exterior-1-3.png", alt: "बाहरी उद्यान" },
     ],
     upperDeckImages: [
       {
-        src: "/images/space/upper-deck-1.jpg",
+        src: "/images/space/UPD1.png",
         alt: "निजी कक्ष का सामान्य दृश्य",
       },
-      { src: "/images/space/upper-deck-2.jpg", alt: "निजी मेज के विवरण" },
+      { src: "/images/space/UPD2.png", alt: "निजी मेज के विवरण" },
     ],
     upperDeckHeroAlt: "The Upper Deck - पैनोरमिक दृश्य",
   },
@@ -595,7 +595,7 @@ export default function ONossoEspacoPage() {
             <button
               onClick={() =>
                 openLightbox({
-                  src: "/images/space/upper-deck-hero.jpg",
+                  src: "/images/space/UPD3.png",
                   alt: t.upperDeckHeroAlt,
                 })
               }
@@ -603,7 +603,7 @@ export default function ONossoEspacoPage() {
             >
               <div className="relative aspect-[4/5] sm:aspect-[21/9]">
                 <Image
-                  src="/images/space/upper-deck-hero.jpg"
+                  src="/images/space/UPD3.png"
                   alt={t.upperDeckHeroAlt}
                   fill
                   className="object-cover"
