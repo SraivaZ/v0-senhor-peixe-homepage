@@ -4,8 +4,7 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { languages, useLanguage } from "@/components/language-provider"
 
-const BACKGROUND_IMAGE =
-  "https://i.ibb.co/qL7pTchy/Chat-GPT-Image-13-05-2026-23-04-15.png"
+const BACKGROUND_IMAGE = "/images/homepage.png"
 
 const PHONE_NUMBERS = [
   { label: "+351 21 895 5892", href: "tel:+351218955892" },
@@ -325,7 +324,7 @@ export default function HomePage() {
           <span className="h-px w-12 bg-[#c9a46a]/70 sm:w-16" />
 
           <img
-            src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
+            src="/senhor-peixe-logo%20branco.png"
             alt="Senhor Peixe"
             className="h-12 w-auto object-contain opacity-95 sm:h-16 md:h-20"
           />
