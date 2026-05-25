@@ -1031,7 +1031,10 @@ export default function GastronomiaPage() {
     if (!nav) return
 
     const resetPosition = () => {
-      nav.scrollTo({ left: 0, behavior: "auto" })
+      const centeredLeft =
+        window.innerWidth < 640 ? Math.max(0, (nav.scrollWidth - nav.clientWidth) / 2) : 0
+
+      nav.scrollTo({ left: centeredLeft, behavior: "auto" })
     }
 
     resetPosition()
@@ -1119,7 +1122,7 @@ export default function GastronomiaPage() {
               ref={categoryNavRef}
               className="w-full overflow-x-auto overflow-y-hidden px-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-4"
             >
-              <ul className="flex min-w-max items-center justify-center gap-[3.35px] sm:gap-3">
+              <ul className="mx-auto flex min-w-max items-center justify-center gap-[3.35px] sm:gap-3">
                 {menuCategories.map((category) => (
                   <li key={category.id} className="shrink-0">
                     <button
