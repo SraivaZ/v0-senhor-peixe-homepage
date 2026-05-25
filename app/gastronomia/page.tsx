@@ -1073,7 +1073,7 @@ export default function GastronomiaPage() {
 
         <div className="relative z-10 flex h-full flex-col items-center justify-center pb-20 text-center">
           <img
-            src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
+            src="/senhor-peixe-logo%20branco.png"
             alt="Senhor Peixe Logo"
             className="mb-4 h-16 w-16 object-contain drop-shadow-lg sm:h-20 sm:w-20"
           />
@@ -1117,15 +1117,15 @@ export default function GastronomiaPage() {
 
             <div
               ref={categoryNavRef}
-              className="w-full overflow-x-auto overflow-y-hidden px-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-4"
+              className="w-full overflow-x-auto overflow-y-hidden px-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-4"
             >
-              <ul className="flex min-w-max items-center justify-start gap-1.5 sm:justify-center sm:gap-3">
+              <ul className="flex min-w-max items-center justify-start gap-[4px] sm:justify-center sm:gap-3">
                 {menuCategories.map((category) => (
                   <li key={category.id} className="shrink-0">
                     <button
                       type="button"
                       onClick={() => scrollToSection(category.id)}
-                      className={`whitespace-nowrap rounded-md border px-2.5 py-2 font-serif text-[10px] tracking-[0.01em] transition-all duration-300 sm:px-4 sm:text-sm sm:tracking-wide ${
+                      className={`whitespace-nowrap rounded-md border px-[6px] py-[7px] font-serif text-[10.3px] tracking-[0.01em] transition-all duration-300 sm:px-4 sm:py-2 sm:text-sm sm:tracking-wide ${
                         activeSection === category.id
                           ? isHeaderScrolled
                             ? "border-[#e2bd93]/80 bg-white/5 text-white shadow-[0_0_14px_rgba(226,189,147,0.18)]"
@@ -1282,7 +1282,7 @@ export default function GastronomiaPage() {
         <div className="relative z-10">
           <Link href="/" className="inline-block group">
             <img
-              src="https://i.ibb.co/VcPnskTq/So-peixe-branco-sem-olho.png"
+              src="/senhor-peixe-logo%20branco.png"
               alt="Senhor Peixe Logo"
               className="mx-auto h-16 w-16 object-contain"
             />
