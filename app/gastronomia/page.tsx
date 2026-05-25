@@ -1122,7 +1122,7 @@ export default function GastronomiaPage() {
               ref={categoryNavRef}
               className="w-full overflow-x-auto overflow-y-hidden px-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-4"
             >
-              <ul className="mx-auto flex min-w-max -translate-x-[2%] items-center justify-center gap-[3.42px] sm:translate-x-0 sm:gap-3">
+              <ul className="mx-auto flex min-w-max items-center justify-center gap-[3.42px] sm:gap-3">
                 {menuCategories.map((category) => (
                   <li key={category.id} className="shrink-0">
                     <button
