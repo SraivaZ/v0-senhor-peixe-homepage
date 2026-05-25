@@ -1122,13 +1122,13 @@ export default function GastronomiaPage() {
               ref={categoryNavRef}
               className="w-full overflow-x-auto overflow-y-hidden px-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:px-4"
             >
-              <ul className="mx-auto flex min-w-max items-center justify-center gap-[3.35px] sm:gap-3">
+              <ul className="mx-auto flex min-w-max -translate-x-[2%] items-center justify-center gap-[3.42px] sm:translate-x-0 sm:gap-3">
                 {menuCategories.map((category) => (
                   <li key={category.id} className="shrink-0">
                     <button
                       type="button"
                       onClick={() => scrollToSection(category.id)}
-                      className={`whitespace-nowrap rounded-md border px-[5px] py-[5.84px] font-serif text-[8.62px] tracking-[0.01em] transition-all duration-300 sm:px-4 sm:py-2 sm:text-sm sm:tracking-wide ${
+                      className={`whitespace-nowrap rounded-md border px-[5.1px] py-[5.96px] font-serif text-[8.79px] tracking-[0.01em] transition-all duration-300 sm:px-4 sm:py-2 sm:text-sm sm:tracking-wide ${
                         activeSection === category.id
                           ? isHeaderScrolled
                             ? "border-[#e2bd93]/80 bg-white/5 text-white shadow-[0_0_14px_rgba(226,189,147,0.18)]"
